@@ -1,0 +1,8 @@
+*~
+\#*\#
+.#*
+*.asv
+output/*
+auto/*
+*.tex
+*eps-converted-to.pdf
