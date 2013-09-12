@@ -1,4 +1,4 @@
-%% Simulation script
+%% Script for creating the data
 
 %% Clear everything
 clc;
@@ -27,16 +27,10 @@ sim_cfg.parallel = 'user';
 aet_parallel_init(sim_cfg)
 
 %% Generate/load data
-% FIXME This will need to be done later on within each simulation
-data_file = [sim_cfg.out_dir filesep sim_cfg.sim_name '_eeg_data.mat'];
-if exist(data_file,'file') ~= 0 && ~create_data
-    % Load the data
-    load(data_file);
-end
-
-%% Simulation
-
-% Do Stuff
+data = aet_sim_create_eeg(sim_cfg);
+% Save the data
+sim_cfg.data_type = 'eeg_data';
+aet_save(sim_cfg, data);
 
 %% End parallel execution
 sim_cfg.parallel = '';
