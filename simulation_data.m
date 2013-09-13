@@ -9,7 +9,7 @@ close all;
 aet_init
 
 %% Load the simulation parameters
-sim_parameter_file
+sim_param_file
 
 %% Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
