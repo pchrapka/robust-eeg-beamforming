@@ -33,7 +33,7 @@ switch source_type
         src_param_single_cortical_source
     otherwise
         error('simulation_data:KeyError',...
-            ['Unknown source tyoe: ' source_type]);
+            ['Unknown source type: ' source_type]);
 end
 
 %% Generate/load data
@@ -50,12 +50,19 @@ for j=1:length(sim_cfg.snr_range)
         
         % Average the data
         data = aet_sim_average_eeg(sim_cfg, data);
+        
         % Save the data
         sim_cfg.data_type = [...
             sim_cfg.source_name '_'...
             num2str(cur_snr) '_'...
             num2str(i)...
             ];
+        
+        % Remove individual trial data to make the file smaller
+        data = rmfield(data, 'trials');
+        data = rmfield(data, 'noise');
+        data = rmfield(data, 'signal');
+        data = rmfield(data, 'interference');
         aet_save(sim_cfg, data);
     end
 end

@@ -6,6 +6,7 @@ sim_cfg.snr_range = -25:1:5; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()
+sim_cfg.sources{1}.type = 'signal';
 sim_cfg.sources{1}.snr = -10; % in dB
 sim_cfg.sources{1}.amp = 2;
 sim_cfg.sources{1}.freq = 10;
