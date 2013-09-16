@@ -7,6 +7,19 @@ count = 1;
 matlab_dir = userpath;
 matlab_dir = matlab_dir(1:end-1);
 
+%% Add aet package to Matlab path
+aet_path = [matlab_dir filesep 'aet'];
+if exist(aet_path,'dir') ~= 7
+    warning('STARTUP:CheckPackages',...
+        'Missing aet package.\nDownload and install from Phil'' BitBucket See README');
+    complete(count) = false;
+    count = count + 1;
+else
+    complete(count) = true;
+    count = count + 1;
+    path(path,aet_path);
+end
+
 %% Add phasereset package to Matlab path
 phasereset_path = [matlab_dir filesep 'phasereset'];
 if exist(phasereset_path,'dir') ~= 7

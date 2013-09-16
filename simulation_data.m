@@ -1,9 +1,5 @@
-%% Script for creating the data
-
-%% Clear everything
-clc;
-clear;
-close all;
+function simulation_data()
+% Script for creating the data
 
 %% Initialize the Advanced EEG Toolbox
 aet_init
@@ -70,3 +66,5 @@ end
 %% End parallel execution
 sim_cfg.parallel = '';
 aet_parallel_close(sim_cfg)
+
+end
