@@ -1,9 +1,5 @@
-%% Simulation script
-
-%% Clear everything
-clc;
-clear;
-close all;
+function simulation()
+% Simulation script
 
 %% Initialize the Advanced EEG Toolbox
 aet_init
@@ -16,6 +12,7 @@ sim_cfg.parallel = 'user';
 aet_parallel_init(sim_cfg)
 
 %% Simulations
+% ADD SIMULATIONS HERE
 
 simulation_ex1_snr(...
     'sim_param_file',...
@@ -24,3 +21,5 @@ simulation_ex1_snr(...
 %% End parallel execution
 sim_cfg.parallel = '';
 aet_parallel_close(sim_cfg)
+
+end

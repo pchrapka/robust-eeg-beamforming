@@ -12,40 +12,16 @@ for i=1:optargin
 end
 
 %% Set up beamformer parameters
-% Only need the beamformer for the source location
-loc = sim_cfg.sources{1}.source_index;
-epsilon = 10;
-k = 1;
+beam_cfg.loc = sim_cfg.sources{1}.source_index;
+beam_cfg.epsilon = 10;
+beam_cfg = set_up_beamformers(beam_cfg);
 
-% RMV
-cfg(k).verbosity = 0;
-cfg(k).type = 'rmv';
-cfg(k).name = 'rmv';
-cfg(k).loc = loc;
-cfg(k).epsilon = ones(3,1)*sqrt(epsilon^2/3);
+%% Set up the output struct
 
-% Set up the output struct
-out(k).name = cfg(k).name;
-out(k).y = zeros(length(sim_cfg.snr_range),sim_cfg.n_runs);
-out(k).ylabel = 'Output SINR (dB)';
-out(k).x = zeros(length(sim_cfg.snr_range),sim_cfg.n_runs);
-out(k).xlabel = 'SNR (dB)';
-k = k + 1;
-
-% LCMV
-cfg(k).verbosity = 0;
-cfg(k).type = 'lcmv';
-cfg(k).name = 'lcmv';
-% Only need the beamformer for the source location
-cfg(k).loc = loc;
-
-% Set up the output struct
-out(k).name = cfg(k).name;
-out(k).y = zeros(length(sim_cfg.snr_range),sim_cfg.n_runs);
-out(k).ylabel = 'Output SINR (dB)';
-out(k).x = zeros(length(sim_cfg.snr_range),sim_cfg.n_runs);
-out(k).xlabel = 'SNR (dB)';
-k = k + 1;
+out_cfg.beam_cfg = beam_cfg;
+out_cfg.x_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
+out_cfg.y_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
+out = set_up_output(out_cfg);
 
 %% Run simulation
 
