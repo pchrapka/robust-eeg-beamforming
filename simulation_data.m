@@ -12,10 +12,12 @@ sim_cfg.parallel = 'user';
 aet_parallel_init(sim_cfg)
 
 %% Load the source parameters
-source_type = 'single';
+source_type = 'multiple';
 switch source_type
     case 'single'
         src_param_single_cortical_source
+    case 'multiple'
+        src_param_mult_cortical_source
     otherwise
         error('simulation_data:KeyError',...
             ['Unknown source type: ' source_type]);

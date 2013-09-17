@@ -11,12 +11,17 @@ sim_param_file
 sim_cfg.parallel = 'user';
 aet_parallel_init(sim_cfg)
 
+%% Simulation files
+simulation_parameter_file = 'sim_param_file';
+% source_parameter_file = 'src_param_single_cortical_source';
+source_parameter_file = 'src_param_mult_cortical_source';
+
 %% Simulations
 % ADD SIMULATIONS HERE
 
 simulation_ex1_snr(...
-    'sim_param_file',...
-    'src_param_single_cortical_source');
+    simulation_parameter_file,...
+    source_parameter_file);
 
 %% End parallel execution
 sim_cfg.parallel = '';
