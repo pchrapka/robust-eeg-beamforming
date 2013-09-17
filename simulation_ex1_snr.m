@@ -29,7 +29,7 @@ out = set_up_output(out_cfg);
 
 for i=1:length(sim_cfg.snr_range)
     cur_snr = sim_cfg.snr_range(i);
-    disp(['SNR: ' num2str(cur_snr)]);
+    fprintf('\nSNR: %d \n', cur_snr);
     
     progbar = progressBar(sim_cfg.n_runs,'Thinking');
     for j=1:sim_cfg.n_runs
