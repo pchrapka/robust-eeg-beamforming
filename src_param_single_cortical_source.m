@@ -4,6 +4,9 @@
 sim_cfg.source_name = 'single_cort_src';
 sim_cfg.snr_range = -25:1:5; % in dB
 
+% Specific beamformer parameter
+sim_cfg.n_interfering_sources = 0;
+
 %% Source 1
 % Source signal params for pr_peak()
 sim_cfg.sources{1}.type = 'signal';

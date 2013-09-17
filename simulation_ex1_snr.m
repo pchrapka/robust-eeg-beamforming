@@ -14,6 +14,8 @@ end
 %% Set up beamformer parameters
 beam_cfg.loc = sim_cfg.sources{1}.source_index;
 beam_cfg.epsilon = 10;
+beam_cfg.lambda = 0; % Set later
+beam_cfg.n_interfering_sources = sim_cfg.n_interfering_sources;
 beam_cfg = set_up_beamformers(beam_cfg);
 
 %% Set up the output struct
@@ -48,11 +50,19 @@ for i=1:length(sim_cfg.snr_range)
         % Calculate the covariance
         R = cov(data.avg_trial');
         
-        for k=1:length(cfg)
+        for k=1:length(beam_cfg)
+            % Set lambda for lcmv_reg
+            if isequal(beam_cfg(k).type,'lcmv_reg')
+                lambda_cfg.R = R;
+                lambda_cfg.multiplier = 0.005;
+                beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
+                    lambda_cfg);
+            end
+            
             % Run the beamformer
-            cfg(k).R = R;
-            cfg(k).head_model = sim_cfg.head;
-            beam_out = aet_analysis_beamform(cfg(k));
+            beam_cfg(k).R = R;
+            beam_cfg(k).head_model = sim_cfg.head;
+            beam_out = aet_analysis_beamform(beam_cfg(k));
             
             % Calculate the output of the beamformer with different data
             W_tran = transpose(beam_out.W);
