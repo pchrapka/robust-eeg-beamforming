@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\WinSCP\WinSCP.exe" /console /script="C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\winscp_upload.txt" /log="C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\log.txt" 

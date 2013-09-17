@@ -7,6 +7,19 @@ count = 1;
 matlab_dir = userpath;
 matlab_dir = matlab_dir(1:end-1);
 
+%% Add progressBar package to Matlab path
+progressBar_path = [matlab_dir filesep 'progressBar'];
+if exist(progressBar_path,'dir') ~= 7
+    warning('STARTUP:CheckPackages',...
+        'Missing progressBar package.\nDownload and install from MATLAB Central.\nSee README');
+    complete(count) = false;
+    count = count + 1;
+else
+    complete(count) = true;
+    count = count + 1;
+    path(path,progressBar_path);
+end
+
 %% Add aet package to Matlab path
 aet_path = [matlab_dir filesep 'aet'];
 if exist(aet_path,'dir') ~= 7

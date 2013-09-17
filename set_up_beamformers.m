@@ -54,7 +54,7 @@ beam_cfg(k).verbosity = 0;
 beam_cfg(k).type = 'lcmv_reg';
 beam_cfg(k).name = 'lcmv regularized';
 beam_cfg(k).loc = cfg.loc;
-beam_cfg(k).lambda = cfg.labmda;
+beam_cfg(k).lambda = cfg.lambda;
 
 %% Output the beamformer config
 cfg = beam_cfg;
