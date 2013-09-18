@@ -79,7 +79,7 @@ for i=1:length(sim_cfg.snr_range)
 end
 
 %% Save the output data
-sim_cfg.data_type = [sim_cfg.source_name 'ex1_snr'];
+sim_cfg.data_type = [sim_cfg.source_name '_ex1_snr'];
 aet_save(sim_cfg, out);
 
 % Required output

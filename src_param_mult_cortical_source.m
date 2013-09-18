@@ -27,6 +27,7 @@ sim_cfg.sources{1}.source_index = 207;
 %% Source 2
 % Source signal params for pr_peak()
 sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
+sim_cfg.sources{2}.type = 'interference';
 sim_cfg.sources{2}.snr = 30; % in dB
 sim_cfg.sources{2}.freq = 20;
 sim_cfg.sources{2}.pos = 150;
