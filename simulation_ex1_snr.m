@@ -48,7 +48,7 @@ for i=1:length(sim_cfg.snr_range)
         load(data_file);
         
         % Calculate the covariance
-        R = cov(data.avg_trial');
+        R = cov(data.avg_trials');
         
         for k=1:length(beam_cfg)
             % Set lambda for lcmv_reg
