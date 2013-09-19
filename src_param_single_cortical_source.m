@@ -7,6 +7,12 @@ sim_cfg.snr_range = -25:1:5; % in dB
 % Specific beamformer parameter
 sim_cfg.n_interfering_sources = 0;
 
+% SNR calculation
+% sim_cfg.snr.type = 'per_trial';
+sim_cfg.snr.type = 'on_average';
+sim_cfg.snr.signal = -10; % in dB
+sim_cfg.snr.interference = 30; % in dB
+
 %% Source 1
 % Source signal params for pr_peak()
 sim_cfg.sources{1}.type = 'signal';

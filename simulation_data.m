@@ -24,33 +24,26 @@ switch source_type
 end
 
 %% Generate/load data
-for j=1:length(sim_cfg.snr_range)
+parfor j=1:length(sim_cfg.snr_range)
     for i=1:sim_cfg.n_runs
-        % NOTE snr_range applies to source 1 only
+        % Copy the config
+        temp_cfg = sim_cfg;
         
         % Adjust SNR of source 1
-        cur_snr = sim_cfg.snr_range(j);
-        sim_cfg.sources{1}.snr = cur_snr;
+        cur_snr = temp_cfg.snr_range(j);
+        temp_cfg.snr.signal = cur_snr;
         
         % Create the data
-        data = aet_sim_create_eeg(sim_cfg);
-        
-        % Average the data
-        data = aet_sim_average_eeg(sim_cfg, data);
+        data = aet_sim_create_eeg(temp_cfg);
         
         % Save the data
-        sim_cfg.data_type = [...
+        temp_cfg.data_type = [...
             sim_cfg.source_name '_'...
             num2str(cur_snr) '_'...
             num2str(i)...
             ];
         
-        % Remove individual trial data to make the file smaller
-        data = rmfield(data, 'trials');
-        data = rmfield(data, 'noise');
-        data = rmfield(data, 'signal');
-        data = rmfield(data, 'interference');
-        aet_save(sim_cfg, data);
+        aet_save(temp_cfg, data);
     end
 end
 

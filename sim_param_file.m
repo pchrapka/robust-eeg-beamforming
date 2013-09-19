@@ -30,3 +30,7 @@ sim_cfg.timepoints = 1000;
 % Simulation runs
 sim_cfg.n_runs = 30;
 
+% Option for averaged data
+sim_cfg.average_data = true;
+sim_cfg.keep_trials = false;
+
