@@ -1,4 +1,4 @@
-function [ cfg ] = set_up_beamformers(cfg)
+function [ beam_cfg ] = set_up_beamformers(cfg)
 %SET_UP_BEAMFORMERS Set up beamformers
 %   SET_UP_BEAMFORMERS(CFG) returns a config with the necessary beamformer
 %   configurations. Most of the parameters are hard coded here.
@@ -23,10 +23,10 @@ k = 1;
 
 %% Configure beamformers
 
-% RMV_COMP
+% RMV
 beam_cfg(k).verbosity = 0;
 beam_cfg(k).type = 'rmv';
-beam_cfg(k).name = 'rmv componentwise';
+beam_cfg(k).name = 'rmv';
 beam_cfg(k).loc = cfg.loc;
 beam_cfg(k).epsilon = ones(3,1)*sqrt(cfg.epsilon^2/3);
 
@@ -55,8 +55,5 @@ beam_cfg(k).type = 'lcmv_reg';
 beam_cfg(k).name = 'lcmv regularized';
 beam_cfg(k).loc = cfg.loc;
 beam_cfg(k).lambda = cfg.lambda;
-
-%% Output the beamformer config
-cfg = beam_cfg;
 
 end
