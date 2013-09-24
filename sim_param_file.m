@@ -1,6 +1,8 @@
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
 sim_cfg.sim_name_2 = 'lcmv_reg'; % optional field for extra naming flexibility
+% FIXME Instead of this consider adding an output file field to the
+% simulation args, something like how the PSOM bricks are structured
 sim_cfg.save_data_files = false;
 sim_cfg.out_dir = 'output';
 sim_cfg.verbosity = 3;
