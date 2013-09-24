@@ -23,6 +23,8 @@ beam_cfg = set_up_beamformers(beam_cfg);
 out_cfg.beam_cfg = beam_cfg;
 out_cfg.x_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
 out_cfg.y_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
+out_cfg.y_label = 'Output SINR (dB)';
+out_cfg.x_label = 'SNR (dB)';
 out = set_up_output(out_cfg);
 
 %% Run simulation

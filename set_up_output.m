@@ -6,6 +6,8 @@ function [ out ] = set_up_output(cfg)
 %   cfg.beam_cfg    beamformer configuration returned by set_up_beamformers
 %       y_size      vector indicating size of y data, [M, N]
 %       x_size      vector indicating size of x data, [M, N]
+%       y_label     string for the ylabel
+%       x_label     string for the xlabel
 %
 %   See also SET_UP_BEAMFORMERS
 
@@ -17,9 +19,9 @@ out(n).name = '';
 for i=1:n
     out(i).name = cfg.beam_cfg(i).name;
     out(i).y = zeros(cfg.y_size);
-    out(i).ylabel = 'Output SINR (dB)';
+    out(i).ylabel = cfg.y_label;
     out(i).x = zeros(cfg.x_size);
-    out(i).xlabel = 'SNR (dB)'; 
+    out(i).xlabel = cfg.y_label; 
 end
 
 end
