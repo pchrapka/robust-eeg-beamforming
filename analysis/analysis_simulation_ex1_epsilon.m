@@ -9,6 +9,7 @@ function analysis_simulation_ex1_epsilon(cfg)
 scenario_name = 'ex1_epsilon';
 
 %% Load the data
+% FIXME Data file name should be explicit in the cfg
 data_file = ['..' filesep 'output' filesep...
     cfg.sim_name '_' cfg.source_name '_' scenario_name '.mat'];
 load(data_file);

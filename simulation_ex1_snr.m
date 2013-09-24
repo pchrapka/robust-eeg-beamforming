@@ -16,6 +16,7 @@ beam_cfg.loc = sim_cfg.sources{1}.source_index;
 beam_cfg.epsilon = 10;
 beam_cfg.lambda = 0; % Set later
 beam_cfg.n_interfering_sources = sim_cfg.n_interfering_sources;
+beam_cfg.types = sim_cfg.beamformer_types;
 beam_cfg = set_up_beamformers(beam_cfg);
 
 %% Set up the output struct
@@ -55,10 +56,11 @@ for i=1:length(sim_cfg.snr_range)
         for k=1:length(beam_cfg)
             % Set lambda for lcmv_reg
             if isequal(beam_cfg(k).type,'lcmv_reg')
-                lambda_cfg.R = R;
-                lambda_cfg.multiplier = 0.005;
-                beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
-                    lambda_cfg);
+%                 lambda_cfg.R = R;
+%                 lambda_cfg.multiplier = 0.005;
+%                 beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
+%                     lambda_cfg);
+                  beam_cfg(k).lambda = 10*trace(cov(data.avg_noise'));
             end
             
             % Run the beamformer
@@ -81,7 +83,11 @@ for i=1:length(sim_cfg.snr_range)
 end
 
 %% Save the output data
-sim_cfg.data_type = [sim_cfg.source_name '_ex1_snr'];
+sim_cfg.data_type = [...
+    sim_cfg.sim_name '_'...
+    sim_cfg.sim_name_2 '_'...
+    sim_cfg.source_name...
+    '_ex1_snr'];
 aet_save(sim_cfg, out);
 
 % Required output

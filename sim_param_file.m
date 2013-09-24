@@ -1,5 +1,6 @@
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
+sim_cfg.sim_name_2 = 'lcmv_reg'; % optional field for extra naming flexibility
 sim_cfg.save_data_files = false;
 sim_cfg.out_dir = 'output';
 sim_cfg.verbosity = 3;
@@ -33,4 +34,8 @@ sim_cfg.n_runs = 30;
 % Option for averaged data
 sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
+
+%% Options for beamformer types
+sim_cfg.beamformer_types = {'lcmv_reg'};
+% sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
 

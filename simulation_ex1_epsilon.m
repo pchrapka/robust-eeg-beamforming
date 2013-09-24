@@ -25,6 +25,7 @@ beam_cfg_in.loc = sim_cfg.sources{1}.source_index;
 beam_cfg_in.epsilon = 0; % Set later
 beam_cfg_in.lambda = 0; % Set later
 beam_cfg_in.n_interfering_sources = sim_cfg.n_interfering_sources;
+beam_cfg_in.types = sim_cfg.beamformer_types;
 beam_cfg = set_up_beamformers(beam_cfg_in);
 % NOTE Needs to be done again 
 
@@ -44,10 +45,7 @@ for i=1:length(epsilon)
     
     % Set up beamformer parameters (particularly epsilon)
     % FIXME Kind of sloppy but it's easy
-    beam_cfg_in.loc = sim_cfg.sources{1}.source_index;
     beam_cfg_in.epsilon = epsilon(i);
-    beam_cfg_in.lambda = 0; % Set later
-    beam_cfg_in.n_interfering_sources = sim_cfg.n_interfering_sources;
     beam_cfg = set_up_beamformers(beam_cfg_in);
     
     progbar = progressBar(sim_cfg.n_runs,'Thinking');
@@ -108,7 +106,11 @@ for i=1:length(epsilon)
 end
 
 %% Save the output data
-sim_cfg.data_type = [sim_cfg.source_name '_ex1_epsilon'];
+sim_cfg.data_type = [...
+    sim_cfg.sim_name '_'...
+    sim_cfg.sim_name_2 '_'...
+    sim_cfg.source_name...
+    '_ex1_epsilon'];
 aet_save(sim_cfg, out);
 
 % Required output

@@ -1,27 +1,16 @@
-function simulation_data()
+function simulation_data(varargin)
 % Script for creating the data
 
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
 %% Load the simulation parameters
-sim_param_file
+optargin = size(varargin,2);
+% Load the simulation parameters
+for i=1:optargin
+    eval(varargin{i});
+end
 
 %% Control parallel execution explicity
 sim_cfg.parallel = 'user';
 aet_parallel_init(sim_cfg)
-
-%% Load the source parameters
-source_type = 'multiple';
-switch source_type
-    case 'single'
-        src_param_single_cortical_source
-    case 'multiple'
-        src_param_mult_cortical_source
-    otherwise
-        error('simulation_data:KeyError',...
-            ['Unknown source type: ' source_type]);
-end
 
 %% Generate/load data
 parfor j=1:length(sim_cfg.snr_range)
