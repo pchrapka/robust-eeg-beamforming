@@ -15,9 +15,10 @@ set(0,'DefaultAxesColorOrder',[0,0,0]) % black and white
 
 %% Set parameters
 cfg.sim_name = 'sim_param_file';
-cfg.source_name = 'single_cort_src';
+% cfg.source_name = 'single_cort_src';
+cfg.source_name = 'mult_cort_src';
     
 %% Create plots
 
 analysis_simulation_ex1_snr(cfg);
-% analysis_simulation_ex1_epsilon
+analysis_simulation_ex1_epsilon(cfg);

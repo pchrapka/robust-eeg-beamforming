@@ -25,4 +25,7 @@ out_file_name = [file_name '.eps'];
 saveas(gcf, out_file_name,'epsc2');
 fixPSlinestyle(out_file_name);
 
+out_file_name = [file_name '.png'];
+saveas(gcf, out_file_name);
+
 end
