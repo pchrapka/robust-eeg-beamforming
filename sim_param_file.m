@@ -1,6 +1,7 @@
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
-sim_cfg.sim_name_2 = 'lcmv_reg'; % optional field for extra naming flexibility
+sim_cfg.sim_name_2 = '';
+% optional field for extra naming flexibility
 % FIXME Instead of this consider adding an output file field to the
 % simulation args, something like how the PSOM bricks are structured
 sim_cfg.save_data_files = false;
@@ -38,6 +39,7 @@ sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
 
 %% Options for beamformer types
-sim_cfg.beamformer_types = {'lcmv_reg'};
-% sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
+% sim_cfg.beamformer_types = {'lcmv_reg'};
+% sim_cfg.sim_name_2 = 'lcmv_reg'; 
+sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
 

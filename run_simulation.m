@@ -25,17 +25,23 @@ k = 1;
 %     'src_param_mult_cortical_source'};
 % k = k+1;
 
-scripts(k).func = @simulation_ex1_snr;
+scripts(k).func = @simulation_ex1_epsilon;
 scripts(k).vars = {...
     'sim_param_file',...
     'src_param_mult_cortical_source'};
 k = k+1;
 
-% scripts(k).func = @simulation_ex1_epsilon;
-% scripts(k).vars = {...
-%     'sim_param_file',...
-%     'src_param_mult_cortical_source'};
-% k = k+1;
+scripts(k).func = @simulation_ex2_snr;
+scripts(k).vars = {...
+    'sim_param_file',...
+    'src_param_mult_cortical_source'};
+k = k+1;
+
+scripts(k).func = @simulation_ex2_epsilon;
+scripts(k).vars = {...
+    'sim_param_file',...
+    'src_param_mult_cortical_source'};
+k = k+1;
 
 
 
