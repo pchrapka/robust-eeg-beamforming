@@ -21,7 +21,7 @@ for i=1:n
     out(i).y = zeros(cfg.y_size);
     out(i).ylabel = cfg.y_label;
     out(i).x = zeros(cfg.x_size);
-    out(i).xlabel = cfg.y_label; 
+    out(i).xlabel = cfg.x_label; 
 end
 
 end
