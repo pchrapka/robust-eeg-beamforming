@@ -39,7 +39,7 @@ sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
 
 %% Options for beamformer types
-% sim_cfg.beamformer_types = {'lcmv_reg'};
-% sim_cfg.sim_name_2 = 'lcmv_reg'; 
-sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
+sim_cfg.beamformer_types = {'lcmv_eig'};
+sim_cfg.sim_name_2 = 'lcmv_eig'; 
+% sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
 
