@@ -13,17 +13,20 @@ aet_init
 k = 1;
 
 %% Set up scripts to run
+
+
 % scripts(k).func = @simulation_data;
 % scripts(k).vars = {...
 %     'sim_param_file',...
 %     'src_param_mult_cortical_source'};
 % k = k+1;
 
-scripts(k).func = @simulation_ex1_snr;
-scripts(k).vars = {...
-    'sim_param_file',...
-    'src_param_mult_cortical_source'};
-k = k+1;
+%% Ex1
+% scripts(k).func = @simulation_ex1_snr;
+% scripts(k).vars = {...
+%     'sim_param_file',...
+%     'src_param_mult_cortical_source'};
+% k = k+1;
 
 % scripts(k).func = @simulation_ex1_epsilon;
 % scripts(k).vars = {...
@@ -31,6 +34,7 @@ k = k+1;
 %     'src_param_mult_cortical_source'};
 % k = k+1;
 
+%% Ex2
 % scripts(k).func = @simulation_ex2_snr;
 % scripts(k).vars = {...
 %     'sim_param_file',...
@@ -42,6 +46,20 @@ k = k+1;
 %     'sim_param_file',...
 %     'src_param_mult_cortical_source'};
 % k = k+1;
+
+%% Sinusoid signal
+
+scripts(k).func = @simulation_data;
+scripts(k).vars = {...
+    'sim_param_file',...
+    'src_param_mult_cortical_source_sine'};
+k = k+1;
+
+scripts(k).func = @simulation_ex2_snr;
+scripts(k).vars = {...
+    'sim_param_file',...
+    'src_param_mult_cortical_source_sine'};
+k = k+1;
 
 
 
