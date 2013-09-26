@@ -1,6 +1,5 @@
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
-sim_cfg.sim_name_2 = '';
 % optional field for extra naming flexibility
 % FIXME Instead of this consider adding an output file field to the
 % simulation args, something like how the PSOM bricks are structured
@@ -14,9 +13,9 @@ sim_cfg.head_model_file = 'head_Default1_500V.mat';
 
 %% Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
-head_model_data = ['..' filesep 'head-models'...
+sim_cfg.head_model_data_full = ['..' filesep 'head-models'...
     filesep sim_cfg.head_model_file];
-load(head_model_data);
+load(sim_cfg.head_model_data_full);
 sim_cfg.head = head;
 
 % Figure out number of channels
@@ -40,6 +39,5 @@ sim_cfg.keep_trials = false;
 
 %% Options for beamformer types
 % sim_cfg.beamformer_types = {'lcmv_eig'};
-% sim_cfg.sim_name_2 = 'lcmv_eig'; 
 sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
 

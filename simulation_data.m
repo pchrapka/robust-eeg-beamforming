@@ -25,6 +25,10 @@ parfor j=1:length(sim_cfg.snr_range)
         % Create the data
         data = aet_sim_create_eeg(temp_cfg);
         
+        % Add some info
+        data.iteration = i;
+        data.snr = cur_snr;
+        
         % Save the data
         temp_cfg.data_type = [...
             sim_cfg.source_name '_'...
