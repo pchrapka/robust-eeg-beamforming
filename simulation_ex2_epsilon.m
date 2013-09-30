@@ -18,9 +18,9 @@ end
 % Set range for epsilon
 % start_exp = -3;
 % end_exp = 2;
-n_epsilon = 50; %end_exp-start_exp+1;
+n_epsilon = 10; %end_exp-start_exp+1;
 % epsilon = logspace(start_exp, end_exp, n_epsilon);
-epsilon = linspace(0, 200, n_epsilon);
+epsilon = linspace(0, 700, n_epsilon);
 
 %% Set up beamformer parameters
 % Needed for set_up_output

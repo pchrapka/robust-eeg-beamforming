@@ -45,3 +45,4 @@ sim_cfg.sources{2}.source_index = 384;
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;
+sim_cfg.noise_power = 1;

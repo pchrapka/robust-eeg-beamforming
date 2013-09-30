@@ -2,7 +2,7 @@
 % Multiple cortical sources
 
 sim_cfg.source_name = 'mult_cort_src';
-sim_cfg.snr_range = -25:1:5; % in dB
+sim_cfg.snr_range = -25:5:25; % in dB
 
 % Specific beamformer parameter
 sim_cfg.n_interfering_sources = 1;
@@ -46,3 +46,4 @@ sim_cfg.sources{2}.source_index = 384;
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;
+sim_cfg.noise_power = 1;
