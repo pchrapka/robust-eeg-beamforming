@@ -18,13 +18,13 @@ load(cfg.data_file); % loads data
 if ~isfield(data,'R')
     data.R = cov(data.avg_trials');
     % Calculate it once and save it to the data file
-    save(cfg.data_file, data);
+    save(cfg.data_file, 'data');
 end
     
 
 %% Set lambda for lcmv_reg
 if isequal(cfg.beam_cfg.type,'lcmv_reg')
-    lambda_cfg.R = R;
+    lambda_cfg.R = data.R;
     lambda_cfg.multiplier = 0.005;
     cfg.beam_cfg.lambda = aet_analysis_beamform_get_lambda(...
         lambda_cfg);
@@ -46,7 +46,7 @@ noise = W_tran*data.avg_noise;
 out.data_file = cfg.data_file;
 out.W = beam_out.W;
 out.H = beam_out.H;
-out.loc = data.loc;
+out.loc = beam_out.loc;
 out.snr = data.snr; % redundant, info in data_file
 out.iteration = data.iteration; % redundant, info in data_file
 

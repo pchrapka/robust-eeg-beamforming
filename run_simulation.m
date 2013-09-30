@@ -63,10 +63,17 @@ k = 1;
 
 %% Parameter sweep
 
+% scripts(k).func = @simulation_data;
+% scripts(k).vars = {...
+%     'sim_data_1',...
+%     'src_param_mult_cortical_source'};
+% k = k+1;
+
 scripts(k).func = @simulation_variations_all;
 scripts(k).vars = {...
     'sim_data_1',...
-    'sim_vars_1'};
+    'sim_vars_1',...
+    'src_param_mult_cortical_source'};
 k = k+1;
 
 

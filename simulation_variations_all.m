@@ -4,7 +4,8 @@ function simulation_variations_all(varargin)
 %
 %   Requires 
 %       sim_vars parameter file
-%       sim_cfg from a sim_data parameter file
+%       sim_cfg from a sim_data and source parameter file
+%
 
 
 %% Load the simulation parameters
@@ -12,6 +13,10 @@ optargin = size(varargin,2);
 for i=1:optargin
     eval(varargin{i});
 end
+
+%% Control parallel execution explicity
+sim_cfg.parallel = 'user';
+aet_parallel_init(sim_cfg)
 
 %% Run simulations
 for i=1:length(sim_cfg.beamformer_types);
@@ -24,6 +29,10 @@ for i=1:length(sim_cfg.beamformer_types);
     % Run the simulation
     simulation_variations(sim_vars, sim_cfg)
 end
+
+%% End parallel execution
+sim_cfg.parallel = '';
+aet_parallel_close(sim_cfg)
 
 
 end
