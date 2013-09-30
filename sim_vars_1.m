@@ -7,7 +7,7 @@ k = 1;
 %% Data files
 data_param_file = 'sim_data_1';
 source_param_file = 'mult_cort_src';
-snr_range = -25:1:5;
+snr_range = -5;%-25:5:25;
 sim_vars(k).name = 'in';
 count = 1;
 for i=1:length(snr_range)
@@ -30,7 +30,7 @@ k = k+1;
 
 % Beamformer locations
 sim_vars(k).name = 'loc';
-sim_vars(k).values = num2cell(1:100);
+sim_vars(k).values = num2cell(1:501);
 k = k+1;
 
 % % Beamformer types
@@ -40,5 +40,5 @@ k = k+1;
 
 % Beamformer parameters
 sim_vars(k).name = 'epsilon';
-sim_vars(k).values = {80};
+sim_vars(k).values = {80,300};
 k = k+1;

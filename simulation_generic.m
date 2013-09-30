@@ -43,10 +43,13 @@ interference = W_tran*data.avg_interference;
 noise = W_tran*data.avg_noise;
 
 %% Save the output data
+out.data_file = cfg.data_file;
 out.W = beam_out.W;
-out.snr = data.snr;
-out.iteration = data.iteration;
-% FIXME Make sure data file has SNR and iteration value
+out.H = beam_out.H;
+out.loc = data.loc;
+out.snr = data.snr; % redundant, info in data_file
+out.iteration = data.iteration; % redundant, info in data_file
+
 % Calculate the SINR
 out.sinr = calc_sinr(signal, interference, noise);
 
