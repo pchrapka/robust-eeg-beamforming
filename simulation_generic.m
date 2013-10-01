@@ -44,6 +44,7 @@ noise = W_tran*data.avg_noise;
 
 %% Save the output data
 out.data_file = cfg.data_file;
+out.beamformer_type = cfg.beam_cfg.type;
 out.W = beam_out.W;
 out.H = beam_out.H;
 out.loc = beam_out.loc;

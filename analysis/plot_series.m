@@ -8,6 +8,7 @@ function plot_series( data )
 %       name    name of data series
 %       xlabel  x data label
 %       ylabel  y data label
+%       sort    (boolean) option to sort based on x data
 
 hold all;
 grid on;
@@ -21,8 +22,20 @@ line_styles = {'-','-.','--'};
 for k=1:n
     j_m = rem(k-1,length(markers)) + 1;
     j_l = rem(k-1,length(line_styles)) + 1;
+    
+    % Mean
     mean_x = mean(data(k).x,2);
     mean_y = mean(data(k).y,2);
+    
+    if data(k).sort
+        % Sort the data
+        s = [mean_x(:), mean_y(:)];
+        s = sortrows(s,1);
+        mean_x = s(:,1);
+        mean_y = s(:,2);
+    end
+    
+    % Plot
     plot(mean_x, mean_y,...
         [line_styles{j_l} markers(j_m)], 'MarkerSize', 5);
     xlabel(data(k).xlabel);
