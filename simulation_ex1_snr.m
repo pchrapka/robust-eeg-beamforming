@@ -12,11 +12,16 @@ for i=1:optargin
 end
 
 %% Set up beamformer parameters
+cfg_beamspace.n_evalues = 12;
+cfg_beamspace.head_model = sim_cfg.head;
+beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
+
 beam_cfg.loc = sim_cfg.sources{1}.source_index;
 beam_cfg.epsilon = 10;
 beam_cfg.lambda = 0; % Set later
 beam_cfg.n_interfering_sources = sim_cfg.n_interfering_sources;
 beam_cfg.types = sim_cfg.beamformer_types;
+beam_cfg.T = beamspace_data.T;
 beam_cfg = set_up_beamformers(beam_cfg);
 
 %% Set up the output struct
@@ -69,10 +74,13 @@ for i=1:length(sim_cfg.snr_range)
             beam_out = aet_analysis_beamform(beam_cfg(k));
             
             % Calculate the output of the beamformer with different data
-            W_tran = transpose(beam_out.W);
-            signal = W_tran*data.avg_signal;
-            interference = W_tran*data.avg_interference;
-            noise = W_tran*data.avg_noise;
+            beam_cfg(k).W = beam_out.W;
+            signal = aet_analysis_beamform_output(...
+                beam_cfg(k), data.avg_signal);
+            interference = aet_analysis_beamform_output(...
+                beam_cfg(k), data.avg_interference);
+            noise = aet_analysis_beamform_output(...
+                beam_cfg(k), data.avg_noise);
            
             % Save the data SNR
             out(k).x(i,j) = sim_cfg.snr_range(i);

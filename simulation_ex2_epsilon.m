@@ -23,6 +23,10 @@ n_epsilon = 10; %end_exp-start_exp+1;
 epsilon = linspace(0, 700, n_epsilon);
 
 %% Set up beamformer parameters
+cfg_beamspace.n_evalues = 12;
+cfg_beamspace.head_model = sim_cfg.head;
+beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
+
 % Needed for set_up_output
 
 % We're looking in a mismatched direction which corresponds to location 218
@@ -32,6 +36,7 @@ beam_cfg_in.epsilon = 0; % Set later
 beam_cfg_in.lambda = 0; % Set later
 beam_cfg_in.n_interfering_sources = sim_cfg.n_interfering_sources;
 beam_cfg_in.types = sim_cfg.beamformer_types;
+beam_cfg_in.T = beamspace_data.T;
 beam_cfg = set_up_beamformers(beam_cfg_in);
 % NOTE Needs to be done again 
 
@@ -92,10 +97,13 @@ for i=1:length(epsilon)
                 beam_out = aet_analysis_beamform(beam_cfg(k));
                 
                 % Calculate the output of the beamformer with different data
-                W_tran = transpose(beam_out.W);
-                signal = W_tran*data.avg_signal;
-                interference = W_tran*data.avg_interference;
-                noise = W_tran*data.avg_noise;
+                beam_cfg(k).W = beam_out.W;
+                signal = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_signal);
+                interference = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_interference);
+                noise = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_noise);
                 
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);

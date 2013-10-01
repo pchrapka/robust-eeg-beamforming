@@ -55,6 +55,14 @@ for k=1:length(cfg.types)
             beam_cfg(k).name = 'lcmv regularized';
             beam_cfg(k).loc = cfg.loc;
             beam_cfg(k).lambda = cfg.lambda;
+            
+        case 'beamspace'
+            % BEAMSPACE
+            beam_cfg(k).verbosity = 0;
+            beam_cfg(k).type = 'beamspace';
+            beam_cfg(k).name = 'beamspace';
+            beam_cfg(k).loc = cfg.loc;
+            beam_cfg(k).T = cfg.T;
 
         otherwise
             error('set_up_beamformers:KeyError',...

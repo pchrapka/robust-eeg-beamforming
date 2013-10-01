@@ -11,6 +11,16 @@ if iscell(sim_cfg.beamformer_type) && length(sim_cfg.beamformer_type) > 1
             'You can only select one beamformer at a time');
 end
 
+% Configure the beamspace beamformer
+if isequal(sim_cfg.beamformer_type, 'beamspace')
+    cfg_beamspace.n_evalues = 12;
+    cfg_beamspace.head_model = sim_cfg.head;
+    beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
+    beamspace_T = beamspace_data.T;
+else
+    beamspace_T = 0;
+end
+
 %% Setup and run the simulation
 % Check if we can run it in parallel
 if isequal(sim_cfg.beamformer_type, 'rmv')
@@ -36,6 +46,7 @@ if isequal(sim_cfg.beamformer_type, 'rmv')
         beam_cfg.n_interfering_sources = ...
             sim_cfg.n_interfering_sources;
         beam_cfg.types{1} = sim_cfg.beamformer_type;
+        beam_cfg.T = beamspace_T;
         beam_cfg = set_up_beamformers(beam_cfg);
         
         % Set up config for the simulation
@@ -86,6 +97,7 @@ else
         beam_cfg_in.n_interfering_sources = ...
             n_interfering_sources;
         beam_cfg_in.types{1} = beamformer_type;
+        beam_cfg.T = beamspace_T;
         beam_cfg = set_up_beamformers(beam_cfg_in);
         
         % Set up config for the simulation

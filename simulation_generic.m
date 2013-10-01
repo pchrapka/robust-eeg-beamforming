@@ -37,10 +37,13 @@ cfg.beam_cfg.head_model = head;
 beam_out = aet_analysis_beamform(cfg.beam_cfg);
 
 % Calculate the output of the beamformer with different data
-W_tran = transpose(beam_out.W);
-signal = W_tran*data.avg_signal;
-interference = W_tran*data.avg_interference;
-noise = W_tran*data.avg_noise;
+cfg.beam_cfg.W = beam_out.W;
+signal = aet_analysis_beamform_output(...
+    cfg.beam_cfg, data.avg_signal);
+interference = aet_analysis_beamform_output(...
+    cfg.beam_cfg, data.avg_interference);
+noise = aet_analysis_beamform_output(...
+    cfg.beam_cfg, data.avg_noise);
 
 %% Save the output data
 out.data_file = cfg.data_file;
