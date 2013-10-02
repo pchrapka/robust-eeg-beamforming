@@ -61,4 +61,8 @@ if isfield(cfg.beam_cfg,'epsilon')
     out.epsilon = cfg.beam_cfg.epsilon;
 end
 
+if isequal(cfg.beam_cfg.type,'beamspace')
+    out.T = cfg.beam_cfg.T;
+end
+
 end

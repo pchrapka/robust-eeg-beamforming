@@ -1,27 +1,15 @@
-function analysis_plot_brain_surface(cfg)
 
-% Load the file
-% The format will be a parameter sweep
-load(cfg.file_in)
+%% Instructions
+% 1. Export data from WMN analysis in Brainstorm
+% Not sure if I need to import the EEG data first
 
-% Select the data for plotting
-% Iteration
-out_temp = out([out.iteration] == cfg.iteration);
-% SNR
-out_temp = out_temp([out.snr] == cfg.snr);
-% Epsilon, if it's there
-if isfield(out_temp(1), 'epsilon')
-    out_temp = out_temp(...
-        cellfun(@(x)isequal(x, cfg.epsilon(1,:)'),...
-        {out_temp.epsilon}));
-end
+cfg.file_in = ['..' filesep 'output' filesep ...
+    'out_sim_vars_1_lcmv.mat'];
+cfg.iteration = 1;
+cfg.snr = -5;
+cfg.bst_source = source; % Need to export var from Brainstorm as source
+cfg = analysis_param_sweep_prep_brain_surface(cfg);
 
-% Make sure the number of vertices matches in the head model the length of
-% the data array
-n_vertices = size(cfg.head_model.GridLoc,1);
-if n_vertices ~= length(out_temp)
-    warning('reb:analysis_plot_brain_surface',...
-        'Dealbreaker');
-end
-
-end
+%% Next Steps
+% 1. Import cfg.eeg_data as the EEG data in Brainstorm
+% 2. Import cfg.bst_source into the MN variable in Brainstorm
