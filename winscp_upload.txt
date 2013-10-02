@@ -1,0 +1,6 @@
+option batch on
+option confirm off
+open chrapkpk@blade16
+option transfer binary
+put -filemask=*.m "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\*" Documents/projects/robust-eeg-beamforming-paper/*
+exit

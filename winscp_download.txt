@@ -1,0 +1,6 @@
+option batch on
+option confirm off
+open chrapkpk@blade16
+option transfer binary
+get Documents/projects/robust-eeg-beamforming/output/* "C:\Users\Phil\My Projects\robust-eeg-beamforming\output\"
+exit

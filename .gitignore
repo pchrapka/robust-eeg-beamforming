@@ -2,6 +2,7 @@
 \#*\#
 .#*
 *.asv
+analysis/output/*
 output/*
 auto/*
 *.tex
