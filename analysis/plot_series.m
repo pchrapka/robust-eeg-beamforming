@@ -27,7 +27,7 @@ for k=1:n
     mean_x = mean(data(k).x,2);
     mean_y = mean(data(k).y,2);
     
-    if data(k).sort
+    if isfield(data(k), 'sort)') && data(k).sort
         % Sort the data
         s = [mean_x(:), mean_y(:)];
         s = sortrows(s,1);

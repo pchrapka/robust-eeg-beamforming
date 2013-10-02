@@ -15,24 +15,31 @@ set(0,'DefaultAxesColorOrder',[0,0,0]) % black and white
     
 %% Create plots
 
-cfg.sim_name = 'sim_data_1';
-cfg.source_name = 'mult_cort_src';
-cfg.exp_name = 'ex1_snr';
-cfg.file_in = ['..' filesep 'output' filesep...
-    cfg.sim_name '_' cfg.source_name '_' cfg.exp_name '.mat'];
-analysis_plot_data(cfg);
+% cfg.sim_name = 'sim_data_1';
+% cfg.source_name = 'mult_cort_src';
+% cfg.exp_name = 'ex1_snr';
+% cfg.file_in = ['..' filesep 'output' filesep...
+%     cfg.sim_name '_' cfg.source_name '_' cfg.exp_name '.mat'];
+% analysis_plot_data(cfg);
+% 
+% cfg.sim_name = 'sim_data_1';
+% cfg.source_name = 'mult_cort_src';
+% cfg.exp_name = 'ex1_epsilon';
+% cfg.file_in = ['..' filesep 'output' filesep...
+%     cfg.sim_name '_' cfg.source_name '_' cfg.exp_name '.mat'];
+% analysis_plot_data(cfg);
+% 
+% cfg.sim_name = 'sim_data_1';
+% cfg.source_name = 'mult_cort_src';
+% cfg.exp_name = 'ex1_epsilon_eig';
+% cfg.file_in = ['..' filesep 'output' filesep...
+%     'sim_data_1_lcmv_eig_mult_cort_src_ex1_snr.mat'];
+% analysis_plot_data(cfg);
 
 cfg.sim_name = 'sim_data_1';
 cfg.source_name = 'mult_cort_src';
-cfg.exp_name = 'ex1_epsilon';
+cfg.exp_name = 'ex1_epsilon_beamspace';
 cfg.file_in = ['..' filesep 'output' filesep...
-    cfg.sim_name '_' cfg.source_name '_' cfg.exp_name '.mat'];
-analysis_plot_data(cfg);
-
-cfg.sim_name = 'sim_data_1';
-cfg.source_name = 'mult_cort_src';
-cfg.exp_name = 'ex1_epsilon_eig';
-cfg.file_in = ['..' filesep 'output' filesep...
-    'sim_data_1_lcmv_eig_mult_cort_src_ex1_snr.mat'];
+    'sim_data_1__mult_cort_src_2_ex1_snr_eps_200.mat'];
 analysis_plot_data(cfg);
 

@@ -6,13 +6,12 @@
 % activity from the actual source.
 % It is also compared with the LCMV beamformer
 
-function simulation_ex2_epsilon(varargin)
+function simulation_ex2_epsilon(cfg)
 
-optargin = size(varargin,2);
 % Load the simulation parameters
-for i=1:optargin
-    eval(varargin{i});
-end
+eval(cfg.sim_data);
+eval(cfg.sim_src_parameters);
+eval(cfg.sim_beam);
 
 %% Varying simulation parameters
 % Set range for epsilon
@@ -23,7 +22,7 @@ n_epsilon = 10; %end_exp-start_exp+1;
 epsilon = linspace(0, 700, n_epsilon);
 
 %% Set up beamformer parameters
-cfg_beamspace.n_evalues = 12;
+cfg_beamspace.n_evalues = sim_cfg.n_evalues;
 cfg_beamspace.head_model = sim_cfg.head;
 beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
 
@@ -120,9 +119,7 @@ for i=1:length(epsilon)
 end
 
 %% Save the output data
-sim_cfg.data_type = [...
-    sim_cfg.source_name...
-    '_ex2_epsilon'];
+sim_cfg.data_type = cfg.sim_file_out;
 aet_save(sim_cfg, out);
 
 % Required output

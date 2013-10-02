@@ -39,5 +39,5 @@ sim_cfg.keep_trials = false;
 
 %% Options for beamformer types
 % sim_cfg.beamformer_types = {'lcmv_eig'};
-sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};
-
+% sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg','beamspace'};
+sim_cfg.beamformer_types = {'beamspace'};

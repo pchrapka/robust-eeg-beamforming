@@ -2,9 +2,9 @@
 % Multiple cortical sources
 
 sim_cfg.source_name = 'mult_cort_src';
-sim_cfg.snr_range = -25:5:25; % in dB
 
-% Specific beamformer parameter
+% Specific beamformer parameter based on sources
+sim_cfg.snr_range = -25:5:25; % in dB
 sim_cfg.n_interfering_sources = 1;
 
 % SNR calculation

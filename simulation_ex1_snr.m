@@ -3,21 +3,20 @@
 % leadfield matrix with varying levels of SNR. It is also compared with the
 % LCMV beamformer
 
-function simulation_ex1_snr(varargin)
+function simulation_ex1_snr(cfg)
 
-optargin = size(varargin,2);
 % Load the simulation parameters
-for i=1:optargin
-    eval(varargin{i});
-end
+eval(cfg.sim_data);
+eval(cfg.sim_src_parameters);
+eval(cfg.sim_beam);
 
 %% Set up beamformer parameters
-cfg_beamspace.n_evalues = 12;
+cfg_beamspace.n_evalues = sim_cfg.n_evalues;
 cfg_beamspace.head_model = sim_cfg.head;
 beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
 
 beam_cfg.loc = sim_cfg.sources{1}.source_index;
-beam_cfg.epsilon = 10;
+beam_cfg.epsilon = sim_cfg.epsilon;
 beam_cfg.lambda = 0; % Set later
 beam_cfg.n_interfering_sources = sim_cfg.n_interfering_sources;
 beam_cfg.types = sim_cfg.beamformer_types;
@@ -91,9 +90,7 @@ for i=1:length(sim_cfg.snr_range)
 end
 
 %% Save the output data
-sim_cfg.data_type = [...
-    sim_cfg.source_name...
-    '_ex1_snr'];
+sim_cfg.data_type = cfg.sim_file_out;
 aet_save(sim_cfg, out);
 
 % Required output
