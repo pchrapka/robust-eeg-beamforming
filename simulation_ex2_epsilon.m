@@ -45,7 +45,7 @@ out_cfg.x_label = '\epsilon';
 out = set_up_output(out_cfg);
 
 %% Run simulation
-cur_snr = -10;
+cur_snr = cfg.cur_snr;
 for i=1:length(epsilon)
     fprintf('\nEpsilon: %d \n', epsilon(i));
     
