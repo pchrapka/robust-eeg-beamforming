@@ -15,11 +15,7 @@ eval(cfg.sim_beam);
 
 %% Varying simulation parameters
 % Set range for epsilon
-% start_exp = -3;
-% end_exp = 2;
-n_epsilon = 10; %end_exp-start_exp+1;
-% epsilon = logspace(start_exp, end_exp, n_epsilon);
-epsilon = linspace(0, 700, n_epsilon);
+epsilon = linspace(cfg.epsilon(1), cfg.epsilon(2), cfg.n_epsilon);
 
 %% Set up beamformer parameters
 cfg_beamspace.n_evalues = sim_cfg.n_evalues;

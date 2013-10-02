@@ -40,6 +40,6 @@ cfg.sim_name = 'sim_data_1';
 cfg.source_name = 'mult_cort_src';
 cfg.exp_name = 'ex1_epsilon_beamspace';
 cfg.file_in = ['..' filesep 'output' filesep...
-    'sim_data_1__mult_cort_src_2_ex1_snr_eps_200.mat'];
+    'sim_data_1_mult_cort_src_ex1_snr_eps_200.mat'];
 analysis_plot_data(cfg);
 
