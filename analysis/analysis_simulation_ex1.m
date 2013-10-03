@@ -54,6 +54,13 @@ cfg.sim_name = 'sim_data_1';
 cfg.source_name = 'mult_cort_src';
 cfg.exp_name = '';
 cfg.file_in = ['..' filesep 'output' filesep...
+    'sim_data_1_mult_cort_src_ex1_epsilon_0_800_snr-10.mat'];
+analysis_plot_data(cfg);
+
+cfg.sim_name = 'sim_data_1';
+cfg.source_name = 'mult_cort_src';
+cfg.exp_name = '';
+cfg.file_in = ['..' filesep 'output' filesep...
     'sim_data_1_mult_cort_src_ex1_epsilon_0_800_snr10.mat'];
 analysis_plot_data(cfg);
 

@@ -12,6 +12,7 @@ load(cfg.file_in);
 %% Plot the data
 figure;
 plot_series(data);
+title(cfg.file_in);
 
 %% Save the figure to a file
 [~,data_file_name,~,~] = fileparts(cfg.file_in);
