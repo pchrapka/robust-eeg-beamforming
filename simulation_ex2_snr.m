@@ -82,7 +82,7 @@ for i=1:length(sim_cfg.snr_range)
             out(k).x(i,j) = sim_cfg.snr_range(i);
             out(k).status{i,j} = beam_out.opt_status;
             
-            if ~isequal(beam_out.opt_status, 'Solved')
+            if isequal(beam_out.opt_status, 'Solved')
                 % Calculate the output of the beamformer with different data
                 beam_cfg(k).W = beam_out.W;
                 signal = aet_analysis_beamform_output(...
