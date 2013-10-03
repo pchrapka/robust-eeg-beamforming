@@ -87,6 +87,7 @@ for i=1:length(epsilon)
                 
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);
+                out(k).status{i,j} = beam_out.opt_status;
                 
                 if ~isequal(beam_out.opt_status, 'Solved')
                     % Calculate the output of the beamformer with different

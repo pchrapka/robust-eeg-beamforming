@@ -74,6 +74,7 @@ for i=1:length(sim_cfg.snr_range)
             
             % Save the data SNR
             out(k).x(i,j) = sim_cfg.snr_range(i);
+            out(k).status{i,j} = beam_out.opt_status;
             
             if ~isequal(beam_out.opt_status, 'Solved')
                 % Calculate the output of the beamformer with different data
