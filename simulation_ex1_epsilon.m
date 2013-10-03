@@ -85,20 +85,26 @@ for i=1:length(epsilon)
                 beam_cfg(k).head_model = sim_cfg.head;
                 beam_out = aet_analysis_beamform(beam_cfg(k));
                 
-                % Calculate the output of the beamformer with different
-                % data
-                beam_cfg(k).W = beam_out.W;
-                signal = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_signal);
-                interference = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_interference);
-                noise = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_noise);
-                
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);
-                % Calculate the SINR
-                out(k).y(i,j) = calc_sinr(signal, interference, noise);
+                
+                if ~isequal(beam_out.opt_status, 'Solved')
+                    % Calculate the output of the beamformer with different
+                    % data
+                    beam_cfg(k).W = beam_out.W;
+                    signal = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_signal);
+                    interference = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_interference);
+                    noise = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_noise);
+                    
+                    % Calculate the SINR
+                    out(k).y(i,j) = calc_sinr(signal, interference, noise);
+                else
+                    % No output
+                    out(k).y(i,j) = NaN;
+                end
             else
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);

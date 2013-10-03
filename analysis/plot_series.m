@@ -23,9 +23,9 @@ for k=1:n
     j_m = rem(k-1,length(markers)) + 1;
     j_l = rem(k-1,length(line_styles)) + 1;
     
-    % Mean
-    mean_x = mean(data(k).x,2);
-    mean_y = mean(data(k).y,2);
+    % Mean, omitting NaNs
+    mean_x = nanmean(data(k).x,2);
+    mean_y = nanmean(data(k).y,2);
     
     if isfield(data(k), 'sort)') && data(k).sort
         % Sort the data
