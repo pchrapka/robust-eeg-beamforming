@@ -60,11 +60,11 @@ for i=1:length(sim_cfg.snr_range)
         for k=1:length(beam_cfg)
             % Set lambda for lcmv_reg
             if isequal(beam_cfg(k).type,'lcmv_reg')
-%                 lambda_cfg.R = R;
-%                 lambda_cfg.multiplier = 0.005;
-%                 beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
-%                     lambda_cfg);
-                  beam_cfg(k).lambda = 10*trace(cov(data.avg_noise'));
+                lambda_cfg.R = R;
+                lambda_cfg.multiplier = 0.005;
+                beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
+                    lambda_cfg);
+%                   beam_cfg(k).lambda = 10*trace(cov(data.avg_noise'));
             end
             
             % Run the beamformer
