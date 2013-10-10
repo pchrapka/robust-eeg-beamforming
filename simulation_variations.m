@@ -59,7 +59,7 @@ if isequal(sim_cfg.beamformer_type, 'rmv')
     end
     
 else
-    % Remove epsilon variation
+    % Remove epsilon variations
     for i=1:length(sim_vars)
         if isequal(sim_vars(i).name,'epsilon')
             sim_vars(i) = [];
