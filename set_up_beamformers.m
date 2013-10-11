@@ -23,51 +23,61 @@ function [ beam_cfg ] = set_up_beamformers(cfg)
 %% Configure beamformers
 beam_cfg(length(cfg.types)).verbosity = 0;
 
+% Start counter
+beam_idx = 1;
+% Loop through beamformer types
 for k=1:length(cfg.types)
     switch(cfg.types{k})
         case 'rmv'
             % RMV
-            beam_cfg(k).verbosity = 0;
-            beam_cfg(k).type = 'rmv';
-            beam_cfg(k).name = 'rmv';
-            beam_cfg(k).loc = cfg.loc;
-            beam_cfg(k).epsilon = ones(3,1)*sqrt(cfg.epsilon^2/3);
-            
+            for j=1:length(cfg.epsilon)
+                beam_cfg(beam_idx).verbosity = 0;
+                beam_cfg(beam_idx).type = 'rmv';
+                beam_cfg(beam_idx).name = ...
+                    ['rmv \epsilon ' num2str(cfg.epsilon(j))];
+                beam_cfg(beam_idx).loc = cfg.loc;
+                beam_cfg(beam_idx).epsilon = ...
+                    ones(3,1)*sqrt(cfg.epsilon(j)^2/3);
+            end
+            % Increment counter
+            beam_idx = beam_idx + 1;
         case 'lcmv'
             % LCMV
-            beam_cfg(k).verbosity = 0;
-            beam_cfg(k).type = 'lcmv';
-            beam_cfg(k).name = 'lcmv';
-            beam_cfg(k).loc = cfg.loc;
+            beam_cfg(beam_idx).verbosity = 0;
+            beam_cfg(beam_idx).type = 'lcmv';
+            beam_cfg(beam_idx).name = 'lcmv';
+            beam_cfg(beam_idx).loc = cfg.loc;
             
         case 'lcmv_eig'
             % LCMV EIG
-            beam_cfg(k).verbosity = 0;
-            beam_cfg(k).type = 'lcmv_eig';
-            beam_cfg(k).name = 'lcmv eigenspace';
-            beam_cfg(k).loc = cfg.loc;
-            beam_cfg(k).n_interfering_sources = cfg.n_interfering_sources;
+            beam_cfg(beam_idx).verbosity = 0;
+            beam_cfg(beam_idx).type = 'lcmv_eig';
+            beam_cfg(beam_idx).name = 'lcmv eigenspace';
+            beam_cfg(beam_idx).loc = cfg.loc;
+            beam_cfg(beam_idx).n_interfering_sources = cfg.n_interfering_sources;
             
         case 'lcmv_reg'
             % LCMV REG
-            beam_cfg(k).verbosity = 0;
-            beam_cfg(k).type = 'lcmv_reg';
-            beam_cfg(k).name = 'lcmv regularized';
-            beam_cfg(k).loc = cfg.loc;
-            beam_cfg(k).lambda = cfg.lambda;
+            beam_cfg(beam_idx).verbosity = 0;
+            beam_cfg(beam_idx).type = 'lcmv_reg';
+            beam_cfg(beam_idx).name = 'lcmv regularized';
+            beam_cfg(beam_idx).loc = cfg.loc;
+            beam_cfg(beam_idx).lambda = cfg.lambda;
             
         case 'beamspace'
             % BEAMSPACE
-            beam_cfg(k).verbosity = 0;
-            beam_cfg(k).type = 'beamspace';
-            beam_cfg(k).name = 'beamspace';
-            beam_cfg(k).loc = cfg.loc;
-            beam_cfg(k).T = cfg.T;
+            beam_cfg(beam_idx).verbosity = 0;
+            beam_cfg(beam_idx).type = 'beamspace';
+            beam_cfg(beam_idx).name = 'beamspace';
+            beam_cfg(beam_idx).loc = cfg.loc;
+            beam_cfg(beam_idx).T = cfg.T;
 
         otherwise
             error('set_up_beamformers:KeyError',...
             ['Unknown beamformer: ' cfg.types{k}]);
     end
+    % Increment counter
+    beam_idx = beam_idx + 1;
 end
 
 end

@@ -16,7 +16,7 @@ grid on;
 n = length(data);
 legend_str{n} = '';
 
-markers = ['o', 's', 'v', 'd', 'x'];
+markers = ['o', 's', 'v', 'd', 'x', '+', 'p', '*', 'h'];
 line_styles = {'-','-.','--'};
 
 for k=1:n
