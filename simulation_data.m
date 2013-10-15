@@ -1,12 +1,9 @@
-function simulation_data(varargin)
+function simulation_data(cfg)
 % Script for creating the data
 
-%% Load the simulation parameters
-optargin = size(varargin,2);
 % Load the simulation parameters
-for i=1:optargin
-    eval(varargin{i});
-end
+eval(cfg.sim_data);
+eval(cfg.sim_src_parameters);
 
 %% Control parallel execution explicity
 sim_cfg.parallel = 'user';

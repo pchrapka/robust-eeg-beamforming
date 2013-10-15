@@ -1,7 +1,7 @@
 %% Source parameter file
 % Multiple cortical sources
 
-sim_cfg.source_name = 'mult_cort_src';
+sim_cfg.source_name = 'mult_cort_src_2';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -25:5:25; % in dB
@@ -11,7 +11,7 @@ sim_cfg.n_interfering_sources = 1;
 % sim_cfg.snr.type = 'per_trial';
 sim_cfg.snr.type = 'on_average';
 sim_cfg.snr.signal = -10; % in dB
-sim_cfg.snr.interference = 30; % in dB
+sim_cfg.snr.interference = 10; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()

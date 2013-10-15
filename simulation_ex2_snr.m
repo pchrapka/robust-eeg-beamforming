@@ -7,23 +7,22 @@
 % It is also compared with the LCMV beamformer
 
 
-function simulation_ex2_snr(varargin)
+function simulation_ex2_snr(cfg)
 
-optargin = size(varargin,2);
 % Load the simulation parameters
-for i=1:optargin
-    eval(varargin{i});
-end
+eval(cfg.sim_data);
+eval(cfg.sim_src_parameters);
+eval(cfg.sim_beam);
 
 %% Set up beamformer parameters
-cfg_beamspace.n_evalues = 12;
+cfg_beamspace.n_evalues = sim_cfg.n_evalues;
 cfg_beamspace.head_model = sim_cfg.head;
 beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
 
 % We're looking in a mismatched direction which corresponds to location 218
 % for this head model
 beam_cfg.loc = 218;
-beam_cfg.epsilon = 80;
+beam_cfg.epsilon = sim_cfg.epsilon;
 beam_cfg.lambda = 0; % Set later
 beam_cfg.n_interfering_sources = sim_cfg.n_interfering_sources;
 beam_cfg.types = sim_cfg.beamformer_types;
@@ -67,39 +66,44 @@ for i=1:length(sim_cfg.snr_range)
         for k=1:length(beam_cfg)
             % Set lambda for lcmv_reg
             if isequal(beam_cfg(k).type,'lcmv_reg')
-%                 lambda_cfg.R = R;
-%                 lambda_cfg.multiplier = 0.005;
-%                 beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
-%                     lambda_cfg);
-                  beam_cfg(k).lambda = 10*sim_cfg.noise_power;
+                lambda_cfg.R = R;
+                lambda_cfg.multiplier = 0.005;
+                beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
+                    lambda_cfg);
+%                   beam_cfg(k).lambda = 10*sim_cfg.noise_power;
             end
             
             % Run the beamformer
             beam_cfg(k).R = R;
             beam_cfg(k).head_model = sim_cfg.head;
             beam_out = aet_analysis_beamform(beam_cfg(k));
-            
-            % Calculate the output of the beamformer with different data
-            beam_cfg(k).W = beam_out.W;
-            signal = aet_analysis_beamform_output(...
-                beam_cfg(k), data.avg_signal);
-            interference = aet_analysis_beamform_output(...
-                beam_cfg(k), data.avg_interference);
-            noise = aet_analysis_beamform_output(...
-                beam_cfg(k), data.avg_noise);
            
             % Save the data SNR
             out(k).x(i,j) = sim_cfg.snr_range(i);
-            % Calculate the SINR
-            out(k).y(i,j) = calc_sinr(signal, interference, noise);
+            out(k).status{i,j} = beam_out.opt_status;
+            
+            if isequal(beam_out.opt_status, 'Solved')
+                % Calculate the output of the beamformer with different data
+                beam_cfg(k).W = beam_out.W;
+                signal = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_signal);
+                interference = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_interference);
+                noise = aet_analysis_beamform_output(...
+                    beam_cfg(k), data.avg_noise);
+                
+                % Calculate the SINR
+                out(k).y(i,j) = calc_sinr(signal, interference, noise);
+            else
+                % No output
+                out(k).y(i,j) = NaN;
+            end
         end
     end
 end
 
 %% Save the output data
-sim_cfg.data_type = [...
-    sim_cfg.source_name...
-    '_ex2_snr'];
+sim_cfg.data_type = cfg.sim_file_out;
 aet_save(sim_cfg, out);
 
 % Required output
