@@ -1,6 +1,6 @@
-function simulation_variations_all(varargin)
+function simulation_variations_all(cfg)
 %SIMULATION_VARIATIONS_ALL runs simulation sweeps for all beamformer types
-%   SIMULATION_VARIATIONS_ALL(VARARGIN)
+%   SIMULATION_VARIATIONS_ALL(CFG)
 %
 %   Requires 
 %       sim_vars parameter file
@@ -8,11 +8,11 @@ function simulation_variations_all(varargin)
 %
 
 
-%% Load the simulation parameters
-optargin = size(varargin,2);
-for i=1:optargin
-    eval(varargin{i});
-end
+% Load the simulation parameters
+eval(cfg.sim_data);
+eval(cfg.sim_vars);
+eval(cfg.sim_src_parameters);
+eval(cfg.sim_beam);
 
 %% Control parallel execution explicity
 sim_cfg.parallel = 'user';

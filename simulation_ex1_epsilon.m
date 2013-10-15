@@ -3,24 +3,19 @@
 % leadfield matrix over varying values of epsilon. It is also compared with
 % the LCMV beamformer
 
-function simulation_ex1_epsilon(varargin)
+function simulation_ex1_epsilon(cfg)
 
-optargin = size(varargin,2);
 % Load the simulation parameters
-for i=1:optargin
-    eval(varargin{i});
-end
+eval(cfg.sim_data);
+eval(cfg.sim_src_parameters);
+eval(cfg.sim_beam);
 
 %% Varying simulation parameters
 % Set range for epsilon
-% start_exp = -3;
-% end_exp = 2;
-n_epsilon = 50; %end_exp-start_exp+1;
-% epsilon = logspace(start_exp, end_exp, n_epsilon);
-epsilon = linspace(0, 200, n_epsilon);
+epsilon = linspace(cfg.epsilon(1), cfg.epsilon(2), cfg.n_epsilon);
 
 %% Set up beamformer parameters
-cfg_beamspace.n_evalues = 12;
+cfg_beamspace.n_evalues = sim_cfg.n_evalues;
 cfg_beamspace.head_model = sim_cfg.head;
 beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
 
@@ -37,14 +32,14 @@ beam_cfg = set_up_beamformers(beam_cfg_in);
 %% Set up the output struct
 
 out_cfg.beam_cfg = beam_cfg;
-out_cfg.x_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
-out_cfg.y_size = [length(sim_cfg.snr_range) sim_cfg.n_runs];
+out_cfg.x_size = [length(epsilon) sim_cfg.n_runs];
+out_cfg.y_size = [length(epsilon) sim_cfg.n_runs];
 out_cfg.y_label = 'Output SINR (dB)';
 out_cfg.x_label = '\epsilon';
 out = set_up_output(out_cfg);
 
 %% Run simulation
-cur_snr = -10;
+cur_snr = cfg.cur_snr;
 for i=1:length(epsilon)
     fprintf('\nEpsilon: %d \n', epsilon(i));
     
@@ -90,20 +85,27 @@ for i=1:length(epsilon)
                 beam_cfg(k).head_model = sim_cfg.head;
                 beam_out = aet_analysis_beamform(beam_cfg(k));
                 
-                % Calculate the output of the beamformer with different
-                % data
-                beam_cfg(k).W = beam_out.W;
-                signal = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_signal);
-                interference = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_interference);
-                noise = aet_analysis_beamform_output(...
-                    beam_cfg(k), data.avg_noise);
-                
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);
-                % Calculate the SINR
-                out(k).y(i,j) = calc_sinr(signal, interference, noise);
+                out(k).status{i,j} = beam_out.opt_status;
+                
+                if isequal(beam_out.opt_status, 'Solved')
+                    % Calculate the output of the beamformer with different
+                    % data
+                    beam_cfg(k).W = beam_out.W;
+                    signal = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_signal);
+                    interference = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_interference);
+                    noise = aet_analysis_beamform_output(...
+                        beam_cfg(k), data.avg_noise);
+                    
+                    % Calculate the SINR
+                    out(k).y(i,j) = calc_sinr(signal, interference, noise);
+                else
+                    % No output
+                    out(k).y(i,j) = NaN;
+                end
             else
                 % Save the epsilon
                 out(k).x(i,j) = epsilon(i);
@@ -115,9 +117,7 @@ for i=1:length(epsilon)
 end
 
 %% Save the output data
-sim_cfg.data_type = [...
-    sim_cfg.source_name...
-    '_ex1_epsilon'];
+sim_cfg.data_type = cfg.sim_file_out;
 aet_save(sim_cfg, out);
 
 % Required output

@@ -1,7 +1,10 @@
 %% Source parameter file
 % Multiple cortical sources
+%
+% Based on Ravan2013
+%   Second source is 8 dB, 4 Hz, and has a different moment
 
-sim_cfg.source_name = 'mult_cort_src';
+sim_cfg.source_name = 'mult_cort_src_3';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -25:5:25; % in dB
@@ -11,7 +14,7 @@ sim_cfg.n_interfering_sources = 1;
 % sim_cfg.snr.type = 'per_trial';
 sim_cfg.snr.type = 'on_average';
 sim_cfg.snr.signal = -10; % in dB
-sim_cfg.snr.interference = 30; % in dB
+sim_cfg.snr.interference = 8; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()
@@ -36,9 +39,12 @@ sim_cfg.sources{1}.source_index = 207;
 sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
 sim_cfg.sources{2}.type = 'interference';
 sim_cfg.sources{2}.signal_type = 'erp';
-sim_cfg.sources{2}.snr = 30; % in dB
-sim_cfg.sources{2}.freq = 20;
-sim_cfg.sources{2}.pos = 150;
+sim_cfg.sources{2}.snr = 8; % in dB
+sim_cfg.sources{2}.freq = 4;
+sim_cfg.sources{2}.pos = 200;
+sim_cfg.sources{2}.jitter = 5;
+
+sim_cfg.sources{2}.moment = [0.5;0.5;1]/norm([0.5;0.5;1]); 
 
 % Source head model params
 % Index of brain source voxel

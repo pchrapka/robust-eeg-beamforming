@@ -3,6 +3,7 @@
 .#*
 *.asv
 analysis/output/*
+analysis/temp.mat
 output/*
 auto/*
 *.tex

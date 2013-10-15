@@ -13,7 +13,7 @@ end
 
 % Configure the beamspace beamformer
 if isequal(sim_cfg.beamformer_type, 'beamspace')
-    cfg_beamspace.n_evalues = 12;
+    cfg_beamspace.n_evalues = sim_cfg.n_evalues;
     cfg_beamspace.head_model = sim_cfg.head;
     beamspace_data = aet_analysis_beamspace_cfg(cfg_beamspace);
     beamspace_T = beamspace_data.T;
@@ -59,7 +59,7 @@ if isequal(sim_cfg.beamformer_type, 'rmv')
     end
     
 else
-    % Remove epsilon variation
+    % Remove epsilon variations
     for i=1:length(sim_vars)
         if isequal(sim_vars(i).name,'epsilon')
             sim_vars(i) = [];
