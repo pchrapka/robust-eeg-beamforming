@@ -10,9 +10,9 @@ aet_init
 
 %% Select data
 cfg.file_in = ['..' filesep 'output' filesep ...
-    'out_sim_vars_1_lcmv.mat'];
+    'out_sim_vars_3_lcmv.mat'];
 cfg.iteration = 1;
-cfg.snr = -5;
+cfg.snr = 10;
 cfg.epsilon = ones(3,1)*sqrt(80^2/3);
 cfg = analysis_param_sweep_select_data(cfg);
 
