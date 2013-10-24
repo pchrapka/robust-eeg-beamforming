@@ -61,6 +61,7 @@ for i=1:n_vertices
 end
 
 % Reshape the data
+cfg.beam_data = beam_data;
 cfg.bst_source.ImageGridAmp = reshape(beam_data,...
     [n_components*n_vertices n_time]);
 

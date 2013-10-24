@@ -12,7 +12,7 @@ aet_init
 cfg.file_in = ['..' filesep 'output' filesep ...
     'out_sim_vars_3_lcmv.mat'];
 cfg.iteration = 1;
-cfg.snr = 10;
+cfg.snr = -5;
 cfg.epsilon = ones(3,1)*sqrt(80^2/3);
 cfg = analysis_param_sweep_select_data(cfg);
 
@@ -40,3 +40,13 @@ norm(source.ImageGridAmp)
 %% Next Steps
 % 1. Import cfg.eeg_data as the EEG data in Brainstorm
 % 2. Import cfg.bst_source into the MN variable in Brainstorm
+
+figure;
+for j=1:3
+    for i=1:size(cfg.beam_data,2)
+        comp(i,:) = squeeze(cfg.beam_data(j,i,:));
+    end
+    subplot(3,1,j);
+    surf(comp);
+    view(0, 0);
+end
