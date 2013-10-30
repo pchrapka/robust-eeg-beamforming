@@ -50,7 +50,8 @@ if isequal(sim_cfg.beamformer_type, 'rmv')
         beam_cfg = set_up_beamformers(beam_cfg);
         
         % Set up config for the simulation
-        cfg = struct('head_model_file',sim_cfg.head_model_data_full);
+        cfg = struct('head_model_file',...
+            sim_cfg.head_model_data_full);
         cfg.data_file = p(i).in;
         cfg.beam_cfg = beam_cfg(1);
         
