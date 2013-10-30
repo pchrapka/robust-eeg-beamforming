@@ -38,15 +38,18 @@ for k=1:length(cfg.types)
                 beam_cfg(beam_idx).loc = cfg.loc;
                 beam_cfg(beam_idx).epsilon = ...
                     ones(3,1)*sqrt(cfg.epsilon(j)^2/3);
+                % Increment counter
+                beam_idx = beam_idx + 1;
             end
-            % Increment counter
-            beam_idx = beam_idx + 1;
+            
         case 'lcmv'
             % LCMV
             beam_cfg(beam_idx).verbosity = 0;
             beam_cfg(beam_idx).type = 'lcmv';
             beam_cfg(beam_idx).name = 'lcmv';
             beam_cfg(beam_idx).loc = cfg.loc;
+            % Increment counter
+            beam_idx = beam_idx + 1;
             
         case 'lcmv_eig'
             % LCMV EIG
@@ -55,6 +58,8 @@ for k=1:length(cfg.types)
             beam_cfg(beam_idx).name = 'lcmv eigenspace';
             beam_cfg(beam_idx).loc = cfg.loc;
             beam_cfg(beam_idx).n_interfering_sources = cfg.n_interfering_sources;
+            % Increment counter
+            beam_idx = beam_idx + 1;
             
         case 'lcmv_reg'
             % LCMV REG
@@ -63,6 +68,8 @@ for k=1:length(cfg.types)
             beam_cfg(beam_idx).name = 'lcmv regularized';
             beam_cfg(beam_idx).loc = cfg.loc;
             beam_cfg(beam_idx).lambda = cfg.lambda;
+            % Increment counter
+            beam_idx = beam_idx + 1;
             
         case 'beamspace'
             % BEAMSPACE
@@ -71,13 +78,13 @@ for k=1:length(cfg.types)
             beam_cfg(beam_idx).name = 'beamspace';
             beam_cfg(beam_idx).loc = cfg.loc;
             beam_cfg(beam_idx).T = cfg.T;
-
+            % Increment counter
+            beam_idx = beam_idx + 1;
+            
         otherwise
             error('set_up_beamformers:KeyError',...
             ['Unknown beamformer: ' cfg.types{k}]);
     end
-    % Increment counter
-    beam_idx = beam_idx + 1;
 end
 
 end

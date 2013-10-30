@@ -13,7 +13,7 @@ function [ cfg ] = analysis_param_sweep_select_data(cfg)
 %
 %   Output
 %   cfg     same struct as before, with the following fields updated
-%       out         the selected data from parameter sweep
+%       eeg_data    EEG data used for the analysis
 %
 %   See also SIMULATION_VARIATIONS
 
@@ -34,10 +34,34 @@ out_temp = out_temp([out_temp.snr] == cfg.snr);
 % Epsilon, if it's there
 if isfield(out_temp(1), 'epsilon')
     out_temp = out_temp(...
+<<<<<<< HEAD
         cellfun(@(x)isequal(x, cfg.epsilon),...
+=======
+        cellfun(@(x)isequal(x, cfg.epsilon'),...
+>>>>>>> develop
         {out_temp.epsilon}));
 end
 
+% Load the EEG data
+% NOTE At this point we should have filtered down to a single data set
+data_file = ['..' filesep out_temp(1).data_file];
+<<<<<<< HEAD
+% Replace slashes just in case
+data_file = strrep(data_file, '/', filesep);
+load(data_file);    % loads variable data
+cfg.eeg_data = data.avg_trials;
+clear data;
+
 cfg.out = out_temp;
 
+=======
+data_file = strrep(data_file, '\', '/');
+load(data_file);    % loads variable data
+% NOTE I am only doing the signal + noise portion
+warning('reb:analysis_plot_brain_surface',...
+    'Only using signal + noise in output, no interference source');
+cfg.eeg_data = data.avg_signal + data.avg_noise;
+clear data;
+
+>>>>>>> develop
 end
