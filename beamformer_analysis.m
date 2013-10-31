@@ -1,11 +1,11 @@
-function [out] = simulation_generic(cfg)
-%SIMULATION_GENERIC
-%   SIMULATION_GENERIC(CFG)
+function beamformer_analysis(cfg)
+%BEAMFORMER_ANALYSIS
+%   BEAMFORMER_ANALYSIS(CFG)
 %
 %   cfg
 %       head_model_file
+%       beamformer_config
 %       data_file
-%       beam_cfg
 %       
 
 % Load the head model
@@ -24,6 +24,10 @@ if ~isfield(data,'R')
     % Calculate it once and save it to the data file
     save(cfg.data_file, 'data');
 end
+
+% Load the beamformer config
+cfg_beam = beamformer_configs.get_config(...
+    cfg.beamformer_config, data);
     
 
 % Set lambda for lcmv_reg
@@ -70,4 +74,5 @@ if isequal(cfg.beam_cfg.type,'beamspace')
     out.T = cfg.beam_cfg.T;
 end
 
+end
 end
