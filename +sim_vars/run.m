@@ -34,7 +34,7 @@ if run_parallel
         % - add a force flag
         
         % Run the simulation
-        out = feval(analysis_run_func, p(i));
+        feval(analysis_run_func, p(i));
     end
 else
     % Regular
@@ -48,7 +48,7 @@ else
         % - add a force flag
         
         % Run the simulation
-        out = feval(analysis_run_func, p(i));
+        feval(analysis_run_func, p(i));
     end
 end
 

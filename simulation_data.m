@@ -39,7 +39,8 @@ parfor j=1:length(sim_cfg.snr_range)
         tmpcfg.source_name = sim_cfg.source_name;
         tmpcfg.snr = cur_snr;
         tmpcfg.iteration = i;
-        db.save(tmpcfg, data);
+        save_file = db.save_setup(tmpcfg);
+        parsave(save_file, data);
     end
 end
 
@@ -47,4 +48,8 @@ end
 sim_cfg.parallel = '';
 aet_parallel_close(sim_cfg)
 
+end
+
+function parsave(fname, data)
+save(fname, 'data')
 end

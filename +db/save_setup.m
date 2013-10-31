@@ -1,6 +1,6 @@
-function save(cfg, varargin)
-%SAVE saves data in the output folder
-%   SAVE(CFG, VARARGIN)
+function save_file = save_setup(cfg)
+%SAVE_SETUP saves data in the output folder
+%   SAVE_SETUP(CFG)
 %   
 %   cfg
 %   Method 1 Save in a hierarchical directory specified by the following
@@ -19,7 +19,7 @@ if ~isfield(cfg, 'file_name')
     % Method 1
     
     % Get the save directory
-    save_dir = get_file_dir(cfg);
+    save_dir = db.get_file_dir(cfg);
     
     % Check the output directory
     if ~exist(save_dir, 'dir');
@@ -33,14 +33,14 @@ else
     % Method 2
     % Get the directory that contains the file function
     if verLessThan('matlab', '7.14')
-        [save_dir,~,~,~] = fileparts(cfg.file_name);
+        [save_dir,save_name,~,~] = fileparts(cfg.file_name);
     else
-        [save_dir,~,~] = fileparts(cfg.file_name);
+        [save_dir,save_name,~] = fileparts(cfg.file_name);
     end
     
     % Add a tag
     tmpcfg = [];
-    tmpcfg.file_name = cfg.file_name;
+    tmpcfg.file_name = save_name;
     tmpcfg.tag = cfg.tag;
     file_name = db.add_tag(tmpcfg);
     
@@ -48,5 +48,4 @@ else
     save_file = fullfile(save_dir, file_name);
 end
 
-save(save_file, varargin{:})
 end

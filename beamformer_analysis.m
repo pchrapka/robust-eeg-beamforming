@@ -87,13 +87,15 @@ for i=1:n_scans
         out.beamformer_output(j,i,:) = beam_signal(j,:);
     end
 end
+fprintf('\n');
 
 % Save the output
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 tmpcfg.tag = cfg.beamformer_config;
 source = out;
-db.save(tmpcfg, source);
+save_file = db.save_setup(tmpcfg);
+save(save_file, 'source');
 
 % Revert
 path(cur_path);

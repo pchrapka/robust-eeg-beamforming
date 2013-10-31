@@ -11,7 +11,7 @@ switch cfg_id
         
         % Data files
         cfg_data = [];
-        cfg_data.data_name = 'sim_data_1';
+        cfg_data.data_name = 'sim_data_test';
         cfg_data.source_name = 'mult_cort_src_3';
         cfg_data.iteration_range = 1;
         cfg_data.snr_range = [-5 0 5 10];
@@ -21,11 +21,18 @@ switch cfg_id
         k = k+1;
         
         % Head model
+        % Get the directory that contains this function
+        if verLessThan('matlab', '7.14')
+            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
+        else
+            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
+        end
         head_model_file = fullfile(...
-            '..','..','head-models',...
+            cur_dir,'..','..','head-models',...
             'brainstorm','head_Default1_500V.mat');
         sim_vars(k).name = 'head_model_file';
         sim_vars(k).values = {head_model_file};
+        k = k+1;
         
         % Beamformer locations
         sim_vars(k).name = 'loc';
@@ -62,7 +69,7 @@ for i=1:length(cfg.snr_range)
         tmpcfg.source_name = cfg.source_name;
         tmpcfg.snr = cfg.snr_range(i);
         tmpcfg.iteration = cfg.iteration_range(j);
-        out.values{count} = db.get_full_file_name(tmpcfg);    
+        out{count} = db.get_full_file_name(tmpcfg);    
         count = count + 1;
     end
 end
