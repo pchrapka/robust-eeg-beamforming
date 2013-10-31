@@ -1,5 +1,4 @@
-%% run_simulation_3.m -- All example simulations
-% Runs all the simulations using mult_cort_src_3
+%% run_sim_vars.m -- Script for running different analysis variations 
 
 clear all;
 close all;
@@ -27,7 +26,7 @@ k = 1;
 % FIXME Still need somewhere to save the file
 scripts(k).func = @sim_vars.run;
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config('sim_vars_1'),...
+    'sim_vars',             sim_vars.get_config('sim_vars_test'),...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
