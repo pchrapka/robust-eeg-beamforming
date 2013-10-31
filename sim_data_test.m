@@ -25,13 +25,13 @@ sim_cfg.n_channels = size(gain_temp,1);
 %% Simulation parameters
 
 % Number of trials
-sim_cfg.trials = 10;
+sim_cfg.trials = 2;
 % Sampling frequency
 sim_cfg.fsample = 250;
 % Number of time samples per trial
 sim_cfg.timepoints = 1000;
 % Simulation runs
-sim_cfg.n_runs = 10;
+sim_cfg.n_runs = 2;
 
 % Option for averaged data
 sim_cfg.average_data = true;

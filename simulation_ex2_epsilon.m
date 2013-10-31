@@ -81,6 +81,7 @@ for i=1:length(epsilon)
                 % Set lambda for lcmv_reg
                 if isequal(beam_cfg(k).type,'lcmv_reg')
                     lambda_cfg.R = R;
+                    lambda_cfg.type = 'eig';
                     lambda_cfg.multiplier = 0.005;
                     beam_cfg(k).lambda = aet_analysis_beamform_get_lambda(...
                         lambda_cfg);

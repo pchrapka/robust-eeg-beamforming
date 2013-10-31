@@ -26,14 +26,21 @@ parfor j=1:length(sim_cfg.snr_range)
         data.iteration = i;
         data.snr = cur_snr;
         
-        % Save the data
-        temp_cfg.data_type = [...
-            sim_cfg.source_name '_'...
-            num2str(cur_snr) '_'...
-            num2str(i)...
-            ];
+%         % Save the data
+%         temp_cfg.data_type = [...
+%             sim_cfg.source_name '_'...
+%             num2str(cur_snr) '_'...
+%             num2str(i)...
+%             ];
         
-        aet_save(temp_cfg, data);
+        %aet_save(temp_cfg, data);
+        tmpcfg = [];
+        tmpcfg.sim_name = sim_cfg.sim_name;
+        tmpcfg.source_name = sim_cfg.source_name;
+        tmpcfg.snr = cur_snr;
+        tmpcfg.iteration = i;
+        save_file = db.save_setup(tmpcfg);
+        parsave(save_file, data);
     end
 end
 
@@ -41,4 +48,8 @@ end
 sim_cfg.parallel = '';
 aet_parallel_close(sim_cfg)
 
+end
+
+function parsave(fname, data)
+save(fname, 'data')
 end
