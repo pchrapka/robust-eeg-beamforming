@@ -1,5 +1,5 @@
 function out = get_file_name(cfg)
-%GET_FILE_NAME creates a file name from CFG
+%GET_FILE_NAME returns a file name from CFG
 %   GET_FILE_NAME(CFG)
 %   
 %   cfg

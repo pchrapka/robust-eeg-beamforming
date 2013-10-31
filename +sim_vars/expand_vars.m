@@ -1,14 +1,14 @@
-function variations = sim_vars_expand(sim_vars)
-%SIM_VARS_EXPAND expands the variations in SIM_VARS
+function variations = expand_vars(params)
+%EXPAND_VARS expands the variations in PARAMS
 
-% Expand the variations from sim_vars
+% Expand the variations from params
 index=arrayfun(@(variations) (1:length(variations.values)), ...
-    sim_vars, 'UniformOutput', false);
+    params, 'UniformOutput', false);
 [index{:}]=ndgrid(index{:});
 
-structarg=[{sim_vars.name}; ...
+structarg=[{params.name}; ...
     arrayfun(@(variations,idx) (variations.values(idx{1})), ...
-    sim_vars, index, 'UniformOutput', false)];
+    params, index, 'UniformOutput', false)];
 variations=struct(structarg{:});
 clear index structarg
 % Optinal reshapping structure in row

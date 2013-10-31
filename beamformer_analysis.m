@@ -6,12 +6,18 @@ function beamformer_analysis(cfg)
 %       head_model_file
 %       beamformer_config
 %       data_file
+%       loc    indices of vertices to scan (default = all vertices)
 %       
 
 % Load the head model
 data_in = load(cfg.head_model_file); % loads head
 head = data_in.head;
 clear data_in;
+
+if ~isfield(cfg, 'loc')
+    % Scanning all vertices in head model
+    cfg.loc = 1:size(head.GridLoc,1);
+end
 
 % Load the data
 data_in = load(cfg.data_file); % loads data
@@ -20,7 +26,9 @@ clear data_in;
 
 % Calculate the covariance
 if ~isfield(data,'R')
-    data.R = cov(data.avg_trials');
+%     data.R = cov(data.avg_trials');
+    N = size(data.avg_trials,1);
+    data.R = (1/N)*(data.avg_trials*data.avg_trials');
     % Calculate it once and save it to the data file
     save(cfg.data_file, 'data');
 end
@@ -28,51 +36,66 @@ end
 % Load the beamformer config
 cfg_beam = beamformer_configs.get_config(...
     cfg.beamformer_config, data);
-    
+% Finish setting up the beamformer config
+cfg_beam.R = data.R;
+cfg_beam.head_model = head;
 
-% Set lambda for lcmv_reg
-if isequal(cfg.beam_cfg.type,'lcmv_reg')
-    lambda_cfg.R = data.R;
-    lambda_cfg.type = 'eig';
-    lambda_cfg.multiplier = 0.005;
-    cfg.beam_cfg.lambda = aet_analysis_beamform_get_lambda(...
-        lambda_cfg);
-    % cfg.beam_cfg.lambda = 10*trace(cov(data.avg_noise'));
-end
-
-% Run the beamformer
-cfg.beam_cfg.R = data.R;
-cfg.beam_cfg.head_model = head;
-beam_out = aet_analysis_beamform(cfg.beam_cfg);
-
-% Calculate the output of the beamformer with different data
-cfg.beam_cfg.W = beam_out.W;
-signal = aet_analysis_beamform_output(...
-    cfg.beam_cfg, data.avg_signal);
-interference = aet_analysis_beamform_output(...
-    cfg.beam_cfg, data.avg_interference);
-noise = aet_analysis_beamform_output(...
-    cfg.beam_cfg, data.avg_noise);
-
-%% Save the output data
+% Set up the output
+out = [];
 out.data_file = cfg.data_file;
-out.beamformer_type = cfg.beam_cfg.type;
-out.W = beam_out.W;
-out.H = beam_out.H;
-out.loc = beam_out.loc;
-out.snr = data.snr; % redundant, info in data_file
-out.iteration = data.iteration; % redundant, info in data_file
+out.head_model_file = cfg.head_model_file;
+out.snr = data.snr;
+out.iteration = data.iteration;
+out.beamformer_config = cfg.beamformer_config;
 
-% Calculate the SINR
-out.sinr = calc_sinr(signal, interference, noise);
+n_components = 3;
+n_time = size(data.avg_trials,2);
+n_vertices = length(cfg.loc);
+out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
-if isfield(cfg.beam_cfg,'epsilon')
-    out.epsilon = cfg.beam_cfg.epsilon;
+% Setup a progress bar
+n_scans = length(cfg.loc);
+cur_path = path;
+if ~exist('progressBar','file')
+    new_path = fullfile('external','progressBar');
+    addpath(new_path);
+end
+progbar = progressBar(n_scans, 'Scanning');
+
+% Scan locations
+for i=1:n_scans
+    progbar(i);
+    idx = cfg.loc(i);
+    
+    % Set the location to scan
+    cfg_beam.loc = i;
+    % Calculate the beamformer
+    beam_out = aet_analysis_beamform(cfg_beam);
+    out.filter{i} = beam_out.W;
+    out.leadfield{i} = beam_out.H;
+    out.loc(i) = idx;
+    
+    % Calculate the beamformer output for each component
+    tmpcfg =[];
+    tmpcfg.W = beam_out.W;
+    tmpcfg.type = cfg_beam.type;
+    beam_signal = aet_analysis_beamform_output(...
+        tmpcfg, data.avg_trials);
+    
+    % Save the output of the beamformer
+    for j=1:n_components
+        out.beamformer_output(j,i,:) = beam_signal(j,:);
+    end
 end
 
-if isequal(cfg.beam_cfg.type,'beamspace')
-    out.T = cfg.beam_cfg.T;
-end
+% Save the output
+tmpcfg = [];
+tmpcfg.file_name = cfg.data_file;
+tmpcfg.tag = cfg.beamformer_config;
+source = out;
+db.save(tmpcfg, source);
 
-end
+% Revert
+path(cur_path);
+
 end
