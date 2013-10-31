@@ -6,7 +6,7 @@ function sim_vars = get_config(cfg_id)
 %   NOTE New configs need to be added here explicity.
 
 switch cfg_id
-    case 'sim_vars_1'
+    case 'sim_vars_test'
         k = 1;
         
         % Data files
