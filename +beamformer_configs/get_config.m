@@ -5,18 +5,45 @@ function cfg = get_config(cfg_id, data)
 %   
 %   NOTE New beamformers need to be added here explicity.
 switch cfg_id
-    case 'rmv_epsilon_80'
-        epsilon = 80;
+    case 'rmv_epsilon_50'
+        epsilon = 50;
         cfg = get_rmv_config(epsilon);
+    case 'rmv_epsilon_100'
+        epsilon = 100;
+        cfg = get_rmv_config(epsilon);
+    case 'rmv_epsilon_150'
+        epsilon = 150;
+        cfg = get_rmv_config(epsilon);        
+    case 'rmv_epsilon_200'
+        epsilon = 200;
+        cfg = get_rmv_config(epsilon);        
+    case 'rmv_epsilon_250'
+        epsilon = 250;
+        cfg = get_rmv_config(epsilon);                
+    case 'rmv_epsilon_300'
+        epsilon = 300;
+        cfg = get_rmv_config(epsilon);                
+    case 'rmv_epsilon_350'
+        epsilon = 350;
+        cfg = get_rmv_config(epsilon);        
+    case 'rmv_epsilon_400'
+        epsilon = 400;
+        cfg = get_rmv_config(epsilon);        
     case 'lcmv'
         cfg = get_lcmv_config();
     case 'lcmv_reg_eig'
         type = 'eig';
         multiplier = 0.005;
         cfg = get_lcmv_reg_config(type, multiplier, data.R);
+    case 'lcmv_eig_1'
+        n_interfering_sources = 1;
+        cfg = get_lcmv_eig_config(n_interfering_sources);        
     case 'lcmv_eig_2'
         n_interfering_sources = 2;
         cfg = get_lcmv_eig_config(n_interfering_sources);
+    case 'lcmv_eig_3'
+        n_interfering_sources = 3;
+        cfg = get_lcmv_eig_config(n_interfering_sources);        
     otherwise
         error('beamformer_configs:get_config',...
             'unknown beamformer config');
