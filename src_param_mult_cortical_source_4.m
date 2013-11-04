@@ -38,8 +38,8 @@ sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
 sim_cfg.sources{2}.type = 'signal';
 sim_cfg.sources{2}.signal_type = 'erp';
 sim_cfg.sources{2}.snr = -10; % in dB
-sim_cfg.sources{2}.freq = 4;
-sim_cfg.sources{2}.pos = 200;
+sim_cfg.sources{2}.freq = 10;
+sim_cfg.sources{2}.pos = 120;
 sim_cfg.sources{2}.jitter = 5;
 
 sim_cfg.sources{2}.moment = [0.5;0.5;1]/norm([0.5;0.5;1]); 
