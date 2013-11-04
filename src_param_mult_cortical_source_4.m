@@ -12,7 +12,7 @@ sim_cfg.snr_range = -40:5:25; % in dB
 % sim_cfg.snr.type = 'per_trial';
 sim_cfg.snr.type = 'on_average';
 sim_cfg.snr.signal = -10; % in dB
-sim_cfg.snr.interference = 8; % in dB
+% sim_cfg.snr.interference = 8; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()
