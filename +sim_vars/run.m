@@ -21,6 +21,10 @@ p = sim_vars.expand_vars(cfg.sim_vars);
 
 if run_parallel
 
+    % Control parallel execution explicity
+    tmpcfg = [];
+    aet_parallel_init(tmpcfg);
+    
     % Parallel
     analysis_run_func = cfg.analysis_run_func;
     parfor i=1:length(p)
@@ -33,6 +37,8 @@ if run_parallel
         % Run the simulation
         feval(analysis_run_func, p(i));
     end
+    
+    aet_parallel_close(tmpcfg);
 else
     % Regular
     analysis_run_func = cfg.analysis_run_func;
