@@ -23,6 +23,7 @@ end
 data_in = load(cfg.data_file); % loads data
 data = data_in.data;
 clear data_in;
+fprintf('Analyzing: %s\n',cfg.data_file);
 
 % Calculate the covariance
 if ~isfield(data,'R')
@@ -36,9 +37,15 @@ end
 % Load the beamformer config
 cfg_beam = beamformer_configs.get_config(...
     cfg.beamformer_config, data);
+fprintf('Running: %s\n',cfg.beamformer_config);
 % Finish setting up the beamformer config
 cfg_beam.R = data.R;
 cfg_beam.head_model = head;
+% Print a warning just in case for cvx
+if isequal(cfg_beam.solver,'cvx')
+    warning('reb:beamformer_analysis',...
+        'Make sure you''re not running in parfor');
+end
 
 % Set up the output
 out = [];
@@ -55,16 +62,18 @@ out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
 % Setup a progress bar
 n_scans = length(cfg.loc);
-cur_path = path;
-if ~exist('progressBar','file')
-    new_path = fullfile('external','progressBar');
-    addpath(new_path);
-end
-progbar = progressBar(n_scans, 'Scanning');
+% cur_path = path;
+% if ~exist('progressBar','file')
+%     new_path = fullfile('external','progressBar');
+%     addpath(new_path);
+% end
+% progbar = progressBar(n_scans, 'Scanning');
 
 % Scan locations
 for i=1:n_scans
-    progbar(i);
+%     progbar(i);
+    fprintf('%s snr %d iter %d %d/%d\n',...
+        cfg.beamformer_config,out.snr,out.iteration,i,n_scans);
     idx = cfg.loc(i);
     
     % Set the location to scan

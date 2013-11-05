@@ -55,6 +55,7 @@ end
 function cfg = get_rmv_config(epsilon)
 % Sets up an rmv config
 cfg = [];
+cfg.solver = 'yalmip';
 cfg.verbosity = 0;
 cfg.type = 'rmv';
 cfg.name = ...
