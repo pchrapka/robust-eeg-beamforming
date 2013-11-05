@@ -184,26 +184,5 @@ cfg = struct(...
 scripts(k).vars = {cfg};
 k = k+1;
 
-%% Parameter sweep
-
-% scripts(k).func = @simulation_data;
-% cfg = struct(...
-%     'sim_data',             'sim_data_1',...
-%     'sim_src_parameters',   'src_param_mult_cortical_source_2');
-% scripts(k).vars = {cfg};
-% k = k+1;
-
-% scripts(k).func = @simulation_variations_all;
-% cfg = struct(...
-%     'sim_data',             'sim_data_1',...
-%     'sim_vars',             'sim_vars_1',...
-%     'sim_src_parameters',   'src_param_mult_cortical_source_2');
-%     'sim_beam',             'sim_beam_2',...
-% scripts(k).vars = {cfg};
-% k = k+1;
-
-
-
-
 %% Run the scripts
 aet_run_scripts( scripts );
