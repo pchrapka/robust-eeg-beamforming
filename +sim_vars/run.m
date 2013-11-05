@@ -6,16 +6,13 @@ function run(cfg)
 %       name    string describing parameter
 %       value   cell array of values
 %
-%   (unnecessary) cfg.analysis_setup_func     (function handle)
-%       function for converting the
 %   cfg.analysis_run_func   (function handle)
 %       function to run the analysis, its argument will be a permutation of
 %       the simulation variables
 %       ex.
 %           out = beamformer_analysis(params(i))
 
-% Check if we can run parallel
-run_parallel = sim_vars.check_parallel(cfg.sim_vars);
+run_parallel = true;
 
 % Expand the variations from sim_vars
 p = sim_vars.expand_vars(cfg.sim_vars);

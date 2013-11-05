@@ -1,11 +1,39 @@
 %% Set up vars
-n_checks = 3;
+n_checks = 6;
 complete(1:n_checks) = false;
 count = 1;
 
 % Get the user's Matlab directory
 matlab_dir = userpath;
 matlab_dir = matlab_dir(1:end-1);
+
+%% Add yalmip package to Matlab path
+yalmip_path = [matlab_dir filesep 'yalmip'];
+if exist(yalmip_path,'dir') ~= 7
+    % Try adding if ourselves
+    warning('STARTUP:CheckPackages',...
+        'Missing yalmip package.\nDownload and install from the web.\nSee README');
+    complete(count) = false;
+    count = count + 1;
+else
+    yalmip_install();
+    complete(count) = true;
+    count = count + 1;
+end
+
+%% Add SDPT3 package to Matlab path
+SDPT3_path = [matlab_dir filesep 'SDPT3-4.0'];
+if exist(SDPT3_path,'dir') ~= 7
+    % Try adding if ourselves
+    warning('STARTUP:CheckPackages',...
+        'Missing SDPT3 package.\nDownload and install from the web.\nSee README');
+    complete(count) = false;
+    count = count + 1;
+else
+    addpath(SDPT3_path);
+    complete(count) = true;
+    count = count + 1;
+end
 
 %% Add progressBar package to Matlab path
 progressBar_path = [matlab_dir filesep 'progressBar'];
@@ -155,3 +183,5 @@ else
     disp('Project: robust-eeg-beamforming-paper')
     disp('Not Initialized')
 end
+
+clear all;

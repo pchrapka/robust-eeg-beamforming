@@ -39,6 +39,10 @@ cfg_beam = beamformer_configs.get_config(...
 % Finish setting up the beamformer config
 cfg_beam.R = data.R;
 cfg_beam.head_model = head;
+if isequal(cfg_beam.solver,'cvx')
+    warning('reb:beamformer_analysis',...
+        'Make sure you''re not running in parfor');
+end
 
 % Set up the output
 out = [];
