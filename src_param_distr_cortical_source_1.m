@@ -15,7 +15,7 @@ sim_cfg.snr.signal = -10; % in dB
 % sim_cfg.snr.interference = 8; % in dB
 
 %% Set up sources
-radius = 2/100;
+radius = 4/100;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.type = 'radius';
@@ -34,16 +34,17 @@ cfg.head = sim_cfg.head;
 cfg.type = 'index';
 cfg.idx = 207;
 [~,center_loc] = hm_get_vertices(cfg);
-sigma = radius*ones(3,1);
+sigma = radius/3; % 3 std devs to be within the radius
+spatial_cov = (sigma^2)*ones(1,3);
 for i=1:length(distr_idx)
     % Source signal params for pr_peak()
     sim_cfg.sources{i}.type = 'signal';
     sim_cfg.sources{i}.signal_type = 'erp';
     sim_cfg.sources{i}.snr = -10; % in dB
-    sim_cfg.sources{i}.amp = 2*mvnpdf(...
-        distr_loc(i),center_loc,sigma);
-    disp(['Amp Source ' num2str(i)]);
-    disp(sim_cfg.sources{i}.amp);
+    sim_cfg.sources{i}.amp = 2*gauss_distr(...
+        distr_loc(i,:),center_loc,spatial_cov);
+    %disp(['Amp Source ' num2str(i)]);
+    %disp(sim_cfg.sources{i}.amp);
     sim_cfg.sources{i}.freq = 10;
     sim_cfg.sources{i}.pos = 120;
     sim_cfg.sources{i}.jitter = 5;
@@ -56,8 +57,16 @@ for i=1:length(distr_idx)
     % Index of brain source voxel
     sim_cfg.sources{i}.source_index = distr_idx(i);
 end
-clear distr_idx distr_orient cfg sigma cneter_loc
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;
+
+%% Clear unnecessary variables
+var_list = who;
+for i=1:length(var_list)
+    if ~isequal(var_list{i},'sim_cfg')
+        clear(var_list{i});
+    end
+end
+clear var_list i
