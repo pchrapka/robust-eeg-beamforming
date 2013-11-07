@@ -112,6 +112,42 @@ switch cfg_id
             'rmv_epsilon_350',...
             'rmv_epsilon_400'};
         k = k+1;        
+        
+    case 'sim_vars_rmv_coarse'
+        k = 1;
+        
+        params(k).name = 'data_file';
+        params(k).values = sim_vars.get_data_files(cfg_data);
+        k = k+1;
+        
+        % Head model
+        % Get the directory that contains this function
+        if verLessThan('matlab', '7.14')
+            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
+        else
+            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
+        end
+        head_model_file = fullfile(...
+            cur_dir,'..','..','head-models',...
+            'brainstorm','head_Default1_500V.mat');
+        params(k).name = 'head_model_file';
+        params(k).values = {head_model_file};
+        k = k+1;
+        
+        % Beamformer locations
+        % All, hopefully this works by default
+        params(k).name = 'loc';
+        params(k).values = {1:501};
+        k = k+1;
+        
+        % Beamformer configs
+        params(k).name = 'beamformer_config';
+        params(k).values = {...
+            'rmv_epsilon_100',...
+            'rmv_epsilon_200',...
+            'rmv_epsilon_300',...
+            'rmv_epsilon_400'};
+        k = k+1; 
 
     otherwise
         error('sim_vars:get_config',...

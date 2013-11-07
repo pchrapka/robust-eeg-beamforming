@@ -10,13 +10,13 @@ sim_cfg.parallel = 'user';
 
 %% Head model
 sim_cfg.head_model_file = 'head_Default1_500V.mat';
-
-%% Load the head model
+sim_cfg.head_cfg.type = 'brainstorm';
+sim_cfg.head_cfg.file = sim_cfg.head_model_file;
+% Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
-sim_cfg.head_model_data_full = fullfile('..','head-models',...
-    'brainstorm', sim_cfg.head_model_file);
-load(sim_cfg.head_model_data_full);
-sim_cfg.head = head;
+data = hm_get_data(sim_cfg.head_cfg);
+sim_cfg.head = data.head;
+clear data;
 
 % Figure out number of channels
 gain_temp = aet_source_get_gain(1, sim_cfg.head);
