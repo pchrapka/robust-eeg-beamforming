@@ -42,9 +42,11 @@ fprintf('Running: %s\n',cfg.beamformer_config);
 cfg_beam.R = data.R;
 cfg_beam.head_model = head;
 % Print a warning just in case for cvx
-if isequal(cfg_beam.solver,'cvx')
-    warning('reb:beamformer_analysis',...
-        'Make sure you''re not running in parfor');
+if isfield(cfg_beam,'solver')
+    if isequal(cfg_beam.solver,'cvx')
+        warning('reb:beamformer_analysis',...
+            'Make sure you''re not running in parfor');
+    end
 end
 
 % Set up the output

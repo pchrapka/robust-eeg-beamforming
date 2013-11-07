@@ -31,6 +31,10 @@ if exist(SDPT3_path,'dir') ~= 7
     count = count + 1;
 else
     addpath(SDPT3_path);
+    cur_dir = pwd;
+    cd(SDPT3_path);
+    startup
+    cd(cur_dir);
     complete(count) = true;
     count = count + 1;
 end
@@ -52,7 +56,7 @@ end
 if ispc
     head_models_path = 'C:\Users\Phil\My Projects\head-models';
 else
-    head_models_path = [matlab_dir filesep 'head-models'];
+    head_models_path = '/home/chrapkpk/Documents/projects/head-models';
 end
 if exist(head_models_path, 'dir') ~= 7
     warning('STARTUP:CheckPackages',...
@@ -91,54 +95,54 @@ else
     path(path,phasereset_path);
 end
 
-%% Check for mosek (Optional at this point)
-mosek_try_install = false;
-mosek_packages = regexp(...
-    path, ['mosek' filesep '7' filesep 'toolbox' filesep], 'match');
-if isempty(mosek_packages)
-    mosek_try_install = true;
-else
-    mosek_fail = false;
-end
-
-if mosek_try_install
-    % Package is not installed, check if we can install it
-    mosek_path = [matlab_dir filesep 'mosek'];
-    mosek_script = [mosek_path filesep 'mosek_install.m'];
-    if exist(mosek_script,'file') ~= 0
-        % Save the current directory
-        cur_dir = pwd;
-        % Switch to the cvx dir
-        cd(mosek_path)
-        
-        eval('mosek_install');
-        
-        % Switch back to the directory
-        cd(cur_dir)
-        
-        % Check the installation
-        mosek_packages = regexp(...
-            path, ['mosek' filesep '7' filesep 'toolbox' filesep], 'match');
-        if isempty(mosek_packages)
-            mosek_fail = true;
-        else
-            mosek_fail = false;
-        end
-    else
-        % No mosek_install script
-        mosek_fail = true;
-    end
-end
-
-if mosek_fail
-    warning('STARTUP:CheckPackages',...
-        'Missing mosek package. It''s optional');
-    complete(count) = true;
-    count = count + 1;
-else
-    complete(count) = true;
-    count = count + 1;
-end
+% %% Check for mosek (Optional at this point)
+% mosek_try_install = false;
+% mosek_packages = regexp(...
+%     path, ['mosek' filesep '7' filesep 'toolbox' filesep], 'match');
+% if isempty(mosek_packages)
+%     mosek_try_install = true;
+% else
+%     mosek_fail = false;
+% end
+% 
+% if mosek_try_install
+%     % Package is not installed, check if we can install it
+%     mosek_path = [matlab_dir filesep 'mosek'];
+%     mosek_script = [mosek_path filesep 'mosek_install.m'];
+%     if exist(mosek_script,'file') ~= 0
+%         % Save the current directory
+%         cur_dir = pwd;
+%         % Switch to the cvx dir
+%         cd(mosek_path)
+%         
+%         eval('mosek_install');
+%         
+%         % Switch back to the directory
+%         cd(cur_dir)
+%         
+%         % Check the installation
+%         mosek_packages = regexp(...
+%             path, ['mosek' filesep '7' filesep 'toolbox' filesep], 'match');
+%         if isempty(mosek_packages)
+%             mosek_fail = true;
+%         else
+%             mosek_fail = false;
+%         end
+%     else
+%         % No mosek_install script
+%         mosek_fail = true;
+%     end
+% end
+% 
+% if mosek_fail
+%     warning('STARTUP:CheckPackages',...
+%         'Missing mosek package. It''s optional');
+%     complete(count) = true;
+%     count = count + 1;
+% else
+%     complete(count) = true;
+%     count = count + 1;
+% end
 
 %% Check for cvx
 cvx_fail = true;
