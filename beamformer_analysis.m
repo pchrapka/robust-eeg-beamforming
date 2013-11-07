@@ -107,6 +107,6 @@ save_file = db.save_setup(tmpcfg);
 save(save_file, 'source');
 
 % Revert
-path(cur_path);
+% path(cur_path);
 
 end
