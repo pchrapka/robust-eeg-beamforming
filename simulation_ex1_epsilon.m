@@ -102,7 +102,8 @@ for i=1:length(epsilon)
                         beam_cfg(k), data.avg_noise);
                     
                     % Calculate the SINR
-                    out(k).y(i,j) = calc_sinr(signal, interference, noise);
+                    out(k).y(i,j) = aet_analysis_sinr(...
+                        signal, interference, noise);
                 else
                     % No output
                     out(k).y(i,j) = NaN;
