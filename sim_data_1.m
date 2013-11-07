@@ -9,9 +9,8 @@ sim_cfg.verbosity = 3;
 sim_cfg.parallel = 'user';
 
 %% Head model
-sim_cfg.head_model_file = 'head_Default1_500V.mat';
 sim_cfg.head_cfg.type = 'brainstorm';
-sim_cfg.head_cfg.file = sim_cfg.head_model_file;
+sim_cfg.head_cfg.file = 'head_Default1_500V.mat';
 % Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
 data = hm_get_data(sim_cfg.head_cfg);

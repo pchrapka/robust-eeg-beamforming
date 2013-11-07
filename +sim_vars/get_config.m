@@ -14,17 +14,10 @@ switch cfg_id
         k = k+1;
         
         % Head model
-        % Get the directory that contains this function
-        if verLessThan('matlab', '7.14')
-            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
-        else
-            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
-        end
-        head_model_file = fullfile(...
-            cur_dir,'..','..','head-models',...
-            'brainstorm','head_Default1_500V.mat');
-        params(k).name = 'head_model_file';
-        params(k).values = {head_model_file};
+        head_cfg.type = 'brainstorm';
+        head_cfg.file = 'head_Default1_500V.mat';
+        params(k).name = 'head_cfg';
+        params(k).values = {head_cfg};
         k = k+1;
         
         % Beamformer locations
@@ -46,17 +39,10 @@ switch cfg_id
         k = k+1;
         
         % Head model
-        % Get the directory that contains this function
-        if verLessThan('matlab', '7.14')
-            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
-        else
-            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
-        end
-        head_model_file = fullfile(...
-            cur_dir,'..','..','head-models',...
-            'brainstorm','head_Default1_500V.mat');
-        params(k).name = 'head_model_file';
-        params(k).values = {head_model_file};
+        head_cfg.type = 'brainstorm';
+        head_cfg.file = 'head_Default1_500V.mat';
+        params(k).name = 'head_cfg';
+        params(k).values = {head_cfg};
         k = k+1;
         
         % Beamformer locations
@@ -81,17 +67,10 @@ switch cfg_id
         k = k+1;
         
         % Head model
-        % Get the directory that contains this function
-        if verLessThan('matlab', '7.14')
-            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
-        else
-            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
-        end
-        head_model_file = fullfile(...
-            cur_dir,'..','..','head-models',...
-            'brainstorm','head_Default1_500V.mat');
-        params(k).name = 'head_model_file';
-        params(k).values = {head_model_file};
+        head_cfg.type = 'brainstorm';
+        head_cfg.file = 'head_Default1_500V.mat';
+        params(k).name = 'head_cfg';
+        params(k).values = {head_cfg};
         k = k+1;
         
         % Beamformer locations
@@ -121,17 +100,10 @@ switch cfg_id
         k = k+1;
         
         % Head model
-        % Get the directory that contains this function
-        if verLessThan('matlab', '7.14')
-            [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
-        else
-            [cur_dir,~,~] = fileparts(mfilename('fullpath'));
-        end
-        head_model_file = fullfile(...
-            cur_dir,'..','..','head-models',...
-            'brainstorm','head_Default1_500V.mat');
-        params(k).name = 'head_model_file';
-        params(k).values = {head_model_file};
+        head_cfg.type = 'brainstorm';
+        head_cfg.file = 'head_Default1_500V.mat';
+        params(k).name = 'head_cfg';
+        params(k).values = {head_cfg};
         k = k+1;
         
         % Beamformer locations
