@@ -48,6 +48,23 @@ else
     path(path,progressBar_path);
 end
 
+%% Add head-models package to Matlab path
+if ispc
+    head_models_path = 'C:\Users\Phil\My Projects\head-models';
+else
+    head_models_path = [matlab_dir filesep 'head-models'];
+end
+if exist(head_models_path, 'dir') ~= 7
+    warning('STARTUP:CheckPackages',...
+            ['Missing head-models project.\n']);
+    complete(count) = false;
+    count = count + 1;
+else
+    addpath(head_models_path);
+    complete(count) = true;
+    count = count + 1;
+end
+
 %% Add aet package to Matlab path
 aet_path = [matlab_dir filesep 'aet'];
 if exist(aet_path,'dir') ~= 7
