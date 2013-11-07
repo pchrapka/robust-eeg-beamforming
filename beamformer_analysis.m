@@ -3,14 +3,14 @@ function beamformer_analysis(cfg)
 %   BEAMFORMER_ANALYSIS(CFG)
 %
 %   cfg
-%       head_model_file
+%       head_cfg
 %       beamformer_config
 %       data_file
 %       loc    indices of vertices to scan (default = all vertices)
 %       
 
 % Load the head model
-data_in = load(cfg.head_model_file); % loads head
+data_in = hm_get_data(cfg.head_cfg);
 head = data_in.head;
 clear data_in;
 
@@ -50,7 +50,7 @@ end
 % Set up the output
 out = [];
 out.data_file = cfg.data_file;
-out.head_model_file = cfg.head_model_file;
+out.head_cfg = cfg.head_cfg;
 out.snr = data.snr;
 out.iteration = data.iteration;
 out.beamformer_config = cfg.beamformer_config;
