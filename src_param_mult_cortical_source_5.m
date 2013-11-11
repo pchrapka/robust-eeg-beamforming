@@ -24,13 +24,16 @@ sim_cfg.sources{1}.freq = 10;
 sim_cfg.sources{1}.pos = 120;
 sim_cfg.sources{1}.jitter = 5;
 
-% Source dipole params
-sim_cfg.sources{1}.moment = [1;0;0]; 
-% This would represent just x direction
-
 % Source head model params
 % Index of brain source voxel
 sim_cfg.sources{1}.source_index = 207;
+
+% Source dipole params
+% Get a normal dipole orientation
+cfg = [];
+cfg.head = sim_cfg.head;
+cfg.idx = sim_cfg.sources{1}.source_index;
+sim_cfg.sources{1}.moment = dipole_orientation(cfg); 
 
 %% Source 2
 % Source signal params for pr_peak()
@@ -38,16 +41,20 @@ sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
 sim_cfg.sources{2}.type = 'signal';
 sim_cfg.sources{2}.signal_type = 'sine';
 sim_cfg.sources{2}.snr = -10; % in dB
+sim_cfg.sources{2}.amp = 2;
 sim_cfg.sources{2}.freq = 10;
 sim_cfg.sources{2}.phase = 0;
-% sim_cfg.sources{2}.pos = 120;
-% sim_cfg.sources{2}.jitter = 2;
-
-sim_cfg.sources{2}.moment = [0.5;0.5;1]/norm([0.5;0.5;1]); 
 
 % Source head model params
 % Index of brain source voxel
 sim_cfg.sources{2}.source_index = 384;
+
+% Source dipole params
+% Get a normal dipole orientation
+cfg = [];
+cfg.head = sim_cfg.head;
+cfg.idx = sim_cfg.sources{2}.source_index;
+sim_cfg.sources{2}.moment = dipole_orientation(cfg); 
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;
