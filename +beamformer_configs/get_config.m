@@ -29,6 +29,38 @@ switch cfg_id
     case 'rmv_epsilon_400'
         epsilon = 400;
         cfg = get_rmv_config(epsilon);        
+    case 'rmv_eig_1_epsilon_50'
+        epsilon = 50;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_100'
+        epsilon = 100;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_150'
+        epsilon = 150;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);        
+    case 'rmv_eig_1_epsilon_200'
+        epsilon = 200;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);        
+    case 'rmv_eig_1_epsilon_250'
+        epsilon = 250;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);                
+    case 'rmv_eig_1_epsilon_300'
+        epsilon = 300;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);                
+    case 'rmv_eig_1_epsilon_350'
+        epsilon = 350;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);        
+    case 'rmv_eig_1_epsilon_400'
+        epsilon = 400;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);          
     case 'lcmv'
         cfg = get_lcmv_config();
     case 'lcmv_reg_eig'
@@ -61,6 +93,19 @@ cfg.type = 'rmv';
 cfg.name = ...
     ['rmv \epsilon ' num2str(epsilon)];
 cfg.epsilon = ones(3,1)*sqrt(epsilon^2/3);
+end
+
+function cfg = get_rmv_eig_config(n_interfering_sources, epsilon)
+% Sets up an rmv config
+cfg = [];
+cfg.solver = 'yalmip';
+cfg.verbosity = 0;
+cfg.type = 'rmv';
+cfg.name = ...
+    ['rmv \epsilon ' num2str(epsilon)];
+cfg.epsilon = ones(3,1)*sqrt(epsilon^2/3);
+cfg.eigenspace = true;
+cfg.n_interfering_sources = n_interfering_sources;
 end
 
 function cfg = get_lcmv_config()

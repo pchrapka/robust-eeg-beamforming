@@ -115,11 +115,42 @@ switch cfg_id
         % Beamformer configs
         params(k).name = 'beamformer_config';
         params(k).values = {...
+            'rmv_epsilon_50',...
             'rmv_epsilon_100',...
             'rmv_epsilon_200',...
             'rmv_epsilon_300',...
             'rmv_epsilon_400'};
         k = k+1; 
+        
+    case 'sim_vars_rmv_eig_coarse'
+        k = 1;
+        
+        params(k).name = 'data_file';
+        params(k).values = sim_vars.get_data_files(cfg_data);
+        k = k+1;
+        
+        % Head model
+        head_cfg.type = 'brainstorm';
+        head_cfg.file = 'head_Default1_500V.mat';
+        params(k).name = 'head_cfg';
+        params(k).values = {head_cfg};
+        k = k+1;
+        
+        % Beamformer locations
+        % All, hopefully this works by default
+        params(k).name = 'loc';
+        params(k).values = {1:501};
+        k = k+1;
+        
+        % Beamformer configs
+        params(k).name = 'beamformer_config';
+        params(k).values = {...
+            'rmv_eig_1_epsilon_50',...
+            'rmv_eig_1_epsilon_100',...
+            'rmv_eig_1_epsilon_200',...
+            'rmv_eig_1_epsilon_300',...
+            'rmv_eig_1_epsilon_400'};
+        k = k+1;         
 
     otherwise
         error('sim_vars:get_config',...

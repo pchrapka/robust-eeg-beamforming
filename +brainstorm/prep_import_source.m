@@ -1,11 +1,11 @@
-function prep_import(cfg)
-%PREP_IMPORT preps data for import to Brainstorm
-%   PREP_IMPORT(CFG) preps a data file for import as well as any analyses
-%   on that data. 
+function prep_import_source(cfg)
+%PREP_IMPORT_SOURCE preps data for import to Brainstorm
+%   PREP_IMPORT_SOURCE(CFG) preps a data file for import as well as any
+%   analyses on that data. 
 %
 %   cfg
 %       data_file   full file name of the data file to import
-%       eeg     exported EEG data from Brainstorm
+%       data_file_tag   string to represent the data file
 %       source  exported source analysis data from Brainstorm
 %       tags    (cell array) names of beamformer analyses to import
 
@@ -22,14 +22,6 @@ end
 
 % Replace slashes just in case
 data_file = strrep(cfg.data_file, '/', filesep);
-% Load the data
-data_in = load(data_file);    % loads variable data
-eeg_data = data_in.data.avg_trials;
-clear data_in;
-
-% Load our data into the brainstorm eeg struct
-cfg.eeg.F(1:256,:) = eeg_data;
-assignin('caller', 'eeg', cfg.eeg);
 
 % Prep analyses to import to Brainstorm
 % NOTE Analyses are identified by a tag that is appended to the original data
@@ -42,6 +34,7 @@ for i=1:n_tags
     tmpcfg2 = [];
     tmpcfg2.file_name = data_file;
     tmpcfg2.tag = cfg.tags{i};
+    fprintf('Working on: %s\n',tmpcfg2.tag);
     
     tmpcfg = [];
     % Assign the beamformer output data file name
@@ -57,13 +50,14 @@ for i=1:n_tags
     % Set the comment to reflect the beamformer type
     tmpcfg.source.Comment = [upper(cfg.tags{i})...
         ': EEG(Full,Unconstr)'];
+    tmpcfg.source.nComponents = 3; % Make sure it's unconstrained
     % norm(source.ImageGridAmp)
     
     % Assign the source analysis to a variable in the caller workspace
     % Var is created using the tag
     var_new{i} = ['source_' cfg.tags{i}];
     assignin('caller', var_new{i}, tmpcfg.source);
-    disp(['Prepped ' tmpcfg.source.Comment]);
+    fprintf('Prepped %s\n',tmpcfg.source.Comment);
 end
 
 % Print out instructions to the user
