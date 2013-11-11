@@ -7,7 +7,22 @@ function beamformer_analysis(cfg)
 %       beamformer_config
 %       data_file
 %       loc    indices of vertices to scan (default = all vertices)
+%       force   (optional, boolean) default = false
+%           forces beamformer analysis and overwrites any existing analysis
 %       
+
+if ~isfield(cfg,'force'), cfg.force = false; end
+
+% Set up the output file name
+tmpcfg = [];
+tmpcfg.file_name = cfg.data_file;
+tmpcfg.tag = cfg.beamformer_config;
+save_file = db.save_setup(tmpcfg);
+if exist(save_file,'file') && ~cfg.force
+   fprintf('File exists: %s\n',save_file);
+   fprintf('Skipping beamformer analysis\n');
+   return
+end
 
 % Load the head model
 data_in = hm_get_data(cfg.head_cfg);
@@ -101,11 +116,7 @@ end
 fprintf('\n');
 
 % Save the output
-tmpcfg = [];
-tmpcfg.file_name = cfg.data_file;
-tmpcfg.tag = cfg.beamformer_config;
 source = out;
-save_file = db.save_setup(tmpcfg);
 save(save_file, 'source');
 
 % Revert
