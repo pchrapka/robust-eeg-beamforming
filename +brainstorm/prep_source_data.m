@@ -25,4 +25,12 @@ n_time = size(source_new,3);
 cfg.source.ImageGridAmp = reshape(source_new,...
     [n_components*n_vertices n_time]);
 
+% Check for nans, set them to zero
+nans_idx = isnan(cfg.source.ImageGridAmp);
+n_nans = sum(sum(nans_idx));
+if n_nans > 0
+    fprintf('\tFound %d NaNs\n',n_nans);
+end
+cfg.source.ImageGridAmp(isnan(cfg.source.ImageGridAmp)) = 0;
+
 end
