@@ -1,9 +1,13 @@
 function simulation_data(cfg)
 % Script for creating the data
 
-% Load the simulation parameters
-eval(cfg.sim_data);
-eval(cfg.sim_src_parameters);
+if ~isfield(cfg,'sim_cfg')
+    % Load the simulation parameters
+    eval(cfg.sim_data);
+    eval(cfg.sim_src_parameters);
+else
+    sim_cfg = cfg.sim_cfg;
+end
 
 %% Control parallel execution explicity
 sim_cfg.parallel = 'user';
