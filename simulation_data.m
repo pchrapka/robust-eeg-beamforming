@@ -8,6 +8,7 @@ if ~isfield(cfg,'sim_cfg')
 else
     sim_cfg = cfg.sim_cfg;
 end
+if ~isfield(sim_cfg,'force'), sim_cfg.force = false; end
 
 %% Control parallel execution explicity
 sim_cfg.parallel = 'user';
@@ -23,6 +24,18 @@ parfor j=1:length(sim_cfg.snr_range)
         cur_snr = temp_cfg.snr_range(j);
         temp_cfg.snr.signal = cur_snr;
         
+        tmpcfg = [];
+        tmpcfg.sim_name = temp_cfg.sim_name;
+        tmpcfg.source_name = temp_cfg.source_name;
+        tmpcfg.snr = cur_snr;
+        tmpcfg.iteration = i;
+        save_file = db.save_setup(tmpcfg);
+        if exist(save_file,'file') && ~temp_cfg.force
+            fprintf('File exists: %s\n',save_file);
+            fprintf('Skipping data generation\n');
+            continue
+        end
+        
         % Create the data
         data = aet_sim_create_eeg(temp_cfg);
         
@@ -30,12 +43,6 @@ parfor j=1:length(sim_cfg.snr_range)
         data.iteration = i;
         data.snr = cur_snr;
 
-        tmpcfg = [];
-        tmpcfg.sim_name = sim_cfg.sim_name;
-        tmpcfg.source_name = sim_cfg.source_name;
-        tmpcfg.snr = cur_snr;
-        tmpcfg.iteration = i;
-        save_file = db.save_setup(tmpcfg);
         parsave(save_file, data);
     end
 end
