@@ -2,6 +2,8 @@ function run(cfg)
 %
 %
 %   cfg
+%   cfg.debug       (optional, boolean) runs the function in debug mode,
+%                   with no parallel execution
 %   cfg.sim_vars    array of structs describing simulation variations
 %       name    string describing parameter
 %       value   cell array of values
@@ -12,14 +14,14 @@ function run(cfg)
 %       ex.
 %           out = beamformer_analysis(params(i))
 
+% Set debug to be false by default
+if ~isfield(cfg,'debug'), cfg.debug = false; end
 run_parallel = true;
 
 % Expand the variations from sim_vars
 p = sim_vars.expand_vars(cfg.sim_vars);
 
-% TODO No beamspace configuration yet
-
-if run_parallel
+if run_parallel && ~cfg.debug
 
     % Control parallel execution explicity
     tmpcfg = [];
@@ -28,11 +30,6 @@ if run_parallel
     % Parallel
     analysis_run_func = cfg.analysis_run_func;
     parfor i=1:length(p)
-        
-        % FIXME
-        % Maybe check if the output file already exists to avoid redoing
-        % simulations if not necessary
-        % - add a force flag
         
         % Run the simulation
         feval(analysis_run_func, p(i));
@@ -44,11 +41,6 @@ else
     analysis_run_func = cfg.analysis_run_func;
     
     for i=length(p):-1:1
-        
-        % FIXME
-        % Maybe check if the output file already exists to avoid redoing
-        % simulations if not necessary
-        % - add a force flag
         
         % Run the simulation
         feval(analysis_run_func, p(i));
