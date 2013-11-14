@@ -3,7 +3,7 @@
 % Temporally correlated, but spread over a few grid points
 % Uses a template signal for all the sources
 
-
+sim_Cfg.force = true; % ===== forcing another analysis ======
 sim_cfg.source_name = 'distr_cort_src_2';
 
 % Specific beamformer parameter based on sources
@@ -20,7 +20,7 @@ radius = 4/100; % 4 cm
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.type = 'radius';
-cfg.center_idx = 207;
+cfg.center_idx = 295;
 cfg.radius = radius;
 [distr_idx,distr_loc] = hm_get_vertices(cfg);
 
