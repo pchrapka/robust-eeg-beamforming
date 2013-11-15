@@ -25,6 +25,7 @@ k = k+1;
 
 % Redo analyses?
 force = false;
+% force = true; % ===== forcing another analysis ======
 
 % Data files
 cfg_data = [];
@@ -50,7 +51,6 @@ cfg = struct(...
 scripts(k).vars = {cfg};
 k = k+1;
 
-force = true; % ===== forcing another analysis ======
 scripts(k).func = @sim_vars.run;
 cfg = struct(...
     'sim_vars',             sim_vars.get_config(...
