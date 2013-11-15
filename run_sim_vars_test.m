@@ -23,6 +23,8 @@ k = k+1;
 
 %% Parameter sweep
 
+force = false;
+
 % Data files
 cfg_data = [];
 cfg_data.data_name = 'sim_data_test';
@@ -33,7 +35,7 @@ cfg_data.snr_range = [-5 0 5 10];
 % FIXME Still need somewhere to save the file
 scripts(k).func = @sim_vars.run;
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config('sim_vars_test'),...
+    'sim_vars',             sim_vars.get_config('sim_vars_test',cfg_data,force),...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;

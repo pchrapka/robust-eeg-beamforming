@@ -31,7 +31,12 @@ parfor j=1:length(sim_cfg.snr_range)
         tmpcfg.iteration = i;
         save_file = db.save_setup(tmpcfg);
         if exist(save_file,'file') && ~temp_cfg.force
-            fprintf('File exists: %s\n',save_file);
+            if verLessThan('matlab', '7.14')
+                [~,name,~,~] = fileparts(save_file);
+            else
+                [~,name,~] = fileparts(save_file);
+            end
+            fprintf('File exists: %s\n', name);
             fprintf('Skipping data generation\n');
             continue
         end

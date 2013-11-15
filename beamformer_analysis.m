@@ -19,7 +19,12 @@ tmpcfg.file_name = cfg.data_file;
 tmpcfg.tag = cfg.beamformer_config;
 save_file = db.save_setup(tmpcfg);
 if exist(save_file,'file') && ~cfg.force
-   fprintf('File exists: %s\n',save_file);
+    if verLessThan('matlab', '7.14')
+        [~,name,~,~] = fileparts(save_file);
+    else
+        [~,name,~] = fileparts(save_file);
+    end
+   fprintf('File exists: %s\n', name);
    fprintf('Skipping beamformer analysis\n');
    return
 end

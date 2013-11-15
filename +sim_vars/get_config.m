@@ -1,7 +1,13 @@
-function params = get_config(cfg_id, cfg_data)
+function params = get_config(cfg_id, cfg_data, force)
 %GET_CONFIG returns a config of simulation variables
 %   GET_CONFIG(CFG_ID) returns a config of simulation variables specified
 %   by CFG_ID.
+%   
+%   cfg_id      id for simulation parameters config
+%   cfg_data    cfg describing data files to use during the simulation
+%               see sim_vars.get_data_files
+%   force       adds a flag that forces the analysis to be redone,
+%               overwriting the existing output files
 %   
 %   NOTE New configs need to be added here explicity.
 
@@ -156,6 +162,12 @@ switch cfg_id
         error('sim_vars:get_config',...
             'unknown sim_vars configuration');
         
+end
+
+if force
+    params(k).name = 'force';
+    params(k).values = {force};
+    k = k+1;
 end
 
 end
