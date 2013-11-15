@@ -50,6 +50,7 @@ switch cfg_id
         n_interfering_sources = 1;
         cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
     case 'rmv_eig_1_epsilon_50'
+        % NOTE for rmv_eig anything over 50 seems to have poor performance
         epsilon = 50;
         n_interfering_sources = 1;
         cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
