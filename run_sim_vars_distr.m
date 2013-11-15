@@ -34,7 +34,6 @@ cfg_data.source_name = 'distr_cort_src_2';
 cfg_data.iteration_range = 1;
 cfg_data.snr_range = -40:20:20; %-40:5:25
 
-% FIXME Still need somewhere to save the file
 scripts(k).func = @sim_vars.run;
 cfg = struct(...
     'sim_vars',             sim_vars.get_config(...
