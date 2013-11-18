@@ -23,7 +23,7 @@ k = k+1;
 
 %% Parameter sweep
 
-force = false;
+force = true;
 
 % Data files
 cfg_data = [];
