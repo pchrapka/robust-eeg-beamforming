@@ -83,9 +83,11 @@ if isfield(cfg_beam,'solver')
 end
 
 %% Load the mismatch config
-cfg_mis = mismatch_configs.get_config(...
-    cfg.mismatch_config, data);
-fprintf('Running: %s\n',cfg.mismatch_config);
+if isfield(cfg, 'mismatch_config')
+    cfg_mis = mismatch_configs.get_config(...
+        cfg.mismatch_config, data);
+    fprintf('Running: %s\n',cfg.mismatch_config);
+end
 
 %% Set up the output
 out = [];
@@ -129,8 +131,10 @@ for i=1:n_scans
     beam_out = aet_analysis_beamform(cfg_beam);
     out.filter{i} = beam_out.W;
     out.leadfield{i} = beam_out.H;
-    out.perturb{i} = E;
     out.loc(i) = idx;
+    if isfield(cfg, 'mismatch_config')
+        out.perturb{i} = E;
+    end
     
     % Calculate the beamformer output for each component
     tmpcfg =[];
