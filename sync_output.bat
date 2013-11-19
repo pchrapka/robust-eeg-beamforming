@@ -1,1 +1,1 @@
-"C:\Program Files (x86)\WinSCP\WinSCP.exe" /console /script="C:\Users\Phil\My Projects\robust-eeg-beamforming\sync_output.txt" /log="C:\Users\Phil\My Projects\robust-eeg-beamforming\output\log.txt" 
+"C:\Program Files (x86)\WinSCP\WinSCP.exe" /console /script="C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\sync_output.txt" /log="C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\log.txt" 
