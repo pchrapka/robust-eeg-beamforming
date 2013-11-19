@@ -17,7 +17,7 @@ k = 1;
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_2',...
-    'sim_src_parameters',   'src_param_distr_cortical_source_2');
+    'sim_src_parameters',   'src_param_mult_cortical_source_6');
 scripts(k).vars = {cfg};
 k = k+1;
 
@@ -30,7 +30,7 @@ force = false;
 % Data files
 cfg_data = [];
 cfg_data.data_name = 'sim_data_2';
-cfg_data.source_name = 'distr_cort_src_2';
+cfg_data.source_name = 'mult_cort_src_6';
 cfg_data.iteration_range = 1;
 cfg_data.snr_range = -40:20:20; %-40:5:25
 

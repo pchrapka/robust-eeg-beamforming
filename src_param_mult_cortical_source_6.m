@@ -3,7 +3,7 @@
 % Temporally correlated, but different source locations
 
 
-sim_cfg.source_name = 'mult_cort_src_5';
+sim_cfg.source_name = 'mult_cort_src_6';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -40:5:25; % in dB
@@ -39,11 +39,11 @@ sim_cfg.sources{1}.moment = dipole_orientation(cfg)';
 % Source signal params for pr_peak()
 sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
 sim_cfg.sources{2}.type = 'signal';
-sim_cfg.sources{2}.signal_type = 'sine';
+sim_cfg.sources{2}.signal_type = 'erp';
 sim_cfg.sources{2}.snr = -10; % in dB
-sim_cfg.sources{2}.amp = 2;
 sim_cfg.sources{2}.freq = 10;
-sim_cfg.sources{2}.phase = 0;
+sim_cfg.sources{2}.pos = 125;
+sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel

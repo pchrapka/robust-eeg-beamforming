@@ -16,14 +16,14 @@ k = 1;
 
 scripts(k).func = @simulation_data;
 cfg = struct(...
-    'sim_data',             'sim_data_1',...
+    'sim_data',             'sim_data_test',...
     'sim_src_parameters',   'src_param_mult_cortical_source_3');
 scripts(k).vars = {cfg};
 k = k+1;
 
 %% Parameter sweep
 
-force = false;
+force = true;
 
 % Data files
 cfg_data = [];
@@ -35,7 +35,8 @@ cfg_data.snr_range = [-5 0 5 10];
 % FIXME Still need somewhere to save the file
 scripts(k).func = @sim_vars.run;
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config('sim_vars_test',cfg_data,force),...
+    'sim_vars',             sim_vars.get_config(...
+                                'sim_vars_test_mismatch',cfg_data,force),...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;

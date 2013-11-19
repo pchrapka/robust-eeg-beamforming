@@ -28,8 +28,29 @@ switch cfg_id
         cfg = get_rmv_config(epsilon);        
     case 'rmv_epsilon_400'
         epsilon = 400;
-        cfg = get_rmv_config(epsilon);        
+        cfg = get_rmv_config(epsilon);
+    case 'rmv_eig_1_epsilon_5'
+        epsilon = 5;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_10'
+        epsilon = 10;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_20'
+        epsilon = 20;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_30'
+        epsilon = 30;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_40'
+        epsilon = 40;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
     case 'rmv_eig_1_epsilon_50'
+        % NOTE for rmv_eig anything over 50 seems to have poor performance
         epsilon = 50;
         n_interfering_sources = 1;
         cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
