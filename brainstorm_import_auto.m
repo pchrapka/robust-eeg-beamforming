@@ -4,12 +4,12 @@
 %% ==== SETUP STUDY ====
 % Get the data file
 cfg_data = [];
-cfg_data.sim_name = 'sim_data_2';
+cfg_data.sim_name = 'sim_data_2';%'sim_data_2_test_beamformer';
 cfg_data.source_name = 'single_cort_src_1';
-cfg_data.snr = '-20';
+cfg_data.snr = '0';
 cfg_data.iteration = '1';
 
-mismatch = true;
+mismatch = false;
 % NOTE the condition name is built from the mismatch tag so only add one
 % mismatch at a time
 mismatch_tags = {'mismatch_2'};
