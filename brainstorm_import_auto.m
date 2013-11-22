@@ -1,30 +1,33 @@
-%% brainstorm_import
+%% brainstorm_import_auto
 % Import data from beamformer analysis to Brainstorm
-
-%%%%%%%%%%%%%
-% README
-% The sequence of steps is important
-%   1. Copy/create a new condition
-%   2. Rename it based on the outputs of the first cell
-%   2. Export the EEG data from Brainstorm into a variable named 'eeg'
-%   3. Run the second cell to get the an updated 'eeg' variable
-%   4. Import 'eeg' as the new EEG data
-%   5. Compute source in Brainstorm using the MNE inverse method, with Full
-%   and unconstrained options
-%   6. Export the result as 'source'
-%   7. Run the third cell to create the source analysis variables
-%   8. Import the results
 
 %% ==== SETUP STUDY ====
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_2';
 cfg_data.source_name = 'single_cort_src_1';
-cfg_data.snr = '-40';
+cfg_data.snr = '-20';
 cfg_data.iteration = '1';
 
+mismatch = true;
+% NOTE the condition name is built from the mismatch tag so only add one
+% mismatch at a time
+mismatch_tags = {'mismatch_2'};
+% Check that only one mismatch is being analyzed at a time
+if length(mismatch_tags) > 1
+    error('reb:brainstorm_import_auto',...
+        'only one mismatch at a time please');
+end
+
 subject_name = 'Subject01';
-condition_name = [cfg_data.sim_name '_' cfg_data.source_name];
+% Set up the condition name
+if mismatch
+    condition_name = [cfg_data.sim_name '_'...
+        cfg_data.source_name '_' mismatch_tags{1}];
+else
+    condition_name = [cfg_data.sim_name '_'...
+        cfg_data.source_name];
+end
 
 fprintf('Condition name: %s \n',condition_name);
 
@@ -101,5 +104,16 @@ cfg.tags = {'lcmv',...
     ...'rmv_eig_1_epsilon_350',...
     'rmv_eig_1_epsilon_400'...
     };
+if mismatch
+    n_tags = length(cfg.tags);
+    n_mismatch_tags = length(mismatch_tags);
+    tmp_tags = {};
+    for i=1:n_tags
+        for j=1:n_mismatch_tags
+            tmp_tags = [tmp_tags [cfg.tags{i} '_' mismatch_tags{j}]];
+        end
+    end
+    cfg.tags = tmp_tags;
+end
 
 cfg = brainstorm.prep_import_source_auto(cfg);
