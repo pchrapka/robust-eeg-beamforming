@@ -7,6 +7,7 @@ function out = get_data_files(cfg)
 %   iteration_range
 
 count = 1;
+out = cell(1,length(cfg.snr_range)*length(cfg.iteration_range));
 for i=1:length(cfg.snr_range)
     for j=1:length(cfg.iteration_range)
         tmpcfg = [];
