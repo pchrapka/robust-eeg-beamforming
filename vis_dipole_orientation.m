@@ -1,7 +1,7 @@
 % Get the head model
 cfg = [];
 cfg.type = 'brainstorm';
-cfg.file = 'head_Default1_500V.mat';
+cfg.file = 'head_Default1_3sphere_500V.mat';
 data = hm_get_data(cfg);
 head = data.head;
 
