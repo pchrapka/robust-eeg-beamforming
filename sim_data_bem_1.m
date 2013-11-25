@@ -10,7 +10,7 @@ sim_cfg.parallel = 'user';
 
 %% Head model
 sim_cfg.head_cfg.type = 'brainstorm';
-sim_cfg.head_cfg.file = 'head_Default1_3sphere_500V.mat';
+sim_cfg.head_cfg.file = 'head_Default1_bem_500V.mat';
 % Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
 data = hm_get_data(sim_cfg.head_cfg);
