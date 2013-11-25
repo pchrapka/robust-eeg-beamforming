@@ -20,7 +20,7 @@
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_2';
 cfg_data.source_name = 'single_cort_src_1';
-cfg_data.snr = '-20';
+cfg_data.snr = '0';
 cfg_data.iteration = '1';
 
 fprintf('Condition name: %s_%s\n',...

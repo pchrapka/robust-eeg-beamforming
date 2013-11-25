@@ -29,6 +29,26 @@ switch cfg_id
     case 'rmv_epsilon_400'
         epsilon = 400;
         cfg = get_rmv_config(epsilon);
+    case 'rmv_eig_1_epsilon_0-0001'
+        epsilon = 0.0001;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_0-001'
+        epsilon = 0.001;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_0-01'
+        epsilon = 0.01;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_0-1'
+        epsilon = 0.1;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+    case 'rmv_eig_1_epsilon_1'
+        epsilon = 1;
+        n_interfering_sources = 1;
+        cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
     case 'rmv_eig_1_epsilon_5'
         epsilon = 5;
         n_interfering_sources = 1;
