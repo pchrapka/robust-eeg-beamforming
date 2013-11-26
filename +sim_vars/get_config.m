@@ -14,6 +14,7 @@ function params = get_config(cfg)
 %               'head_Default1_3sphere_500V.mat'
 %           type    'brainstorm' or 'fieldtrip'
 %           file    head model file name in head-models project
+%       tag     additional tag for the output file
 %   
 %   NOTE New configs need to be added here explicity.
 
@@ -220,6 +221,12 @@ if cfg.force
     idx = length(params) + 1;
     params(idx).name = 'force';
     params(idx).values = {cfg.force};
+end
+
+if isfield(cfg, 'tag')
+    idx = length(params) + 1;
+    params(idx).name = 'tag';
+    params(idx).values = {cfg.tag};
 end
 
 end
