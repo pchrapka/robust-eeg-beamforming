@@ -1,22 +1,28 @@
 %% brainstorm_import_auto
 % Import data from beamformer analysis to Brainstorm
 
+% Mismatch data
+mismatch = false;
+
 %% ==== SETUP STUDY ====
 % Get the data file
 cfg_data = [];
-cfg_data.sim_name = 'sim_data_2';%'sim_data_2_test_beamformer';
+cfg_data.sim_name = 'sim_data_bem_1';%'sim_data_2_test_beamformer';
 cfg_data.source_name = 'single_cort_src_1';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 
-mismatch = false;
-% NOTE the condition name is built from the mismatch tag so only add one
-% mismatch at a time
-mismatch_tags = {'mismatch_2'};
-% Check that only one mismatch is being analyzed at a time
-if length(mismatch_tags) > 1
-    error('reb:brainstorm_import_auto',...
-        'only one mismatch at a time please');
+if mismatch
+    % NOTE the condition name is built from the mismatch tag so only add one
+    % mismatch at a time
+%     mismatch_tags = {'mismatch_1'};
+%     mismatch_tags = {'mismatch_2'};
+    mismatch_tags = {'3sphere'};
+    % Check that only one mismatch is being analyzed at a time
+    if length(mismatch_tags) > 1
+        error('reb:brainstorm_import_auto',...
+            'only one mismatch at a time please');
+    end
 end
 
 subject_name = 'Subject01';
