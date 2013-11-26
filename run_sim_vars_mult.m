@@ -35,54 +35,91 @@ cfg_data.iteration_range = 1;
 cfg_data.snr_range = -40:20:20; %-40:5:25
 
 %% ==== MATCHED LEADFIELD ====
+
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_lcmv';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_lcmv', cfg_data, force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
 
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_rmv_coarse';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_rmv_coarse', cfg_data, force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
 
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_rmv_eig_coarse', cfg_data, force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
     'debug',                false);
 scripts(k).vars = {cfg};
 k = k+1;
 
 %% ==== MISMATCHED LEADFIELD ====
+
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_lcmv_mismatch';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_lcmv_mismatch', cfg_data, force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
 
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_rmv_coarse_mismatch';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_rmv_coarse_mismatch', cfg_data, force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
 
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse_mismatch';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_rmv_eig_coarse_mismatch', cfg_data, force),...
-    'analysis_run_func',    @beamformer_analysis,...
-    'debug',                false);
+    'sim_vars',             cfg_simvars,...
+    'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;
 
