@@ -35,3 +35,6 @@ sim_cfg.n_runs = 1;
 % Option for averaged data
 sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
+
+%% Extra options
+% sim_cfg.force = true;
