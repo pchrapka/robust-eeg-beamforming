@@ -65,9 +65,7 @@ fprintf('Analyzing: %s\n',cfg.data_file);
 
 %% Calculate the covariance
 if ~isfield(data,'R')
-%     data.R = cov(data.avg_trials');
-    N = size(data.avg_trials,1);
-    data.R = (1/N)*(data.avg_trials*data.avg_trials');
+    data.R = aet_analysis_cov(data.avg_trials);
     % Calculate it once and save it to the data file
     save(cfg.data_file, 'data');
 end
