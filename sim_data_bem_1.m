@@ -24,7 +24,7 @@ sim_cfg.n_channels = size(gain_temp,1);
 %% Simulation parameters
 
 % Number of trials
-sim_cfg.trials = 100;
+sim_cfg.trials = 10;
 % Sampling frequency
 sim_cfg.fsample = 250;
 % Number of time samples per trial

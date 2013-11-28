@@ -10,7 +10,7 @@ sim_cfg.parallel = 'user';
 
 %% Head model
 sim_cfg.head_cfg.type = 'brainstorm';
-sim_cfg.head_cfg.file = 'head_Default1_3sphere_500V.mat';
+sim_cfg.head_cfg.file = 'head_Default1_bem_500V.mat';
 % Load the head model
 aet_output(sim_cfg, 1, 'Loading the head model\n');
 data = hm_get_data(sim_cfg.head_cfg);
@@ -24,7 +24,7 @@ sim_cfg.n_channels = size(gain_temp,1);
 %% Simulation parameters
 
 % Number of trials
-sim_cfg.trials = 10;
+sim_cfg.trials = 100;
 % Sampling frequency
 sim_cfg.fsample = 250;
 % Number of time samples per trial
@@ -35,3 +35,6 @@ sim_cfg.n_runs = 1;
 % Option for averaged data
 sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
+
+%% Extra options
+% sim_cfg.force = true;

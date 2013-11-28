@@ -16,7 +16,7 @@ k = 1;
 % 
 scripts(k).func = @simulation_data;
 cfg = struct(...
-    'sim_data',             'sim_data_2',...
+    'sim_data',             'sim_data_2_100t',...
     'sim_src_parameters',   'src_param_distr_cortical_source_2');
 scripts(k).vars = {cfg};
 k = k+1;
@@ -29,10 +29,10 @@ force = false;
 
 % Data files
 cfg_data = [];
-cfg_data.data_name = 'sim_data_2';
+cfg_data.data_name = 'sim_data_2_100t';
 cfg_data.source_name = 'distr_cort_src_2';
 cfg_data.iteration_range = 1;
-cfg_data.snr_range = -40:20:20; %-40:5:25
+cfg_data.snr_range = -20:20:0;%-40:20:20; %-40:5:25
 
 %% ==== MATCHED LEADFIELD ====
 
