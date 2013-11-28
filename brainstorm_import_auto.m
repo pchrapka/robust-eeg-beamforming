@@ -2,7 +2,7 @@
 % Import data from beamformer analysis to Brainstorm
 
 % Mismatch data
-mismatch = false;
+mismatch = true;
 
 %% ==== SETUP STUDY ====
 % Get the data file
@@ -123,3 +123,10 @@ if mismatch
 end
 
 cfg = brainstorm.prep_import_source_auto(cfg);
+
+disp(['Current study: ' num2str(study_idx)]);
+
+%% ==== PLOT CURRENT RESULTS ====
+
+% brainstorm_plot(sutdy_idx);
+% brainstorm_plot_close();
