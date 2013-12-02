@@ -7,7 +7,10 @@ n_figs = length(h_fig);
 for i=1:n_figs
     % Close the first fig
     if h_fig(1) ~= 0 % Skip invalid handles
-        close(h_fig(1));
+        try
+            close(h_fig(1));
+        catch e        
+        end
     end
     % Eliminate the first element
     h_fig(1) = [];

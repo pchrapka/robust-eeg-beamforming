@@ -128,5 +128,5 @@ disp(['Current study: ' num2str(study_idx)]);
 
 %% ==== PLOT CURRENT RESULTS ====
 
-% brainstorm_plot(sutdy_idx);
+% brainstorm_plot(study_idx);
 % brainstorm_plot_close();

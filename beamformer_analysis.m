@@ -160,6 +160,10 @@ fprintf('\n');
 %% Save the output
 source = out;
 save(save_file, 'source');
+% Save just the beamformer_output
+source = [];
+source.beamformer_output = out.beamformer_output;
+save([save_file '_mini'], 'source');
 
 % Revert
 % path(cur_path);
