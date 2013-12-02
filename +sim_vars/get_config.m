@@ -1,26 +1,35 @@
-function params = get_config(cfg_id, cfg_data, force)
+function params = get_config(cfg)
 %GET_CONFIG returns a config of simulation variables
-%   GET_CONFIG(CFG_ID) returns a config of simulation variables specified
-%   by CFG_ID.
+%   GET_CONFIG(CFG) returns a config of simulation variables specified
+%   by CFG.
 %   
-%   cfg_id      id for simulation parameters config
-%   cfg_data    cfg describing data files to use during the simulation
+%   Input
+%   cfg         struct with the following fields
+%       id      id for simulation parameters config
+%       data    cfg describing data files to use during the simulation
 %               see sim_vars.get_data_files
-%   force       adds a flag that forces the analysis to be redone,
+%       force   adds a flag that forces the analysis to be redone,
 %               overwriting the existing output files
+%       head    (optional) head model config, default is
+%               'head_Default1_3sphere_500V.mat'
+%           type    'brainstorm' or 'fieldtrip'
+%           file    head model file name in head-models project
+%       tag     additional tag for the output file
 %   
 %   NOTE New configs need to be added here explicity.
 
 k = 1;
 params(k).name = 'data_file';
-params(k).values = sim_vars.get_data_files(cfg_data);
+params(k).values = sim_vars.get_data_files(cfg.data);
 k = k+1;
 
 % Head model
-head_cfg.type = 'brainstorm';
-head_cfg.file = 'head_Default1_3sphere_500V.mat';
+if ~isfield(cfg,'head')
+    cfg.head.type = 'brainstorm';
+    cfg.head.file = 'head_Default1_3sphere_500V.mat';
+end
 params(k).name = 'head_cfg';
-params(k).values = {head_cfg};
+params(k).values = {cfg.head};
 k = k+1;
 
 % Beamformer locations
@@ -32,7 +41,7 @@ k = k+1;
 params(k).name = 'beamformer_config';
 params(k).values = {};
 
-switch cfg_id
+switch cfg.id
     case 'sim_vars_test'
         
         % Beamformer locations
@@ -208,10 +217,16 @@ switch cfg_id
         
 end
 
-if force
+if cfg.force
     idx = length(params) + 1;
     params(idx).name = 'force';
-    params(idx).values = {force};
+    params(idx).values = {cfg.force};
+end
+
+if isfield(cfg, 'tag')
+    idx = length(params) + 1;
+    params(idx).name = 'tag';
+    params(idx).values = {cfg.tag};
 end
 
 end

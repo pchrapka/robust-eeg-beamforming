@@ -51,7 +51,7 @@ for i=1:n_tags
         % Prep the data
         tmpcfg = brainstorm.prep_source_data(tmpcfg);
     catch e
-        fprintf('Couldn''t find %s\n',tmpcfg.source.Comment);
+        fprintf('Couldn''t find %s\n',tmpcfg2.tag);
         continue;
     end
     % Set the beamformer type
