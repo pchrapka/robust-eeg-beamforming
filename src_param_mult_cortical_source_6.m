@@ -42,7 +42,7 @@ sim_cfg.sources{2}.type = 'signal';
 sim_cfg.sources{2}.signal_type = 'erp';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.freq = 10;
-sim_cfg.sources{2}.pos = 125;
+sim_cfg.sources{2}.pos = 130;
 sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
