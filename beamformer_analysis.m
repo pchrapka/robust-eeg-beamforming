@@ -22,12 +22,10 @@ if ~isfield(cfg,'force'), cfg.force = false; end
 data_in = load(cfg.data_file); % loads data
 data = data_in.data;
 clear data_in;
-fprintf('Analyzing: %s\n',cfg.data_file);
 
 %% Load the beamformer config
 cfg_beam = beamformer_configs.get_config(...
     cfg.beamformer_config{:}, 'data', data);
-fprintf('Running: %s\n',cfg_beam.name);
 
 %% Set up the output file name
 tmpcfg = [];
@@ -55,6 +53,9 @@ if exist(save_file,'file') && ~cfg.force
    fprintf('File exists: %s\n', name);
    fprintf('Skipping beamformer analysis\n');
    return
+else
+    fprintf('Analyzing: %s\n',cfg.data_file);
+    fprintf('Running: %s\n',cfg_beam.name);
 end
 
 %% Load the head model

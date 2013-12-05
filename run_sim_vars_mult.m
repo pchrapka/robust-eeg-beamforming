@@ -13,7 +13,6 @@ k = 1;
 
 %% Set up scripts to run
 
-% 
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_2_100t',...
