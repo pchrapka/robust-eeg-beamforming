@@ -2,6 +2,7 @@
 % Multiple cortical sources
 % Temporally correlated, but different source locations
 
+% sim_cfg.force = true;
 
 sim_cfg.source_name = 'mult_cort_src_6';
 
