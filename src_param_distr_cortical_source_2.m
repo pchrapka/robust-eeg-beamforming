@@ -3,7 +3,7 @@
 % Temporally correlated, but spread over a few grid points
 % Uses a template signal for all the sources
 
-sim_Cfg.force = true; % ===== forcing another analysis ======
+% sim_cfg.force = true; % ===== forcing another analysis ======
 sim_cfg.source_name = 'distr_cort_src_2';
 
 % Specific beamformer parameter based on sources

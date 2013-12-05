@@ -14,12 +14,12 @@ k = 1;
 %% Set up scripts to run
 
 
-scripts(k).func = @simulation_data;
-cfg = struct(...
-    'sim_data',             'sim_data_test',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_3');
-scripts(k).vars = {cfg};
-k = k+1;
+% scripts(k).func = @simulation_data;
+% cfg = struct(...
+%     'sim_data',             'sim_data_test',...
+%     'sim_src_parameters',   'src_param_mult_cortical_source_3');
+% scripts(k).vars = {cfg};
+% k = k+1;
 
 %% Parameter sweep
 
@@ -32,12 +32,18 @@ cfg_data.source_name = 'mult_cort_src_3';
 cfg_data.iteration_range = 1;
 cfg_data.snr_range = [-5 0 5 10];
 
-% FIXME Still need somewhere to save the file
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_test_mismatch';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head.type = 'brainstorm';
+cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config(...
-                                'sim_vars_test_mismatch',cfg_data,force),...
-    'analysis_run_func',    @beamformer_analysis);
+    'sim_vars',             cfg_simvars,...
+    'analysis_run_func',    @beamformer_analysis,...
+    'debug',                true);
 scripts(k).vars = {cfg};
 k = k+1;
 

@@ -18,11 +18,22 @@ function beamformer_analysis(cfg)
 
 if ~isfield(cfg,'force'), cfg.force = false; end
 
+%% Load the data
+data_in = load(cfg.data_file); % loads data
+data = data_in.data;
+clear data_in;
+fprintf('Analyzing: %s\n',cfg.data_file);
+
+%% Load the beamformer config
+cfg_beam = beamformer_configs.get_config(...
+    cfg.beamformer_config{:}, 'data', data);
+fprintf('Running: %s\n',cfg_beam.name);
+
 %% Set up the output file name
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-tmpcfg.tag = cfg.beamformer_config;
+tmpcfg.tag = strrep(cfg_beam.name,' ','_');
 % Add mismatch name to the output file
 if isfield(cfg, 'mismatch_config')
     tmpcfg.tag = [tmpcfg.tag '_' cfg.mismatch_config];
@@ -57,12 +68,6 @@ if ~isfield(cfg, 'loc')
     cfg.loc = 1:size(head.GridLoc,1);
 end
 
-%% Load the data
-data_in = load(cfg.data_file); % loads data
-data = data_in.data;
-clear data_in;
-fprintf('Analyzing: %s\n',cfg.data_file);
-
 %% Calculate the covariance
 if ~isfield(data,'R')
     data.R = aet_analysis_cov(data.avg_trials);
@@ -70,11 +75,7 @@ if ~isfield(data,'R')
     save(cfg.data_file, 'data');
 end
 
-%% Load the beamformer config
-cfg_beam = beamformer_configs.get_config(...
-    cfg.beamformer_config, data);
-fprintf('Running: %s\n',cfg.beamformer_config);
-
+%% Finalize the beamformer config
 % Add the covariance matrix
 cfg_beam.R = data.R;
 % Add the head model if it's not a mismatched scenario
@@ -93,7 +94,7 @@ end
 if isfield(cfg, 'mismatch_config')
     cfg_mis = mismatch_configs.get_config(...
         cfg.mismatch_config, data);
-    fprintf('Running: %s\n',cfg.mismatch_config);
+    fprintf('Mismatch: %s\n',cfg.mismatch_config);
 end
 
 %% Set up the output
@@ -122,7 +123,7 @@ n_scans = length(cfg.loc);
 for i=1:n_scans
 %     progbar(i);
     fprintf('%s snr %d iter %d %d/%d\n',...
-        cfg.beamformer_config,out.snr,out.iteration,i,n_scans);
+        cfg_beam.name,out.snr,out.iteration,i,n_scans);
     idx = cfg.loc(i);
     
     % Check if it's a mismatched scenario
@@ -163,7 +164,11 @@ save(save_file, 'source');
 % Save just the beamformer_output
 source = [];
 source.beamformer_output = out.beamformer_output;
-save([save_file '_mini'], 'source');
+% Create a new file name
+cfg.file_name = save_file;
+cfg.tag = 'mini';
+save_file = db.save_setup(cfg);
+save(save_file, 'source');
 
 % Revert
 % path(cur_path);
