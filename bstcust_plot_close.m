@@ -1,4 +1,4 @@
-function brainstorm_plot_close()
+function bstcust_plot_close()
 % Closes all current brainstorm figures
 
 data = load(fullfile('output','bst_current_figs.mat'));

@@ -1,8 +1,8 @@
-%% brainstorm_import_auto
+%% bstcust_import_auto
 % Import data from beamformer analysis to Brainstorm
 
 % Mismatch data
-mismatch = false;
+mismatch = true;
 
 %% ==== SETUP STUDY ====
 % Get the data file
