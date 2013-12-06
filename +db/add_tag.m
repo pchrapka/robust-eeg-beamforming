@@ -7,9 +7,9 @@ function out = add_tag(cfg)
 %       tag         (optional)
 
 if isfield(cfg,'tag') && ~isequal(cfg.tag,'')
-    out = [cfg.file_name '_' cfg.tag '.mat'];
+    out = [cfg.file_name '_' cfg.tag];
 else
-    out = [cfg.file_name '.mat'];
+    out = [cfg.file_name];
 end
 
 end
