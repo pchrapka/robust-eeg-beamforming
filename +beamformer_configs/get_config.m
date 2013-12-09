@@ -87,7 +87,7 @@ cfg.solver = 'yalmip';
 cfg.verbosity = 0;
 cfg.type = 'rmv';
 cfg.name = ...
-    ['rmv \epsilon ' num2str(epsilon)];
+    ['rmv epsilon ' num2str(epsilon)];
 cfg.epsilon = ones(3,1)*sqrt(epsilon^2/3);
 end
 

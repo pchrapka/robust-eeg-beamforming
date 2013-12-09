@@ -4,5 +4,6 @@ open chrapkpk@blade16
 option transfer binary
 synchronize local -filemask="*_mini.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
 synchronize local -filemask="0_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
+synchronize local -filemask="-10_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
 synchronize local -filemask="-20_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
 exit

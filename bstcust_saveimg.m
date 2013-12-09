@@ -9,11 +9,23 @@ output_dir = bst_fileparts(...
     file_fullpath(relative_file_name));
 % Get figure name
 name = get(gcf, 'Name');
-name = [file_standardize(name) '_' num2str(time*1000) 'ms.png'];
+name = [file_standardize(name) '_' num2str(time*1000) 'ms'];
 img_file_name = fullfile(output_dir, name);
+
+% Save image as a png
 % Get the image
 img = out_figure_image(h_fig);
 % Save the image
-imwrite(img, img_file_name);
+imwrite(img, [img_file_name '.png']);
+
+% Save image as eps
+% set(gcf,'PaperPositionMode','auto')
+% saveas(h_fig, [img_file_name '.eps'],'epsc2');
+
+% % img = imread('peppers.png');
+% imshow(img,'Border','tight',...
+%        'InitialMagnification',100);
+% print([img_file_name '.eps'],'-deps');
+% print([img_file_name '.eps'],'-depsc2','-r300');
 
 end
