@@ -38,9 +38,13 @@ find_snr = cellfun(...
     @(x) ~isempty(findstr(x, ['snr_' num2str(snr)])),...
     {study.Data.FileName});
 
+%% ==== TIME SERIES ====
 % Display the time series data
 [h_fig(start_idx),~,~] = view_timeseries(...
     study.Data(find_snr).FileName);
+% Don't show the scouts
+panel_scouts('SetScoutShowSelection','none');
+% Set the time cursor
 if time > 0
     panel_time('SetCurrentTime', time);
 end
@@ -54,6 +58,7 @@ if save_image
     h_fig(start_idx) = 0;
 end
 
+%% ==== SOURCES ====
 % Find the corresponding result files based on snr
 find_snr = cellfun(...
     @(x) ~isempty(findstr(x, ['snr_' num2str(snr)])),...
@@ -63,10 +68,24 @@ find_snr = cellfun(...
 relative_file_names = {study.Result(find_snr).FileName};
 n_files = length(relative_file_names);
 
+new_color = [1 1 1]; % white
+text_colormap = [0 0 0]; % black
+data_threshold = 0.2; % 20%
 h_fig = [h_fig zeros(1,n_files)];
 for i=1:n_files
     % Display the source results
     [h_fig(start_idx+i),~,~] = view_surface_data([], relative_file_names{i});
+    % Don't show the scouts
+    panel_scouts('SetScoutShowSelection','none');
+    % Set background to white
+    set(h_fig(start_idx+i), 'Color', new_color);
+    % Set the colormap text color to black
+    h_colorbar = findobj(h_fig(start_idx+i),'tag','Colorbar');
+    set(h_colorbar, 'YColor', text_colormap);
+    % Set surface threshold
+%     iSurf = 1;
+%     panel_surface('SetDataThreshold', h_fig(start_idx+i), iSurf, data_threshold);
+    % Set the time cursor
     if time > 0
         panel_time('SetCurrentTime', time);
     end

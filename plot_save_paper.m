@@ -1,7 +1,7 @@
 
 % bstcust_start
-% save_images = true;
-save_images = false;
+save_images = true;
+% save_images = false;
 % bstcust_plot_close
 
 %% ==== single_cort_src_1 ====
@@ -40,7 +40,7 @@ bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_8';
+cfg_data.source_name = 'mult_cort_src_6';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = false;
@@ -55,7 +55,7 @@ bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_8';
+cfg_data.source_name = 'mult_cort_src_6';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = true;

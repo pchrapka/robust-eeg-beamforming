@@ -14,7 +14,14 @@ img_file_name = fullfile(output_dir, name);
 
 % Save image as a png
 % Get the image
-img = out_figure_image(h_fig);
+% img = out_figure_image(h_fig);
+% Focus on figure (captures the contents the topmost figure)
+pause(.01);
+drawnow;
+figure(h_fig);
+drawnow;
+frameGfx = getscreen(h_fig);
+img = frameGfx.cdata;
 % Save the image
 imwrite(img, [img_file_name '.png']);
 
