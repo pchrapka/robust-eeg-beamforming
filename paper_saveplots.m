@@ -66,9 +66,6 @@ study_idx = bstcust_study_id(cfg_data);
 % Plot and save the data
 bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
-return
-% FIXME Wait until the rest of the sims finish
-
 %% ==== distr_cort_src_2 ====
 % Get the data file
 cfg_data = [];

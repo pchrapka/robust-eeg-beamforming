@@ -5,16 +5,16 @@
 mismatch = false;
 
 %% ==== SETUP STUDY ====
-sim_vars_name = 'sim_vars_single_src_paper_';
+% sim_vars_name = 'sim_vars_single_src_paper_';
 % sim_vars_name = 'sim_vars_mult_src_paper_';
-% sim_vars_name = 'sim_vars_distr_src_paper_';
+sim_vars_name = 'sim_vars_distr_src_paper_';
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'single_cort_src_1';
+% cfg_data.source_name = 'single_cort_src_1';
 % cfg_data.source_name = 'mult_cort_src_6';
-% cfg_data.source_name = 'distr_cort_src_2';
-cfg_data.snr = '-10';
+cfg_data.source_name = 'distr_cort_src_2';
+cfg_data.snr = '0';
 cfg_data.iteration = '1';
 
 if mismatch
