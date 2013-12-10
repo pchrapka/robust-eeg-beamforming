@@ -1,6 +1,7 @@
 
-
-save_images = true;
+% bstcust_start
+% save_images = true;
+save_images = false;
 
 %% ==== single_cort_src_1 ====
 % Get the data file
