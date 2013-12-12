@@ -36,36 +36,44 @@ study_idx = bstcust_study_id(cfg_data);
 % Plot and save the data
 bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
+
 %% ==== mult_cort_src_8 ====
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_6';
+cfg_data.source_name = 'mult_cort_src_8';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = false;
 
-time = 0.492;
 
 % Get the study idx
 study_idx = bstcust_study_id(cfg_data);
 % Plot and save the data
+time = 0.476;
+bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+% time = 0.496;
+% bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+time = 0.516;
 bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_6';
+cfg_data.source_name = 'mult_cort_src_8';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = true;
 cfg_data.mismatch_tags = {'3sphere'};
 
-time = 0.492;
-
 % Get the study idx
 study_idx = bstcust_study_id(cfg_data);
 % Plot and save the data
+time = 0.476;
+bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+% time = 0.496;
+% bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+time = 0.516;
 bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
 %% ==== distr_cort_src_2 ====
