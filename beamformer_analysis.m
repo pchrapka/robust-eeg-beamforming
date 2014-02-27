@@ -9,7 +9,7 @@ function beamformer_analysis(cfg)
 %       loc    indices of vertices to scan (default = all vertices)
 %       force   (optional, boolean) default = false
 %           forces beamformer analysis and overwrites any existing analysis
-%       mismatch_config (optional)
+%       perturb_config (optional)
 %           config specifying the covariance matrix of random perturbation
 %           for leadfield matrix
 %       tag (optional)
@@ -32,9 +32,9 @@ tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
 tmpcfg.tag = strrep(cfg_beam.name,' ','_');
-% Add mismatch name to the output file
-if isfield(cfg, 'mismatch_config')
-    tmpcfg.tag = [tmpcfg.tag '_' cfg.mismatch_config];
+% Add perturb name to the output file
+if isfield(cfg, 'perturb_config')
+    tmpcfg.tag = [tmpcfg.tag '_' cfg.perturb_config];
 end
 % Add the additional tag to the output file name, typically if it's a
 % different head model
@@ -79,8 +79,8 @@ end
 %% Finalize the beamformer config
 % Add the covariance matrix
 cfg_beam.R = data.R;
-% Add the head model if it's not a mismatched scenario
-if ~isfield(cfg, 'mismatch_config')
+% Add the head model if it's not a perturbed scenario
+if ~isfield(cfg, 'perturb_config')
     cfg_beam.head_model = head;
 end
 % Print a warning just in case for cvx
@@ -91,11 +91,11 @@ if isfield(cfg_beam,'solver')
     end
 end
 
-%% Load the mismatch config
-if isfield(cfg, 'mismatch_config')
-    cfg_mis = mismatch_configs.get_config(...
-        cfg.mismatch_config, data);
-    fprintf('Mismatch: %s\n',cfg.mismatch_config);
+%% Load the perturb config
+if isfield(cfg, 'perturb_config')
+    cfg_mis = perturb_configs.get_config(...
+        cfg.perturb_config, data);
+    fprintf('Mismatch: %s\n',cfg.perturb_config);
 end
 
 %% Set up the output
@@ -111,7 +111,6 @@ n_time = size(data.avg_trials,2);
 n_vertices = length(cfg.loc);
 out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
-% Setup a progress bar
 n_scans = length(cfg.loc);
 
 %% Scan locations
@@ -120,11 +119,11 @@ for i=1:n_scans
         cfg_beam.name,out.snr,out.iteration,i,n_scans);
     idx = cfg.loc(i);
     
-    % Check if it's a mismatched scenario
-    if isfield(cfg, 'mismatch_config')
+    % Check if it's a perturbed scenario
+    if isfield(cfg, 'perturb_config')
         cfg_mis.head_model = head;
         cfg_mis.loc = idx;
-        [cfg_beam.H,E] = aet_analysis_mismatch_leadfield(cfg_mis);
+        [cfg_beam.H,E] = aet_analysis_perturb_leadfield(cfg_mis);
     end
     
     % Set the location to scan
@@ -134,7 +133,7 @@ for i=1:n_scans
     out.filter{i} = beam_out.W;
     out.leadfield{i} = beam_out.H;
     out.loc(i) = idx;
-    if isfield(cfg, 'mismatch_config')
+    if isfield(cfg, 'perturb_config')
         out.perturb{i} = E;
     end
     

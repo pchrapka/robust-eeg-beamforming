@@ -71,10 +71,10 @@ switch cfg.id
         
         % Mismatch covariance matrix
         idx = length(params) + 1;
-        params(idx).name = 'mismatch_config';
+        params(idx).name = 'perturb_config';
         params(idx).values = {...
-            'mismatch_1',...
-            'mismatch_2'};
+            'perturb_1',...
+            'perturb_2'};
         
     case 'sim_vars_lcmv'
         
@@ -108,10 +108,10 @@ switch cfg.id
         
         % Mismatch covariance matrix
         idx = length(params) + 1;
-        params(idx).name = 'mismatch_config';
+        params(idx).name = 'perturb_config';
         params(idx).values = {...
-            'mismatch_1',...
-            'mismatch_2'};   
+            'perturb_1',...
+            'perturb_2'};   
         
     case 'sim_vars_rmv'
         
@@ -163,10 +163,10 @@ switch cfg.id
         
         % Mismatch covariance matrix
         idx = length(params) + 1;
-        params(idx).name = 'mismatch_config';
+        params(idx).name = 'perturb_config';
         params(idx).values = {...
-            'mismatch_1',...
-            'mismatch_2'};      
+            'perturb_1',...
+            'perturb_2'};      
         
     case 'sim_vars_rmv_eig_coarse'
         
@@ -200,10 +200,10 @@ switch cfg.id
         
         % Mismatch covariance matrix
         idx = length(params) + 1;
-        params(idx).name = 'mismatch_config';
+        params(idx).name = 'perturb_config';
         params(idx).values = {...
-            'mismatch_1',...
-            'mismatch_2'};
+            'perturb_1',...
+            'perturb_2'};
         
     case 'sim_vars_rmv_eig_experiment'
         
