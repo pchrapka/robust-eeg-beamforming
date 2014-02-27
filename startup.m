@@ -39,19 +39,6 @@ else
     count = count + 1;
 end
 
-%% Add progressBar package to Matlab path
-progressBar_path = [matlab_dir filesep 'progressBar'];
-if exist(progressBar_path,'dir') ~= 7
-    warning('STARTUP:CheckPackages',...
-        'Missing progressBar package.\nDownload and install from MATLAB Central.\nSee README');
-    complete(count) = false;
-    count = count + 1;
-else
-    complete(count) = true;
-    count = count + 1;
-    path(path,progressBar_path);
-end
-
 %% Add head-models package to Matlab path
 if ispc
     head_models_path = 'C:\Users\Phil\My Projects\head-models';

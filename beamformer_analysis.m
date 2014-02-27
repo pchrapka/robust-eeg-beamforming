@@ -113,16 +113,9 @@ out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
 % Setup a progress bar
 n_scans = length(cfg.loc);
-% cur_path = path;
-% if ~exist('progressBar','file')
-%     new_path = fullfile('external','progressBar');
-%     addpath(new_path);
-% end
-% progbar = progressBar(n_scans, 'Scanning');
 
 %% Scan locations
 for i=1:n_scans
-%     progbar(i);
     fprintf('%s snr %d iter %d %d/%d\n',...
         cfg_beam.name,out.snr,out.iteration,i,n_scans);
     idx = cfg.loc(i);

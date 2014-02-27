@@ -54,10 +54,7 @@ for i=1:length(epsilon)
     beam_cfg_in.epsilon = epsilon(i);
     beam_cfg = set_up_beamformers(beam_cfg_in);
     
-    progbar = progressBar(sim_cfg.n_runs,'Thinking');
     for j=1:sim_cfg.n_runs
-        % Update progress bar
-        progbar(j);
         
         % Create the file name
         data_file = [...

@@ -44,10 +44,7 @@ for i=1:length(sim_cfg.snr_range)
     cur_snr = sim_cfg.snr_range(i);
     fprintf('\nSNR: %d \n', cur_snr);
     
-    progbar = progressBar(sim_cfg.n_runs,'Thinking');
     for j=1:sim_cfg.n_runs
-        % Update progress bar
-        progbar(j);
         
         % Create the file name
         data_file = [...
