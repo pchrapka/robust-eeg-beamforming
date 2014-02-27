@@ -6,11 +6,11 @@ function cfg = get_config(cfg_id, data)
 %   NOTE New perturbed configs need to be added here explicity.
 
 switch cfg_id
-    case 'mismatch_1'
+    case 'perturb_1'
         n_channels = 256;
         epsilon = 50;
         Cx = perturb_configs.create_mismatch_covariance(n_channels, epsilon);
-    case 'mismatch_2'
+    case 'perturb_2'
         n_channels = 256;
         epsilon = 100;
         Cx = perturb_configs.create_mismatch_covariance(n_channels, epsilon);
