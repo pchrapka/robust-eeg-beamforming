@@ -9,7 +9,7 @@ function beamformer_analysis(cfg)
 %       loc    indices of vertices to scan (default = all vertices)
 %       force   (optional, boolean) default = false
 %           forces beamformer analysis and overwrites any existing analysis
-%       mismatch_config (optional)
+%       perturb_config (optional)
 %           config specifying the covariance matrix of random perturbation
 %           for leadfield matrix
 %       tag (optional)
@@ -18,14 +18,23 @@ function beamformer_analysis(cfg)
 
 if ~isfield(cfg,'force'), cfg.force = false; end
 
+%% Load the data
+data_in = load(cfg.data_file); % loads data
+data = data_in.data;
+clear data_in;
+
+%% Load the beamformer config
+cfg_beam = beamformer_configs.get_config(...
+    cfg.beamformer_config{:}, 'data', data);
+
 %% Set up the output file name
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-tmpcfg.tag = cfg.beamformer_config;
-% Add mismatch name to the output file
-if isfield(cfg, 'mismatch_config')
-    tmpcfg.tag = [tmpcfg.tag '_' cfg.mismatch_config];
+tmpcfg.tag = strrep(cfg_beam.name,' ','_');
+% Add perturb name to the output file
+if isfield(cfg, 'perturb_config')
+    tmpcfg.tag = [tmpcfg.tag '_' cfg.perturb_config];
 end
 % Add the additional tag to the output file name, typically if it's a
 % different head model
@@ -44,6 +53,9 @@ if exist(save_file,'file') && ~cfg.force
    fprintf('File exists: %s\n', name);
    fprintf('Skipping beamformer analysis\n');
    return
+else
+    fprintf('Analyzing: %s\n',cfg.data_file);
+    fprintf('Running: %s\n',cfg_beam.name);
 end
 
 %% Load the head model
@@ -57,12 +69,6 @@ if ~isfield(cfg, 'loc')
     cfg.loc = 1:size(head.GridLoc,1);
 end
 
-%% Load the data
-data_in = load(cfg.data_file); % loads data
-data = data_in.data;
-clear data_in;
-fprintf('Analyzing: %s\n',cfg.data_file);
-
 %% Calculate the covariance
 if ~isfield(data,'R')
     data.R = aet_analysis_cov(data.avg_trials);
@@ -70,15 +76,11 @@ if ~isfield(data,'R')
     save(cfg.data_file, 'data');
 end
 
-%% Load the beamformer config
-cfg_beam = beamformer_configs.get_config(...
-    cfg.beamformer_config, data);
-fprintf('Running: %s\n',cfg.beamformer_config);
-
+%% Finalize the beamformer config
 % Add the covariance matrix
 cfg_beam.R = data.R;
-% Add the head model if it's not a mismatched scenario
-if ~isfield(cfg, 'mismatch_config')
+% Add the head model if it's not a perturbed scenario
+if ~isfield(cfg, 'perturb_config')
     cfg_beam.head_model = head;
 end
 % Print a warning just in case for cvx
@@ -89,11 +91,11 @@ if isfield(cfg_beam,'solver')
     end
 end
 
-%% Load the mismatch config
-if isfield(cfg, 'mismatch_config')
-    cfg_mis = mismatch_configs.get_config(...
-        cfg.mismatch_config, data);
-    fprintf('Running: %s\n',cfg.mismatch_config);
+%% Load the perturb config
+if isfield(cfg, 'perturb_config')
+    cfg_mis = perturb_configs.get_config(...
+        cfg.perturb_config, data);
+    fprintf('Mismatch: %s\n',cfg.perturb_config);
 end
 
 %% Set up the output
@@ -109,27 +111,19 @@ n_time = size(data.avg_trials,2);
 n_vertices = length(cfg.loc);
 out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
-% Setup a progress bar
 n_scans = length(cfg.loc);
-% cur_path = path;
-% if ~exist('progressBar','file')
-%     new_path = fullfile('external','progressBar');
-%     addpath(new_path);
-% end
-% progbar = progressBar(n_scans, 'Scanning');
 
 %% Scan locations
 for i=1:n_scans
-%     progbar(i);
     fprintf('%s snr %d iter %d %d/%d\n',...
-        cfg.beamformer_config,out.snr,out.iteration,i,n_scans);
+        cfg_beam.name,out.snr,out.iteration,i,n_scans);
     idx = cfg.loc(i);
     
-    % Check if it's a mismatched scenario
-    if isfield(cfg, 'mismatch_config')
+    % Check if it's a perturbed scenario
+    if isfield(cfg, 'perturb_config')
         cfg_mis.head_model = head;
         cfg_mis.loc = idx;
-        [cfg_beam.H,E] = aet_analysis_mismatch_leadfield(cfg_mis);
+        [cfg_beam.H,E] = aet_analysis_perturb_leadfield(cfg_mis);
     end
     
     % Set the location to scan
@@ -139,7 +133,7 @@ for i=1:n_scans
     out.filter{i} = beam_out.W;
     out.leadfield{i} = beam_out.H;
     out.loc(i) = idx;
-    if isfield(cfg, 'mismatch_config')
+    if isfield(cfg, 'perturb_config')
         out.perturb{i} = E;
     end
     
@@ -163,7 +157,11 @@ save(save_file, 'source');
 % Save just the beamformer_output
 source = [];
 source.beamformer_output = out.beamformer_output;
-save([save_file '_mini'], 'source');
+% Create a new file name
+cfg.file_name = save_file;
+cfg.tag = 'mini';
+save_file = db.save_setup(cfg);
+save(save_file, 'source');
 
 % Revert
 % path(cur_path);

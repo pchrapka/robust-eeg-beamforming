@@ -9,9 +9,9 @@ function out = get_file_name(cfg)
 
 if isfield(cfg,'tag') && ~isequal(cfg.tag,'')
     out = [num2str(cfg.snr) '_' num2str(cfg.iteration)...
-        '_' cfg.tag '.mat'];
+        '_' cfg.tag];
 else
-    out = [num2str(cfg.snr) '_' num2str(cfg.iteration) '.mat'];
+    out = [num2str(cfg.snr) '_' num2str(cfg.iteration)];
 end
 
 end

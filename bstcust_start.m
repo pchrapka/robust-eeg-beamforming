@@ -1,4 +1,4 @@
-%% brainstorm_start
+%% bstcust_start
 % Starts Brainstorm and returns to the current directory
 
 % Save the current dir

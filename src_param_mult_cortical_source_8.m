@@ -1,10 +1,14 @@
 %% Source parameter file
 % Multiple cortical sources
 % Temporally correlated, but different source locations
+%
+% Goal:
+% Same as mult_cort_src_6, but we want to see if a vertex location that
+% more superficial will give better results
 
 % sim_cfg.force = true;
 
-sim_cfg.source_name = 'mult_cort_src_6';
+sim_cfg.source_name = 'mult_cort_src_8';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -40:5:25; % in dB
@@ -48,7 +52,7 @@ sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
-sim_cfg.sources{2}.source_index = 137;
+sim_cfg.sources{2}.source_index = 216;
 
 % Source dipole params
 % Get a normal dipole orientation

@@ -7,20 +7,6 @@ count = 1;
 matlab_dir = userpath;
 matlab_dir = matlab_dir(1:end-1);
 
-%% Add yalmip package to Matlab path
-yalmip_path = [matlab_dir filesep 'yalmip'];
-if exist(yalmip_path,'dir') ~= 7
-    % Try adding if ourselves
-    warning('STARTUP:CheckPackages',...
-        'Missing yalmip package.\nDownload and install from the web.\nSee README');
-    complete(count) = false;
-    count = count + 1;
-else
-    yalmip_install();
-    complete(count) = true;
-    count = count + 1;
-end
-
 %% Add SDPT3 package to Matlab path
 SDPT3_path = [matlab_dir filesep 'SDPT3-4.0'];
 if exist(SDPT3_path,'dir') ~= 7
@@ -39,17 +25,18 @@ else
     count = count + 1;
 end
 
-%% Add progressBar package to Matlab path
-progressBar_path = [matlab_dir filesep 'progressBar'];
-if exist(progressBar_path,'dir') ~= 7
+%% Add yalmip package to Matlab path
+yalmip_path = [matlab_dir filesep 'yalmip'];
+if exist(yalmip_path,'dir') ~= 7
+    % Try adding if ourselves
     warning('STARTUP:CheckPackages',...
-        'Missing progressBar package.\nDownload and install from MATLAB Central.\nSee README');
+        'Missing yalmip package.\nDownload and install from the web.\nSee README');
     complete(count) = false;
     count = count + 1;
 else
+    yalmip_install();
     complete(count) = true;
     count = count + 1;
-    path(path,progressBar_path);
 end
 
 %% Add head-models package to Matlab path
