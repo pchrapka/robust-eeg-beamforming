@@ -13,7 +13,19 @@ k = 1;
 
 %% Set up scripts to run
 
+% Generate uncertainty data
+uncertainty_head_cfg.actual.type = 'brainstorm';
+uncertainty_head_cfg.actual.file = 'head_Default1_bem_500V.mat';
+uncertainty_head_cfg.estimate.type = 'brainstorm';
+uncertainty_head_cfg.estimate.file = 'head_Default1_3sphere_500V.mat';
+scripts(k).func = @gen_uncertainty_data;
+cfg = struct(...
+    'head',    uncertainty_head_cfg,...
+    'force',   false);
+scripts(k).vars = {cfg};
+k = k+1;
 
+% Simulate ERP data
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_bem_1_100t',...

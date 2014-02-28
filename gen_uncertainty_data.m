@@ -3,10 +3,10 @@ function gen_uncertainty_data(cfg)
 %   GEN_UNCERTAINTY_DATA(CFG)
 %
 %   cfg.head    specifices the head models
-%     actual    cfg specifying the actual head model
+%     actual    cfg specifying the actual head model, see hm_get_data
 %       type    'fieldtrip' or 'brainstorm'
 %       file    name of file to be retrieved
-%     estimate  cfg specifying the estimate head model
+%     estimate  cfg specifying the estimate head model, see hm_get_data
 %       type    'fieldtrip' or 'brainstorm'
 %       file    name of file to be retrieved
 %
@@ -24,16 +24,18 @@ data_file = fullfile(output_dir, out_file);
 
 % Check if it exists
 if ~exist(data_file, 'file') || cfg.force
+    fprintf('Generating: %s\n',out_file);
     
     % Get the head model data
     H_actual = hm_get_data(cfg.head.actual);
     H_estimate = hm_get_data(cfg.head.estimate);
     
     % Generate the uncertainty data
-    A = aet_analysis_rmv_uncertainty_create(H_actual, H_estimate);
+    A = aet_analysis_rmv_uncertainty_create(H_actual.head, H_estimate.head);
     
     % Save the data
-    save(data_file, 'A');
+    head = cfg.head;
+    save(data_file, 'A', 'head');
     
 end
 
