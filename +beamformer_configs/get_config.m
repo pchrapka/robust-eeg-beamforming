@@ -8,6 +8,7 @@ function cfg = get_config(type, varargin)
 %
 %   type = 'rmv'
 %       'epsilon'   value to use for epsilon
+%                   gets converted to A = epsilon * I
 %       'eig'       number of interfering sources
 %       'data'      struct with a field 'R' containing the covariance
 %                   matrix
@@ -39,10 +40,13 @@ switch type
             end
         end
         
+        n_channels = size(data.R,1);
         if ~exist('n_interfering_sources','var')
-            cfg = get_rmv_config(epsilon);
+            cfg = get_rmv_config(...
+                epsilon, n_channels);
         else
-            cfg = get_rmv_eig_config(n_interfering_sources,epsilon);
+            cfg = get_rmv_eig_config(...
+                n_interfering_sources, epsilon, n_channels);
         end
         
     % Parse lcmv inputs
@@ -80,7 +84,7 @@ end
 % FIXME Set cfg.loc = cfg.loc;
 end
 
-function cfg = get_rmv_config(epsilon)
+function cfg = get_rmv_config(epsilon, n_channels)
 % Sets up an rmv config
 cfg = [];
 cfg.solver = 'yalmip';
@@ -88,7 +92,14 @@ cfg.verbosity = 0;
 cfg.type = 'rmv';
 cfg.name = ...
     ['rmv epsilon ' num2str(epsilon)];
-cfg.epsilon = ones(3,1)*sqrt(epsilon^2/3);
+
+% Set up A
+epsilon_vec = ones(3,1)*sqrt(epsilon^2/3);
+cfg.A = cell(3,1);
+for i=1:length(A)
+    cfg.A{i} = epsilon_vec(i,1)*eye(n_channels);
+end
+
 end
 
 function cfg = get_rmv_eig_config(n_interfering_sources, epsilon)
@@ -100,7 +111,14 @@ cfg.type = 'rmv';
 cfg.name = ...
     ['rmv eig ' num2str(n_interfering_sources)...
     ' epsilon ' num2str(epsilon)];
-cfg.epsilon = ones(3,1)*sqrt(epsilon^2/3);
+
+% Set up A
+epsilon_vec = ones(3,1)*sqrt(epsilon^2/3);
+cfg.A = cell(3,1);
+for i=1:length(A)
+    cfg.A{i} = epsilon_vec(i,1)*eye(n_channels);
+end
+
 cfg.eigenspace = true;
 cfg.n_interfering_sources = n_interfering_sources;
 end
