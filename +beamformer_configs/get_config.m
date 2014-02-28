@@ -7,12 +7,10 @@ function cfg = get_config(type, varargin)
 %   i.e. 'epsilon',10
 %
 %   type = 'rmv'
-%       NOTE use either epsilon or uncertainty_file
+%       NOTE use either epsilon or aniso
 %       'epsilon'   value to use for epsilon
 %                   gets converted to A = sqrt(epsilon^2/3) * I
-%       'uncertainty_file' 
-%                   path of file containing uncertainty matrices, indexed
-%                   by the head model location
+%       'aniso'     (boolean) to use anisotropic uncertainty
 %       'eig'       number of interfering sources
 %       'data'      struct with a field 'R' containing the covariance
 %                   matrix
@@ -38,8 +36,8 @@ switch type
                     n_interfering_sources = value;
                 case 'data'
                     data = value;
-                case 'uncertainty_file'
-                    A_file = value;
+                case 'aniso'
+                    aniso = value;
                 otherwise
                     error('beamformer_configs:get_config',...
                         'unknown rmv option');
@@ -47,8 +45,13 @@ switch type
         end
         
         n_channels = size(data.R,1);
-        if exist('A_file','var')
-            cfg = get_rmv_aniso_config(A_file);
+        if exist('aniso','var') && aniso
+            if exist('n_interfering_sources','var')
+                cfg = get_rmv_aniso_eig_config(...
+                    n_interfering_sources);
+            else
+                cfg = get_rmv_aniso_config();
+            end
         elseif ~exist('n_interfering_sources','var')
             cfg = get_rmv_config(...
                 epsilon, n_channels);
@@ -92,14 +95,25 @@ end
 % FIXME Set cfg.loc = cfg.loc;
 end
 
-function cfg = get_rmv_aniso_config(A_file)
+function cfg = get_rmv_aniso_config()
 % Sets up an rmv config
 cfg = [];
 cfg.solver = 'yalmip';
 cfg.verbosity = 0;
 cfg.type = 'rmv';
 cfg.name = 'rmv aniso';
-cfg.A_file = A_file;
+cfg.A = {}; % Initialized later
+
+end
+
+function cfg = get_rmv_aniso_eig_config(n_interfering_sources)
+% Sets up an rmv config
+cfg = [];
+cfg.solver = 'yalmip';
+cfg.verbosity = 0;
+cfg.type = 'rmv';
+cfg.name = ['rmv aniso eig ' num2str(n_interfering_sources)];
+cfg.A = {}; % Initialized later
 
 end
 
@@ -115,13 +129,13 @@ cfg.name = ...
 % Set up A
 epsilon_vec = ones(3,1)*sqrt(epsilon^2/3);
 cfg.A = cell(3,1);
-for i=1:length(A)
+for i=1:length(cfg.A)
     cfg.A{i} = epsilon_vec(i,1)*eye(n_channels);
 end
 
 end
 
-function cfg = get_rmv_eig_config(n_interfering_sources, epsilon)
+function cfg = get_rmv_eig_config(n_interfering_sources, epsilon, n_channels)
 % Sets up an rmv config
 cfg = [];
 cfg.solver = 'yalmip';
@@ -134,7 +148,7 @@ cfg.name = ...
 % Set up A
 epsilon_vec = ones(3,1)*sqrt(epsilon^2/3);
 cfg.A = cell(3,1);
-for i=1:length(A)
+for i=1:length(cfg.A)
     cfg.A{i} = epsilon_vec(i,1)*eye(n_channels);
 end
 

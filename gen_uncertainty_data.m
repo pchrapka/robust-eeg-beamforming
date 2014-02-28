@@ -12,6 +12,9 @@ function gen_uncertainty_data(cfg)
 %
 %   cfg.force   forces recreation of the uncertainty data
 
+% NOTE This will create a rather large file ex. 500 vertices, 256 electrodes =
+% 700 MB file
+
 % Set the output dir
 output_dir = 'output';
 

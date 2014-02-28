@@ -3,9 +3,25 @@ function beamformer_analysis(cfg)
 %   BEAMFORMER_ANALYSIS(CFG)
 %
 %   cfg
-%       head_cfg
+%       head_cfg    
+%           struct containing config for the head models used
+%       head_cfg.current
+%           struct containing config for the actual head model used for the
+%           beamformer analysis
+%
+%           type    current head model type
+%           file    current head model file
+%
+%       head_cfg.actual  
+%           struct containing config for the actual head model used to
+%           generate the data (only used for anisotropic rmv)
+%
+%           type     actual head model type
+%           file     actual head model file
+%
 %       beamformer_config
 %       data_file
+%
 %       loc    indices of vertices to scan (default = all vertices)
 %       force   (optional, boolean) default = false
 %           forces beamformer analysis and overwrites any existing analysis
@@ -59,7 +75,7 @@ else
 end
 
 %% Load the head model
-data_in = hm_get_data(cfg.head_cfg);
+data_in = hm_get_data(cfg.head_cfg.current);
 head = data_in.head;
 clear data_in;
 
@@ -126,6 +142,17 @@ for i=1:n_scans
         cfg_mis.head_model = head;
         cfg_mis.loc = idx;
         [cfg_beam.H,E] = aet_analysis_perturb_leadfield(cfg_mis);
+    end
+    
+    % Check for anisotropic rmv beamformer
+    if ~isempty(regexp(cfg_beam.name, 'rmv aniso', 'match'))
+        % Get the head model data
+        head_actual = hm_get_data(cfg.head_cfg.actual);
+        head_estimate = hm_get_data(cfg.head_cfg.current);
+    
+        % Generate the uncertainty matrix
+        cfg_beam.A = aet_analysis_rmv_uncertainty_create(...
+            head_actual.head, head_estimate.head, idx);
     end
     
     % Set the location to scan
