@@ -7,8 +7,12 @@ function cfg = get_config(type, varargin)
 %   i.e. 'epsilon',10
 %
 %   type = 'rmv'
+%       NOTE use either epsilon or uncertainty_file
 %       'epsilon'   value to use for epsilon
-%                   gets converted to A = epsilon * I
+%                   gets converted to A = sqrt(epsilon^2/3) * I
+%       'uncertainty_file' 
+%                   path of file containing uncertainty matrices, indexed
+%                   by the head model location
 %       'eig'       number of interfering sources
 %       'data'      struct with a field 'R' containing the covariance
 %                   matrix
@@ -34,6 +38,8 @@ switch type
                     n_interfering_sources = value;
                 case 'data'
                     data = value;
+                case 'uncertainty_file'
+                    A_file = value;
                 otherwise
                     error('beamformer_configs:get_config',...
                         'unknown rmv option');
@@ -41,7 +47,9 @@ switch type
         end
         
         n_channels = size(data.R,1);
-        if ~exist('n_interfering_sources','var')
+        if exist('A_file','var')
+            cfg = get_rmv_aniso_config(A_file);
+        elseif ~exist('n_interfering_sources','var')
             cfg = get_rmv_config(...
                 epsilon, n_channels);
         else
@@ -82,6 +90,17 @@ switch type
 end
 
 % FIXME Set cfg.loc = cfg.loc;
+end
+
+function cfg = get_rmv_aniso_config(A_file)
+% Sets up an rmv config
+cfg = [];
+cfg.solver = 'yalmip';
+cfg.verbosity = 0;
+cfg.type = 'rmv';
+cfg.name = 'rmv aniso';
+cfg.A_file = A_file;
+
 end
 
 function cfg = get_rmv_config(epsilon, n_channels)

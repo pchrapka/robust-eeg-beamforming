@@ -120,6 +120,8 @@ for i=1:n_scans
     idx = cfg.loc(i);
     
     % Check if it's a perturbed scenario
+    % FIXME This stuff should really be in the data generation pipeline
+    % Not in the beamformer
     if isfield(cfg, 'perturb_config')
         cfg_mis.head_model = head;
         cfg_mis.loc = idx;
