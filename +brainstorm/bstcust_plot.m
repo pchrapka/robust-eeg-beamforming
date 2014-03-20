@@ -1,9 +1,9 @@
 function bstcust_plot(study_idx, snr, time, save_image)
 %
 %   study_idx   Brainstorm's study index
-%   snr         string indicating snr of data set
-%   time        time to display in s
-%   save        (boolean) flag to save figures
+%   snr         (optional) string indicating snr of data set
+%   time        (optional) time to display in s
+%   save        (optional, boolean) flag to save figures
 
 if nargin < 2
     snr = '0';

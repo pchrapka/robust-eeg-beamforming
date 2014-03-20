@@ -115,6 +115,9 @@ cfg.type = 'rmv';
 cfg.name = ['rmv aniso eig ' num2str(n_interfering_sources)];
 cfg.A = {}; % Initialized later
 
+cfg.eigenspace = true;
+cfg.n_interfering_sources = n_interfering_sources;
+
 end
 
 function cfg = get_rmv_config(epsilon, n_channels)
