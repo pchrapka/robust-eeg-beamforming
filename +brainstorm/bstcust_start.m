@@ -1,19 +1,31 @@
-%% bstcust_start
-% Starts Brainstorm and returns to the current directory
+function bstcust_start()
+%BSTCUST_START starts Brainstorm
+%   BSTCUST_START starts Brainstorm in its directory and returns to the
+%   current directory. It also checks if Brainstorm is already running.
 
-% Save the current dir
-cur_dir = pwd;
-if ispc
-    cd('C:\Users\Phil\Documents\MATLAB\brainstorm3');
-elseif isunix
-    cd('/home/chrapkpk/Documents/MATLAB/brainstorm3');
-else
-    error('reb:brainstorm_start',...
-        'unknown os');
+try
+    % Try running a Brainstorm function
+    bst_get('Version');
+    disp('Brainstorm is already running');
+catch e
+    % If there is an exception thrown, then it's probably not running
+
+    % Save the current dir
+    cur_dir = pwd;
+    if ispc
+        cd('C:\Users\Phil\Documents\MATLAB\brainstorm3');
+    elseif isunix
+        cd('/home/chrapkpk/Documents/MATLAB/brainstorm3');
+    else
+        error('reb:brainstorm_start',...
+            'unknown os');
+    end
+    
+    % Start brainstorm
+    brainstorm
+    
+    % Go back to the current dir
+    cd(cur_dir);    
 end
 
-% Start brainstorm
-brainstorm
-
-% Go back to the current dir
-cd(cur_dir);
+end

@@ -24,7 +24,6 @@ Beware, this project can generate a lot of data and it takes a while. I've tried
 
 ## Importing data to Brainstorm
 
-FIXME 
 NOTE: It uses an existing Brainstorm database that I had, not sure if it will work with an out of the box set up...
 
 1. Start brainstorm or run brainstorm.bstcust_start
