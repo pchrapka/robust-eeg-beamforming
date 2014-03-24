@@ -33,6 +33,7 @@ function beamformer_analysis(cfg)
 %       
 
 if ~isfield(cfg,'force'), cfg.force = false; end
+if isequal(cfg.data_file,'dummy'), return; end % Check for a dummy file
 
 %% Load the data
 data_in = load(cfg.data_file); % loads data
