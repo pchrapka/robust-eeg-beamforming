@@ -6,8 +6,8 @@ function beamformer_analysis(cfg)
 %       head_cfg    
 %           struct containing config for the head models used
 %       head_cfg.current
-%           struct containing config for the actual head model used for the
-%           beamformer analysis
+%           struct containing config for the head model used for the
+%           beamformer analysis, can be estimated or exact
 %
 %           type    current head model type
 %           file    current head model file
@@ -39,6 +39,13 @@ if isequal(cfg.data_file,'dummy'), return; end % Check for a dummy file
 data_in = load(cfg.data_file); % loads data
 data = data_in.data;
 clear data_in;
+
+%% Calculate the covariance
+if ~isfield(data,'R')
+    data.R = aet_analysis_cov(data.avg_trials);
+    % Calculate it once and save it to the data file
+    save(cfg.data_file, 'data');
+end
 
 %% Load the beamformer config
 cfg_beam = beamformer_configs.get_config(...
@@ -76,7 +83,15 @@ else
 end
 
 %% Load the head model
-data_in = hm_get_data(cfg.head_cfg.current);
+if isfield(cfg.head_cfg, 'current')
+    % Get the estimated head model
+    % Need to differentiate between actual and estimated head models in
+    % mismatched scenario
+    data_in = hm_get_data(cfg.head_cfg.current);
+else
+    % Get the actual head model
+    data_in = hm_get_data(cfg.head_cfg);
+end
 head = data_in.head;
 clear data_in;
 
@@ -84,13 +99,6 @@ clear data_in;
 if ~isfield(cfg, 'loc')
     % Scanning all vertices in head model
     cfg.loc = 1:size(head.GridLoc,1);
-end
-
-%% Calculate the covariance
-if ~isfield(data,'R')
-    data.R = aet_analysis_cov(data.avg_trials);
-    % Calculate it once and save it to the data file
-    save(cfg.data_file, 'data');
 end
 
 %% Finalize the beamformer config
