@@ -88,6 +88,18 @@ switch cfg.id
             'perturb_1',...
             'perturb_2'};
         
+    case 'sim_vars_lcmv_basic'
+        
+        % Beamformer locations
+        idx = sim_vars.get_param_idx(params, 'loc');
+        params(idx).values = {1:501};
+        
+        % Beamformer configs
+        idx = sim_vars.get_param_idx(params, 'beamformer_config');
+        params(idx).values = {...
+            {'lcmv'},...
+            };
+        
     case 'sim_vars_lcmv'
         
         % Beamformer locations
