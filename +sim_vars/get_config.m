@@ -98,7 +98,7 @@ switch cfg.id
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
             {'lcmv'},...
-            };
+            {'lcmv','reg','eig'}};
         
     case 'sim_vars_lcmv'
         
