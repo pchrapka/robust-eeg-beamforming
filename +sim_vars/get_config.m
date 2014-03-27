@@ -284,6 +284,18 @@ switch cfg.id
             {'lcmv','eig',0},...
             {'lcmv','reg','eig'}};
         
+    case 'sim_vars_mult_src_basic_mismatched'
+        
+        % Beamformer locations
+        idx = sim_vars.get_param_idx(params, 'loc');
+        params(idx).values = {1:501};
+        
+        % Beamformer configs
+        idx = sim_vars.get_param_idx(params, 'beamformer_config');
+        params(idx).values = {...
+            {'lcmv'},...
+            {'rmv','aniso',true}};
+        
     case 'sim_vars_mult_src_paper_matched'
         
         % Beamformer locations

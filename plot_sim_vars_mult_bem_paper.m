@@ -17,7 +17,7 @@ cfg.sim_vars_name = 'sim_vars_mult_src_paper_';
 cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_name = 'mult_cort_src_10';
 cfg.snr = snr;
-cfg.mismatch = false;
+cfg.mismatch = mismatch;
 cfg = brainstorm.bstcust_import_auto(cfg);
 
 %% Plot the results
