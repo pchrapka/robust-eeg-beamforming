@@ -11,6 +11,9 @@ function study_idx = bstcust_study_id(cfg_data)
 %   cfg_data.mismatch = true;
 %   cfg_data.mistmach_tags = {'3sphere'};
 
+if ~isfield(cfg_data,'iteration'),      cfg_data.iteration = '1'; end
+if ~isfield(cfg_data,'mismatch_tags'),  cfg_data.mismatch_tags = {'3sphere'}; end
+
 %% ==== SETUP STUDY ====
 if cfg_data.mismatch
     % NOTE the condition name is built from the mismatch tag so only add one

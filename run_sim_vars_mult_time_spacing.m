@@ -12,40 +12,41 @@ update_aet()
 %% Initialize the Advanced EEG Toolbox
 aet_init
 k = 1;
+debug_flag = false;
 
 %% Set up scripts to run
 
-% Simulate ERP data
-scripts(k).func = @simulation_data;
-cfg = struct(...
-    'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_9');
-scripts(k).vars = {cfg};
-k = k+1;
-
-% Simulate ERP data
-scripts(k).func = @simulation_data;
-cfg = struct(...
-    'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_10');
-scripts(k).vars = {cfg};
-k = k+1;
-
-% Simulate ERP data
-scripts(k).func = @simulation_data;
-cfg = struct(...
-    'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_11');
-scripts(k).vars = {cfg};
-k = k+1;
-
-% Simulate ERP data
-scripts(k).func = @simulation_data;
-cfg = struct(...
-    'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_12');
-scripts(k).vars = {cfg};
-k = k+1;
+% % Simulate ERP data
+% scripts(k).func = @simulation_data;
+% cfg = struct(...
+%     'sim_data',             'sim_data_bem_1_100t',...
+%     'sim_src_parameters',   'src_param_mult_cortical_source_9');
+% scripts(k).vars = {cfg};
+% k = k+1;
+% 
+% % Simulate ERP data
+% scripts(k).func = @simulation_data;
+% cfg = struct(...
+%     'sim_data',             'sim_data_bem_1_100t',...
+%     'sim_src_parameters',   'src_param_mult_cortical_source_10');
+% scripts(k).vars = {cfg};
+% k = k+1;
+% 
+% % Simulate ERP data
+% scripts(k).func = @simulation_data;
+% cfg = struct(...
+%     'sim_data',             'sim_data_bem_1_100t',...
+%     'sim_src_parameters',   'src_param_mult_cortical_source_11');
+% scripts(k).vars = {cfg};
+% k = k+1;
+% 
+% % Simulate ERP data
+% scripts(k).func = @simulation_data;
+% cfg = struct(...
+%     'sim_data',             'sim_data_bem_1_100t',...
+%     'sim_src_parameters',   'src_param_mult_cortical_source_12');
+% scripts(k).vars = {cfg};
+% k = k+1;
 
 %% ==== mult_cort_src_9 ====
 force = false;
@@ -71,7 +72,7 @@ cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
-    'debug',                false);
+    'debug',                debug_flag);
 scripts(k).vars = {cfg};
 k = k+1;
 
@@ -99,7 +100,7 @@ cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
-    'debug',                false);
+    'debug',                debug_flag);
 scripts(k).vars = {cfg};
 k = k+1;
 
@@ -127,7 +128,7 @@ cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
-    'debug',                false);
+    'debug',                debug_flag);
 scripts(k).vars = {cfg};
 k = k+1;
 
@@ -155,7 +156,7 @@ cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
-    'debug',                false);
+    'debug',                debug_flag);
 scripts(k).vars = {cfg};
 k = k+1;
 

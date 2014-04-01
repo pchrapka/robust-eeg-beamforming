@@ -55,7 +55,8 @@ cfg_beam = beamformer_configs.get_config(...
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-tmpcfg.tag = strrep(cfg_beam.name,' ','_');
+name_temp = strrep(cfg_beam.name,'.','-');
+tmpcfg.tag = strrep(name_temp,' ','_');
 % Add perturb name to the output file
 if isfield(cfg, 'perturb_config')
     tmpcfg.tag = [tmpcfg.tag '_' cfg.perturb_config];

@@ -51,12 +51,11 @@ sim_cfg.sources{2}.signal_type = 'erp_biphasic';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.amp1 = 2;
 sim_cfg.sources{2}.freq1 = 7;
-sim_cfg.sources{2}.pos1 = 118;
-sim_cfg.sources{2}.jitter1 = 3;
+sim_cfg.sources{2}.pos1 = 115;
 sim_cfg.sources{2}.amp2 = -2;
 sim_cfg.sources{2}.freq2 = 12;
-sim_cfg.sources{2}.pos2 = 122;
-sim_cfg.sources{2}.jitter2 = 3;
+sim_cfg.sources{2}.pos2 = 126;
+sim_cfg.sources{2}.jitter = 3;
 
 % Source head model params
 % Index of brain source voxel
