@@ -4,7 +4,7 @@
 %
 % Goal:
 % Explore index 147 as a possible 2nd source location and try different
-% spacings (see also mult_cort_src_9, mult_cort_src_11)
+% spacings (see also mult_cort_src_9, 11, 13, 14)
 
 % sim_cfg.force = true;
 

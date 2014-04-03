@@ -4,11 +4,11 @@
 %
 % Goal:
 % Explore index 147 as a possible 2nd source location and try different
-% spacings (see also mult_cort_src_9, 10, 13, 14)
+% spacings (see also mult_cort_src_9, 10, 11, 14)
 
 % sim_cfg.force = true;
 
-sim_cfg.source_name = 'mult_cort_src_11';
+sim_cfg.source_name = 'mult_cort_src_13';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -10:10:0; % in dB
@@ -47,7 +47,7 @@ sim_cfg.sources{2}.type = 'signal';
 sim_cfg.sources{2}.signal_type = 'erp';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.freq = 10;
-sim_cfg.sources{2}.pos = 126;
+sim_cfg.sources{2}.pos = 128;
 sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
