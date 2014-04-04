@@ -4,12 +4,9 @@
 % Goal: 
 % Tests the second source used in mult_cort_src_11, to see if we can
 % localize it using the robust beamformers
-%
-% Warning:
-% RMVB doesn't seem to be able to pick up this location. Interesting
 
 
-sim_cfg.source_name = 'single_cort_src_2';
+sim_cfg.source_name = 'single_cort_src_3';
 
 % Specific beamformer parameter based on sources
 sim_cfg.snr_range = -10:10:0; % in dB
@@ -32,7 +29,7 @@ sim_cfg.sources{1}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
-sim_cfg.sources{1}.source_index = 147;
+sim_cfg.sources{1}.source_index = 400;
 
 % Source dipole params
 % Get a normal dipole orientation

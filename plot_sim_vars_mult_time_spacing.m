@@ -8,9 +8,9 @@ brainstorm.bstcust_start();
 % Manually delete the existing study
 
 mismatch = true;
-import = false;
+import = true;
 snr = '0';
-sims_to_plot = [13,14];
+sims_to_plot = [13,15];
 
 if ~isempty(find(sims_to_plot == 9,1))
     %% Import the results for mult_cort_src_9
@@ -108,6 +108,24 @@ if ~isempty(find(sims_to_plot == 14,1))
     cfg.sim_vars_name = 'sim_vars_mult_src_basic_';
     cfg.sim_name = 'sim_data_bem_1_100t';
     cfg.source_name = 'mult_cort_src_14';
+    cfg.snr = snr;
+    cfg.mismatch = mismatch;
+    if import
+        cfg = brainstorm.bstcust_import_auto(cfg);
+    else
+        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+    end
+    
+    %% Plot the results
+    brainstorm.bstcust_plot(cfg.study_idx, cfg.snr);
+end
+
+if ~isempty(find(sims_to_plot == 15,1))
+    %% Import the results for mult_cort_src_15
+    cfg = [];
+    cfg.sim_vars_name = 'sim_vars_mult_src_basic_';
+    cfg.sim_name = 'sim_data_bem_1_100t';
+    cfg.source_name = 'mult_cort_src_15';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
     if import
