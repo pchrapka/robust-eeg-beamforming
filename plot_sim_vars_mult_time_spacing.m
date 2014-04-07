@@ -8,9 +8,9 @@ brainstorm.bstcust_start();
 % Manually delete the existing study
 
 mismatch = true;
-import = true;
+import = false;
 snr = '0';
-sims_to_plot = [13,15];
+sims_to_plot = [9,10,11];
 
 if ~isempty(find(sims_to_plot == 9,1))
     %% Import the results for mult_cort_src_9

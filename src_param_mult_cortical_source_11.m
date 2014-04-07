@@ -3,7 +3,7 @@
 % Different source locations, peaks occur at slightly different time points
 %
 % Goal:
-% Explore index 147 as a possible 2nd source location and try different
+% Explore index 400 as a possible 2nd source location and try different
 % spacings (see also mult_cort_src_9, 10, 13, 14)
 
 % sim_cfg.force = true;
@@ -52,7 +52,7 @@ sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
-sim_cfg.sources{2}.source_index = 147;
+sim_cfg.sources{2}.source_index = 400;
 
 % Source dipole params
 % Get a normal dipole orientation

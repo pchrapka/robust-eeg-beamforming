@@ -26,7 +26,7 @@ scatter3(...
     50,'red','o','filled');
 
 % Find points within a radius to a point
-pnt_idx = 207; % Center
+pnt_idx = 400;%207; % Center
 
 cfg = [];
 cfg.head = head;
@@ -42,7 +42,7 @@ hold on;
 % Remove the center first
 idx = find(distr_idx == pnt_idx);
 distr_idx_others = distr_idx;
-distr_idx_others(8) = [];
+distr_idx_others(idx) = [];
 scatter3(...
     head.GridLoc(distr_idx_others,1),...
     head.GridLoc(distr_idx_others,2),...
