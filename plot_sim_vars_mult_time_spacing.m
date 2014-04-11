@@ -5,6 +5,7 @@ brainstorm.bstcust_start();
 
 %%
 % WARNING!!
+% if import = true
 % Manually delete the existing study
 
 mismatch = true;

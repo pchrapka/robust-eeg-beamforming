@@ -11,11 +11,11 @@
 % run_sim_vars_distr_bem
 
 %% Paper simulations
-% run_sim_vars_single_bem_paper
-% run_sim_vars_mult_bem_paper
-% run_sim_vars_distr_bem_paper
+run_sim_vars_single_bem_paper
+run_sim_vars_mult_bem_paper
+run_sim_vars_distr_bem_paper
 
 %% Mult src spacing
-run_sim_vars_single_test
-run_sim_vars_mult_time_spacing
+% run_sim_vars_single_test
+% run_sim_vars_mult_time_spacing
 
