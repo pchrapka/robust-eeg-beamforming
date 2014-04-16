@@ -52,7 +52,7 @@ end
 if save_image
     set(h_fig(start_idx), 'Position', winPos);
     drawnow; % Flush queue
-    bstcust_saveimg(h_fig(start_idx),...
+    brainstorm.bstcust_saveimg(h_fig(start_idx),...
         study.Data(find_snr).FileName, time)
     close(h_fig(start_idx));
     h_fig(start_idx) = 0;
@@ -94,7 +94,7 @@ for i=1:n_files
     if save_image
         set(h_fig(i+start_idx), 'Position', winPos);
         drawnow; % Flush queue
-        bstcust_saveimg(h_fig(i+start_idx),...
+        brainstorm.bstcust_saveimg(h_fig(i+start_idx),...
             relative_file_names{i}, time)
         close(h_fig(i+start_idx));
         h_fig(i+start_idx) = 0;

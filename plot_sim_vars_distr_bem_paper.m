@@ -10,6 +10,7 @@ brainstorm.bstcust_start();
 %% Common Parameters
 snr = '0';
 mismatch = true;
+import = false;
 
 %% Import the results for distr_bem_paper
 cfg = [];
@@ -18,7 +19,11 @@ cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_name = 'distr_cort_src_2';
 cfg.snr = snr;
 cfg.mismatch = mismatch;
-cfg = brainstorm.bstcust_import_auto(cfg);
+if import
+    cfg = brainstorm.bstcust_import_auto(cfg);
+else
+    cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+end
 
 %% Plot the results
 brainstorm.bstcust_plot(cfg.study_idx, cfg.snr);
