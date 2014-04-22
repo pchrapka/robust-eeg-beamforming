@@ -1,6 +1,6 @@
-function [dispersion_data] = calc_dispersion(cfg)
-%CALC_DISPERSION Calculates dispersion for multiple data sets
-%   CALC_DISPERSION(CFG)
+function [dispersion_data] = dispersion_bf_file(cfg)
+%DISPERSION_BF_FILE Calculates dispersion for multiple data sets
+%   DISPERSION_BF_FILE(CFG)
 %
 %   cfg.sample_idx  sample position at which to calculate the dispersion
 %   cfg.beam_cfgs   cell array of beamformer cfg file tags to process

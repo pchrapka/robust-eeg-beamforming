@@ -1,6 +1,6 @@
-%% calc_dispersion_distr
+%% dispersion_bf_file_distr
 
-sample_idx = 250*0.452;
+sample_idx = 250*0.476;
 snr = '0';
 
 %% ==== MATCHED LEADFIELD ====
@@ -22,14 +22,14 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
+cfg.source_name = 'single_cort_src_1';
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 
 %% Calculate the dispersion
-result = calc_dispersion(cfg);
+result = dispersion_bf_file(cfg);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -55,11 +55,11 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
+cfg.source_name = 'single_cort_src_1';
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 
 %% Calculate the dispersion
-result = calc_dispersion(cfg);
+result = dispersion_bf_file(cfg);

@@ -1,4 +1,4 @@
-%% calc_dispersion_mult_paper
+%% dispersion_bf_file_mult_paper
 % WARNING Probably won't work well because there are two sources
 
 sample_idx = 250*0.460;
@@ -30,7 +30,7 @@ cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 
 %% Calculate the dispersion
-result = calc_dispersion(cfg);
+result = dispersion_bf_file(cfg);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -63,4 +63,4 @@ cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 
 %% Calculate the dispersion
-result = calc_dispersion(cfg);
+result = dispersion_bf_file(cfg);
