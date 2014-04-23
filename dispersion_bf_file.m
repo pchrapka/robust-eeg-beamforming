@@ -41,7 +41,8 @@ for i=1:length(cfg.beam_cfgs)
     
     % Calculate the dispersion
     dispersion_data.name{i} = cfg.beam_cfgs{i};
-    dispersion_data.value{i} = dispersion(cfg_disp);
+    [dispersion_data.value{i}, dispersion_data.n_points{i}] = ...
+        dispersion(cfg_disp);
     
 end
 

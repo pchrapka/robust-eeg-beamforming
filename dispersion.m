@@ -1,4 +1,4 @@
-function out = dispersion(cfg)
+function [out, n_points] = dispersion(cfg)
 %DISPERSION calculates dispersion around a source
 %
 %   cfg.head    head struct (see hm_get_data)
@@ -81,4 +81,5 @@ d_mag = sqrt(sum(d_vec,2));
 % http://en.wikipedia.org/wiki/Standard_deviation#Definition_of_population_
 % values
 out = sqrt(sum((d_mag.^2).*bf_power(poi)'));
+n_points = sum(poi);
 end

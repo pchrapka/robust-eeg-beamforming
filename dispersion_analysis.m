@@ -3,7 +3,7 @@ clc;
 
 %% Common params
 snr = '0';
-mismatch = true;
+mismatch = false;
 
 %% Get the data file name
 cfg = [];
@@ -26,5 +26,5 @@ results = data_in.dispersion_data;
 %% Display the results
 % results.name = results.name';
 % results.value = results.value';
-M = [results.name; results.value];
-fprintf('%s %f\n',M{:});
+M = [results.name; results.value; results.n_points];
+fprintf('%s %f %f\n',M{:});
