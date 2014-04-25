@@ -47,7 +47,16 @@ panel_scouts('SetScoutShowSelection','none');
 % Set the time cursor
 if time > 0
     panel_time('SetCurrentTime', time);
+    % Zoom in horizontally
+    zoom_factor = 10; % NOTE can be exposed as arg if necessary
+    gui_zoom(h_fig(start_idx), 'horizontal', zoom_factor);
+    % Try to center view on mouse
+    figure_timeseries('CenterViewOnCursor',h_fig(start_idx));
 end
+% Set the color to white
+new_color = [1 1 1]; % white
+set(h_fig(start_idx), 'Color', new_color);
+
 % Save & close the image
 if save_image
     set(h_fig(start_idx), 'Position', winPos);
