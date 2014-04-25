@@ -54,6 +54,9 @@ for i=1:n_tags
         fprintf('Couldn''t find %s\n',tmpcfg2.tag);
         continue;
     end
+    if isfield(tmpcfg.source,'Whitener')
+        tmpcfg.source = rmfield(tmpcfg.source,'Whitener');
+    end
     % Set the beamformer type
     tmpcfg.source.Function = cfg.tags{i};
     % Set the comment to reflect the beamformer type

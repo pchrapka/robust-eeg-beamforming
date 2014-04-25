@@ -3,9 +3,25 @@ function beamformer_analysis(cfg)
 %   BEAMFORMER_ANALYSIS(CFG)
 %
 %   cfg
-%       head_cfg
+%       head_cfg    
+%           struct containing config for the head models used
+%       head_cfg.current
+%           struct containing config for the head model used for the
+%           beamformer analysis, can be estimated or exact
+%
+%           type    current head model type
+%           file    current head model file
+%
+%       head_cfg.actual  
+%           struct containing config for the actual head model used to
+%           generate the data (only used for anisotropic rmv)
+%
+%           type     actual head model type
+%           file     actual head model file
+%
 %       beamformer_config
 %       data_file
+%
 %       loc    indices of vertices to scan (default = all vertices)
 %       force   (optional, boolean) default = false
 %           forces beamformer analysis and overwrites any existing analysis
@@ -17,11 +33,19 @@ function beamformer_analysis(cfg)
 %       
 
 if ~isfield(cfg,'force'), cfg.force = false; end
+if isequal(cfg.data_file,'dummy'), return; end % Check for a dummy file
 
 %% Load the data
 data_in = load(cfg.data_file); % loads data
 data = data_in.data;
 clear data_in;
+
+%% Calculate the covariance
+if ~isfield(data,'R')
+    data.R = aet_analysis_cov(data.avg_trials);
+    % Calculate it once and save it to the data file
+    save(cfg.data_file, 'data');
+end
 
 %% Load the beamformer config
 cfg_beam = beamformer_configs.get_config(...
@@ -31,7 +55,8 @@ cfg_beam = beamformer_configs.get_config(...
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-tmpcfg.tag = strrep(cfg_beam.name,' ','_');
+name_temp = strrep(cfg_beam.name,'.','-');
+tmpcfg.tag = strrep(name_temp,' ','_');
 % Add perturb name to the output file
 if isfield(cfg, 'perturb_config')
     tmpcfg.tag = [tmpcfg.tag '_' cfg.perturb_config];
@@ -59,7 +84,15 @@ else
 end
 
 %% Load the head model
-data_in = hm_get_data(cfg.head_cfg);
+if isfield(cfg.head_cfg, 'current')
+    % Get the estimated head model
+    % Need to differentiate between actual and estimated head models in
+    % mismatched scenario
+    data_in = hm_get_data(cfg.head_cfg.current);
+else
+    % Get the actual head model
+    data_in = hm_get_data(cfg.head_cfg);
+end
 head = data_in.head;
 clear data_in;
 
@@ -67,13 +100,6 @@ clear data_in;
 if ~isfield(cfg, 'loc')
     % Scanning all vertices in head model
     cfg.loc = 1:size(head.GridLoc,1);
-end
-
-%% Calculate the covariance
-if ~isfield(data,'R')
-    data.R = aet_analysis_cov(data.avg_trials);
-    % Calculate it once and save it to the data file
-    save(cfg.data_file, 'data');
 end
 
 %% Finalize the beamformer config
@@ -120,10 +146,23 @@ for i=1:n_scans
     idx = cfg.loc(i);
     
     % Check if it's a perturbed scenario
+    % FIXME This stuff should really be in the data generation pipeline
+    % Not in the beamformer
     if isfield(cfg, 'perturb_config')
         cfg_mis.head_model = head;
         cfg_mis.loc = idx;
         [cfg_beam.H,E] = aet_analysis_perturb_leadfield(cfg_mis);
+    end
+    
+    % Check for anisotropic rmv beamformer
+    if ~isempty(regexp(cfg_beam.name, 'rmv aniso', 'match'))
+        % Get the head model data
+        head_actual = hm_get_data(cfg.head_cfg.actual);
+        head_estimate = hm_get_data(cfg.head_cfg.current);
+    
+        % Generate the uncertainty matrix
+        cfg_beam.A = aet_analysis_rmv_uncertainty_create(...
+            head_actual.head, head_estimate.head, idx);
     end
     
     % Set the location to scan

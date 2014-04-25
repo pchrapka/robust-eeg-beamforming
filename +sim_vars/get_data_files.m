@@ -19,4 +19,8 @@ for i=1:length(cfg.snr_range)
         count = count + 1;
     end
 end
+
+if length(out) == 1
+    out{count} = 'dummy';
+end
 end

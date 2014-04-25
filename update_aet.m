@@ -5,11 +5,16 @@ function update_aet()
 % Save the current directory
 cur_dir = pwd;
 
-% Switch to the aet directory
-cd '../advanced-eeg-toolbox'
-
-% Reinstall aet
-aet_install
+try
+    % Switch to the aet directory
+    cd '../advanced-eeg-toolbox'
+    
+    % Reinstall aet
+    aet_install
+catch e
+    warning('reb:update_aet',...
+        'Something went wrong');
+end
 
 % Switch back
 

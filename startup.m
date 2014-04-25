@@ -23,6 +23,7 @@ else
     cd(cur_dir);
     complete(count) = true;
     count = count + 1;
+    fprintf('\tSDPT3: ok\n');
 end
 
 %% Add yalmip package to Matlab path
@@ -37,6 +38,7 @@ else
     yalmip_install();
     complete(count) = true;
     count = count + 1;
+    fprintf('\tyalmip: ok\n');
 end
 
 %% Add head-models package to Matlab path
@@ -54,10 +56,18 @@ else
     addpath(head_models_path);
     complete(count) = true;
     count = count + 1;
+    fprintf('\thead-models: ok\n');
 end
 
 %% Add aet package to Matlab path
 aet_path = [matlab_dir filesep 'aet'];
+if exist(aet_path,'dir') ~= 7
+    try
+        % Try installing
+        update_aet();
+    catch e
+    end
+end    
 if exist(aet_path,'dir') ~= 7
     warning('STARTUP:CheckPackages',...
         'Missing aet package.\nDownload and install from Phil'' BitBucket See README');
@@ -67,6 +77,7 @@ else
     complete(count) = true;
     count = count + 1;
     path(path,aet_path);
+    fprintf('\taet: ok\n');
 end
 
 %% Add phasereset package to Matlab path
@@ -80,6 +91,7 @@ else
     complete(count) = true;
     count = count + 1;
     path(path,phasereset_path);
+    fprintf('\tphasereset: ok\n');
 end
 
 % %% Check for mosek (Optional at this point)
@@ -180,6 +192,7 @@ if cvx_fail
 else
     complete(count) = true;
     count = count + 1;
+    fprintf('\tcvx: ok\n');
 end
 
 

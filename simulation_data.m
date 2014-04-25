@@ -16,6 +16,7 @@ aet_parallel_init(sim_cfg)
 
 %% Generate/load data
 parfor j=1:length(sim_cfg.snr_range)
+% for j=1:length(sim_cfg.snr_range)
     for i=1:sim_cfg.n_runs
         % Copy the config
         temp_cfg = sim_cfg;

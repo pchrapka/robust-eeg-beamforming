@@ -1,23 +1,27 @@
-%% bstcust_import_auto
-% Import data from beamformer analysis to Brainstorm
+function cfg = bstcust_import_auto(cfg)
+%BSTCUST_IMPORT_AUTO Import data from beamformer analysis to Brainstorm
+%   BSTCUST_IMPORT_AUTO(CFG)
+%
+%   cfg is a struct with the following fields
+%       sim_vars_name   name of the sim_vars config
+%       sim_name        name of simulation data config
+%       source_name     name of the source config
+%       snr             (string) specific snr to import
+%       mismatch        (boolean) specify whether scenario is a mismatch,
+%                       this adds the appropriate suffixes
+%
+%   Output
+%   returns cfg with the study_idx field
 
-% bstcust_start
+% Start Brainstorm
+brainstorm.bstcust_start();
+
+sim_vars_name = cfg.sim_vars_name;
+
+%% === CHECK FOR MISMATCH SCENARIO ===
 
 % Mismatch data
-mismatch = false;
-
-%% ==== SETUP STUDY ====
-% sim_vars_name = 'sim_vars_single_src_paper_';
-sim_vars_name = 'sim_vars_mult_src_paper_';
-% sim_vars_name = 'sim_vars_distr_src_paper_';
-% Get the data file
-cfg_data = [];
-cfg_data.sim_name = 'sim_data_bem_1_100t';
-% cfg_data.source_name = 'single_cort_src_1';
-cfg_data.source_name = 'mult_cort_src_8';
-% cfg_data.source_name = 'distr_cort_src_2';
-cfg_data.snr = '-10';
-cfg_data.iteration = '1';
+mismatch = cfg.mismatch;
 
 if mismatch
     % NOTE the condition name is built from the mismatch tag so only add one
@@ -40,6 +44,14 @@ else
         sim_vars_name = [sim_vars_name 'matched'];
     end
 end
+
+%% ==== SETUP STUDY ====
+% Config for the data file
+cfg_data = [];
+cfg_data.sim_name = cfg.sim_name;
+cfg_data.source_name = cfg.source_name;
+cfg_data.snr = cfg.snr;
+cfg_data.iteration = '1';
 
 subject_name = 'Subject01';
 % Set up the condition name
@@ -65,7 +77,7 @@ if isempty(study_exists)
     db_add_condition(subject_name, condition_name);
 end
 % Get the study id
-[~, study_idx] = bst_get('Study',...
+[~, cfg.study_idx] = bst_get('Study',...
     fullfile(subject_name,condition_name,'brainstormstudy.mat'));
 
 %% ==== GET TEMPLATE DATA STRUCT FROM BRAINSTORM ====
@@ -85,22 +97,24 @@ template_source_file = fullfile(protocol_info.STUDIES,...
 source = load(template_source_file);
 
 %% ==== IMPORT EEG DATA TO BRAINSTORM ====
-cfg = [];
-cfg.data_file = db.get_full_file_name(cfg_data);
-cfg.data_file_tag = ['snr_' cfg_data.snr '_' cfg_data.iteration];
-cfg.eeg = eeg;
-cfg.study_idx = study_idx;
+cfg_db = [];
+cfg_db.data_file = db.get_full_file_name(cfg_data);
+cfg_db.data_file_tag = ['snr_' cfg_data.snr '_' cfg_data.iteration];
+cfg_db.eeg = eeg;
+cfg_db.study_idx = cfg.study_idx;
 
 % FIXME Check if files already exist, build in option to replace them as
 % well.
-cfg = brainstorm.prep_import_eeg_auto(cfg);
+cfg_db = brainstorm.prep_import_eeg_auto(cfg_db);
 
 %% ==== IMPORT SOURCE RESULTS TO BRAINSTORM ====
 
-cfg.source = source;
+cfg_db.source = source;
 % Beamformer analyses to import
 if ~isempty(strfind(sim_vars_name, 'mult_src_paper_matched'))
-    cfg.tags = {...
+    % Corresponds to sim_vars configs
+    %   sim_vars_mult_src_paper_matched
+    cfg_db.tags = {...
         'rmv_epsilon_20',...
         'rmv_epsilon_50',...
         'rmv_eig_1_epsilon_20',...
@@ -109,20 +123,27 @@ if ~isempty(strfind(sim_vars_name, 'mult_src_paper_matched'))
         'lcmv_eig_1',...
         'lcmv_reg_eig'};
 elseif ~isempty(strfind(sim_vars_name, 'mult_src_paper_mismatched'))
-    cfg.tags = {...
+    % Corresponds to sim_vars configs
+    %   sim_vars_mult_src_paper_mismatched
+    cfg_db.tags = {...
         'rmv_epsilon_50',...
         'rmv_epsilon_100',...
         'rmv_epsilon_150',...
         'rmv_epsilon_200',...
+        'rmv_aniso',...        
         'rmv_eig_1_epsilon_50',...
         'rmv_eig_1_epsilon_100',...
         'rmv_eig_1_epsilon_150',...
         'rmv_eig_1_epsilon_200',...
+        'rmv_aniso_eig_1',...
         'lcmv',...
         'lcmv_eig_1',...
         'lcmv_reg_eig'};
 elseif ~isempty(strfind(sim_vars_name, 'paper_matched'))
-    cfg.tags = {...
+    % Corresponds to sim_vars configs
+    %   sim_vars_single_src_paper_matched
+    %   sim_vars_distr_src_paper_matched
+    cfg_db.tags = {...
         'rmv_epsilon_20',...
         'rmv_epsilon_50',...
         'rmv_eig_0_epsilon_20',...
@@ -131,20 +152,33 @@ elseif ~isempty(strfind(sim_vars_name, 'paper_matched'))
         'lcmv_eig_0',...
         'lcmv_reg_eig'};
 elseif ~isempty(strfind(sim_vars_name, 'paper_mismatched'))
-    cfg.tags = {...
+    % Corresponds to sim_vars configs
+    %   sim_vars_single_src_paper_mismatched
+    %   sim_vars_distr_src_paper_mismatched
+    cfg_db.tags = {...
         'rmv_epsilon_50',...
         'rmv_epsilon_100',...
         'rmv_epsilon_150',...
         'rmv_epsilon_200',...
+        'rmv_aniso',...
         'rmv_eig_0_epsilon_50',...
         'rmv_eig_0_epsilon_100',...
         'rmv_eig_0_epsilon_150',...
         'rmv_eig_0_epsilon_200',...
+        'rmv_aniso_eig_0',...
         'lcmv',...
         'lcmv_eig_0',...
         'lcmv_reg_eig'};
+elseif ~isempty(strfind(sim_vars_name, 'mult_src_basic'))
+    cfg_db.tags = {...
+        'lcmv',...
+        'rmv_epsilon_0-01',...
+        ...'rmv_epsilon_5',...
+        'rmv_aniso'
+        };
 else
-    cfg.tags = {'lcmv',...
+    % Corresponds to whatever random sim_vars config
+    cfg_db.tags = {'lcmv',...
         'lcmv_eig_1',...
         'lcmv_eig_2',...
         'lcmv_eig_3',...
@@ -173,22 +207,23 @@ else
         };
 end
 if mismatch
-    n_tags = length(cfg.tags);
+    n_tags = length(cfg_db.tags);
     n_mismatch_tags = length(mismatch_tags);
     tmp_tags = {};
     for i=1:n_tags
         for j=1:n_mismatch_tags
-            tmp_tags = [tmp_tags [cfg.tags{i} '_' mismatch_tags{j}]];
+            tmp_tags = [tmp_tags [cfg_db.tags{i} '_' mismatch_tags{j}]];
         end
     end
-    cfg.tags = tmp_tags;
+    cfg_db.tags = tmp_tags;
 end
 
-cfg = brainstorm.prep_import_source_auto(cfg);
+cfg_db = brainstorm.prep_import_source_auto(cfg_db);
 
-disp(['Current study: ' num2str(study_idx)]);
+disp(['Current study: ' num2str(cfg.study_idx)]);
 
 %% ==== PLOT CURRENT RESULTS ====
 
-% brainstorm_plot(study_idx);
-% brainstorm_plot_close();
+% brainstorm.bstcust_plot(cfg.study_idx, cfg_data.snr);
+% brainstorm.bstcust_plot_close();
+end
