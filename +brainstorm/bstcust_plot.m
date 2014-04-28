@@ -60,6 +60,7 @@ set(h_fig(start_idx), 'Color', new_color);
 % Save & close the image
 if save_image
     set(h_fig(start_idx), 'Position', winPos);
+    brainstorm.bstcust_plot_hide_children(h_fig(start_idx));
     drawnow; % Flush queue
     brainstorm.bstcust_saveimg(h_fig(start_idx),...
         study.Data(find_snr).FileName, time)
