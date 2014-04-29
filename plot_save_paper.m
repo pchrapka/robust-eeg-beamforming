@@ -16,7 +16,7 @@ cfg_data.mismatch = false;
 time = 0.476;
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
@@ -32,7 +32,7 @@ cfg_data.mismatch_tags = {'3sphere'};
 time = 0.476;
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
@@ -47,7 +47,7 @@ cfg_data.iteration = '1';
 cfg_data.mismatch = false;
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 time = 0.460;
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
@@ -62,7 +62,7 @@ cfg_data.mismatch = true;
 cfg_data.mismatch_tags = {'3sphere'};
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 time = 0.460;
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
@@ -79,7 +79,7 @@ cfg_data.mismatch = false;
 time = 0.452;
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
@@ -95,7 +95,7 @@ cfg_data.mismatch_tags = {'3sphere'};
 time = 0.452;
 
 % Get the study idx
-study_idx = brainstorm.bstcust_study_id(cfg_data);
+study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 

@@ -9,8 +9,8 @@ brainstorm.bstcust_start();
 
 %% Common Parameters
 snr = '0';
-mismatch = true;
-import = false;
+mismatch = false;
+import = true;
 
 %% Import the results for single_bem_paper
 cfg = [];
@@ -22,7 +22,7 @@ cfg.mismatch = mismatch;
 if import
     cfg = brainstorm.bstcust_import_auto(cfg);
 else
-    cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+    cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
 end
 
 %% Plot the results

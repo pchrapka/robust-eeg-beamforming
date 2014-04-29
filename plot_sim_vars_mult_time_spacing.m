@@ -24,7 +24,7 @@ if ~isempty(find(sims_to_plot == 9,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -42,7 +42,7 @@ if ~isempty(find(sims_to_plot == 10,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -60,7 +60,7 @@ if ~isempty(find(sims_to_plot == 11,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -78,7 +78,7 @@ if ~isempty(find(sims_to_plot == 12,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -96,7 +96,7 @@ if ~isempty(find(sims_to_plot == 13,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -114,7 +114,7 @@ if ~isempty(find(sims_to_plot == 14,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results
@@ -132,7 +132,7 @@ if ~isempty(find(sims_to_plot == 15,1))
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
-        cfg.study_idx = brainstorm.bstcust_study_id(cfg);
+        cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
     end
     
     %% Plot the results

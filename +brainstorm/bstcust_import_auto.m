@@ -65,20 +65,10 @@ end
 
 fprintf('Condition name: %s \n',condition_name);
 
-% Get the subject
-subject = bst_get('Subject', subject_name, 1);
-% Get the current conditions for our subject
-studies = bst_get('ConditionsForSubject', subject.FileName);
-% Check if the current condition already exists
-study_exists = find(file_compare(studies, condition_name), 1);
-if isempty(study_exists)
-    disp('Adding condition');
-    % Add a new condition
-    db_add_condition(subject_name, condition_name);
-end
-% Get the study id
-[~, cfg.study_idx] = bst_get('Study',...
-    fullfile(subject_name,condition_name,'brainstormstudy.mat'));
+cfg_study = [];
+cfg_study.subject_name = subject_name;
+cfg_study.condition_name = condition_name;
+cfg.study_idx = brainstorm.bstcust_study_setup(cfg_study);
 
 %% ==== GET TEMPLATE DATA STRUCT FROM BRAINSTORM ====
 % Get a template study
