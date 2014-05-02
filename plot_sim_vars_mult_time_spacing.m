@@ -12,6 +12,12 @@ mismatch = true;
 import = false;
 snr = '0';
 sims_to_plot = [9,10,11];
+source_file_tags = {...
+    'lcmv',...
+    'rmv_epsilon_0-01',...
+    ...'rmv_epsilon_5',...
+    'rmv_aniso'
+    };
 
 if ~isempty(find(sims_to_plot == 9,1))
     %% Import the results for mult_cort_src_9
@@ -21,6 +27,7 @@ if ~isempty(find(sims_to_plot == 9,1))
     cfg.source_name = 'mult_cort_src_9';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -39,6 +46,7 @@ if ~isempty(find(sims_to_plot == 10,1))
     cfg.source_name = 'mult_cort_src_10';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -57,6 +65,7 @@ if ~isempty(find(sims_to_plot == 11,1))
     cfg.source_name = 'mult_cort_src_11';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -75,6 +84,7 @@ if ~isempty(find(sims_to_plot == 12,1))
     cfg.source_name = 'mult_cort_src_12';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -93,6 +103,7 @@ if ~isempty(find(sims_to_plot == 13,1))
     cfg.source_name = 'mult_cort_src_13';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -111,6 +122,7 @@ if ~isempty(find(sims_to_plot == 14,1))
     cfg.source_name = 'mult_cort_src_14';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
@@ -129,6 +141,7 @@ if ~isempty(find(sims_to_plot == 15,1))
     cfg.source_name = 'mult_cort_src_15';
     cfg.snr = snr;
     cfg.mismatch = mismatch;
+    cfg.source_file_tags = source_file_tags;
     if import
         cfg = brainstorm.bstcust_import_auto(cfg);
     else
