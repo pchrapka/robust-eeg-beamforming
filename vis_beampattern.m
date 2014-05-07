@@ -1,9 +1,15 @@
 function vis_beampattern(cfg)
-%
+%VIS_BEAMPATTERN plots the beampattern of a beamformer
 %   cfg.import  (boolean), if true, creates and imports to Brainstorm,
 %               otherwise just plots the errors
 %   cfg.beamformer_file
 %               (string) path to beamformer output data
+%   cfg.beamformer_file_2
+%               (string) path to another set of beamformer output data,
+%               if specified, the function takes the difference between the
+%               beampatterns (file 1 - file 2)
+%   cfg.voxel_idx
+%               index of voxel of interest
 
 %% ==== NO IMPORT, PLOT THE ERRORS ====
 cfg_study = [];
@@ -29,24 +35,15 @@ copyfile(cfg_eeg.data_file_in, cfg_eeg.data_file_out);
 % FIXME This can be more sophisticated but I'm just curious right now
 
 %% ==== CALCULATE BEAMPATTERN ====
-
-% Load the beamformer output data
-data_in = load(cfg.beamformer_file);
-
-n_locs = length(data_in.out.loc);
-% Allocate memory
-beampattern = zeros(n_locs,1);
-% FIXME beampattern needs to be the proper size
-for i=1:n_locs
-    % Extract the data at each index
-    H = data_in.source.leadfield{i};
-    W = data_in.source.filter{i};
-    loc = data_in.source.loc(i);
-    
-    % Calculate the frobenius norm of the gain matrix
-    beampattern(loc,1) = norm(W'*H, 'fro');
+cfg.distances = false;
+beampattern_data = beampattern(cfg);
+if isfield(cfg,'beamformer_file_2')
+    % Take the difference between the beampatterns of both beamformers
+    cfg_temp = cfg;
+    cfg_temp.beamformer_file = cfg_temp.beamformer_file_2;
+    beampattern_data_2 = beampattern(cfg_temp);
+    beampattern_data = beampattern_data - beampattern_data_2;
 end
-
 
 %% ==== CREATE NEW STUDY IN BRAINSTORM ====
 study_idx = brainstorm.bstcust_study_setup(cfg_study);
@@ -82,8 +79,9 @@ cfg_db = brainstorm.prep_import_eeg_auto(cfg_db);
 %% ==== SAVE BEAMPATTERN TO FILE ====
 % Have to fake a beamformer output file so I can reuse the bstcust import
 % functions
+n_locs = size(source_template.ImageGridAmp,1)/3;
 source.beamformer_output = zeros(3, n_locs, length(eeg.Time));
-source.beamformer_output(1,:,:) = repmat(beampattern',[1 1 length(eeg.Time)]);
+source.beamformer_output(1,:,:) = repmat(beampattern_data',[1 1 length(eeg.Time)]);
 save_file = fullfile('output', tag,...
     ['eeg_' tag '_mini.mat']);
 save(save_file,'source');
