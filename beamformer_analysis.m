@@ -20,16 +20,29 @@ function beamformer_analysis(cfg)
 %           file     actual head model file
 %
 %       beamformer_config
+%           cell array of key-value pairs specifying the beamformer to use,
+%           see beamformer_config.get_config()
 %       data_file
+%           name of file containing the EEG data
 %
-%       loc    indices of vertices to scan (default = all vertices)
-%       force   (optional, boolean) default = false
+%       loc
+%           (default = all vertices)
+%           indices of vertices to scan 
+%       force
+%           (boolean, default = false)
 %           forces beamformer analysis and overwrites any existing analysis
 %       perturb_config (optional)
 %           config specifying the covariance matrix of random perturbation
 %           for leadfield matrix
 %       tag (optional)
 %           additional tag for the output file name
+%
+%       Output options
+%       --------------
+%       time_idx (optional)
+%           selects only one time index of the beamformer output when
+%           saving the beamformer output, saves a considerable amount of
+%           space
 %       
 
 if ~isfield(cfg,'force'), cfg.force = false; end
@@ -185,7 +198,15 @@ for i=1:n_scans
     
     % Save the output of the beamformer
     for j=1:n_components
-        out.beamformer_output(j,i,:) = beam_signal(j,:);
+        if isfield(cfg, 'time_idx')
+            % Save only one time index
+            out.beamformer_output(j,i,1) = ...
+                beam_signal(j,cfg.time_idx);
+        else
+            % Save all of the beamformer output
+            out.beamformer_output(j,i,:) = ...
+                beam_signal(j,:);
+        end
     end
 end
 fprintf('\n');
