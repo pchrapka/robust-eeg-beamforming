@@ -7,6 +7,9 @@ function [rms, rms_peak] = rms_bf(cfg)
 %               sample index at which to calculate the dispersion
 %   cfg.true_peak
 %               index of the true peak
+%
+%   cfg.cluster
+%   cfg.n_clusters
 
 % TODO At what time do I do it? 
 % - User-input?
@@ -37,6 +40,51 @@ bf_power = sqrt(bf_sum);
 if ~isvector(bf_power)
     warning('rmvb:rms_bf',...
         'A matrix version has not been implemented');
+end
+
+%% Cluster the data
+if cfg.cluster
+    % Get all the vertices
+    n_vertices = size(bf,2);
+    % cfg for hm_get_vertices
+    cfg_vert = [];
+    cfg_vert.head = cfg.head;
+    cfg_vert.type = 'index';
+    cfg_vert.idx = 1:n_vertices;
+    [~,vertices] = hm_get_vertices(cfg_vert);
+    
+%     % Concatenate the location data with the power data
+%     X = [vertices bf_power(:)]; 
+%     % Fit the gaussian mixture model
+%     obj = gmdistribution.fit(X, cfg.n_clusters);
+%     
+%     idx = cluster(obj,X);
+%     cluster1 = X(idx == 1,:);
+%     cluster2 = X(idx == 2,:);
+%     figure
+%     h1 = scatter3(cluster1(:,1),cluster1(:,2),cluster1(:,3),100,cluster1(:,4),'d','filled');
+%     hold on
+%     h2 = scatter3(cluster2(:,1),cluster2(:,2),cluster2(:,3),100,cluster2(:,4),'filled');
+%     
+%     opts = statset('Display','final');
+% 
+%     [idx,ctrs] = kmeans(X,2,...
+%         'Distance','city',...
+%         'Replicates',5,...
+%         'Options',opts);
+%     
+%     cluster1 = X(idx == 1,:);
+%     cluster2 = X(idx == 2,:);
+% %     figure
+% %     h1 = scatter3(cluster1(:,1),cluster1(:,2),cluster1(:,3),100,'r.');
+% %     hold on
+% %     h2 = scatter3(cluster2(:,1),cluster2(:,2),cluster2(:,3),100,'g.');
+% %     scatter3(ctrs(:,1),ctrs(:,2),ctrs(:,3),110,'kx');
+%     
+%     figure
+%     scatter3(cluster1(:,1),cluster1(:,2),cluster1(:,3),100,cluster1(:,4),'d','filled')
+%     hold on
+%     scatter3(cluster2(:,1),cluster2(:,2),cluster2(:,3),100,cluster2(:,4),'filled')
 end
 
 %% Select points of interest
