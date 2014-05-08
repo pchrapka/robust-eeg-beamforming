@@ -13,9 +13,6 @@
 
 sim_cfg.source_name = 'mult_cort_src_12';
 
-% Specific beamformer parameter based on sources
-sim_cfg.snr_range = -10:10:0; % in dB
-
 % SNR calculation
 % sim_cfg.snr.type = 'per_trial';
 sim_cfg.snr.type = 'on_average';
