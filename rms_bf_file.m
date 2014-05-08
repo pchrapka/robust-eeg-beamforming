@@ -40,10 +40,10 @@ for i=1:length(cfg.beam_cfgs)
     cfg_rms.sample_idx = cfg.sample_idx;
     cfg_rms.true_peak = cfg.true_peak;
     cfg_rms.cluster = cfg.cluster;
-    cfg_rms.n_clusters = cfg.n_clusters;
     
     % Calculate the rms
     rms_data.name{i} = cfg.beam_cfgs{i};
+    rms_data.true_peak_idx{i} = cfg.true_peak;
     [rms_data.rms{i}, rms_data.rms_peak{i}] = ...
         rms_bf(cfg_rms);
     
