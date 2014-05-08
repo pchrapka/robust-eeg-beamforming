@@ -23,6 +23,8 @@ k = k+1;
 
 %% Parameter sweep
 force = false;
+% 0.476 comes from the time point selected for display in the paper
+time_idx = 250*0.476;
 
 % Data files
 cfg_data = [];
@@ -38,6 +40,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_single_src_paper_matched';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
+cfg_simvars_setup.time_idx = time_idx;
 cfg_simvars_setup.head.type = 'brainstorm';
 cfg_simvars_setup.head.file = 'head_Default1_bem_500V.mat';
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -55,6 +58,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_single_src_paper_mismatched';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
+cfg_simvars_setup.time_idx = time_idx;
 cfg_simvars_setup.tag = '3sphere';
 cfg_simvars_setup.head.current.type = 'brainstorm';
 cfg_simvars_setup.head.current.file = 'head_Default1_3sphere_500V.mat';

@@ -428,4 +428,10 @@ if isfield(cfg, 'tag')
     params(idx).values = {cfg.tag};
 end
 
+if isfield(cfg, 'time_idx')
+    idx = length(params) + 1;
+    params(idx).name = 'time_idx';
+    params(idx).values = {cfg.time_idx};
+end
+
 end

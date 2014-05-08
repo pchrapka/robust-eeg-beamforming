@@ -197,16 +197,23 @@ for i=1:n_scans
         tmpcfg, data.avg_trials);
     
     % Save the output of the beamformer
-    for j=1:n_components
-        if isfield(cfg, 'time_idx')
+    if isfield(cfg, 'time_idx')
+        % Save only one time index
+        for j=1:n_components
             % Save only one time index
             out.beamformer_output(j,i,1) = ...
-                beam_signal(j,cfg.time_idx);
-        else
-            % Save all of the beamformer output
+                beam_signal(j, cfg.time_idx);
+        end
+        out.beamformer_output_type = ...
+            ['time index: ' num2str(cfg.time_idx)];
+    else
+        % Save all of the beamformer output
+        for j=1:n_components
             out.beamformer_output(j,i,:) = ...
                 beam_signal(j,:);
         end
+        out.beamformer_output_type = ...
+            ['time index: 1:' size(beam_signal,2)];
     end
 end
 fprintf('\n');
