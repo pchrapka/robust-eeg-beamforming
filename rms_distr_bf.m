@@ -4,11 +4,12 @@ function [rms, rms_peak] = rms_distr_bf(cfg)
 %
 %   cfg.bf_power
 %       beamformer power
+%   cfg.input_power
+%       input power
 %   cfg.true_peak
 %       index of the true peak
 
 % Calculate the RMS error
-poi = true(size(cfg.bf_power));
-[rms, rms_peak] = rms_error(cfg.bf_power, cfg.true_peak, poi);
+[rms, rms_peak] = rms_error(cfg.bf_power, cfg.input_power);
 
 end

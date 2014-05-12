@@ -1,16 +1,19 @@
-function [rms, rms_peak] = rms_error(bf_power, true_peak, poi)
+function [rmse, rms_input] = rms_error(bf_power, input_power)
 
-% FIXME
-% 1. Calculate the scaling factor over the support of the input signal
-% Sum(bf_power)/Sum(input power) = alpha
-% 2. Normalize the output power bf_power/alpha
-% 3. Calculate the RMSE, i.e. take the sqrt of the sum of squared
-% difference between the input and output
+% Select the non zero entries of input_power
+non_zero = input_power > 0;
 
-% Select all points except the peak
-poi(true_peak) = false;
+% Calculate the normalizing factor
+alpha = sum(bf_power(non_zero))/sum(input_power(non_zero));
 
-% Calculate the RMS error
-rms = sqrt(sum(bf_power(poi).^2)/length(bf_power));
-rms_peak = bf_power(true_peak);
+% Normalize the output power
+bf_power_norm = bf_power/alpha;
+
+% Calculate the RMSE
+error = bf_power_norm - input_power;
+rmse = sqrt(sum(error.^2)/length(error));
+
+% Calculate the RMS of the input
+rms_input = sqrt(sum(input_power.^2)/length(input_power));
+
 end

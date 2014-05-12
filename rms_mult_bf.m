@@ -1,4 +1,4 @@
-function [rms, rms_peak] = rms_mult_bf(cfg)
+function [rmse, rms_input] = rms_mult_bf(cfg)
 %RMS_MULT_BF calculates the RMS error of the beamformer output on data
 %from a multiple source scenario
 %
@@ -52,9 +52,20 @@ n_rms = length(cfg.true_peak);
 rms = zeros(n_rms,1);
 rms_peak = zeros(n_rms,1);
 for i=1:n_rms
+    
+    % Create the input power vector
+    input_power = zeros(size(cfg.bf_power));
+    input_power(cfg.true_peak(i)) = 1;
+    
+    % Get indices of each cluster
     poi = (cluster_idx == i);
-    [rms(i), rms_peak(i)] = rms_error(...
-        cfg.bf_power, cfg.true_peak(i), poi);
+    
+    % Select one cluster at a time
+    bf_power = cfg.bf_power(poi);
+    input_power = input_power(poi);
+    
+    % Calculate the RMSE
+    [rmse(i), rms_input(i)] = rms_error(bf_power, input_power);
 end
 
 

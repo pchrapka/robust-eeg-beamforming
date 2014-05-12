@@ -1,4 +1,4 @@
-function [rms, rms_peak] = rms_bf(cfg)
+function [rmse, rms_input] = rms_bf(cfg)
 %RMS_BF calculates the RMS error of the beamformer
 %
 %   cfg.bf_out  beamformer output [components vertices samples]
@@ -11,6 +11,11 @@ function [rms, rms_peak] = rms_bf(cfg)
 %
 %   source_type = 'mult'
 %   cfg.head    head struct (see hm_get_data)
+%
+%   source_type = 'distr'
+%   cfg.input_power
+%       input signal for distributed source as a function of vertex at the
+%       sample_idx, [vertices 1]
 
 % TODO At what time do I do it? 
 % - User-input?
@@ -47,11 +52,11 @@ end
 cfg.bf_power = bf_power;
 switch cfg.source_type
     case 'single'
-        [rms, rms_peak] = rms_single_bf(cfg);
+        [rmse, rms_input] = rms_single_bf(cfg);
     case 'mult'
-        [rms, rms_peak] = rms_mult_bf(cfg);
+        [rmse, rms_input] = rms_mult_bf(cfg);
     case 'distr'
-        [rms, rms_peak] = rms_distr_bf(cfg);
+        [rmse, rms_input] = rms_distr_bf(cfg);
     otherwise
         error('rmvb:rms_bf',...
         ['Unknown source type ' cfg.source_type]);
