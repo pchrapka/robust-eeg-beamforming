@@ -39,7 +39,7 @@ for i=1:length(cfg.beam_cfgs)
     cfg_rms.bf_out = data_in.source.beamformer_output;
     cfg_rms.sample_idx = cfg.sample_idx;
     cfg_rms.true_peak = cfg.true_peak;
-    cfg_rms.cluster = cfg.cluster;
+    cfg_rms.source_type = cfg.source_type;
     
     % Calculate the rms
     rms_data.name{i} = cfg.beam_cfgs{i};

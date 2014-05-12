@@ -30,7 +30,7 @@ cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
-cfg.cluster = true;
+cfg.source_type = 'mult';
 
 %% Calculate the rms
 result = rms_bf_file(cfg);
@@ -66,8 +66,7 @@ cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
-cfg.cluster = true;
-cfg.n_clusters = 2;
+cfg.source_type = 'mult';
 
 %% Calculate the rms
 result = rms_bf_file(cfg);
