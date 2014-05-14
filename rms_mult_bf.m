@@ -10,7 +10,7 @@ function [rmse, rms_input] = rms_mult_bf(cfg)
 %       index of the true peak
 
 % Get all the vertices
-n_vertices = size(bf,2);
+n_vertices = size(cfg.head.GridLoc,1);
 % cfg for hm_get_vertices
 cfg_vert = [];
 cfg_vert.head = cfg.head;

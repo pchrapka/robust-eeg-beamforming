@@ -1,13 +1,13 @@
 function [rmse, rms_input] = rms_bf(cfg)
-%RMS_BF calculates the RMS error of the beamformer
+%RMS_BF Calculates the RMS error for a single set of beamformer outputs
 %
 %   cfg.bf_out  beamformer output [components vertices samples]
 %   cfg.sample_idx
 %               sample index at which to calculate the RMS error
 %   cfg.true_peak
 %               index of the true peak
-%   cfg.source_type
-%       ('single', 'distr', 'mult')
+%   cfg.source_type     ('single', 'distr', 'mult')
+%       type of source being analyzed
 %
 %   source_type = 'mult'
 %   cfg.head    head struct (see hm_get_data)

@@ -1,14 +1,51 @@
 function [rms_data] = rms_bf_file(cfg)
-%DISPERSION_BF_FILE Calculates rms for multiple data sets
-%   DISPERSION_BF_FILE(CFG)
+%RMS_BF_FILE Calculates rms for multiple data files
+%   RMS_BF_FILE(CFG) calculates the RMS error for multiple beamformer
+%   output data files. Saves the output in the same directory as the
+%   original EEG data set, with the same file name and the following
+%   suffixes: '_rms' or '_rms_3sphere'.
 %
-%   cfg.sample_idx  sample position at which to calculate the rms
+%   Beamformer Config
+%   -----------------
 %   cfg.beam_cfgs   cell array of beamformer cfg file tags to process
+%
+%     Example: 
+%     cfg.beam_cfgs = {...
+%         'rmv_epsilon_20',...
+%         'lcmv'
+%         };
+%       
+%   Data Set
+%   --------
 %   cfg.sim_name    simulation config name
 %   cfg.source_name source config name
 %   cfg.snr         snr
 %   cfg.iteration   simulation iteration
-%   cfg.head        head model cfg (see hm_get_data);
+%
+%     Example:
+%     cfg.sim_name = 'sim_data_bem_1_100t';
+%     cfg.source_name = 'mult_cort_src_10';
+%     cfg.snr = snr;
+%     cfg.iteration = '1';
+%
+%
+%   RMS Calculation
+%   ---------------
+%   cfg.sample_idx
+%       sample index at which to calculate the RMS error
+%   cfg.true_peak
+%       index of the true peak
+%   cfg.source_type     ('single', 'distr', 'mult')
+%       type of source being analyzed
+%
+%   Extra arguments based on source_type
+%   source_type = 'mult'
+%   cfg.head    head struct (see hm_get_data)
+%
+%   source_type = 'distr'
+%   cfg.input_power
+%       input signal for distributed source as a function of vertex at the
+%       sample_idx, [vertices 1]
 
 %% Set up simulation info
 cfg_data = [];
@@ -19,9 +56,11 @@ cfg_data.iteration = cfg.iteration;
 
 %% Load the head model
 
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+if isfield(cfg,'head')
+    data_in = hm_get_data(cfg.head);
+    head = data_in.head;
+    clear data_in;
+end
 
 %% Calculate rms for all desired beamformer configs
 for i=1:length(cfg.beam_cfgs)
@@ -35,7 +74,9 @@ for i=1:length(cfg.beam_cfgs)
     
     % Set up cfg for rms
     cfg_rms = [];
-    cfg_rms.head = head;
+    if isfield(cfg,'head')
+        cfg_rms.head = head;
+    end
     cfg_rms.bf_out = data_in.source.beamformer_output;
     cfg_rms.sample_idx = cfg.sample_idx;
     cfg_rms.true_peak = cfg.true_peak;
@@ -46,8 +87,8 @@ for i=1:length(cfg.beam_cfgs)
     
     % Calculate the rms
     rms_data.name{i} = cfg.beam_cfgs{i};
-    rms_data.true_peak_idx{i} = cfg.true_peak;
-    [rms_data.rmse{i}, rms_data.rms_input{i}] = ...
+    rms_data.true_peak_idx(i,:) = cfg.true_peak;
+    [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
         rms_bf(cfg_rms);
     
 end

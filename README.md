@@ -34,6 +34,21 @@ NOTE: It uses an existing Brainstorm database that I had, not sure if it will wo
 - cfg_data.snr
 3. Run brainstorm.bst_import_auto
 
+## Running tests
+
+1. Make sure you're in the main project directory
+2. Execute
+
+'''
+runtests beamformer_configs.tests
+'''
+
+OR
+
+'''
+runtests tests
+'''
+
 # Dependencies
 
 ## Related projects by Phil
