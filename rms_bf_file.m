@@ -81,6 +81,9 @@ for i=1:length(cfg.beam_cfgs)
     cfg_rms.sample_idx = cfg.sample_idx;
     cfg_rms.true_peak = cfg.true_peak;
     cfg_rms.source_type = cfg.source_type;
+    if isfield(cfg,'cluster')
+        cfg_rms.cluster = cfg.cluster;
+    end
     if isfield(cfg,'input_power')
         cfg_rms.input_power = cfg.input_power; % used for distr source
     end
@@ -100,6 +103,11 @@ if isempty(strfind(cfg.beam_cfgs{1}, '3sphere'))
     cfg_out.tag = 'rms';
 else
     cfg_out.tag = 'rms_3sphere';
+end
+if isfield(cfg,'cluster')
+    if cfg.cluster
+        cfg_out.tag = [cfg_out.tag '_cluster'];
+    end
 end
 save_file = db.save_setup(cfg_out);
 save(save_file, 'rms_data');

@@ -3,6 +3,7 @@
 sample_idx = 250*0.460;
 true_peak_idx = [295 400];
 snr = '0';
+clustering = true;
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
@@ -31,6 +32,7 @@ cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 cfg.source_type = 'mult';
+cfg.cluster = clustering;
 
 %% Calculate the rms
 result = rms_bf_file(cfg);
@@ -67,6 +69,7 @@ cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 cfg.source_type = 'mult';
+cfg.cluster = clustering;
 
 %% Calculate the rms
 result = rms_bf_file(cfg);
