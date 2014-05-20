@@ -59,7 +59,7 @@ scatter3(...
 cfg = [];
 cfg.head = head;
 cfg.idx = distr_idx;
-distr_mom = dipole_orientation(cfg);
+distr_mom = aet_sim_dipole_orientation(cfg);
 
 % Plot moment vectors
 scaling = 2;

@@ -33,7 +33,7 @@ sim_cfg.sources{1}.source_index = 400;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.idx = sim_cfg.sources{1}.source_index;
-sim_cfg.sources{1}.moment = dipole_orientation(cfg)'; 
+sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)'; 
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;

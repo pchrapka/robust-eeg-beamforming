@@ -42,10 +42,6 @@ function [rms_data] = rms_bf_file(cfg)
 %   source_type = 'mult'
 %   cfg.head    head struct (see hm_get_data)
 %
-%   source_type = 'distr'
-%   cfg.input_power
-%       input signal for distributed source as a function of vertex at the
-%       sample_idx, [vertices 1]
 
 %% Set up simulation info
 cfg_data = [];
@@ -67,26 +63,30 @@ for i=1:length(cfg.beam_cfgs)
     
     % Get the full data file name
     cfg_data.tag = [cfg.beam_cfgs{i} '_mini'];
-    data_file = db.save_setup(cfg_data);
+    bf_data_file = db.save_setup(cfg_data);
     
-    % Load the data
-    data_in = load(data_file);
+    % Load the beamformer data
+    bf_data_in = load(bf_data_file);
     
     % Set up cfg for rms
     cfg_rms = [];
     if isfield(cfg,'head')
         cfg_rms.head = head;
     end
-    cfg_rms.bf_out = data_in.source.beamformer_output;
+    cfg_rms.bf_out = bf_data_in.source.beamformer_output;
     cfg_rms.sample_idx = cfg.sample_idx;
     cfg_rms.true_peak = cfg.true_peak;
     cfg_rms.source_type = cfg.source_type;
     if isfield(cfg,'cluster')
         cfg_rms.cluster = cfg.cluster;
     end
-    if isfield(cfg,'input_power')
-        cfg_rms.input_power = cfg.input_power; % used for distr source
-    end
+
+    % Calculate the input signal
+    % NOTE This won't be exact
+    cfg_input = [];
+    cfg_input.sim_name = cfg.sim_name;
+    cfg_input.source_name = cfg.source_name;
+    cfg_rms.input_signal = rms.rms_calc_input_signal(cfg_input);
     
     % Calculate the rms
     rms_data.name{i} = cfg.beam_cfgs{i};
@@ -95,6 +95,8 @@ for i=1:length(cfg.beam_cfgs)
         rms.rms_bf(cfg_rms);
     
 end
+
+rms_data.rmse
 
 %% Save the data
 % Set up output file cfg

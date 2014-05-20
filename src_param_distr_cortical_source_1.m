@@ -27,7 +27,7 @@ cfg.radius = radius;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.idx = distr_idx;
-distr_orient = dipole_orientation(cfg);
+distr_orient = aet_sim_dipole_orientation(cfg);
 
 cfg = [];
 cfg.head = sim_cfg.head;

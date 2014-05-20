@@ -3,15 +3,15 @@ clc;
 
 %% Common params
 snr = '0';
-mismatch = true;
+mismatch = false;
 clustered_data = false; % only for mult_src
 
 %% Get the data file name
 cfg = [];
 cfg.sim_name = 'sim_data_bem_1_100t';
-% cfg.source_name = 'distr_cort_src_2';
+cfg.source_name = 'distr_cort_src_2';
 % cfg.source_name = 'single_cort_src_1';
-cfg.source_name = 'mult_cort_src_10';
+% cfg.source_name = 'mult_cort_src_10';
 cfg.snr = snr;
 cfg.iteration = '1';
 if mismatch

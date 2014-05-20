@@ -13,9 +13,9 @@ function [rmse, rms_input] = rms_bf(cfg)
 %   cfg.head    head struct (see hm_get_data)
 %
 %   source_type = 'distr'
-%   cfg.input_power
-%       input signal for distributed source as a function of vertex at the
-%       sample_idx, [vertices 1]
+%   cfg.input_signal
+%       input signal for the source configuration 
+%       [components vertices samples]
 
 % TODO At what time do I do it? 
 % - User-input?
@@ -35,13 +35,17 @@ end
 %% Calculate the power at each index and the user's sample index
 % Select the data at the user sample index
 bf_select = squeeze(bf(:,:,cfg.sample_idx)); 
+input_select = squeeze(cfg.input_signal(:,:,cfg.sample_idx)); 
 
 % Square each element
 bf_select = bf_select.^2;
+input_select = input_select.^2;
 % Sum the components at each index and each time point
 bf_sum = sum(bf_select,1);
+input_sum = sum(input_select,1);
 % Take the square root of each element
 bf_power = sqrt(bf_sum);
+input_power = sqrt(input_sum);
 
 if ~isvector(bf_power)
     warning('rms:rms_bf',...
@@ -50,6 +54,7 @@ end
 
 %% Calculate the RMSE
 cfg.bf_power = bf_power;
+cfg.input_power = input_power;
 switch cfg.source_type
     case 'single'
         [rmse, rms_input] = rms.rms_single_bf(cfg);

@@ -35,7 +35,7 @@ sim_cfg.sources{1}.source_index = 295;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.idx = sim_cfg.sources{1}.source_index;
-sim_cfg.sources{1}.moment = dipole_orientation(cfg)'; 
+sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)'; 
 
 %% Source 2
 % Source signal params for pr_peak()
@@ -56,7 +56,7 @@ sim_cfg.sources{2}.source_index = 216;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.idx = sim_cfg.sources{2}.source_index;
-sim_cfg.sources{2}.moment = dipole_orientation(cfg)'; 
+sim_cfg.sources{2}.moment = aet_sim_dipole_orientation(cfg)'; 
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;

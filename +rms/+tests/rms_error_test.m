@@ -1,10 +1,10 @@
-classdef rms_error_test < TestCase
+classdef rms.rms_error_test < TestCase
     
     properties
     end
     
     methods
-        function self = rms_error_test(name)
+        function self = rms.rms_error_test(name)
             self = self@TestCase(name);
         end
         
@@ -25,7 +25,7 @@ classdef rms_error_test < TestCase
             bf_power = zeros(n,1);
             bf_power(1:n_out,:) = 1;
             
-            [rmse, rms_input] = rms_error(bf_power, input_power);
+            [rmse, rms_input] = rms.rms_error(bf_power, input_power);
             assertEqual(rmse, 0);
             assertElementsAlmostEqual(rms_input, 0.7071, 'absolute', 1e-4');
         end
@@ -44,7 +44,7 @@ classdef rms_error_test < TestCase
             bf_power = zeros(n,1);
             bf_power(1:n_out,:) = 2;
             
-            [rmse, rms_input] = rms_error(bf_power, input_power);
+            [rmse, rms_input] = rms.rms_error(bf_power, input_power);
             assertEqual(rmse, 0);
             assertElementsAlmostEqual(rms_input, 0.7071, 'absolute', 1e-4');
         end
@@ -62,7 +62,7 @@ classdef rms_error_test < TestCase
             bf_power = zeros(n,1);
             bf_power(1:n_out,:) = 2;
             
-            [rmse, rms_input] = rms_error(bf_power, input_power);
+            [rmse, rms_input] = rms.rms_error(bf_power, input_power);
             assertElementsAlmostEqual(rmse, 0.4472, 'absolute', 1e-4');
             assertElementsAlmostEqual(rms_input, 0.7071, 'absolute', 1e-4');
         end
