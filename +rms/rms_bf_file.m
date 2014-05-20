@@ -92,7 +92,7 @@ for i=1:length(cfg.beam_cfgs)
     rms_data.name{i} = cfg.beam_cfgs{i};
     rms_data.true_peak_idx(i,:) = cfg.true_peak;
     [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
-        rms_bf(cfg_rms);
+        rms.rms_bf(cfg_rms);
     
 end
 

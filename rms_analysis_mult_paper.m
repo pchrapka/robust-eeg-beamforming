@@ -35,7 +35,7 @@ cfg.source_type = 'mult';
 cfg.cluster = clustering;
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -72,4 +72,4 @@ cfg.source_type = 'mult';
 cfg.cluster = clustering;
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);

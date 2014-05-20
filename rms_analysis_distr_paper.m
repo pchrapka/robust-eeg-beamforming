@@ -31,10 +31,10 @@ cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 cfg.source_type = 'distr';
-cfg.input_power = rms_setup_distr_input(cfg);
+cfg.input_power = rms.rms_setup_distr_input(cfg);
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -68,7 +68,7 @@ cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 cfg.source_type = 'distr';
-cfg.input_power = rms_setup_distr_input(cfg);
+cfg.input_power = rms.rms_setup_distr_input(cfg);
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);

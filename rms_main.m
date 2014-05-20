@@ -1,5 +1,5 @@
-%% calc_rms_paper
+%% rms_main
 
-rms_single_paper
-rms_distr_paper
-% rms_mult_paper % FIXME Not clustered yet
+rms_analysis_single_paper
+rms_analysis_distr_paper
+rms_analysis_mult_paper

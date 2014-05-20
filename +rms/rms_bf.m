@@ -28,7 +28,7 @@ bf = cfg.bf_out;
 % Double check that the beamformer output is correct
 n_comp = size(bf,1);
 if n_comp ~= 3
-    error('rmvb:rms_bf',...
+    error('rms:rms_bf',...
         ['Check the size of the beamformer output ' num2str(n_comp)]);
 end
 
@@ -44,7 +44,7 @@ bf_sum = sum(bf_select,1);
 bf_power = sqrt(bf_sum);
 
 if ~isvector(bf_power)
-    warning('rmvb:rms_bf',...
+    warning('rms:rms_bf',...
         'A matrix version has not been implemented');
 end
 
@@ -52,13 +52,13 @@ end
 cfg.bf_power = bf_power;
 switch cfg.source_type
     case 'single'
-        [rmse, rms_input] = rms_single_bf(cfg);
+        [rmse, rms_input] = rms.rms_single_bf(cfg);
     case 'mult'
-        [rmse, rms_input] = rms_mult_bf(cfg);
+        [rmse, rms_input] = rms.rms_mult_bf(cfg);
     case 'distr'
-        [rmse, rms_input] = rms_distr_bf(cfg);
+        [rmse, rms_input] = rms.rms_distr_bf(cfg);
     otherwise
-        error('rmvb:rms_bf',...
+        error('rms:rms_bf',...
         ['Unknown source type ' cfg.source_type]);
 end
 

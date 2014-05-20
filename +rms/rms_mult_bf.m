@@ -70,7 +70,7 @@ if cfg.cluster
         input_power = input_power(poi);
         
         % Calculate the RMSE
-        [rmse(i), rms_input(i)] = rms_error(bf_power, input_power);
+        [rmse(i), rms_input(i)] = rms.rms_error(bf_power, input_power);
     end
 else
     % Create the input power
@@ -78,7 +78,7 @@ else
     input_power(cfg.true_peak) = 1;
     
     % Calculate the RMSE error
-    [rmse, rms_input] = rms_error(cfg.bf_power, input_power);
+    [rmse, rms_input] = rms.rms_error(cfg.bf_power, input_power);
 end
 
 

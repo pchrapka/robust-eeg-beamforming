@@ -33,7 +33,7 @@ cfg.head.file = 'head_Default1_bem_500V.mat';
 cfg.source_type = 'single';
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -69,4 +69,4 @@ cfg.head.file = 'head_Default1_3sphere_500V.mat';
 cfg.source_type = 'single';
 
 %% Calculate the rms
-result = rms_bf_file(cfg);
+result = rms.rms_bf_file(cfg);
