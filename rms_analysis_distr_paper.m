@@ -1,6 +1,17 @@
 %% rms_distr_paper
 
-sample_idx = 250*0.452;
+%% Update AET, just in case
+update_aet()
+
+%% Initialize the Advanced EEG Toolbox
+aet_init
+
+%% Set common parameters
+
+sample_idx = 120;
+% sample_idx = 250*0.452;
+% Changed the sample_idx to reflect the actual peak of the waveform
+% FIXME This may be ok after fixing a bug
 true_peak_idx = 295;
 snr = '0';
 

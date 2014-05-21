@@ -1,5 +1,12 @@
 %% rms_single_paper
 
+%% Update AET, just in case
+update_aet()
+
+%% Initialize the Advanced EEG Toolbox
+aet_init
+
+%% Set common parameters
 sample_idx = 250*0.476;
 true_peak_idx = 295;
 snr = '0';
