@@ -43,7 +43,8 @@ cfg_simvars_setup.head.file = 'head_Default1_bem_500V.mat';
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
-    'analysis_run_func',    @beamformer_analysis);
+    'analysis_run_func',    @beamformer_analysis,...
+    'debug',                false);
 scripts(k).vars = {cfg};
 k = k+1;
 
@@ -62,7 +63,8 @@ cfg_simvars_setup.head.actual.file = 'head_Default1_bem_500V.mat';
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
-    'analysis_run_func',    @beamformer_analysis);
+    'analysis_run_func',    @beamformer_analysis,...
+    'debug',                false);
 scripts(k).vars = {cfg};
 k = k+1;
 
