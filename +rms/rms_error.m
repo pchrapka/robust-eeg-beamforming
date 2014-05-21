@@ -16,6 +16,10 @@ input_power = input_power(:);
 % Select the non zero entries of input_power
 non_zero = input_power > 0;
 
+if isempty(input_power(non_zero))
+    error('rms:rms_error',...
+        'Input signal is zero, cannot normalize the power');
+end
 % Calculate the normalizing factor
 alpha = sum(bf_power(non_zero))/sum(input_power(non_zero));
 

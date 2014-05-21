@@ -29,6 +29,11 @@ end
 n_locs = size(sim_cfg.head.GridLoc,1);
 input_signal = zeros(3, n_locs, sim_cfg.timepoints);
 
+% Modify the source configurations to remove the jitter
+for i=1:length(sim_cfg.sources)
+    sim_cfg.sources{i}.jitter = 0;
+end
+
 % Create the source signal
 [sim_cfg, source_signal] = aet_sim_sources_trial(sim_cfg);
 
