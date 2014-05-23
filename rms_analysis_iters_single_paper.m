@@ -1,4 +1,4 @@
-%% rms_distr_paper
+%% rms_single_paper
 
 %% Update AET, just in case
 update_aet()
@@ -7,12 +7,7 @@ update_aet()
 aet_init
 
 %% Set common parameters
-
-% sample_idx = 120;
-% sample_idx = 250*0.452;
-sample_idx = 250*0.464;
-% Changed the sample_idx to reflect the actual peak of the waveform
-% FIXME This may be ok after fixing a bug
+sample_idx = 250*0.476;
 true_peak_idx = 295;
 snr = '0';
 
@@ -36,17 +31,16 @@ cfg.beam_cfgs = {...
     }; 
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
+cfg.sim_name = 'sim_data_bem_100_100t';
+cfg.source_name = 'single_cort_src_1';
 cfg.snr = snr;
-cfg.iteration = '1';
+cfg.iterations = 1:100;
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
-cfg.source_type = 'distr';
-% cfg.input_power = rms.rms_setup_distr_input(cfg);
+cfg.source_type = 'single';
 
 %% Calculate the rms
-result = rms.rms_bf_files(cfg);
+result = rms.rms_bf_configs_iterations(cfg);
 % Save the results
 rms.rms_save(cfg, result);
 
@@ -75,16 +69,15 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig_3sphere'};
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
+cfg.sim_name = 'sim_data_bem_100_100t';
+cfg.source_name = 'single_cort_src_1';
 cfg.snr = snr;
-cfg.iteration = '1';
+cfg.iterations = 1:100;
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
-cfg.source_type = 'distr';
-% cfg.input_power = rms.rms_setup_distr_input(cfg);
+cfg.source_type = 'single';
 
 %% Calculate the rms
-result = rms.rms_bf_files(cfg);
+result = rms.rms_bf_configs_iterations(cfg);
 % Save the results
 rms.rms_save(cfg, result);

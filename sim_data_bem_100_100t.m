@@ -5,7 +5,7 @@ sim_cfg.sim_name = mfilename; % Get current file name
 % simulation args, something like how the PSOM bricks are structured
 sim_cfg.save_data_files = false;
 sim_cfg.out_dir = 'output';
-sim_cfg.verbosity = 3;
+sim_cfg.verbosity = 0;
 sim_cfg.parallel = 'user';
 
 %% Head model

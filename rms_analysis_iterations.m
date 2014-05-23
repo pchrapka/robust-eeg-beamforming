@@ -1,19 +1,19 @@
-%% rms_analysis
+%% rms_analysis_iterations
 clc;
 
 %% Common params
 snr = '0';
-mismatch = true;
+mismatch = false;
 clustered_data = false; % only for mult_src
 
 %% Get the data file name
 cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
+cfg.sim_name = 'sim_data_bem_100_100t';
 % cfg.source_name = 'distr_cort_src_2';
 cfg.source_name = 'single_cort_src_1';
 % cfg.source_name = 'mult_cort_src_10';
 cfg.snr = snr;
-cfg.iteration = '1';
+cfg.iteration = '1-100';
 if mismatch
     cfg.tag = 'rms_3sphere';
 else
@@ -32,9 +32,23 @@ results = data_in.rms_data;
 [M, col_labels] = rms.rms_summarize(results);
 
 %% Display the results
+% rmse_2_rms_input = 20*log10(...
+%     results.rmse./results.rms_input);
+% % Output the columns
+% col_labels = {'Beamformer', 'Peak Index', 'RMS Error',...
+%     'RMS Input', '20log(RMSE/RMS Input)'};
 fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
+% M = {};
+% for i=1:size(results.rmse,2)
+%     A = [results.name;...
+%         num2cell(results.true_peak_idx(:,i)');...
+%         num2cell(results.rmse(:,i)');...
+%         num2cell(results.rms_input(:,i)');...
+%         num2cell(rmse_2_rms_input(:,i)')];
+%     
+%     M = [M A];
+% end
 fprintf('%s %d %f %f %f\n',M{:});
-
 
 %% Output the results
 % Set csv file name

@@ -9,7 +9,12 @@ cfg_data = [];
 cfg_data.sim_name = cfg.sim_name;
 cfg_data.source_name = cfg.source_name;
 cfg_data.snr = cfg.snr;
-cfg_data.iteration = cfg.iteration;
+if isfield(cfg,'iterations')
+    cfg_data.iteration = [num2str(min(cfg.iterations))...
+        '-' num2str(max(cfg.iterations))];
+else
+    cfg_data.iteration = cfg.iteration;
+end
 
 %% Save the data
 % Set up output file cfg
@@ -25,6 +30,12 @@ if isfield(cfg,'cluster')
     end
 end
 save_file = db.save_setup(cfg_out);
+if verLessThan('matlab', '7.14')
+    [~,name,~,~] = fileparts(save_file);
+else
+    [~,name,~] = fileparts(save_file);
+end
+fprintf('Saving as: %s\n', name);
 save(save_file, 'rms_data');
 
 end
