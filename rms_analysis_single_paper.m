@@ -41,6 +41,8 @@ cfg.source_type = 'single';
 
 %% Calculate the rms
 result = rms.rms_bf_file(cfg);
+% Save the results
+rms_save(cfg, result);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -77,3 +79,5 @@ cfg.source_type = 'single';
 
 %% Calculate the rms
 result = rms.rms_bf_file(cfg);
+% Save the results
+rms_save(cfg, result);

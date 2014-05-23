@@ -60,7 +60,6 @@ end
 
 %% Calculate rms for all desired beamformer configs
 for i=1:length(cfg.beam_cfgs)
-    
     % Get the full data file name
     cfg_data.tag = [cfg.beam_cfgs{i} '_mini'];
     bf_data_file = db.save_setup(cfg_data);
@@ -80,7 +79,7 @@ for i=1:length(cfg.beam_cfgs)
     if isfield(cfg,'cluster')
         cfg_rms.cluster = cfg.cluster;
     end
-
+    
     % Calculate the input signal
     % NOTE This won't be exact
     cfg_input = [];
@@ -90,28 +89,10 @@ for i=1:length(cfg.beam_cfgs)
     
     % Calculate the rms
     rms_data.name{i} = cfg.beam_cfgs{i};
+    rms_data.iteration{i} = cfg_data.iteration;
     rms_data.true_peak_idx(i,:) = cfg.true_peak;
     [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
         rms.rms_bf(cfg_rms);
-    
 end
-
-rms_data.rmse
-
-%% Save the data
-% Set up output file cfg
-cfg_out = cfg_data;
-if isempty(strfind(cfg.beam_cfgs{1}, '3sphere'))
-    cfg_out.tag = 'rms';
-else
-    cfg_out.tag = 'rms_3sphere';
-end
-if isfield(cfg,'cluster')
-    if cfg.cluster
-        cfg_out.tag = [cfg_out.tag '_cluster'];
-    end
-end
-save_file = db.save_setup(cfg_out);
-save(save_file, 'rms_data');
 
 end
