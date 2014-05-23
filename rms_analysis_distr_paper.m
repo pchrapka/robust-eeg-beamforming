@@ -46,7 +46,7 @@ cfg.source_type = 'distr';
 % cfg.input_power = rms.rms_setup_distr_input(cfg);
 
 %% Calculate the rms
-result = rms.rms_bf_file(cfg);
+result = rms.rms_bf_files(cfg);
 % Save the results
 rms_save(cfg, result);
 
@@ -85,6 +85,6 @@ cfg.source_type = 'distr';
 % cfg.input_power = rms.rms_setup_distr_input(cfg);
 
 %% Calculate the rms
-result = rms.rms_bf_file(cfg);
+result = rms.rms_bf_files(cfg);
 % Save the results
 rms_save(cfg, result);

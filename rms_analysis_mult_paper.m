@@ -42,7 +42,7 @@ cfg.source_type = 'mult';
 cfg.cluster = clustering;
 
 %% Calculate the rms
-result = rms.rms_bf_file(cfg);
+result = rms.rms_bf_files(cfg);
 % Save the results
 rms_save(cfg, result);
 
@@ -81,6 +81,6 @@ cfg.source_type = 'mult';
 cfg.cluster = clustering;
 
 %% Calculate the rms
-result = rms.rms_bf_file(cfg);
+result = rms.rms_bf_files(cfg);
 % Save the results
 rms_save(cfg, result);
