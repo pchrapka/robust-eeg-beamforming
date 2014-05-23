@@ -54,7 +54,7 @@ if cfg.cluster
     
     % Calculate the RMS error for each cluster
     n_rms = length(cfg.true_peak);
-    rms = zeros(n_rms,1);
+    rmse = zeros(n_rms,1);
     rms_peak = zeros(n_rms,1);
     for i=1:n_rms
         
@@ -73,12 +73,12 @@ if cfg.cluster
         [rmse(i), rms_input(i)] = rms.rms_error(bf_power, input_power);
     end
 else
-    % Create the input power
-    input_power = zeros(size(cfg.bf_power));
-    input_power(cfg.true_peak) = 1;
+%     % Create the input power
+%     input_power = zeros(size(cfg.bf_power));
+%     input_power(cfg.true_peak) = 1;
     
     % Calculate the RMSE error
-    [rmse, rms_input] = rms.rms_error(cfg.bf_power, input_power);
+    [rmse, rms_input] = rms.rms_error(cfg.bf_power, cfg.input_power);
 end
 
 

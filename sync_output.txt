@@ -2,8 +2,7 @@ option batch on
 option confirm off
 open chrapkpk@blade16
 option transfer binary
-synchronize local -filemask="*_mini.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
-synchronize local -filemask="0_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
-synchronize local -filemask="-10_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
-synchronize local -filemask="-20_1.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output" Documents/projects/robust-eeg-beamforming-paper/output
+synchronize local -filemask="*.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_10" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_10
+synchronize local -filemask="*.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\distr_cort_src_2" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/distr_cort_src_2
+synchronize local -filemask="*.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\single_cort_src_1" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/single_cort_src_1
 exit

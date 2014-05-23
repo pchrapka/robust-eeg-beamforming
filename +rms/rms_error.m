@@ -27,8 +27,8 @@ alpha = sum(bf_power(non_zero))/sum(input_power(non_zero));
 bf_power_norm = bf_power/alpha;
 
 % Calculate the RMSE
-error = bf_power_norm - input_power;
-rmse = sqrt(sum(error.^2)/length(error));
+error_signal = bf_power_norm - input_power;
+rmse = sqrt(sum(error_signal.^2)/length(error_signal));
 
 % Calculate the RMS of the input
 rms_input = sqrt(sum(input_power.^2)/length(input_power));

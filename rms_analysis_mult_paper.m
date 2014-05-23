@@ -10,7 +10,7 @@ aet_init
 sample_idx = 250*0.460;
 true_peak_idx = [295 400];
 snr = '0';
-clustering = true;
+clustering = false;
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config

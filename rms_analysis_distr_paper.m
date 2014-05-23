@@ -8,8 +8,9 @@ aet_init
 
 %% Set common parameters
 
-sample_idx = 120;
+% sample_idx = 120;
 % sample_idx = 250*0.452;
+sample_idx = 250*0.464;
 % Changed the sample_idx to reflect the actual peak of the waveform
 % FIXME This may be ok after fixing a bug
 true_peak_idx = 295;
