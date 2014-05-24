@@ -40,3 +40,4 @@ sim_cfg.keep_trials = false;
 
 %% Extra options
 % sim_cfg.force = true;
+% sim_cfg.debug = true;
