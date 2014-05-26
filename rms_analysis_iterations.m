@@ -3,7 +3,7 @@ clc;
 
 %% Common params
 snr = '0';
-mismatch = false;
+mismatch = true;
 clustered_data = false; % only for mult_src
 
 %% Get the data file name
@@ -37,7 +37,6 @@ results = data_in.rms_data;
 % % Output the columns
 % col_labels = {'Beamformer', 'Peak Index', 'RMS Error',...
 %     'RMS Input', '20log(RMSE/RMS Input)'};
-fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
 % M = {};
 % for i=1:size(results.rmse,2)
 %     A = [results.name;...
@@ -48,7 +47,13 @@ fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
 %     
 %     M = [M A];
 % end
-fprintf('%s %d %f %f %f\n',M{:});
+if length(col_labels) == 5
+    fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
+    fprintf('%s %d %f %f %f\n',M{:});
+else
+    fprintf('%s | %s | %s | %s | %s | %s | %s \n', col_labels{:});
+    fprintf('%s %d %f %f %f %f %f\n',M{:});
+end
 
 %% Output the results
 % Set csv file name
