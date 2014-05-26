@@ -9,7 +9,7 @@ brainstorm.bstcust_start();
 
 %% Common Parameters
 snr = '0';
-mismatch = true;
+mismatch = false;
 import = true;
 
 %% Setup the config for distr_bem_paper
@@ -49,23 +49,7 @@ end
 if import
     cfg = brainstorm.bstcust_import_auto(cfg);
 else
-    % TODO Refactor the following section into something like
-    % bstcust_create_condition_name, and then add a default option for the
-    % subject name
-    subject_name = 'Subject01';
-    % Set up the condition name
-    if mismatch
-        condition_name = [...
-            cfg.sim_name '_' cfg.source_name '_3sphere'];
-    else
-        condition_name = [...
-            cfg.sim_name '_' cfg.source_name];
-    end
-    
-    cfg_study = [];
-    cfg_study.subject_name = subject_name;
-    cfg_study.condition_name = condition_name;
-    cfg.study_idx = brainstorm.bstcust_study_id(cfg_study);
+    cfg.study_idx = brainstorm.bstcust_study_id_simdata(cfg);
 end
 
 %% Plot the results

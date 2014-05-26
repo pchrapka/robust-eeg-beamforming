@@ -76,7 +76,7 @@ cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = false;
 
-time = 0.452;
+time = 0.464;
 
 % Get the study idx
 study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
@@ -92,7 +92,7 @@ cfg_data.iteration = '1';
 cfg_data.mismatch = true;
 cfg_data.mismatch_tags = {'3sphere'};
 
-time = 0.452;
+time = 0.464;
 
 % Get the study idx
 study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
