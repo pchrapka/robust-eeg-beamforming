@@ -43,6 +43,10 @@ function [rms_data] = rms_bf_configs_iterations(cfg)
 %
 
 %% Calculate rms for all desired iterations
+% Start parallel execution
+cfg_par = [];
+aet_parallel_init(cfg_par)
+
 for i=1:length(cfg.beam_cfgs)
     
     % Choose the beamformer config
@@ -51,5 +55,9 @@ for i=1:length(cfg.beam_cfgs)
     % Calculate the RMSE for this set of data
     rms_data(i) = rms.rms_bf_iterations(cfg);
 end
+
+% End parallel execution
+cfg_par = [];
+aet_parallel_close(cfg_par)
 
 end

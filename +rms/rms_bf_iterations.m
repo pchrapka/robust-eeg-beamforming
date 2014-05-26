@@ -44,16 +44,25 @@ rms_data.name = cfg.beam_cfg;
 rms_data.true_peak_idx = cfg.true_peak;
 
 %% Calculate rms for all desired iterations
-for i=1:length(cfg.iterations)
+parfor i=1:length(cfg.iterations)
     
+    % Copy the config
+    cfg_temp = cfg;
     % Choose the iteration
-    cfg.iteration = cfg.iterations(i);
+    cfg_temp.iteration = cfg_temp.iterations(i);
     % Save the iteration
-    rms_data.iteration(i) = cfg.iteration;
+    iteration(i) = cfg_temp.iteration;
+    fprintf('Calculating RMSE for: %s, iter: %d\n',...
+        cfg_temp.beam_cfg, cfg_temp.iteration);
     
     % Calculate the rms
-    [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
-        rms.rms_bf_file(cfg);
+    [rmse(i,:), rms_input(i,:)] = ...
+        rms.rms_bf_file(cfg_temp);
 end
 
+rms_data.iteration = iteration;
+rms_data.rmse = rmse;
+rms_data.rms_input = rms_input;
+
+    
 end
