@@ -1,4 +1,6 @@
-%% rms_single_paper
+%% rms_analysis_iters_distr_paper
+% Calculates RMSE at a specified time instance and for the specified data
+% files
 
 %% Update AET, just in case
 update_aet()

@@ -1,4 +1,6 @@
-%% rms_analysis
+%% rms_analysis_iters_summary
+% Summarizes the RMSE results produced by rms_analysis_iters_*
+
 clc;
 
 %% Common params
@@ -6,12 +8,11 @@ snr = '0';
 mismatch = true;
 clustered_data = false; % only for mult_src
 
-%% Get the data file name
 cfg_template = [];
-cfg_template.sim_name = 'sim_data_bem_1_100t';
+cfg_template.sim_name = 'sim_data_bem_100_100t';
 cfg_template.source_name = '';
 cfg_template.snr = snr;
-cfg_template.iteration = '1';
+cfg_template.iteration = '1-100';
 if mismatch
     cfg_template.tag = 'rms_3sphere';
 else
@@ -32,7 +33,6 @@ k = k+1;
 cfgs(k) = cfg_template;
 cfgs(k).source_name = 'distr_cort_src_2';
 
-
 %% Summarize the results
 for i=1:length(cfgs)
     % Select the config
@@ -50,11 +50,11 @@ for i=1:length(cfgs)
     [M, col_labels] = rms.rms_summarize(results);
     
     % Display the results
-    fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
+    fprintf('%s | %s | %s | %s | %s | %s | %s \n', col_labels{:});
     if isequal(cfg.source_name,'mult_cort_src_10')
-        fprintf('%s %d %f %f %f %f\n',M{:});
+        fprintf('%s | %d | %f | %f | %f | %f | %f | %f \n', M{:});
     else
-        fprintf('%s %d %f %f %f\n',M{:});
+        fprintf('%s | %d | %f | %f | %f | %f | %f \n', M{:});
     end
     
     % Output the results to a csv file

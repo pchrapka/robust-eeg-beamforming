@@ -49,25 +49,6 @@ classdef rms_error_test < TestCase
             assertElementsAlmostEqual(rms_input, 0.7071, 'absolute', 1e-4');
         end
         
-% TODO Throw this out if least squares is ok        
-%         function test_box_3(self)
-%             n = 10;
-%             n_out = floor(3*n/4);
-%             n_in = floor(n/2);
-%             
-%             % Simulate an input signal box
-%             input_mag = zeros(n,1);
-%             input_mag(1:n_in,:) = 1;
-%             
-%             % Simulate an output signal box that is longer than the input
-%             bf_mag = zeros(n,1);
-%             bf_mag(1:n_out,:) = 2;
-%             
-%             [rmse, rms_input] = rms.rms_error(bf_mag, input_mag);
-%             assertElementsAlmostEqual(rmse, 0.4472, 'absolute', 1e-4');
-%             assertElementsAlmostEqual(rms_input, 0.7071, 'absolute', 1e-4');
-%         end
-        
         function test_box_irregular_4(self)
             n = 10;
             n_mid = floor(n/2);
