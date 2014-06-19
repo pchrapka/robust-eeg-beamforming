@@ -5,9 +5,6 @@
 
 sim_cfg.source_name = 'single_cort_src_1';
 
-% Specific beamformer parameter based on sources
-sim_cfg.snr_range = -40:5:25; % in dB
-
 % SNR calculation
 % sim_cfg.snr.type = 'per_trial';
 sim_cfg.snr.type = 'on_average';
@@ -33,7 +30,7 @@ sim_cfg.sources{1}.source_index = 295;
 cfg = [];
 cfg.head = sim_cfg.head;
 cfg.idx = sim_cfg.sources{1}.source_index;
-sim_cfg.sources{1}.moment = dipole_orientation(cfg)'; 
+sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)'; 
 
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;

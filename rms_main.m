@@ -1,5 +1,11 @@
-%% calc_rms_paper
+%% rms_main
 
-rms_single_paper
-rms_distr_paper
-% rms_mult_paper % FIXME Not clustered yet
+%% Single iteration
+% rms_analysis_single_paper
+% rms_analysis_distr_paper
+% rms_analysis_mult_paper
+
+%% Multiple iterations
+rms_analysis_iters_single_paper
+rms_analysis_iters_distr_paper
+rms_analysis_iters_mult_paper
