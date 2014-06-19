@@ -2,8 +2,10 @@ function [rmse, rms_input] = rms_mult_bf(cfg)
 %RMS_MULT_BF calculates the RMS error of the beamformer output on data
 %from a multiple source scenario
 %
-%   cfg.bf_power
-%       beamformer power
+%   cfg.bf_mag
+%       beamformer magnitude
+%   cfg.input_mag
+%       input magnitude
 %   cfg.head
 %       head struct (see hm_get_data)
 %   cfg.true_peak
@@ -42,7 +44,7 @@ if cfg.cluster
     % cluster 2 corresponds to cluster_point(2,:)
     cluster_idx = (dot_product > 0)*2 + (dot_product <= 0)*1;
     
-    %     X = [vertices bf_power(:)];
+    %     X = [vertices bf_mag(:)];
     %     cluster1 = X(cluster_idx == 1,:);
     %     cluster2 = X(cluster_idx == 2,:);
     %     figure
@@ -59,26 +61,26 @@ if cfg.cluster
     for i=1:n_rms
         
         % Create the input power vector
-        input_power = zeros(size(cfg.bf_power));
-        input_power(cfg.true_peak(i)) = 1;
+        input_mag = zeros(size(cfg.bf_mag));
+        input_mag(cfg.true_peak(i)) = 1;
         
         % Get indices of each cluster
         poi = (cluster_idx == i);
         
         % Select one cluster at a time
-        bf_power = cfg.bf_power(poi);
-        input_power = input_power(poi);
+        bf_mag = cfg.bf_mag(poi);
+        input_mag = input_mag(poi);
         
         % Calculate the RMSE
-        [rmse(i), rms_input(i)] = rms.rms_error(bf_power, input_power);
+        [rmse(i), rms_input(i)] = rms.rms_error(bf_mag, input_mag);
     end
 else
 %     % Create the input power
-%     input_power = zeros(size(cfg.bf_power));
-%     input_power(cfg.true_peak) = 1;
+%     input_mag = zeros(size(cfg.bf_mag));
+%     input_mag(cfg.true_peak) = 1;
     
     % Calculate the RMSE error
-    [rmse, rms_input] = rms.rms_error(cfg.bf_power, cfg.input_power);
+    [rmse, rms_input] = rms.rms_error(cfg.bf_mag, cfg.input_mag);
 end
 
 

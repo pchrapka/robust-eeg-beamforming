@@ -44,17 +44,17 @@ input_select = input_select.^2;
 bf_sum = sum(bf_select,1);
 input_sum = sum(input_select,1);
 % Take the square root of each element
-bf_power = sqrt(bf_sum);
-input_power = sqrt(input_sum);
+bf_mag = sqrt(bf_sum);
+input_mag = sqrt(input_sum);
 
-if ~isvector(bf_power)
+if ~isvector(bf_mag)
     warning('rms:rms_bf',...
         'A matrix version has not been implemented');
 end
 
 %% Calculate the RMSE
-cfg.bf_power = bf_power;
-cfg.input_power = input_power;
+cfg.bf_mag = bf_mag;
+cfg.input_mag = input_mag;
 switch cfg.source_type
     case 'single'
         [rmse, rms_input] = rms.rms_single_bf(cfg);
