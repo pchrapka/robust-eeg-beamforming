@@ -13,18 +13,12 @@ function [rmse, rms_input] = rms_error(bf_mag, input_mag)
 bf_mag = bf_mag(:);
 input_mag = input_mag(:);
 
-% Select the non zero entries of input_mag
-non_zero = input_mag > 0;
-
-if isempty(input_mag(non_zero))
-    error('rms:rms_error',...
-        'Input signal is zero, cannot normalize the power');
-end
-% Calculate the normalizing factor
-alpha = sum(bf_mag(non_zero))/sum(input_mag(non_zero));
+% Calculate the normalizing factor by least squares
+% i.e. minimize the 2-norm between both signals
+alpha = (input_mag'*bf_mag)/(bf_mag'*bf_mag);
 
 % Normalize the output power
-bf_mag_norm = bf_mag/alpha;
+bf_mag_norm = bf_mag*alpha;
 
 % Calculate the RMSE
 error_signal = bf_mag_norm - input_mag;
