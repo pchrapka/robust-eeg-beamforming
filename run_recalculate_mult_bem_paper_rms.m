@@ -1,4 +1,4 @@
-%% run_sim_vars.m -- Script for running different analysis variations 
+%% run_recalculate_mult_bem_paper_rms.m
 % Goal: Recalculate the beamformer output from the last run to include all
 % time points for flexibility in RMS analysis
 

@@ -13,7 +13,7 @@ if length(rms_data) > 1
     if multiple_iters
         rms_col_labels = {...
             'Beamformer',...
-            'Peak Index',...
+            ...'Peak Index',...
             'Avg RMS Error',...
             'Var RMS Error',...
             'Avg RMS Input',...
@@ -22,7 +22,7 @@ if length(rms_data) > 1
     else    
         rms_col_labels = {...
             'Beamformer',...
-            'Peak Index',...
+            ...'Peak Index',...
             'RMS Error',...
             'RMS Input',...
             '20log(RMSE/RMS Input)'};
@@ -38,20 +38,33 @@ if length(rms_data) > 1
             rmse_var = var(cur_data.rmse);
             rms_input_avg = mean(cur_data.rms_input);
             rms_input_var = var(cur_data.rms_input);
+%             peak_index = fprintf('%d ', cur_data.true_peak_idx);
             
-            rms_out{1,i} = cur_data.name;
-            rms_out{2,i} = cur_data.true_peak_idx;
-            rms_out{3,i} = rmse_avg;
-            rms_out{4,i} = rmse_var;
-            rms_out{5,i} = rms_input_avg;
-            rms_out{6,i} = rms_input_var;
-            rms_out{7,i} = 20*log10(rmse_avg/rms_input_avg);
+            k = 1;
+            rms_out{k,i} = cur_data.name;
+            k = k+1;
+%             rms_out{k,i} = peak_index;
+%             k = k+1;
+            rms_out{k,i} = rmse_avg;
+            k = k+1;
+            rms_out{k,i} = rmse_var;
+            k = k+1;
+            rms_out{k,i} = rms_input_avg;
+            k = k+1;
+            rms_out{k,i} = rms_input_var;
+            k = k+1;
+            rms_out{k,i} = 20*log10(rmse_avg/rms_input_avg);
         else
-            rms_out{1,i} = cur_data.name;
-            rms_out{2,i} = cur_data.true_peak_idx;
-            rms_out{3,i} = cur_data.rmse;
-            rms_out{4,i} = cur_data.rms_input;
-            rms_out{5,i} = 20*log10(cur_data.rmse/cur_data.rms_input);
+            k = 1;
+            rms_out{k,i} = cur_data.name;
+            k = k+1;
+%             rms_out{k,i} = cur_data.true_peak_idx;
+%             k = k+1;
+            rms_out{k,i} = cur_data.rmse;
+            k = k+1;
+            rms_out{k,i} = cur_data.rms_input;
+            k = k+1;
+            rms_out{k,i} = 20*log10(cur_data.rmse/cur_data.rms_input);
         end
     end
     

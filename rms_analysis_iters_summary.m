@@ -50,11 +50,11 @@ for i=1:length(cfgs)
     [M, col_labels] = rms.rms_summarize(results);
     
     % Display the results
-    fprintf('%s | %s | %s | %s | %s | %s | %s \n', col_labels{:});
+    fprintf('%s | %s | %s | %s | %s | %s \n', col_labels{:});
     if isequal(cfg.source_name,'mult_cort_src_10')
-        fprintf('%s | %d | %f | %f | %f | %f | %f | %f \n', M{:});
+        fprintf('%s | %f | %f | %f | %f | %f \n', M{:});
     else
-        fprintf('%s | %d | %f | %f | %f | %f | %f \n', M{:});
+        fprintf('%s | %f | %f | %f | %f | %f \n', M{:});
     end
     
     % Output the results to a csv file
