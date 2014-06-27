@@ -3,7 +3,7 @@
 % Different source locations, peaks occur at slightly different time points
 %
 % Goal:
-% Explore index 147 as a possible 2nd source location and try different
+% Explore index 400 as a possible 2nd source location and try different
 % spacings (see also mult_cort_src_9, 10, 11, 13)
 
 % sim_cfg.force = true;
