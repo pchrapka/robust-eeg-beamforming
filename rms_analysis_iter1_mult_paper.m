@@ -11,6 +11,7 @@ sample_idx = 250*0.460;
 true_peak_idx = [295 400];
 snr = '0';
 clustering = false;
+source_name = 'mult_cort_src_10';
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
@@ -33,7 +34,7 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'mult_cort_src_10';
+cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
@@ -72,7 +73,7 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'mult_cort_src_10';
+cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
