@@ -7,9 +7,10 @@ cfg = [];
 cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_names = {...
     'mult_cort_src_10',...
-    'mult_cort_src_14',...
+    ...'mult_cort_src_14',...
     'mult_cort_src_15',...
-    'mult_cort_src_16'};
+    'mult_cort_src_16',...
+    'mult_cort_src_17'};
 cfg.snr = snr;
 cfg.iteration = 1;
 
@@ -40,7 +41,7 @@ end
 %% Plot the SVD results
 figure;
 for i=1:length(data)
-    fprintf('-- %s --\n', data{i}.name);
+    fprintf('\n-- %s --\n', data{i}.name);
     singular_values = diag(data{i}.S);
     
     subplot(2,2,i);
