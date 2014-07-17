@@ -1,14 +1,16 @@
 %% Source parameter file
 % Multiple cortical sources
 % Different source locations, peaks occur at slightly different time points
+% Dipoles are not both normal to the cortex
 %
 % Goal:
-% Tweaking the 2nd dipole orientation from mult_cort_src_15 to see if
-% dipole orientation has an effect on the RMVB
+% Explore the effect of changing the dipole orientation. This config is
+% based on mult_cort_src_10 with the same dipole orientations as
+% mult_cort_src_16
 
 % sim_cfg.force = true;
 
-sim_cfg.source_name = 'mult_cort_src_16';
+sim_cfg.source_name = 'mult_cort_src_17';
 
 % SNR calculation
 % sim_cfg.snr.type = 'per_trial';
@@ -44,7 +46,7 @@ sim_cfg.sources{2}.type = 'signal';
 sim_cfg.sources{2}.signal_type = 'erp';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.freq = 10;
-sim_cfg.sources{2}.pos = 140;
+sim_cfg.sources{2}.pos = 124;
 sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
