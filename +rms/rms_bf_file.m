@@ -28,8 +28,8 @@ function [rmse, rms_input] = rms_bf_file(cfg)
 %   ---------------
 %   cfg.sample_idx
 %       sample index at which to calculate the RMS error
-%   cfg.true_peak
-%       index of the true peak
+%   cfg.location_idx
+%       location index at which to calculate the RMS error
 %   cfg.source_type     ('single', 'distr', 'mult')
 %       type of source being analyzed
 %
@@ -68,7 +68,7 @@ if isfield(cfg,'head')
 end
 cfg_rms.bf_out = bf_data_in.source.beamformer_output;
 cfg_rms.sample_idx = cfg.sample_idx;
-cfg_rms.true_peak = cfg.true_peak;
+cfg_rms.location_idx = cfg.location_idx;
 cfg_rms.source_type = cfg.source_type;
 if isfield(cfg,'cluster')
     cfg_rms.cluster = cfg.cluster;

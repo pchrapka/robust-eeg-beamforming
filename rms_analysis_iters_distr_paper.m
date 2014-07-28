@@ -1,25 +1,21 @@
-%% rms_analysis_iters_distr_paper
-% Calculates RMSE at a specified time instance and for the specified data
-% files
+function rms_analysis_iters_distr_paper(cfg_in)
+%RMS_ANALYSIS_ITERS_DISTR_PAPER Sets up rms analysis for distributed source
+%data with multiple iterations
 
-%% Update AET, just in case
-update_aet()
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
-%% Set common parameters
-sample_idx = 250*0.464;
-true_peak_idx = 295;
+% Set common parameters
 snr = '0';
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
 cfg = [];
-% Sample index for rms calculation
-cfg.sample_idx = sample_idx;
-% Index of true peak
-cfg.true_peak = true_peak_idx;
+if isfield(cfg_in,'sample_idx')
+    % Set sample indicies for rms calculation
+    cfg.sample_idx = cfg_in.sample_idx;
+end
+if isfield(cfg_in,'location_idx')
+    % Set location indicies for rms calculation
+    cfg.location_idx = cfg_in.location_idx;
+end
 
 % Set up beamformer data sets to process
 cfg.beam_cfgs = {...
@@ -49,10 +45,14 @@ rms.rms_save(cfg, result);
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
 cfg = [];
-% Sample index for rms calculation
-cfg.sample_idx = sample_idx;
-% Index of true peak
-cfg.true_peak = true_peak_idx;
+if isfield(cfg_in,'sample_idx')
+    % Set sample indicies for rms calculation
+    cfg.sample_idx = cfg_in.sample_idx;
+end
+if isfield(cfg_in,'location_idx')
+    % Set location indicies for rms calculation
+    cfg.location_idx = cfg_in.location_idx;
+end
 
 % Set up beamformer data sets to process
 cfg.beam_cfgs = {...

@@ -32,8 +32,8 @@ function [rms_data] = rms_bf_files(cfg)
 %   ---------------
 %   cfg.sample_idx
 %       sample index at which to calculate the RMS error
-%   cfg.true_peak
-%       index of the true peak
+%   cfg.location_idx
+%       location index at which to calculate the RMS error
 %   cfg.source_type     ('single', 'distr', 'mult')
 %       type of source being analyzed
 %
@@ -51,8 +51,21 @@ for i=1:length(cfg.beam_cfgs)
     % Save some data
     rms_data.name{i} = cfg.beam_cfgs{i};
     rms_data.iteration{i} = cfg.iteration;
-    rms_data.true_peak_idx(i,:) = cfg.true_peak;
     
+    % Set the location_idx
+    if isfield(cfg,'location_idx')
+        rms_data.location_idx(i,:) = cfg.location_idx;
+    else
+        rms_data.location_idx(i,:) = 0;
+    end
+    
+    % Set the sample_idx
+    if isfield(cfg,'sample_idx')
+        rms_data.sample_idx(i,:) = cfg.sample_idx;
+    else
+        rms_data.sample_idx(i,:) = 0;
+    end
+        
     % Calculate the rms
     [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
         rms.rms_bf_file(cfg);

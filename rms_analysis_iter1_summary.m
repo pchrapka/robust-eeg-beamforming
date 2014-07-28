@@ -24,14 +24,15 @@ end
 
 %% Set up configs
 k = 1;
-cfgs = cfg_template;
-cfgs.source_name = 'single_cort_src_1';
-k = k+1;
+% cfgs = cfg_template;
+% cfgs.source_name = 'single_cort_src_1';
+% k = k+1;
 cfgs(k) = cfg_template;
-cfgs(k).source_name = 'mult_cort_src_10';
+% cfgs(k).source_name = 'mult_cort_src_10';
+cfgs(k).source_name = 'mult_cort_src_16';
 k = k+1;
-cfgs(k) = cfg_template;
-cfgs(k).source_name = 'distr_cort_src_2';
+% cfgs(k) = cfg_template;
+% cfgs(k).source_name = 'distr_cort_src_2';
 
 
 %% Summarize the results
@@ -42,6 +43,8 @@ for i=1:length(cfgs)
     
     % Get the data file name
     data_file = db.save_setup(cfg);
+    % FIXME Might need to split the extension and do a search
+    % Or just explicitly list all the matching files
     
     % Load data
     data_in = load(data_file);
@@ -51,12 +54,8 @@ for i=1:length(cfgs)
     [M, col_labels] = rms.rms_summarize(results);
     
     % Display the results
-    fprintf('%s | %s | %s | %s | %s\n', col_labels{:});
-    if isequal(cfg.source_name,'mult_cort_src_10')
-        fprintf('%s %d %f %f %f %f\n',M{:});
-    else
-        fprintf('%s %d %f %f %f\n',M{:});
-    end
+    fprintf('%s | %s | %s | %s | %s | %s \n', col_labels{:});
+    fprintf('%s | %d | %d | %f | %f | %f \n', M{:});
     
     % Output the results to a csv file
     cfg.rms_col_labels = col_labels;
