@@ -1,11 +1,17 @@
 function [rmse, rms_input] = rms_bf(cfg)
 %RMS_BF Calculates the RMS error for a single set of beamformer outputs
 %
-%   cfg.bf_out  beamformer output [components vertices samples]
+%   cfg.bf_out  
+%       beamformer output [components vertices samples]
 %   cfg.sample_idx
-%               sample index at which to calculate the RMS error
+%       sample index at which to calculate the RMS error
+%       (must specify one of sample_idx or location_idx)
+%   cfg.location_idx
+%       location index at which to calculate the RMS error
+%       (must specify one of sample_idx or location_idx)
+%           
 %   cfg.true_peak
-%               index of the true peak
+%       index of the true peak
 %   cfg.source_type     ('single', 'distr', 'mult')
 %       type of source being analyzed
 %
@@ -32,29 +38,24 @@ if n_comp ~= 3
         ['Check the size of the beamformer output ' num2str(n_comp)]);
 end
 
-%% Calculate the power at each index and the user's sample index
-% Select the data at the user sample index
-bf_select = squeeze(bf(:,:,cfg.sample_idx)); 
-input_select = squeeze(cfg.input_signal(:,:,cfg.sample_idx)); 
-
-% Square each element
-bf_select = bf_select.^2;
-input_select = input_select.^2;
-% Sum the components at each index and each time point
-bf_sum = sum(bf_select,1);
-input_sum = sum(input_select,1);
-% Take the square root of each element
-bf_mag = sqrt(bf_sum);
-input_mag = sqrt(input_sum);
-
-if ~isvector(bf_mag)
-    warning('rms:rms_bf',...
-        'A matrix version has not been implemented');
+%% Select the data at the user sample index
+if isfield(cfg,'sample_idx') && isfield(cfg,'location_idx')
+    bf_select = squeeze(bf(:, cfg.location_idx, cfg.sample_idx)); 
+    input_select = squeeze(cfg.input_signal(:, cfg.location_idx, cfg.sample_idx)); 
+elseif isfield(cfg,'sample_idx')
+    bf_select = squeeze(bf(:, :, cfg.sample_idx)); 
+    input_select = squeeze(cfg.input_signal(:, :, cfg.sample_idx)); 
+elseif isfield(cfg,'location_idx')
+    bf_select = squeeze(bf(:, cfg.location_idx, :)); 
+    input_select = squeeze(cfg.input_signal(:, cfg.location_idx, :)); 
+else
+    error('rms:rms_bf',...
+        'must specify either sample_idx or location_idx');
 end
 
 %% Calculate the RMSE
-cfg.bf_mag = bf_mag;
-cfg.input_mag = input_mag;
+cfg.bf_out = bf_select';
+cfg.input = input_select';
 switch cfg.source_type
     case 'single'
         [rmse, rms_input] = rms.rms_single_bf(cfg);

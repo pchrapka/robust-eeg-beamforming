@@ -2,10 +2,10 @@ function [rmse, rms_input] = rms_mult_bf(cfg)
 %RMS_MULT_BF calculates the RMS error of the beamformer output on data
 %from a multiple source scenario
 %
-%   cfg.bf_mag
-%       beamformer magnitude
-%   cfg.input_mag
-%       input magnitude
+%   cfg.bf_out
+%       beamformer amplitude
+%   cfg.input
+%       input amplitude
 %   cfg.head
 %       head struct (see hm_get_data)
 %   cfg.true_peak
@@ -16,6 +16,8 @@ function [rmse, rms_input] = rms_mult_bf(cfg)
 if ~isfield(cfg,'cluster'), cfg.cluster = false; end
 
 if cfg.cluster
+    warning('reg:rms_mult_bf',...
+        'i think clustering might be broken');
     % Get all the vertices
     n_vertices = size(cfg.head.GridLoc,1);
     % cfg for hm_get_vertices
@@ -44,7 +46,7 @@ if cfg.cluster
     % cluster 2 corresponds to cluster_point(2,:)
     cluster_idx = (dot_product > 0)*2 + (dot_product <= 0)*1;
     
-    %     X = [vertices bf_mag(:)];
+    %     X = [vertices bf_out(:)];
     %     cluster1 = X(cluster_idx == 1,:);
     %     cluster2 = X(cluster_idx == 2,:);
     %     figure
@@ -61,26 +63,22 @@ if cfg.cluster
     for i=1:n_rms
         
         % Create the input power vector
-        input_mag = zeros(size(cfg.bf_mag));
-        input_mag(cfg.true_peak(i)) = 1;
+        input = zeros(size(cfg.bf_out));
+        input(cfg.true_peak(i)) = 1;
         
         % Get indices of each cluster
         poi = (cluster_idx == i);
         
         % Select one cluster at a time
-        bf_mag = cfg.bf_mag(poi);
-        input_mag = input_mag(poi);
+        bf_out = cfg.bf_out(poi);
+        input = input(poi);
         
         % Calculate the RMSE
-        [rmse(i), rms_input(i)] = rms.rms_error(bf_mag, input_mag);
+        [rmse(i), rms_input(i), ~] = rms.rms_error(bf_out, input);
     end
 else
-%     % Create the input power
-%     input_mag = zeros(size(cfg.bf_mag));
-%     input_mag(cfg.true_peak) = 1;
-    
     % Calculate the RMSE error
-    [rmse, rms_input] = rms.rms_error(cfg.bf_mag, cfg.input_mag);
+    [rmse, rms_input, ~] = rms.rms_error(cfg.bf_out, cfg.input);
 end
 
 
