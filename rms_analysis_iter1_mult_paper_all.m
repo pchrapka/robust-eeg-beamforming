@@ -8,14 +8,35 @@ aet_init
 
 %% Set up different rms analysis 
 % Mult source results with 1 iteration
+% cfg = [];
+% cfg.source_name = 'mult_cort_src_10';
+% cfg.location_idx = 295;
+% rms_analysis_iter1_mult_paper(cfg);
+% 
+% cfg = [];
+% cfg.source_name = 'mult_cort_src_10';
+% cfg.location_idx = 400;
+% rms_analysis_iter1_mult_paper(cfg);
+% 
+% cfg = [];
+% cfg.source_name = 'mult_cort_src_10';
+% cfg.sample_idx = 250*0.460;
+% rms_analysis_iter1_mult_paper(cfg);
+
 cfg = [];
+cfg.source_name = 'mult_cort_src_17';
 cfg.location_idx = 295;
 rms_analysis_iter1_mult_paper(cfg);
 
 cfg = [];
+cfg.source_name = 'mult_cort_src_17';
 cfg.location_idx = 400;
 rms_analysis_iter1_mult_paper(cfg);
 
-cfg = [];
-cfg.sample_idx = 250*0.460;
-rms_analysis_iter1_mult_paper(cfg);
+location_idxs = 250*0.428:250*0.532;
+for location_idx=location_idxs
+    cfg = [];
+    cfg.source_name = 'mult_cort_src_17';
+    cfg.sample_idx = location_idx;
+    rms_analysis_iter1_mult_paper(cfg);
+end

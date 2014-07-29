@@ -17,12 +17,13 @@ cfg_template.tag = 'rms';
 
 %% Set up configs
 k = 1;
-cfgs = cfg_template;
-cfgs.source_name = 'single_cort_src_1';
-k = k+1;
+% cfgs = cfg_template;
+% cfgs.source_name = 'single_cort_src_1';
+% k = k+1;
 cfgs(k) = cfg_template;
-cfgs(k).source_name = 'mult_cort_src_10';
+% cfgs(k).source_name = 'mult_cort_src_10';
 % cfgs(k).source_name = 'mult_cort_src_16';
+cfgs(k).source_name = 'mult_cort_src_17';
 k = k+1;
 % cfgs(k) = cfg_template;
 % cfgs(k).source_name = 'distr_cort_src_2';

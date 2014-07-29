@@ -5,7 +5,7 @@ function rms_analysis_iter1_mult_paper(cfg_in)
 % Set common parameters
 snr = '0';
 clustering = false;
-source_name = 'mult_cort_src_10';
+source_name = cfg_in.source_name;
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
