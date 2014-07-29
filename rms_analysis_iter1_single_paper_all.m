@@ -24,11 +24,11 @@ cfg.sample_idx = 120;
 rms_analysis_iter1_single_paper(cfg);
 
 % Setup sample interval
-location_idxs = 105:135;%250*0.428:250*0.532;
-for location_idx=location_idxs
+sample_idxs = 105:135; %250*0.428:250*0.532;
+for sample_idx=sample_idxs
     cfg = [];
     cfg.source_name = 'single_cort_src_1';
-    cfg.sample_idx = location_idx;
+    cfg.sample_idx = sample_idx;
     rms_analysis_iter1_single_paper(cfg);
 end
 
