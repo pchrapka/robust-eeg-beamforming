@@ -4,6 +4,7 @@ function rms_analysis_iter1_single_paper(cfg_in)
 
 % Set common parameters
 snr = '0';
+source_name = cfg_in.source_name;
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
@@ -30,7 +31,7 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'single_cort_src_1';
+cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
@@ -72,7 +73,7 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'single_cort_src_1';
+cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
 cfg.head.type = 'brainstorm';
