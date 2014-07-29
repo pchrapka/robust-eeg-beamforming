@@ -1,4 +1,4 @@
-function [rmse, rms_peak] = rms_distr_bf(cfg)
+function [rmse, rms_input] = rms_distr_bf(cfg)
 %RMS_DISTR_BF calculates the RMS error of the beamformer output on data
 %from a distributed source scenario
 %

@@ -15,3 +15,7 @@ rms_analysis_iter1_distr_paper(cfg);
 cfg = [];
 cfg.sample_idx = 250*0.464;
 rms_analysis_iter1_distr_paper(cfg);
+
+cfg = [];
+cfg.sample_idx = 120;
+rms_analysis_iter1_distr_paper(cfg);

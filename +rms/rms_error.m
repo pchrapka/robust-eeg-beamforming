@@ -8,6 +8,9 @@ function [rmse, rms_input, alpha] = rms_error(bf_out, input)
 %   power.
 %   BF_OUT and INPUT are of size [location/time components] where
 %   components can be a single component.
+%
+%   RMSE is the root mean squared error of the normalized output for each
+%   component. RMS_INPUT is the power of the input for each component.
 %   
 %   See also RMS_SINGLE_BF, RMS_DISTR_BF, RMS_MULT_BF
 

@@ -42,6 +42,7 @@ function [rms_data] = rms_bf_files(cfg)
 %   cfg.head    head struct (see hm_get_data)
 %
 
+rms_data(length(cfg.beam_cfgs)).name = '';
 %% Calculate rms for all desired beamformer configs
 for i=1:length(cfg.beam_cfgs)
     
@@ -49,25 +50,25 @@ for i=1:length(cfg.beam_cfgs)
     cfg.beam_cfg = cfg.beam_cfgs{i};
     
     % Save some data
-    rms_data.name{i} = cfg.beam_cfgs{i};
-    rms_data.iteration{i} = cfg.iteration;
+    rms_data(i).name = cfg.beam_cfgs{i};
+    rms_data(i).iteration = cfg.iteration;
     
     % Set the location_idx
     if isfield(cfg,'location_idx')
-        rms_data.location_idx(i,:) = cfg.location_idx;
+        rms_data(i).location_idx = cfg.location_idx;
     else
-        rms_data.location_idx(i,:) = 0;
+        rms_data(i).location_idx = 0;
     end
     
     % Set the sample_idx
     if isfield(cfg,'sample_idx')
-        rms_data.sample_idx(i,:) = cfg.sample_idx;
+        rms_data(i).sample_idx = cfg.sample_idx;
     else
-        rms_data.sample_idx(i,:) = 0;
+        rms_data(i).sample_idx = 0;
     end
         
     % Calculate the rms
-    [rms_data.rmse(i,:), rms_data.rms_input(i,:)] = ...
+    [rms_data(i).rmse, rms_data(i).rms_input] = ...
         rms.rms_bf_file(cfg);
 end
 

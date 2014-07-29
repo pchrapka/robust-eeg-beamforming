@@ -10,8 +10,12 @@ aet_init
 % Single source results with 1 iteration
 cfg = [];
 cfg.location_idx = 295;
-rms_analysis_iter1_mult_paper(cfg);
+rms_analysis_iter1_single_paper(cfg);
 
 cfg = [];
 cfg.sample_idx = 250*0.476;
-rms_analysis_iter1_mult_paper(cfg);
+rms_analysis_iter1_single_paper(cfg);
+
+cfg = [];
+cfg.sample_idx = 120;
+rms_analysis_iter1_single_paper(cfg);

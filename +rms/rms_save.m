@@ -25,10 +25,10 @@ else
     cfg_out.tag = 'rms_3sphere';
 end
 if isfield(cfg,'location_idx')
-    cfg_out.tag = [cfg_out.tag 'loc' num2str(cfg.location_idx)];
+    cfg_out.tag = [cfg_out.tag '_loc' num2str(cfg.location_idx)];
 end
 if isfield(cfg,'sample_idx')
-    cfg_out.tag = [cfg_out.tag 'sam' num2str(cfg.sample_idx)];
+    cfg_out.tag = [cfg_out.tag '_sam' num2str(cfg.sample_idx)];
 end
 if isfield(cfg,'cluster')
     if cfg.cluster

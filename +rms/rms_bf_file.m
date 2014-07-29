@@ -63,13 +63,18 @@ bf_data_in = load(bf_data_file);
 
 % Set up cfg for rms
 cfg_rms = [];
+cfg_rms.source_type = cfg.source_type;
+cfg_rms.bf_out = bf_data_in.source.beamformer_output;
+
 if isfield(cfg,'head')
     cfg_rms.head = head;
 end
-cfg_rms.bf_out = bf_data_in.source.beamformer_output;
-cfg_rms.sample_idx = cfg.sample_idx;
-cfg_rms.location_idx = cfg.location_idx;
-cfg_rms.source_type = cfg.source_type;
+if isfield(cfg,'sample_idx')
+    cfg_rms.sample_idx = cfg.sample_idx;
+end
+if isfield(cfg,'location_idx')
+    cfg_rms.location_idx = cfg.location_idx;
+end
 if isfield(cfg,'cluster')
     cfg_rms.cluster = cfg.cluster;
 end
