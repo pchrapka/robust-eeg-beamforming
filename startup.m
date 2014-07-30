@@ -64,7 +64,7 @@ aet_path = [matlab_dir filesep 'aet'];
 if exist(aet_path,'dir') ~= 7
     try
         % Try installing
-        update_aet();
+        util.update_aet();
     catch e
     end
 end    
@@ -198,6 +198,7 @@ end
 %% Add the project directories to the path
 [project_dir,~,~,~] = fileparts(mfilename('fullpath'));
 addpath(project_dir);
+addpath(fullfile(project_dir, 'core'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));

@@ -4,7 +4,7 @@ close all;
 clc;
 
 %% Update AET, just in case
-update_aet()
+util.update_aet();
 
 %% Initialize the Advanced EEG Toolbox
 aet_init

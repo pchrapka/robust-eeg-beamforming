@@ -1,7 +1,7 @@
 %% rms_analysis_iter1_distr_paper_all
 
 %% Update AET, just in case
-update_aet()
+util.update_aet();
 
 %% Initialize the Advanced EEG Toolbox
 aet_init
