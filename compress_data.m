@@ -21,11 +21,7 @@ for i=1:length(data_files)
         source.beamformer_output = data_in.source.beamformer_output;
         
         % Create a new file name
-        if verLessThan('matlab', '7.14')
-            [~,name,~,~] = fileparts(data_file);
-        else
-            [~,name,~] = fileparts(data_file);
-        end
+        [~,name,~,~] = util.fileparts(data_file);
         save_file = ['.' filesep name '_mini'];
         
         % Save the data

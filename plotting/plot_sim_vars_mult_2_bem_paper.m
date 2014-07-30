@@ -1,4 +1,4 @@
-%% plot_sim_vars_mult_bem_paper
+%% plot_sim_vars_mult_2_bem_paper
 
 %% Start Brainstorm
 brainstorm.bstcust_start();
@@ -10,13 +10,13 @@ brainstorm.bstcust_start();
 %% Common Parameters
 snr = '0';
 mismatch = true;
-import = true;
+import = false;
 
 %% Setup the config for mult_bem_paper
 cfg = [];
 cfg.sim_vars_name = 'sim_vars_mult_src_paper_';
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'mult_cort_src_10';
+cfg.source_name = 'mult_cort_src_17';
 cfg.snr = snr;
 cfg.mismatch = mismatch;
 if mismatch

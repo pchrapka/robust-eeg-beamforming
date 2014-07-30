@@ -36,11 +36,7 @@ if isfield(cfg,'cluster')
     end
 end
 save_file = db.save_setup(cfg_out);
-if verLessThan('matlab', '7.14')
-    [~,name,~,~] = fileparts(save_file);
-else
-    [~,name,~] = fileparts(save_file);
-end
+[~,name,~,~] = util.fileparts(save_file);
 fprintf('Saving as: %s\n', name);
 save(save_file, 'rms_data');
 

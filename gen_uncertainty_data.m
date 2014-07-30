@@ -19,8 +19,8 @@ function gen_uncertainty_data(cfg)
 output_dir = 'output';
 
 % Set the output file name
-[~,actual_name,~,~] = fileparts_phil(cfg.head.actual.file);
-[~,est_name,~,~] = fileparts_phil(cfg.head.estimate.file);
+[~,actual_name,~,~] = util.fileparts(cfg.head.actual.file);
+[~,est_name,~,~] = util.fileparts(cfg.head.estimate.file);
 
 out_file = ['uncert_' actual_name '_' est_name '.mat'];
 data_file = fullfile(output_dir, out_file);

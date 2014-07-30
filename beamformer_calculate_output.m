@@ -53,11 +53,7 @@ save_file = db.save_setup(tmpcfg);
 
 %% Load the analysis
 if exist(save_file,'file') && ~cfg.force
-    if verLessThan('matlab', '7.14')
-        [~,name,~,~] = fileparts(save_file);
-    else
-        [~,name,~] = fileparts(save_file);
-    end
+    [~,name,~,~] = util.fileparts(save_file);
     fprintf('Loading: %s\n', name);
     bf_data = load(save_file);
 else

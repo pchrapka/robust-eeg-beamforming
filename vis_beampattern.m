@@ -26,7 +26,7 @@ tag = 'beampattern';
 cfg_eeg = [];
 cfg_eeg.data_file_in = 'output\sim_data_bem_1_100t\single_cort_src_1\0_1.mat';
 cfg_eeg.data_file_out = fullfile('output', tag, 'eeg.mat');
-[pathstr,~,~,~] = fileparts(cfg_eeg.data_file_out);
+[pathstr,~,~,~] = util.fileparts(cfg_eeg.data_file_out);
 if ~exist(pathstr,'dir')
     mkdir(pathstr);
 end

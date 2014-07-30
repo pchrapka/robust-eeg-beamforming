@@ -13,11 +13,7 @@ tmpcfg.snr = cur_snr;
 tmpcfg.iteration = run_iter;
 save_file = db.save_setup(tmpcfg);
 if exist(save_file,'file') && ~temp_cfg.force
-    if verLessThan('matlab', '7.14')
-        [~,name,~,~] = fileparts(save_file);
-    else
-        [~,name,~] = fileparts(save_file);
-    end
+    [~,name,~,~] = util.fileparts(save_file);
     fprintf('File exists: %s\n', name);
     fprintf('Skipping data generation\n');
     return

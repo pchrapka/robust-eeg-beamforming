@@ -15,7 +15,7 @@ plot_series(data);
 title(strrep(cfg.file_in,'_',' '));
 
 %% Save the figure to a file
-[~,data_file_name,~,~] = fileparts(cfg.file_in);
+[~,data_file_name,~,~] = util.fileparts(cfg.file_in);
 
 if ~isequal(cfg.exp_name,'')
     file_name = ['output' filesep data_file_name '_' cfg.exp_name];

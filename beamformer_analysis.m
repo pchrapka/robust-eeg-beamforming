@@ -83,11 +83,7 @@ save_file = db.save_setup(tmpcfg);
 
 %% Check if the analysis already exists
 if exist(save_file,'file') && ~cfg.force
-    if verLessThan('matlab', '7.14')
-        [~,name,~,~] = fileparts(save_file);
-    else
-        [~,name,~] = fileparts(save_file);
-    end
+	[~,name,~,~] = util.fileparts(save_file);
    fprintf('File exists: %s\n', name);
    fprintf('Skipping beamformer analysis\n');
    return

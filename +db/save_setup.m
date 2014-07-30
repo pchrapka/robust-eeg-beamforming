@@ -41,11 +41,7 @@ else
     end
     
     % Get the directory that contains the file function
-    if verLessThan('matlab', '7.14')
-        [save_dir,save_name,~,~] = fileparts(cfg.file_name);
-    else
-        [save_dir,save_name,~] = fileparts(cfg.file_name);
-    end
+    [save_dir,save_name,~,~] = util.fileparts(cfg.file_name);
     
     % Add a tag
     tmpcfg = [];

@@ -42,11 +42,7 @@ fprintf('\n%s %s\n', cfg.source_name, cfg.tag);
 
 % Get the template data file name
 data_file = db.save_setup(cfg);
-if verLessThan('matlab', '7.14')
-    [file_path,name,ext,~] = fileparts(data_file);
-else
-    [file_path,name,ext] = fileparts(data_file);
-end
+[file_path,name,ext,~] = util.fileparts(data_file);
 
 % Get all the matching files in the directory
 data_files = dir(fullfile(file_path, [name '*.mat']));

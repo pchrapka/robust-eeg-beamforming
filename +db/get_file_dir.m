@@ -7,11 +7,7 @@ function save_dir = get_file_dir(cfg)
 %       source_name
 
 % Get the directory that contains this function
-if verLessThan('matlab', '7.14')
-    [cur_dir,~,~,~] = fileparts(mfilename('fullpath'));
-else
-    [cur_dir,~,~] = fileparts(mfilename('fullpath'));
-end
+[cur_dir,~,~,~] = util.fileparts(mfilename('fullpath'));
 
 % Set up the output directory
 out_dir = fullfile(cur_dir,'..','output');

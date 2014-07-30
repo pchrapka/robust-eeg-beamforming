@@ -195,6 +195,17 @@ else
     fprintf('\tcvx: ok\n');
 end
 
+%% Add the project directories to the path
+[project_dir,~,~,~] = fileparts(mfilename('fullpath'));
+addpath(project_dir);
+addpath(fullfile(project_dir, 'analysis-beampattern'));
+addpath(fullfile(project_dir, 'analysis-dipole'));
+addpath(fullfile(project_dir, 'analysis-mag-dist'));
+addpath(fullfile(project_dir, 'analysis-rmse'));
+addpath(fullfile(project_dir, 'simulation-configs'));
+addpath(fullfile(project_dir, 'simulations'));
+addpath(fullfile(project_dir, 'source-configs'));
+
 
 %% Display message
 if sum(complete) == length(complete)

@@ -1,4 +1,4 @@
-function [pathstr, name, ext, versn] = fileparts_phil(file_name)
+function [pathstr, name, ext, versn] = fileparts(file_name)
     versn = 0;
     if verLessThan('matlab', '7.14')
         [pathstr, name, ext, versn] = fileparts(file_name);
