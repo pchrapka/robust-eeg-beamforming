@@ -196,7 +196,7 @@ else
 end
 
 %% Add the project directories to the path
-[project_dir,~,~,~] = fileparts(mfilename('fullpath'));
+[project_dir,~,~,~] = util.fileparts(mfilename('fullpath'));
 addpath(project_dir);
 addpath(fullfile(project_dir, 'core'));
 addpath(fullfile(project_dir, 'experiments'));
