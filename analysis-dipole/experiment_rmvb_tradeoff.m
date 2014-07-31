@@ -1,3 +1,4 @@
+% Prototype code to compare dipole mse
 close all;
 
 aet_init();
@@ -91,10 +92,10 @@ end
 fprintf('Actual dipole moment\n');
 fprintf('[%f %f %f]\n', dipole_actual);
 
-%% Output the dipole errors to a csv file
-cfg_csv = cfg_data;
-cfg_csv.tag = 'dipole_error_summary';
-cfg_csv.col_labels = {'Beamformer','Dipole Moment MSE'};
-cfg_csv.col_format = {'%s','%0.10f'};
-cfg_csv.data = data_error;
-util.dipole.dipole_error_summarize_csv(cfg_csv);
+% %% Output the dipole errors to a csv file
+% cfg_csv = cfg_data;
+% cfg_csv.tag = 'dipole_error_summary';
+% cfg_csv.col_labels = {'Beamformer','Dipole Moment MSE'};
+% cfg_csv.col_format = {'%s','%0.10f'};
+% cfg_csv.data = data_error;
+% util.dipole.dipole_error_summarize_csv(cfg_csv);

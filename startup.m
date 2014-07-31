@@ -199,6 +199,7 @@ end
 [project_dir,~,~,~] = fileparts(mfilename('fullpath'));
 addpath(project_dir);
 addpath(fullfile(project_dir, 'core'));
+addpath(fullfile(project_dir, 'experiments'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
