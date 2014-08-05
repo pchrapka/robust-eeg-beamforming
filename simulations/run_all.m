@@ -11,15 +11,15 @@
 % run_sim_vars_distr_bem
 
 %% Paper simulations
-% run_sim_vars_single_bem_paper
+run_sim_vars_single_bem_paper
 % run_sim_vars_mult_bem_paper
-run_sim_vars_distr_bem_paper
+% run_sim_vars_distr_bem_paper
 % run_sim_vars_mult_bem_paper_2
 
 %% Mult src spacing
 % run_sim_vars_single_test
 % run_sim_vars_mult_time_spacing
-run_sim_vars_mult_bem_paper_lags
+% run_sim_vars_mult_bem_paper_lags
 
 %% RMS analysis
 % Multiple iterations: Running time approx. 30 hours for one
@@ -27,5 +27,8 @@ run_sim_vars_mult_bem_paper_lags
 
 %% Sacrifice with RMVB
 % run_sim_vars_single_bem_paper_2
+
+%% Sinusoidal sources
+run_sim_vars_mult_sine_bem_paper
 
 
