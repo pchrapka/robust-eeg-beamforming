@@ -29,7 +29,7 @@ cfg_data = [];
 cfg_data.data_name = 'sim_data_bem_1_100t';
 cfg_data.source_name = 'mult_cort_src_10';
 cfg_data.iteration_range = 1;
-cfg_data.snr_range = -10:10:0;%-20:10:0;
+cfg_data.snr_range = 0;%-10:10:0;%-20:10:0;
 
 %% ==== MATCHED LEADFIELD ====
 
