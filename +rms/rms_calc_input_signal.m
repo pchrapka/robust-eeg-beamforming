@@ -26,6 +26,8 @@ switch(cfg.source_name)
         eval('src_param_distr_cortical_source_2');
     case 'distr_cort_src_3'
         eval('src_param_distr_cortical_source_3');
+    case 'mult_cort_src_sine_2'
+        eval('src_param_mult_cortical_source_sine_2');
     otherwise
         error('rms:rms_calc_input_signal',...
             ['unknown source_name: ' cfg.source_name]);

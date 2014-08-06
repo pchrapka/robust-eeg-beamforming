@@ -1,11 +1,9 @@
 %% rms_main
 
 %% Single iteration
-rms_analysis_iter1_single_paper_all
-rms_analysis_iter1_distr_paper_all
+% rms_analysis_iter1_single_paper_all
+% rms_analysis_iter1_distr_paper_all
 rms_analysis_iter1_mult_paper_all
-
-% rms_analysis_iter1_summary
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Multiple iterations
