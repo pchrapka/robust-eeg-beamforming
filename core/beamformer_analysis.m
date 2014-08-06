@@ -144,75 +144,104 @@ out.beamformer_config = cfg.beamformer_config;
 n_components = 3;
 n_time = size(data.avg_trials,2);
 n_vertices = length(cfg.loc);
-out.beamformer_output = zeros(n_components, n_vertices, n_time);
 
 n_scans = length(cfg.loc);
 
+% Copy data for the parfor
+out_snr = out.snr;
+out_iteration = out.iteration;
+cfg_loc = cfg.loc;
+data_avg_trials = data.avg_trials;
+
 %% Scan locations
-for i=1:n_scans
+parfor i=1:n_scans
+    cfg_beam_copy = cfg_beam;
     fprintf('%s snr %d iter %d %d/%d\n',...
-        cfg_beam.name,out.snr,out.iteration,i,n_scans);
-    idx = cfg.loc(i);
+        cfg_beam_copy.name, out_snr, out_iteration, i, n_scans);
+    idx = cfg_loc(i);
     
     % Check if it's a perturbed scenario
     % FIXME This stuff should really be in the data generation pipeline
     % Not in the beamformer
     if isfield(cfg, 'perturb_config')
-        cfg_mis.head_model = head;
-        cfg_mis.loc = idx;
-        [cfg_beam.H,E] = aet_analysis_perturb_leadfield(cfg_mis);
+        cfg_mis_copy = cfg_mis;
+        cfg_mis_copy.head_model = head;
+        cfg_mis_copy.loc = idx;
+        [cfg_beam_copy.H,E] = ...
+            aet_analysis_perturb_leadfield(cfg_mis_copy);
     end
     
     % Check for anisotropic rmv beamformer
-    if ~isempty(regexp(cfg_beam.name, 'rmv aniso', 'match'))
+    if ~isempty(regexp(cfg_beam_copy.name, 'rmv aniso', 'match'))
         % Get the head model data
         head_actual = hm_get_data(cfg.head_cfg.actual);
         head_estimate = hm_get_data(cfg.head_cfg.current);
     
         % Generate the uncertainty matrix
-        cfg_beam.A = aet_analysis_rmv_uncertainty_create(...
+        cfg_beam_copy.A = aet_analysis_rmv_uncertainty_create(...
             head_actual.head, head_estimate.head, idx);
     end
     
     % Set the location to scan
-    cfg_beam.loc = idx;
+    cfg_beam_copy.loc = idx;
     % Calculate the beamformer
-    beam_out = aet_analysis_beamform(cfg_beam);
-    out.filter{i} = beam_out.W;
-    out.leadfield{i} = beam_out.H;
-    out.loc(i) = idx;
+    beam_out = aet_analysis_beamform(cfg_beam_copy);
+    out_filter{i} = beam_out.W;
+    out_leadfield{i} = beam_out.H;
+    out_loc(i) = idx;
     if isfield(cfg, 'perturb_config')
-        out.perturb{i} = E;
+        out_perturb{i} = E;
     end
     
     % Calculate the beamformer output for each component
     tmpcfg =[];
     tmpcfg.W = beam_out.W;
-    tmpcfg.type = cfg_beam.type;
-    beam_signal = aet_analysis_beamform_output(...
-        tmpcfg, data.avg_trials);
+    tmpcfg.type = cfg_beam_copy.type;
+    beam_signal{i} = aet_analysis_beamform_output(...
+        tmpcfg, data_avg_trials);
     
-    % Save the output of the beamformer
-    if isfield(cfg, 'time_idx')
-        % Save only one time index
-        for j=1:n_components
-            % Save only one time index
-            out.beamformer_output(j,i,1) = ...
-                beam_signal(j, cfg.time_idx);
-        end
-        out.beamformer_output_type = ...
-            ['time index: ' num2str(cfg.time_idx)];
-    else
-        % Save all of the beamformer output
-        for j=1:n_components
-            out.beamformer_output(j,i,:) = ...
-                beam_signal(j,:);
-        end
-        out.beamformer_output_type = ...
-            ['time index: 1:' size(beam_signal,2)];
-    end
+%     % Save the output of the beamformer
+%     if isfield(cfg, 'time_idx')
+%         % Save only one time index
+%         for j=1:n_components
+%             % Save only one time index
+%             out_beamformer_output(j,i,1) = ...
+%                 beam_signal(j, cfg.time_idx);
+%         end
+%         out_beamformer_output_type = ...
+%             ['time index: ' num2str(cfg.time_idx)];
+%     else
+%         % Save all of the beamformer output
+%         for j=1:n_components
+%             out_beamformer_output(j,i,:) = ...
+%                 beam_signal(j,:);
+%         end
+%         out_beamformer_output_type = ...
+%             ['time index: 1:' size(beam_signal,2)];
+%     end
 end
 fprintf('\n');
+
+% Rearrange the output
+out.beamformer_output = zeros(n_components, n_vertices, n_time);
+for i=1:n_scans
+    % Save all of the beamformer output
+    for j=1:n_components
+        out.beamformer_output(j,i,:) = ...
+            beam_signal{i}(j,:);
+    end
+    out.beamformer_output_type = ...
+        ['time index: 1:' size(beam_signal,2)];
+end
+
+out.filter = out_filter;
+out.leadfield = out_leadfield;
+out.loc = out_loc;
+if exist('out_perturb','var')
+    out.perturb = out_perturb;
+end
+% out.beamformer_output = out_beamformer_output;
+% out.beamformer_output_type = out_beamformer_output_type;
 
 %% Save the output
 source = out;

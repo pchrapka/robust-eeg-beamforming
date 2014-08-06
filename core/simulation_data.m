@@ -1,5 +1,10 @@
 function simulation_data(cfg)
 % Script for creating the data
+% cfg
+%   sim_cfg
+%   sim_data
+%   sim_src_parameters
+%   parallel
 
 if ~isfield(cfg,'sim_cfg')
     % Load the simulation parameters
@@ -8,13 +13,14 @@ if ~isfield(cfg,'sim_cfg')
 else
     sim_cfg = cfg.sim_cfg;
 end
-if ~isfield(sim_cfg,'force'), sim_cfg.force = false; end
-% Set debug to be false by default
-if ~isfield(sim_cfg,'debug'), sim_cfg.debug = false; end
+% Set defaults
+if ~isfield(cfg,'parallel'),    cfg.parallel = true;    end
+if ~isfield(sim_cfg,'force'),   sim_cfg.force = false;  end
+if ~isfield(sim_cfg,'debug'),   sim_cfg.debug = false;  end
 
 %% Generate/load data
 
-if sim_cfg.debug
+if sim_cfg.debug || ~cfg.parallel
     for j=1:length(sim_cfg.snr_range)
         for i=1:sim_cfg.n_runs
             simulation_data_inner(sim_cfg, j, i)
