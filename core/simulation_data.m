@@ -6,6 +6,9 @@ function simulation_data(cfg)
 %   sim_src_parameters
 %   parallel
 
+% Save the cfg before we load the simulation parameters
+cfg_copy = cfg;
+
 if ~isfield(cfg,'sim_cfg')
     % Load the simulation parameters
     eval(cfg.sim_data);
@@ -14,6 +17,7 @@ else
     sim_cfg = cfg.sim_cfg;
 end
 % Set defaults
+cfg = cfg_copy;
 if ~isfield(cfg,'parallel'),    cfg.parallel = true;    end
 if ~isfield(sim_cfg,'force'),   sim_cfg.force = false;  end
 if ~isfield(sim_cfg,'debug'),   sim_cfg.debug = false;  end

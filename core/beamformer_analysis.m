@@ -127,6 +127,7 @@ if isfield(cfg_beam,'solver')
 end
 
 %% Load the perturb config
+cfg_mis = [];
 if isfield(cfg, 'perturb_config')
     cfg_mis = perturb_configs.get_config(...
         cfg.perturb_config, data);
