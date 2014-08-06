@@ -55,6 +55,7 @@ end
 
 %% Calculate rms for the beamformer source file
 % Get the full data file name
+eeg_data_file = db.save_setup(cfg_data);
 cfg_data.tag = [cfg.beam_cfg '_mini'];
 bf_data_file = db.save_setup(cfg_data);
 
@@ -79,12 +80,23 @@ if isfield(cfg,'cluster')
     cfg_rms.cluster = cfg.cluster;
 end
 
-% Calculate the input signal
-% NOTE This won't be exact
-cfg_input = [];
-cfg_input.sim_name = cfg.sim_name;
-cfg_input.source_name = cfg.source_name;
-cfg_rms.input_signal = rms.rms_calc_input_signal(cfg_input);
+% % Calculate the input signal
+% % NOTE This won't be exact
+% cfg_input = [];
+% cfg_input.sim_name = cfg.sim_name;
+% cfg_input.source_name = cfg.source_name;
+% cfg_rms.input_signal = rms.rms_calc_input_signal(cfg_input);
+% FIXME Remove this code
+
+% Load the input signal from the original data
+eeg_data_in = load(eeg_data_file);
+if ~isfield(eeg_data_in.data,'avg_dipole_signal')
+    fprintf('Rerun the analysis for %s %s\n',...
+        cfg.sim_name, cfg.source_name);
+    error('reb:rms_bf_file',...
+        'missing avg_dipole_signal');
+end
+cfg_rms.input_signal = eeg_data_in.data.avg_dipole_signal;
 
 % Calculate the rms
 [rmse, rms_input] = rms.rms_bf(cfg_rms);
