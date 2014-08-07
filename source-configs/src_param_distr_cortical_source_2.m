@@ -79,12 +79,3 @@ sim_cfg.sources{1}.jitter = 5;
 %% Noise parameters
 sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;
-
-%% Clear unnecessary variables
-var_list = who;
-for i=1:length(var_list)
-    if ~isequal(var_list{i},'sim_cfg')
-        clear(var_list{i});
-    end
-end
-clear var_list i

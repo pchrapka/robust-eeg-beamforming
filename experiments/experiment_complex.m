@@ -5,7 +5,8 @@ snr = '0';
 
 cfg = [];
 cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'single_cort_src_complex_1';
+% cfg.source_name = 'single_cort_src_complex_1';
+cfg.source_name = 'mult_cort_src_complex_1';
 cfg.snr = snr;
 cfg.iteration = 1;
 

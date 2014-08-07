@@ -114,6 +114,66 @@ cfg = struct(...
 scripts(k).vars = {cfg};
 k = k+1;
 
+%% src_param_mult_cortical_source_complex_1
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_complex_1_freq
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1_freq',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_complex_1_freq_pos
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1_freq_pos',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_complex_1_dip
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1_dip',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_complex_1_dip_pos
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1_dip_pos',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_complex_1_pos
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_complex_1_pos',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
 %% Run the scripts
 aet_parallel_init([]);
 aet_run_scripts( scripts );
