@@ -1,5 +1,7 @@
 close all;
 
+aet_init();
+
 %% Set up config to get the data file
 snr = '0';
 
@@ -15,7 +17,8 @@ cfg.source_names = {...
     'distr_cort_src_2',...
     'distr_cort_src_3',...
     ...'single_cort_src_4',...
-    'single_cort_src_1'
+    'single_cort_src_1',...
+    'single_cort_src_complex_1'...
     };
 cfg.snr = snr;
 cfg.iteration = 1;
@@ -62,7 +65,7 @@ for i=1:length(cfg.source_names)
     
     % Print out data
     fprintf('\n-- %s --\n', data{i}.name);
-    fprintf('rank all: %d\n\trank input: %d\n',...
+    fprintf('\trank all: %d\n\trank input: %d\n',...
         rank_signal, rank_input);
 
     fprintf('Top 5 Singular values\n');
