@@ -2,20 +2,6 @@ option batch on
 option confirm off
 open chrapkpk@blade16
 option transfer binary
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_14" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_14
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_15" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_15
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_16" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_16
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17_lag4" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17_lag4
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17_lag8" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17_lag8
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17_lag12" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17_lag12
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17_lag16" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17_lag16
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_17_lag20" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_17_lag20
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\distr_cort_src_2" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/distr_cort_src_2
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\distr_cort_src_3" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/distr_cort_src_3
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\single_cort_src_1" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/single_cort_src_1
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\single_cort_src_4" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/single_cort_src_4
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\mult_cort_src_sine_2" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/mult_cort_src_sine_2
-synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t\single_cort_src_complex_1" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/single_cort_src_complex_1
+synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t
 synchronize local -filemask="*1-100*.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_100_100t" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t
 exit
