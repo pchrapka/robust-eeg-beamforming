@@ -14,6 +14,66 @@ k = 1;
 
 %% Set up scripts to run
 
+%% src_param_mult_cortical_source_10
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_10',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_17
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_17',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_mult_cortical_source_sine_2
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_sine_2',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_distr_cortical_source_2
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_distr_cortical_source_2',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_distr_cortical_source_3
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_distr_cortical_source_3',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_single_cortical_source_1
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_single_cortical_source_1',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
 %% src_param_single_cortical_source_complex_1
 scripts(k).func = @simulation_data;
 cfg = struct(...

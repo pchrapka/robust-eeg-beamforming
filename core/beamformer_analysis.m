@@ -244,17 +244,19 @@ end
 % out.beamformer_output = out_beamformer_output;
 % out.beamformer_output_type = out_beamformer_output_type;
 
-%% Save the output
+%% Save beamformer output
 source = out;
 save(save_file, 'source');
-% Save just the beamformer_output
-source = [];
-source.beamformer_output = out.beamformer_output;
-% Create a new file name
-cfg.file_name = save_file;
-cfg.tag = 'mini';
-save_file = db.save_setup(cfg);
-save(save_file, 'source');
+
+%% Save beamformer output mini 
+% % Save just the beamformer_output
+% source = [];
+% source.beamformer_output = out.beamformer_output;
+% % Create a new file name
+% cfg.file_name = save_file;
+% cfg.tag = 'mini';
+% save_file = db.save_setup(cfg);
+% save(save_file, 'source');
 
 % Revert
 % path(cur_path);
