@@ -6,7 +6,10 @@ snr = '0';
 cfg = [];
 cfg.sim_name = 'sim_data_bem_1_100t';
 % cfg.source_name = 'single_cort_src_complex_1';
-cfg.source_name = 'mult_cort_src_complex_1';
+% cfg.source_name = 'mult_cort_src_complex_1';
+% cfg.source_name = 'mult_cort_src_complex_2_pos_exact';
+cfg.source_name = 'distr_cort_src_complex_1';
+% cfg.source_name = 'distr_cort_src_2';
 cfg.snr = snr;
 cfg.iteration = 1;
 
@@ -18,6 +21,19 @@ file_name = strcat(file_name,'.mat');
 %% Load the data
 data_in = load(file_name);
 signal = data_in.data.avg_dipole_signal;
+
+figure;
+surf(squeeze(signal(1,:,:)));
+figure;
+non_zero = sum(sum(abs(signal)),3) > 0;
+fprintf('non-zero vertices: %d\n', sum(non_zero));
+plot(non_zero);
+title('non-zero vertices');
+figure;
+max_val = max(max(signal),[],3);
+plot(max_val);
+title('max value');
+
 
 %% Plot input signal components
 % Choose a source index to plot
@@ -50,3 +66,8 @@ title('avg signal');
 figure;
 plot(data_in.data.avg_noise');
 title('avg noise');
+
+figure;
+dipole_signal = squeeze(data_in.data.avg_dipole_signal(1,:,:));
+plot(dipole_signal');
+title('avg dipole signal');

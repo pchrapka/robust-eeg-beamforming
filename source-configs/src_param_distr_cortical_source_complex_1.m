@@ -31,7 +31,7 @@ sim_cfg.sources{1}.amp = 1;
 sim_cfg.sources{1}.minfreq = 4;
 sim_cfg.sources{1}.maxfreq = 16;
 sim_cfg.sources{1}.pos = 120;
-sim_cfg.sources{1}.n_sinusoids = 4;
+sim_cfg.sources{1}.n_sinusoids = 1;
 
 
 %% Noise parameters
