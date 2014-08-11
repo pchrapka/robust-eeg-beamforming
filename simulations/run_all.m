@@ -15,9 +15,9 @@ aet_parallel_init([]);
 
 %% Paper simulations
 % run_sim_vars_single_bem_paper
-% run_sim_vars_mult_bem_paper % mult10
+run_sim_vars_mult_bem_paper % mult10
 % run_sim_vars_distr_bem_paper
-% run_sim_vars_mult_bem_paper_2 % mult17
+run_sim_vars_mult_bem_paper_2 % mult17
 
 %% Mult src spacing
 % run_sim_vars_single_test
@@ -35,7 +35,8 @@ aet_parallel_init([]);
 % run_sim_vars_mult_sine_bem_paper
 
 %% Complex ERP sources
-run_sim_vars_single_bem_paper_complex
+% run_sim_vars_single_bem_paper_complex
+run_sim_vars_mult_bem_paper_complex
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
