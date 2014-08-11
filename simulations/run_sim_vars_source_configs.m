@@ -214,6 +214,26 @@ cfg = struct(...
 scripts(k).vars = {cfg};
 k = k+1;
 
+%% src_param_single_cortical_source_erp_sine_exp_1
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_single_cortical_source_erp_sine_exp_1',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
+%% src_param_single_cortical_source_biphasic_1
+scripts(k).func = @simulation_data;
+cfg = struct(...
+    'sim_data',             'sim_data_bem_1_100t',...
+    'sim_src_parameters',   'src_param_single_cortical_source_biphasic_1',...
+    ...Allow aet_sim_eeg_avg to parallelize the trials
+    'parallel',             false);
+scripts(k).vars = {cfg};
+k = k+1;
+
 %% Run the scripts
 aet_parallel_init([]);
 aet_run_scripts( scripts );

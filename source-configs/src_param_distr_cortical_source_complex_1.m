@@ -3,7 +3,7 @@
 % Same as single_cort_src_complex_1 except as a distributed source
 % Sources have a normal orientation
 
-% sim_cfg.force = true; % ===== forcing another analysis ======
+% sim_cfg.force = true;
 sim_cfg.source_name = 'distr_cort_src_complex_1';
 
 % SNR calculation
