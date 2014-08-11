@@ -31,7 +31,7 @@ cfg_data = [];
 cfg_data.data_name = 'sim_data_bem_1_100t';
 cfg_data.source_name = 'single_cort_src_complex_1';
 cfg_data.iteration_range = 1;
-cfg_data.snr_range = 0;%-10:10:0;%-20:10:0;
+cfg_data.snr_range = -20:10:0;%0;%-10:10:0;
 
 %% ==== MATCHED LEADFIELD ====
 
@@ -51,26 +51,29 @@ cfg = struct(...
     'debug',                false);
 scripts(k).vars = {cfg};
 k = k+1;
-% 
-% %% ==== MISMATCHED LEADFIELD ====
-% 
-% scripts(k).func = @sim_vars.run;
-% cfg_simvars_setup = [];
-% cfg_simvars_setup.id = 'sim_vars_single_src_paper_mismatched';
-% cfg_simvars_setup.data = cfg_data;
-% cfg_simvars_setup.force = force;
-% cfg_simvars_setup.tag = '3sphere';
-% cfg_simvars_setup.head.current.type = 'brainstorm';
-% cfg_simvars_setup.head.current.file = 'head_Default1_3sphere_500V.mat';
-% cfg_simvars_setup.head.actual.type = 'brainstorm';
-% cfg_simvars_setup.head.actual.file = 'head_Default1_bem_500V.mat';
-% cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
-% cfg = struct(...
-%     'sim_vars',             cfg_simvars,...
-%     'parallel',             false,...
-%     'analysis_run_func',    @beamformer_analysis);
-% scripts(k).vars = {cfg};
-% k = k+1;
+
+%% ==== MISMATCHED LEADFIELD ====
+
+scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_single_src_paper_mismatched';
+cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.tag = '3sphere';
+cfg_simvars_setup.head.current.type = 'brainstorm';
+cfg_simvars_setup.head.current.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head.actual.type = 'brainstorm';
+cfg_simvars_setup.head.actual.file = 'head_Default1_bem_500V.mat';
+cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
+cfg = struct(...
+    'sim_vars',             cfg_simvars,...
+    'parallel',             false,...
+    'analysis_run_func',    @beamformer_analysis,...
+    ...Allow parallel execution of the scans
+    'parallel',             false,...
+    'debug',                false);
+scripts(k).vars = {cfg};
+k = k+1;
 
 %% Run the scripts
 aet_parallel_init([]);
