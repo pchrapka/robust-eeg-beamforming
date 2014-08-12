@@ -32,7 +32,7 @@ run_sim_vars_mult_bem_paper_2 % mult17
 % run_sim_vars_single_bem_paper_2
 
 %% Sinusoidal sources
-% run_sim_vars_mult_sine_bem_paper
+run_sim_vars_mult_bem_paper_sine
 
 %% Complex ERP sources
 % run_sim_vars_single_bem_paper_complex

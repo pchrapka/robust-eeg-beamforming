@@ -47,7 +47,6 @@ sim_cfg.sources{2}.signal_type = 'sine';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.freq = 15;
 sim_cfg.sources{2}.phase = pi/4;
-sim_cfg.sources{2}.pos = 124;
 sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params

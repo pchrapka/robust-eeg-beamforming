@@ -37,7 +37,7 @@ cfg_data.snr_range = -20:10:0;%0;%-10:10:0;
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_single_src_paper_matched';
+cfg_simvars_setup.id = 'sim_vars_mult_src_paper_matched';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head.type = 'brainstorm';
@@ -56,7 +56,7 @@ k = k+1;
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_single_src_paper_mismatched';
+cfg_simvars_setup.id = 'sim_vars_mult_src_paper_mismatched';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = '3sphere';
@@ -67,7 +67,6 @@ cfg_simvars_setup.head.actual.file = 'head_Default1_bem_500V.mat';
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
-    'parallel',             false,...
     'analysis_run_func',    @beamformer_analysis,...
     ...Allow parallel execution of the scans
     'parallel',             false,...

@@ -28,7 +28,7 @@ cfg_data.iteration = 1;
 
 bf_data = cell(size(cfg_data.beam_cfgs));
 for i=1:length(cfg_data.beam_cfgs)
-    cfg_data.tag = [cfg_data.beam_cfgs{i} '_mini'];
+    cfg_data.tag = cfg_data.beam_cfgs{i};
     
     % Get the file name
     file_name = db.get_full_file_name(cfg_data);

@@ -58,7 +58,7 @@ if ~isfield(cfg_in, 'verbose'), cfg_in.verbose = 0; end
 %% Get the beamformer data
 bf_data = cell(size(cfg_in.beam_cfgs));
 for i=1:length(cfg_in.beam_cfgs)
-    cfg_in.tag = [cfg_in.beam_cfgs{i} '_mini'];
+    cfg_in.tag = cfg_in.beam_cfgs{i};
     
     % Get the file name
     file_name = db.get_full_file_name(cfg_in);

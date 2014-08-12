@@ -1,6 +1,10 @@
 function rms_analysis_iter1_summary(cfg_in)
 % Summarizes the RMSE results produced by rms_analysis_iter1_*
-% clc;
+%
+% cfg_in.source_name
+%       name of source config
+% cfg_in.snr
+%       snr value
 
 
 % %% Get the data file name
@@ -33,7 +37,7 @@ data = {};
 cfg = [];
 cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_name = '';
-cfg.snr = '0';
+cfg.snr = cfg_in.snr;
 cfg.iteration = '1';
 cfg.tag = 'rms';
 cfg.source_name = cfg_in.source_name;

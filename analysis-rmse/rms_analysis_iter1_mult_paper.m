@@ -1,9 +1,18 @@
 function rms_analysis_iter1_mult_paper(cfg_in)
 %RMS_ANALYSIS_ITER1_MULT_PAPER Sets up rms analysis for multiple source
 %data with 1 iteration
+%
+% cfg_in.source_name
+%       name of source config
+% cfg_in.snr
+%       snr value
+% cfg_in.sample_idx
+%       sample index for calculating rmse
+% cfg_in.location_idx
+%       location index for calculating rmse
 
 % Set common parameters
-snr = '0';
+snr = cfg_in.snr;
 clustering = false;
 source_name = cfg_in.source_name;
 

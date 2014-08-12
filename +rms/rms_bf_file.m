@@ -56,7 +56,7 @@ end
 %% Calculate rms for the beamformer source file
 % Get the full data file name
 eeg_data_file = db.save_setup(cfg_data);
-cfg_data.tag = [cfg.beam_cfg '_mini'];
+cfg_data.tag = cfg.beam_cfg;
 bf_data_file = db.save_setup(cfg_data);
 
 % Load the beamformer data
