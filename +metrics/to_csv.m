@@ -4,6 +4,7 @@ function [out] = to_csv(data)
 %       output from metrics.run_metrics_on_files and saved by metrics.save
 
 % Create a mapping between the field name and field label
+% NOTE There should be no duplicate fields or duplicate field labels
 map.bf_name.field_label = 'Beamformer';
 map.bf_name.format = '%s';
 map.data_set.field_label = 'Data Set';
@@ -24,6 +25,8 @@ map.location_idx.field_label = 'Location Index';
 map.location_idx.format = '%d';
 map.output.field_label = 'Output';
 map.output.format = '%f';
+map.snrdb.field_label = 'SNR (dB)';
+map.snrdb.format = '%f';
 
 cfg = [];
 cfg.map = map;
@@ -40,7 +43,6 @@ for i=1:length(data)
         fields = fieldnames(item);
         for k=1:length(fields)
             field_name = fields{k};
-            field_struct = isstruct(item.(field_name));
             switch field_name
                 case 'metrics'
                     % Add the cells related to the metric
@@ -50,28 +52,14 @@ for i=1:length(data)
                     cfg.item = item.metrics(j);
                     % Add the metric
                     cfg = metrics.add_struct(cfg);
+                    % Remove the prefix
+                    cfg = rmfield(cfg, 'prefix');
                 otherwise
-                    switch field_struct
-                        case 0
-                            % Add individual cell
-                            % Update the cfg
-                            cfg.field_name = field_name;
-                            if isfield(cfg, 'prefix')
-                                cfg = rmfield(cfg,'prefix');
-                            end
-                            cfg.item = item;
-                            cfg = metrics.add_cell(cfg);
-                        case 1
-                            % Add a whole struct
-                            % Prefix the labels
-                            cfg.prefix = cfg.map.(field_name).field_label;
-                            % Set the current field as the item
-                            cfg.item = item.(field_name);
-                            cfg = metrics.add_struct(cfg);
-                        otherwise
-                            error('metrics:to_csv',...
-                                'unrecognized field type');
-                    end
+                    % Add individual cell
+                    % Update the cfg
+                    cfg.field_name = field_name;
+                    cfg.item = item;
+                    cfg = metrics.add_field(cfg);
             end
         end
         

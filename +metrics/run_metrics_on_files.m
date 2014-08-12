@@ -37,52 +37,14 @@ function [output] = run_metrics_on_files(cfg)
 
 output(length(cfg.beam_cfgs)).bf_name = '';
 %% Calculate rms for all desired beamformer configs
-for i=1:length(cfg.beam_cfgs)
+parfor i=1:length(cfg.beam_cfgs)
     
-    % Save some data
-    output(i).data_set = cfg.data_set;
-    output(i).bf_name = cfg.beam_cfgs{i};
-    
-    % Load data
-    cfg_data = cfg.data_set;
-    
-    % Load eeg data
-    eeg_data_file = db.save_setup(cfg_data);
-    eeg_data_in = load(eeg_data_file);
-    cfg_data.tag = cfg.beam_cfgs{i};
-    
-    % Load bf data
-    bf_data_file = db.save_setup(cfg_data);
-    bf_data_in = load(bf_data_file);
-    
-    % Loop through metric configs
-    output(i).metrics(length(cfg.metrics)).name = '';
-    for j=1:length(cfg.metrics)
-        % If a field is a metric run that metric
-        metric_cfg = cfg.metrics(j);
-        metric = metric_cfg.name;
-        switch metric
-            case 'snr'
-                cfg_snr = [];
-                % Extract W from beamformer data
-                cfg_snr.W = ...
-                    bf_data_in.source.filter{metric_cfg.location_idx};
-                
-                % Extract S and N from original data
-                cfg_snr.S = eeg_data_in.data.avg_signal;
-                cfg_snr.N = eeg_data_in.data.avg_noise;
-                
-                % Save the config
-                output(i).metrics(j).name = metric_cfg.name;
-                output(i).metrics(j).location_idx = metric_cfg.location_idx;
-                output(i).metrics(j).output = metrics.snr(cfg_snr);
-                
-            otherwise
-                error('metrics:run_metrics_on_files',...
-                    ['unrecognized metric: ' metric]);
-        end
-
-    end
+    % Copy the config to avoid warnings
+    cfg_copy = cfg;
+    % Set the beam cfg
+    cfg_copy.beam_cfg = cfg_copy.beam_cfgs{i};
+    % Run metrics on the individual file
+    output(i) = metrics.run_metrics_on_file(cfg);
 end
 
 end

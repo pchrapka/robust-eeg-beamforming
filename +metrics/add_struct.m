@@ -16,7 +16,7 @@ fields = fieldnames(cfg.item);
 for i=1:length(fields)
     % Set up config and add the cell
     cfg.field_name =  fields{i};
-    cfg = metrics.add_cell(cfg);
+    cfg = metrics.add_field(cfg);
 end
 
 end

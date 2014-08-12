@@ -19,7 +19,9 @@ classdef run_metrics_test < TestCase
             cfg.snr.N = zeros(32,100);
             cfg.snr.W = zeros(32,3);
             output = metrics.run_metrics(cfg);
-            assertTrue(isnumeric(output),...
+            assertTrue(isstruct(output),...
+                'Expected a struct');
+            assertTrue(isnumeric(output.snr),...
                 'Expected a number');
         end
         

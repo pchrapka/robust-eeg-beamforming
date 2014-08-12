@@ -1,10 +1,10 @@
-classdef add_cell_test < TestCase
+classdef add_field_test < TestCase
     
     properties
     end
     
     methods
-        function self = add_cell_test(name)
+        function self = add_field_test(name)
             self = self@TestCase(name);
         end
         
@@ -23,7 +23,7 @@ classdef add_cell_test < TestCase
             cfg.col_labels = {};
             cfg.row_idx = 1;
             cfg.data = {};
-            cfg = metrics.add_cell(cfg);
+            cfg = metrics.add_field(cfg);
             
             assertEqual(cfg.col_labels,{'SNR'},...
                 'Expected SNR in col_labels');
@@ -46,7 +46,7 @@ classdef add_cell_test < TestCase
             cfg.col_labels = {'SNR'};
             cfg.row_idx = 1;
             cfg.data = {};
-            cfg = metrics.add_cell(cfg);
+            cfg = metrics.add_field(cfg);
             
             assertEqual(cfg.col_labels,{'SNR'},...
                 'Expected SNR in col_labels');
@@ -68,7 +68,7 @@ classdef add_cell_test < TestCase
             cfg.col_labels = {};
             cfg.row_idx = 1;
             cfg.data = {};
-            cfg = metrics.add_cell(cfg);
+            cfg = metrics.add_field(cfg);
             
             assertEqual(cfg.col_labels,{'SNR'},...
                 'Expected SNR in col_labels');
@@ -79,7 +79,7 @@ classdef add_cell_test < TestCase
             cfg.map.sinr.field_label = 'SINR';
             cfg.map.sinr.format = '%d';
             cfg.row_idx = 1;
-            cfg = metrics.add_cell(cfg);
+            cfg = metrics.add_field(cfg);
             assertEqual(cfg.col_labels,{'SNR','SINR'},...
                 'Expected SINR in col_labels');
             assertEqual(size(cfg.data),[1 2],...
