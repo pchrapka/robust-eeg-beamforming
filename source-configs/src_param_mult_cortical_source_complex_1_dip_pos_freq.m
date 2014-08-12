@@ -34,7 +34,7 @@ cfg.idx = sim_cfg.sources{1}.source_index;
 sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)'; 
 
 %% Source 2
-sim_cfg.sources{2}.type = 'signal';
+sim_cfg.sources{2}.type = 'interference';
 sim_cfg.sources{2}.signal_type = 'erp_complex';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.amp = -1;

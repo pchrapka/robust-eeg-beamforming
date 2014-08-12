@@ -38,6 +38,10 @@ run_sim_vars_mult_bem_paper_sine
 % run_sim_vars_single_bem_paper_complex
 run_sim_vars_mult_bem_paper_complex
 
+%% Analysis
+rms_analysis_iter1_mult_paper_all
+metric_analysis_iter1_mult_paper_all
+
 %% Close the parallel pipeline
 aet_parallel_close([]);
 

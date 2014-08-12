@@ -1,4 +1,4 @@
-%% metrics_analysis_iter1_mult_paper_all
+%% metric_analysis_iter1_mult_paper_all
 
 %% Update AET, just in case
 util.update_aet();

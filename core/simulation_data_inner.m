@@ -5,6 +5,7 @@ temp_cfg = sim_cfg;
 % Adjust SNR of source 1
 cur_snr = temp_cfg.snr_range(snr_iter);
 temp_cfg.snr.signal = cur_snr;
+temp_cfg.snr.interference = cur_snr;
 
 tmpcfg = [];
 tmpcfg.sim_name = temp_cfg.sim_name;

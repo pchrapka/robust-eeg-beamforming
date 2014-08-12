@@ -42,7 +42,7 @@ sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)';
 %% Source 2
 % Source signal params for pr_peak()
 sim_cfg.sources{2} = sim_cfg.sources{1}; % Copy the first source
-sim_cfg.sources{2}.type = 'signal';
+sim_cfg.sources{2}.type = 'interference';
 sim_cfg.sources{2}.signal_type = 'sine';
 sim_cfg.sources{2}.snr = -10; % in dB
 sim_cfg.sources{2}.freq = 15;
