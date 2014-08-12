@@ -32,8 +32,6 @@ function [output] = run_metrics_on_file(cfg)
 %   location_idx
 %       location index for SNR calculation
 
-output(length(cfg.beam_cfgs)).bf_name = '';
-
 % Save some data
 output.data_set = cfg.data_set;
 output.bf_name = cfg.beam_cfg;

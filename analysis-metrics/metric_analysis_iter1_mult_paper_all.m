@@ -46,7 +46,7 @@ for j=1:length(source_names)
         k = k + 1;
         cfg.metrics(k).name = 'snr';
         cfg.metrics(k).location_idx = 400;
-        metric_analysis_iter1_mult_paper(cfg);
+        out = metric_analysis_iter1_mult_paper(cfg);
         
         % Accumulate the results
         results = [results out];

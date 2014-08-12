@@ -35,7 +35,6 @@ function [output] = run_metrics_on_files(cfg)
 %   location_idx
 %       location index for SNR calculation
 
-output(length(cfg.beam_cfgs)).bf_name = '';
 %% Calculate rms for all desired beamformer configs
 parfor i=1:length(cfg.beam_cfgs)
     
@@ -44,7 +43,7 @@ parfor i=1:length(cfg.beam_cfgs)
     % Set the beam cfg
     cfg_copy.beam_cfg = cfg_copy.beam_cfgs{i};
     % Run metrics on the individual file
-    output(i) = metrics.run_metrics_on_file(cfg);
+    output(i) = metrics.run_metrics_on_file(cfg_copy);
 end
 
 end
