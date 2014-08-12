@@ -6,8 +6,11 @@ util.update_aet();
 %% Initialize the Advanced EEG Toolbox
 aet_init
 
-cfg_par = [];
-aet_parallel_init(cfg_par);
+parallel = false;
+if parallel
+    cfg_par = [];
+    aet_parallel_init(cfg_par);
+end
 
 %% Set up different metrics to calculate
 % Mult source results with 1 iteration
@@ -108,4 +111,6 @@ for i=1:length(snrs)
 end
 
 %% Close parallel execution
-aet_parallel_close(cfg_par);
+if parallel
+    aet_parallel_close(cfg_par);
+end

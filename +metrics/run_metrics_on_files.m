@@ -56,6 +56,7 @@ for i=1:length(cfg.beam_cfgs)
     bf_data_in = load(bf_data_file);
     
     % Loop through metric configs
+    output(i).metrics(length(cfg.metrics)).name = '';
     for j=1:length(cfg.metrics)
         % If a field is a metric run that metric
         metric_cfg = cfg.metrics(j);
@@ -72,7 +73,8 @@ for i=1:length(cfg.beam_cfgs)
                 cfg_snr.N = eeg_data_in.data.avg_noise;
                 
                 % Save the config
-                output(i).metrics(j) = metric_cfg;
+                output(i).metrics(j).name = metric_cfg.name;
+                output(i).metrics(j).location_idx = metric_cfg.location_idx;
                 output(i).metrics(j).output = metrics.snr(cfg_snr);
                 
             otherwise
