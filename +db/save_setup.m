@@ -14,7 +14,8 @@ function save_file = save_setup(cfg)
 %
 %   Method 2 Save in the same directory as another file
 %       file_name
-%       tag         (optional)
+%       save_name   (optional) serves as the base of the file name
+%       tag         
 %       ext         (optional) file extension, default .mat
 
 if ~isfield(cfg, 'file_name')
@@ -45,7 +46,16 @@ else
     
     % Add a tag
     tmpcfg = [];
-    tmpcfg.file_name = save_name;
+    if isfield(cfg,'save_name')
+        tmpcfg.file_name = cfg.save_name;
+        if isequal(cfg.save_name, save_name) && isequal(cfg.tag,'')
+            warning('db:save_setup',...
+                ['the save name is similar to the original file, '...
+                'consider adding a tag']);
+        end
+    else
+        tmpcfg.file_name = save_name;
+    end
     tmpcfg.tag = cfg.tag;
     file_name = db.add_tag(tmpcfg);
     

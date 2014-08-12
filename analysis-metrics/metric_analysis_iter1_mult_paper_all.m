@@ -18,6 +18,7 @@ end
 %% mult_cort_src_10
 
 snrs = -20:10:0;
+results = [];
 for i=1:length(snrs)
     snr = snrs(i);
     
@@ -30,7 +31,8 @@ for i=1:length(snrs)
     k = k + 1;
     cfg.metrics(k).name = 'snr';
     cfg.metrics(k).location_idx = 400;
-    metric_analysis_iter1_mult_paper(cfg);
+    out = metric_analysis_iter1_mult_paper(cfg);
+    results = [results out];
     
 %     cfg = [];
 %     cfg.source_name = 'mult_cort_src_10';
@@ -38,6 +40,9 @@ for i=1:length(snrs)
 %     rms_analysis_iter1_summary(cfg);
 end
 
+cfg = [];
+cfg.source_name = 'mult_cort_src_10';
+metric_analysis_iter1_summary(cfg, results);
 
 %% mult_cort_src_17
 

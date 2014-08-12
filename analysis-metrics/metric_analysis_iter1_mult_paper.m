@@ -1,4 +1,4 @@
-function metric_analysis_iter1_mult_paper(cfg_in)
+function [result] = metric_analysis_iter1_mult_paper(cfg_in)
 %METRIC_ANALYSIS_ITER1_MULT_PAPER Sets up an analysis for multiple source
 %data with 1 iteration
 %
@@ -14,6 +14,8 @@ function metric_analysis_iter1_mult_paper(cfg_in)
 % Set common parameters
 snr = cfg_in.snr;
 source_name = cfg_in.source_name;
+
+fprintf('Calculating metrics for %s %s snr\n', source_name, snr);
 
 %% ==== MATCHED LEADFIELD ====
 % Set up beamformer data sets to process
@@ -66,4 +68,5 @@ cfg.data_set.iteration = '1';
 result = metrics.run_metrics_on_files(cfg);
 % Save the results
 metrics.save(cfg, result);
+
 end
