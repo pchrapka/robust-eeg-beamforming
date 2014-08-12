@@ -48,7 +48,7 @@ for row_idx = 1:rows
         % Output data
         if ischar(data{row_idx, col_idx}) && isequal(cfg.col_format{col_idx},'%d')
             fprintf(file_ID,...
-                cfg.col_format{col_idx}, num2str(data{row_idx, col_idx}));
+                cfg.col_format{col_idx}, str2double(data{row_idx, col_idx}));
         else
             fprintf(file_ID,...
                 cfg.col_format{col_idx}, data{row_idx, col_idx});

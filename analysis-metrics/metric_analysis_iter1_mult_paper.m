@@ -15,7 +15,7 @@ function [result] = metric_analysis_iter1_mult_paper(cfg_in)
 snr = cfg_in.snr;
 source_name = cfg_in.source_name;
 
-fprintf('Calculating metrics for %s %s snr\n', source_name, snr);
+fprintf('Calculating metrics for %s %d snr\n', source_name, snr);
 
 %% ==== MATCHED LEADFIELD ====
 % Set up beamformer data sets to process
