@@ -73,9 +73,10 @@ for j=1:length(cfg.metrics)
             cfg_snr.S = eeg_data_in.data.avg_signal;
             cfg_snr.N = eeg_data_in.data.avg_noise;
             
-            % Save the config
+            % Save info
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).location_idx = metric_cfg.location_idx;
+            % Calculate the metric
             output.metrics(j).output = metrics.snr(cfg_snr);
             
         case 'sinr'
@@ -99,11 +100,52 @@ for j=1:length(cfg.metrics)
             end
             cfg_sinr.N = eeg_data_in.data.avg_noise;
             
-            % Save the config
+            % Save info
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).flip = metric_cfg.flip;
             output.metrics(j).location_idx = metric_cfg.location_idx;
+            % Calculate the metric
             output.metrics(j).output = metrics.sinr(cfg_sinr);
+            
+        case 'rmse'
+            % Make sure sample_idx and location_idx are initialized
+            if ~isfield(metric_cfg, 'sample_idx')
+                metric_cfg.sample_idx = 0;
+            end
+            if ~isfield(metric_cfg, 'location_idx')
+                metric_cfg.location_idx = 0;
+            end
+            
+            % Get the beamformer output
+            bf = bf_data_in.source.beamformer_output;
+            % Get the beamformer input
+            bf_input = eeg_data_in.data.avg_dipole_signal;
+            
+            % Select the data at the user sample index
+            if metric_cfg.sample_idx > 0 && metric_cfg.location_idx > 0
+                bf_select = squeeze(bf(:, metric_cfg.location_idx, metric_cfg.sample_idx));
+                input_select = squeeze(bf_input(:, metric_cfg.location_idx, metric_cfg.sample_idx));
+            elseif metric_cfg.sample_idx > 0
+                bf_select = squeeze(bf(:, :, metric_cfg.sample_idx));
+                input_select = squeeze(bf_input(:, :, metric_cfg.sample_idx));
+            elseif metric_cfg.location_idx > 0
+                bf_select = squeeze(bf(:, metric_cfg.location_idx, :));
+                input_select = squeeze(bf_input(:, metric_cfg.location_idx, :));
+            else
+                error('metrics:rmse',...
+                    'must specify either sample_idx or location_idx');
+            end
+            
+            cfg_rmse.bf_out = bf_select';
+            cfg_rmse.input = input_select';
+            
+            % Calculate the metric
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).flip = metric_cfg.flip;
+            output.metrics(j).location_idx = metric_cfg.location_idx;
+            output.metrics(j).sample_idx = metric_cfg.sample_idx;
+            output.metrics(j).output = metrics.rmse(cfg_rmse);
+            
             
         otherwise
             error('metrics:run_metrics_on_files',...
