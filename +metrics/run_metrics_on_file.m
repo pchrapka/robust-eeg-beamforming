@@ -31,6 +31,14 @@ function [output] = run_metrics_on_file(cfg)
 %   name = 'snr'
 %   location_idx
 %       location index for SNR calculation
+%
+%   SINR
+%   name = 'sinr'
+%   location_idx
+%       location index for SINR calculation
+%   flip (boolean, default = false)
+%       switches signal and interference signals, allows SINR calculation
+%       from perspective of the interference signal
 
 % Save some data
 output.data_set = cfg.data_set;
@@ -69,6 +77,34 @@ for j=1:length(cfg.metrics)
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             output.metrics(j).output = metrics.snr(cfg_snr);
+            
+        case 'sinr'
+            % Set defaults
+            if ~isfield(metric_cfg, 'flip')
+                metric_cfg.flip = false; 
+            end
+            
+            cfg_sinr = [];
+            % Extract W from beamformer data
+            cfg_sinr.W = ...
+                bf_data_in.source.filter{metric_cfg.location_idx};
+            
+            % Extract S, I and N from original data
+            if metric_cfg.flip
+                cfg_sinr.S = eeg_data_in.data.avg_interference;
+                cfg_sinr.I = eeg_data_in.data.avg_signal;
+                cfg_sinr.N = eeg_data_in.data.avg_noise;
+            else
+                cfg_sinr.S = eeg_data_in.data.avg_signal;
+                cfg_sinr.I = eeg_data_in.data.avg_interference;
+                cfg_sinr.N = eeg_data_in.data.avg_noise;
+            end
+            
+            % Save the config
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).flip = metric_cfg.flip;
+            output.metrics(j).location_idx = metric_cfg.location_idx;
+            output.metrics(j).output = metrics.sinr(cfg_sinr);
             
         otherwise
             error('metrics:run_metrics_on_files',...

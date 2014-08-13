@@ -1,5 +1,5 @@
 function [output] = snr(cfg)
-%SINR calculates the SNR of the signal
+%SNR calculates the SNR of the signal
 %   cfg.S
 %       signal matrix [channels samples]
 %   cfg.N
@@ -16,8 +16,8 @@ function [output] = snr(cfg)
 
 
 % Calculate the snr
-output.snr = trace(cfg.W' * cfg.S * cfg.S' * cfg.W)/...
-    trace(cfg.W' * cfg.N * cfg.N' * cfg.W);
+output.snr = trace(cfg.W' * (cfg.S * cfg.S') * cfg.W)/...
+    trace(cfg.W' * (cfg.N * cfg.N') * cfg.W);
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power
