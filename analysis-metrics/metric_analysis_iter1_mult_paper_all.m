@@ -46,6 +46,14 @@ for j=1:length(source_names)
         k = k + 1;
         cfg.metrics(k).name = 'snr';
         cfg.metrics(k).location_idx = 400;
+        k = k + 1;
+        cfg.metrics(k).name = 'sinr';
+        cfg.metrics(k).location_idx = 295;
+        cfg.metrics(k).flip = false;
+        k = k + 1;
+        cfg.metrics(k).name = 'sinr';
+        cfg.metrics(k).location_idx = 400;
+        cfg.metrics(k).flip = true;
         out = metric_analysis_iter1_mult_paper(cfg);
         
         % Accumulate the results

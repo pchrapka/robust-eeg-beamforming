@@ -93,12 +93,11 @@ for j=1:length(cfg.metrics)
             if metric_cfg.flip
                 cfg_sinr.S = eeg_data_in.data.avg_interference;
                 cfg_sinr.I = eeg_data_in.data.avg_signal;
-                cfg_sinr.N = eeg_data_in.data.avg_noise;
             else
                 cfg_sinr.S = eeg_data_in.data.avg_signal;
                 cfg_sinr.I = eeg_data_in.data.avg_interference;
-                cfg_sinr.N = eeg_data_in.data.avg_noise;
             end
+            cfg_sinr.N = eeg_data_in.data.avg_noise;
             
             % Save the config
             output.metrics(j).name = metric_cfg.name;
