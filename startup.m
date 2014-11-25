@@ -217,6 +217,8 @@ if sum(complete) == length(complete)
 else
     disp('Project: robust-eeg-beamforming-paper')
     disp('Not Initialized')
+    disp(['If there are missing packages,',...
+        'run install_deps.sh (tested on linux). And rerun startup.m']);
 end
 
 clear all;
