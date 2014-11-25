@@ -10,8 +10,9 @@ matlab_dir = matlab_dir(1:end-1);
 %% Add SDPT3 package to Matlab path
 SDPT3_path = [matlab_dir filesep 'SDPT3-4.0'];
 if exist(SDPT3_path,'dir') ~= 7
-    % Try adding if ourselves
-    warning('STARTUP:CheckPackages',...
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
         'Missing SDPT3 package.\nDownload and install from the web.\nSee README');
     complete(count) = false;
     count = count + 1;
@@ -29,13 +30,23 @@ end
 %% Add yalmip package to Matlab path
 yalmip_path = [matlab_dir filesep 'yalmip'];
 if exist(yalmip_path,'dir') ~= 7
-    % Try adding if ourselves
-    warning('STARTUP:CheckPackages',...
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
         'Missing yalmip package.\nDownload and install from the web.\nSee README');
     complete(count) = false;
     count = count + 1;
 else
-    yalmip_install();
+    addpath(yalmip_path);
+    addpath(fullfile(yalmip_path, 'extras'));
+    addpath(fullfile(yalmip_path, 'demos'));
+    addpath(fullfile(yalmip_path, 'solvers'));
+    addpath(fullfile(yalmip_path, 'modules'));
+    addpath(fullfile(yalmip_path, 'modules/parametric'));
+    addpath(fullfile(yalmip_path, 'modules/moment'));
+    addpath(fullfile(yalmip_path, 'modules/global'));
+    addpath(fullfile(yalmip_path, 'modules/sos'));
+    addpath(fullfile(yalmip_path, 'operators'));
     complete(count) = true;
     count = count + 1;
     fprintf('\tyalmip: ok\n');
@@ -45,10 +56,16 @@ end
 if ispc
     head_models_path = 'C:\Users\Phil\My Projects\head-models';
 else
-    head_models_path = '/home/chrapkpk/Documents/projects/head-models';
+    [~,comp_name] = system('hostname');
+    if ~isempty(strfind(comp_name,'Valentina'))
+        head_models_path = '/home/phil/projects/head-models';
+    else
+        head_models_path = '/home/chrapkpk/Documents/projects/head-models';
+    end
 end
 if exist(head_models_path, 'dir') ~= 7
-    warning('STARTUP:CheckPackages',...
+    warning('on','all')
+    warning('reb:startup',...
             ['Missing head-models project.\n']);
     complete(count) = false;
     count = count + 1;
@@ -69,7 +86,9 @@ if exist(aet_path,'dir') ~= 7
     end
 end    
 if exist(aet_path,'dir') ~= 7
-    warning('STARTUP:CheckPackages',...
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
         'Missing aet package.\nDownload and install from Phil'' BitBucket See README');
     complete(count) = false;
     count = count + 1;
@@ -83,7 +102,9 @@ end
 %% Add phasereset package to Matlab path
 phasereset_path = [matlab_dir filesep 'phasereset'];
 if exist(phasereset_path,'dir') ~= 7
-    warning('STARTUP:CheckPackages',...
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
         'Missing cvx package.\nDownload and install from http://www.cs.bris.ac.uk/~rafal/phasereset/.\nSee README');
     complete(count) = false;
     count = count + 1;
@@ -134,7 +155,7 @@ end
 % end
 % 
 % if mosek_fail
-%     warning('STARTUP:CheckPackages',...
+%     warning('reb:startup',...
 %         'Missing mosek package. It''s optional');
 %     complete(count) = true;
 %     count = count + 1;
@@ -185,7 +206,9 @@ if cvx_install
 end
 
 if cvx_fail
-    warning('STARTUP:CheckPackages',...
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
         'Missing cvx package.\nDownload and install from http://cvxr.com/.\nSee README');
     complete(count) = false;
     count = count + 1;
@@ -221,4 +244,4 @@ else
         'run install_deps.sh (tested on linux). And rerun startup.m']);
 end
 
-clear all;
+%clear all;

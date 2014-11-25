@@ -36,7 +36,7 @@ fi
 
 ## YALMIP
 PKG_NAME=YALMIP
-PKG_DIR=YALMIP
+PKG_DIR=yalmip
 # Check if the dir exists
 if [ ! -d "$PKG_DIR" ]; then
     FILE=YALMIP.zip
