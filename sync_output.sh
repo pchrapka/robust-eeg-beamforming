@@ -1,0 +1,2 @@
+rsync -rvzc --progress --include='*.mat' --include='*.csv'  chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/
+rsync -rvzc --include='*1-100.mat' chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/

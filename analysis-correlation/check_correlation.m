@@ -2,7 +2,10 @@
 % din = load('output/sim_data_bem_1_100t/mult_cort_src_10/0_1.mat');
 % din = load('output/sim_data_bem_1_100t/mult_cort_src_17/0_1.mat');
 % din = load('output/sim_data_bem_1_100t/mult_cort_src_complex_1_dip_pos_freq/0_1.mat');
-din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2/0_1.mat');
+% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2/0_1.mat');
+% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/0_1.mat');
+% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/-10_1.mat');
+din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/-20_1.mat');
 
 % Extract the signal
 signal = din.data.avg_dipole_signal;

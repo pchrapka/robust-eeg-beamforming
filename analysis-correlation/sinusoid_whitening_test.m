@@ -7,12 +7,12 @@ t = (0:n_samples-1)/fs;
 
 % Generate sinusoids
 f = 10;
-amplitude = 10;
-sigma = 1;
-s1 = amplitude*sin(2*pi*f*t) + sigma*randn(1,n_samples);
+amplitude = 1;
+sigma = amplitude/10;
+s1 = amplitude*sin(2*pi*f*t);% + sigma*randn(1,n_samples);
 
-phase = pi/4;
-s2 = amplitude*sin(2*pi*f*t+phase) + sigma*randn(1,n_samples);
+phase = pi/2;
+s2 = amplitude*sin(2*pi*f*t+phase);% + sigma*randn(1,n_samples);
 
 % Calculate the correlation
 c = xcorr(s1, s2, 0, 'coeff');

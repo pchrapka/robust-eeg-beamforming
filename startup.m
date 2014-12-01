@@ -81,7 +81,7 @@ aet_path = [matlab_dir filesep 'aet'];
 if exist(aet_path,'dir') ~= 7
     try
         % Try installing
-        util.update_aet();
+        util.	();
     catch e
     end
 end    
@@ -190,7 +190,8 @@ if cvx_install
         if exist('cvx_license.dat','file') ~= 0
             eval('cvx_setup cvx_license.dat');
         else
-            eval('cvx_setup');
+            cvx_startup
+            cvx_setup
         end
         % Switch back to the directory
         cd(cur_dir)
@@ -224,6 +225,7 @@ addpath(project_dir);
 addpath(fullfile(project_dir, 'core'));
 addpath(fullfile(project_dir, 'experiments'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
+addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
 addpath(fullfile(project_dir, 'analysis-metrics'));
