@@ -81,7 +81,7 @@ aet_path = [matlab_dir filesep 'aet'];
 if exist(aet_path,'dir') ~= 7
     try
         % Try installing
-        util.	();
+        util.update_aet();
     catch e
     end
 end    
