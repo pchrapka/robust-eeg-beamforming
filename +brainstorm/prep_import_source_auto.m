@@ -37,7 +37,8 @@ for i=1:n_tags
     % Set up cfg to find the beamformer output data
     tmpcfg2 = [];
     tmpcfg2.file_name = data_file;
-    tmpcfg2.tag = [cfg.tags{i} '_mini'];
+%     tmpcfg2.tag = [cfg.tags{i} '_mini'];
+    tmpcfg2.tag = cfg.tags{i};
     fprintf('Working on: %s\n',tmpcfg2.tag);
     
     tmpcfg = [];

@@ -23,6 +23,9 @@ winPos = [200, 200, 400, 250];
 study = bst_get('Study', study_idx);
 
 % Load current fig handles
+if ~exist('output','dir')
+    mkdir('output');
+end
 out_file = fullfile('output','bst_current_figs.mat');
 if exist(out_file,'file')
     data = load(out_file);
@@ -42,8 +45,9 @@ find_snr = cellfun(...
 % Display the time series data
 [h_fig(start_idx),~,~] = view_timeseries(...
     study.Data(find_snr).FileName);
-% Don't show the scouts
-panel_scouts('SetScoutShowSelection','none');
+% FIXME
+% % Don't show the scouts
+% panel_scouts('SetScoutShowSelection','none');
 % Set the time cursor
 if time > 0
     panel_time('SetCurrentTime', time);
@@ -85,8 +89,9 @@ h_fig = [h_fig zeros(1,n_files)];
 for i=1:n_files
     % Display the source results
     [h_fig(start_idx+i),~,~] = view_surface_data([], relative_file_names{i});
-    % Don't show the scouts
-    panel_scouts('SetScoutShowSelection','none');
+% FIXME    
+%     % Don't show the scouts
+%     panel_scouts('SetScoutShowSelection','none');
     % Set background to white
     set(h_fig(start_idx+i), 'Color', new_color);
     % Set the colormap text color to black

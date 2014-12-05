@@ -112,8 +112,44 @@ else
     echo "***************"
 fi
 
+## Brainstorm
+# TODO http://stackoverflow.com/questions/1324421/how-to-get-past-the-login-page-with-wget
+PKG_NAME="Brainstorm"
+PKG_DIR=brainstorm3
+# Check if the dir exists
+if [ ! -d "$PKG_DIR" ]; then
+    echo
+    echo "Missing Brainstorm"
+    echo "********************"
+    echo "Download Brainstorm from http://neuroimage.usc.edu/bst/download.php"
+    echo "The site will ask you to register"
+    echo "Place the zip file in your MATLAB user directory (typically ~/Documents/MATLAB)"
+    echo "Unzip"
+    echo "Follow the installation instructions: http://neuroimage.usc.edu/brainstorm/Installation"
+
+#     FILE=brainstorm_141204.zip
+#     # Check if the zip file exists
+#     if [ ! -f "$FILE" ]; then
+# 	# Download pkg
+# 	echo "Downloading $PKG_NAME"
+# 	wget -O $FILE --ignore-length "http://neuroimage.usc.edu/bst/download.php?file=brainstorm_141204.zip"
+#     fi
+#     # Unzip the file
+#     unzip -q $FILE
+
+#     # Print confirmation
+#     echo "***************"
+#     echo "$PKG_NAME ready"
+#     echo "***************"
+else
+    # Print confirmation
+    echo "***************"
+    echo "$PKG_NAME already exists"
+    echo "***************"
+fi
+
+echo
 echo "If everything went well startup.m should work"
 
 cd $CUR_DIR
-
 
