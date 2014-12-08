@@ -1,4 +1,6 @@
 function [output] = run_metrics_on_files(cfg)
+%RUN_METRICS_ON_FILES runs metrics when multiple beamformer configs are
+%specified
 %
 %   Beamformer Config
 %   -----------------

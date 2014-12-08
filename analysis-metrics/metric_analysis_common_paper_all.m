@@ -1,0 +1,60 @@
+%% metric_analysis_common_paper_all
+
+%% Update AET, just in case
+util.update_aet();
+
+%% Initialize the Advanced EEG Toolbox
+aet_init
+
+% % Set parallel for blade not my laptop
+% if ispc
+%     parallel = false;
+% else
+%     parallel = true;
+% end
+% if parallel
+%     cfg_par = [];
+%     aet_parallel_init(cfg_par);
+% end
+
+%% Set up metrics to calculate
+
+% Load the head model
+head_cfg = [];
+head_cfg.type = 'brainstorm';
+head_cfg.file = 'head_Default1_bem_500V.mat';
+data = hm_get_data(head_cfg);
+head = data.head;
+
+location_idx = 1:501;
+
+cfg = [];
+% Set up metrics
+cfg.source_name = 'common';
+cfg.snr = 0;
+k = 1;
+for m=1:length(location_idx)
+    cfg.metrics(k).name = 'vdist';
+    cfg.metrics(k).head = head;
+    cfg.metrics(k).voi_idx = 295;
+    cfg.metrics(k).location_idx = location_idx(m);
+    k = k + 1;
+    
+    cfg.metrics(k).name = 'vdist';
+    cfg.metrics(k).head = head;
+    cfg.metrics(k).voi_idx = 400;
+    cfg.metrics(k).location_idx = location_idx(m);
+    k = k + 1;
+end
+
+% Calculate the metrics
+results = metric_analysis_common_paper(cfg);
+
+cfg = [];
+cfg.source_name = 'common';
+metric_analysis_common_summary(cfg, results);
+
+% %% Close parallel execution
+% if parallel
+%     aet_parallel_close(cfg_par);
+% end

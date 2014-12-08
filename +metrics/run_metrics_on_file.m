@@ -32,6 +32,11 @@ function [output] = run_metrics_on_file(cfg)
 %   location_idx
 %       location index for SNR calculation
 %
+%   INR
+%   name = 'inr'
+%   location_idx
+%       location index for INR calculation
+%
 %   SINR
 %   name = 'sinr'
 %   location_idx
@@ -40,21 +45,26 @@ function [output] = run_metrics_on_file(cfg)
 %       switches signal and interference signals, allows SINR calculation
 %       from perspective of the interference signal
 
-% Save some data
-output.data_set = cfg.data_set;
-output.bf_name = cfg.beam_cfg;
 
-% Load data
-cfg_data = cfg.data_set;
+if isfield(cfg, 'data_set')
+    % Save some data
+    output.data_set = cfg.data_set;
+    % Load data
+    cfg_data = cfg.data_set;
+    
+    % Load eeg data
+    eeg_data_file = db.save_setup(cfg_data);
+    eeg_data_in = load(eeg_data_file);
+end
 
-% Load eeg data
-eeg_data_file = db.save_setup(cfg_data);
-eeg_data_in = load(eeg_data_file);
-cfg_data.tag = cfg.beam_cfg;
-
-% Load bf data
-bf_data_file = db.save_setup(cfg_data);
-bf_data_in = load(bf_data_file);
+if isfield(cfg, 'beam_cfg')
+    % Save some data
+    output.bf_name = cfg.beam_cfg;
+    cfg_data.tag = cfg.beam_cfg;
+    % Load bf data
+    bf_data_file = db.save_setup(cfg_data);
+    bf_data_in = load(bf_data_file);
+end
 
 % Loop through metric configs
 output.metrics(length(cfg.metrics)).name = '';
@@ -63,6 +73,20 @@ for j=1:length(cfg.metrics)
     metric_cfg = cfg.metrics(j);
     metric = metric_cfg.name;
     switch metric
+        case 'vdist'
+            cfg_vert = [];
+            % Set up params for vertex_distances
+            cfg_vert.head = metric_cfg.head;
+            cfg_vert.voi_idx = metric_cfg.voi_idx;
+            cfg_vert.location_idx = metric_cfg.location_idx;
+            
+            % Save info
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).location_idx = metric_cfg.location_idx;
+            output.metrics(j).voi_idx = metric_cfg.voi_idx;
+            % Calculate the metric
+            output.metrics(j).output = metrics.vertex_distances(cfg_vert);
+            
         case 'snr'
             cfg_snr = [];
             % Extract W from beamformer data
@@ -78,6 +102,22 @@ for j=1:length(cfg.metrics)
             output.metrics(j).location_idx = metric_cfg.location_idx;
             % Calculate the metric
             output.metrics(j).output = metrics.snr(cfg_snr);
+            
+        case 'inr'
+            cfg_inr = [];
+            % Extract W from beamformer data
+            cfg_inr.W = ...
+                bf_data_in.source.filter{metric_cfg.location_idx};
+            
+            % Extract S and N from original data
+            cfg_inr.I = eeg_data_in.data.avg_interference;
+            cfg_inr.N = eeg_data_in.data.avg_noise;
+            
+            % Save info
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).location_idx = metric_cfg.location_idx;
+            % Calculate the metric
+            output.metrics(j).output = metrics.inr(cfg_inr);
             
         case 'sinr'
             % Set defaults

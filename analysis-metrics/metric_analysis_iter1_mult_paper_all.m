@@ -30,6 +30,7 @@ source_names = {...
     
 
 snrs = -20:10:0;
+location_idx = 1:501;
 % Loop through source names
 for j=1:length(source_names)
     results = [];
@@ -44,12 +45,15 @@ for j=1:length(source_names)
         cfg.source_name = source_names{j};
         cfg.snr = snr;
         k = 1;
-        cfg.metrics(k).name = 'snr';
-        cfg.metrics(k).location_idx = 295;
-        k = k + 1;
-        cfg.metrics(k).name = 'snr';
-        cfg.metrics(k).location_idx = 400;
-        k = k + 1;
+        for m=1:length(location_idx)
+            cfg.metrics(k).name = 'snr';
+            cfg.metrics(k).location_idx = location_idx(m);
+            k = k + 1;
+            
+            cfg.metrics(k).name = 'inr';
+            cfg.metrics(k).location_idx = location_idx(m);
+            k = k + 1;
+        end
         cfg.metrics(k).name = 'sinr';
         cfg.metrics(k).location_idx = 295;
         cfg.metrics(k).flip = false;
