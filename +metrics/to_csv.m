@@ -55,7 +55,7 @@ map.rmse_alpha.field_label = 'RMSE Norm Constant';
 map.rmse_alpha.format = '%f';
 map.voi_idx.field_label = 'Vertex of Interest';
 map.voi_idx.format = '%d';
-map.distance.field_label = 'Dsitance';
+map.distance.field_label = 'Distance';
 map.distance.format = '%f';
 
 cfg = [];
