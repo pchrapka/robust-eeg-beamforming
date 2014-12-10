@@ -54,10 +54,12 @@ for j=1:length(source_names)
             cfg.metrics(k).location_idx = location_idx(m);
             k = k + 1;
         end
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 295;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
+        for m=1:length(location_idx)
+            cfg.metrics(k).name = 'sinr';
+            cfg.metrics(k).location_idx = location_idx(m);
+            cfg.metrics(k).flip = false;
+            k = k + 1;
+        end
         cfg.metrics(k).name = 'sinr';
         cfg.metrics(k).location_idx = 400;
         cfg.metrics(k).flip = true;
@@ -69,30 +71,30 @@ for j=1:length(source_names)
         cfg.metrics(k).location_idx = 400;
         k = k + 1;
         
-        % Mismatched locations, for matched head model scenario
-        % RMVB should be robust if you are looking at a mismatched grid
-        % location even if you know the head model
-        % NOTE Analysis makes most sense for matched head model
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 313;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 338;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 372;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 341;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 365;
-        cfg.metrics(k).flip = false;
-        k = k + 1;
+%         % Mismatched locations, for matched head model scenario
+%         % RMVB should be robust if you are looking at a mismatched grid
+%         % location even if you know the head model
+%         % NOTE Analysis makes most sense for matched head model
+%         cfg.metrics(k).name = 'sinr';
+%         cfg.metrics(k).location_idx = 313;
+%         cfg.metrics(k).flip = false;
+%         k = k + 1;
+%         cfg.metrics(k).name = 'sinr';
+%         cfg.metrics(k).location_idx = 338;
+%         cfg.metrics(k).flip = false;
+%         k = k + 1;
+%         cfg.metrics(k).name = 'sinr';
+%         cfg.metrics(k).location_idx = 372;
+%         cfg.metrics(k).flip = false;
+%         k = k + 1;
+%         cfg.metrics(k).name = 'sinr';
+%         cfg.metrics(k).location_idx = 341;
+%         cfg.metrics(k).flip = false;
+%         k = k + 1;
+%         cfg.metrics(k).name = 'sinr';
+%         cfg.metrics(k).location_idx = 365;
+%         cfg.metrics(k).flip = false;
+%         k = k + 1;
         
         % Calculate the metrics
         out = metric_analysis_iter1_mult_paper(cfg);

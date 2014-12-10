@@ -229,6 +229,7 @@ addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
 addpath(fullfile(project_dir, 'analysis-metrics'));
+addpath(fullfile(project_dir, 'analysis-power'));
 addpath(fullfile(project_dir, 'analysis-rmse'));
 addpath(fullfile(project_dir, 'simulation-configs'));
 addpath(fullfile(project_dir, 'simulations'));

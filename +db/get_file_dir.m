@@ -5,12 +5,21 @@ function save_dir = get_file_dir(cfg)
 %   cfg
 %       sim_name
 %       source_name
+%       relative (optional, default = true) flag for relative path
 
-% Get the directory that contains this function
-[cur_dir,~,~,~] = util.fileparts(mfilename('fullpath'));
+if ~isfield(cfg, 'relative'), cfg.relative = true; end
 
-% Set up the output directory
-out_dir = fullfile(cur_dir,'..','output');
+if ~cfg.relative
+    % Get the directory that contains this function
+    [cur_dir,~,~,~] = util.fileparts(mfilename('fullpath'));
+    
+    % Set up the output directory
+    out_dir = fullfile(cur_dir,'..','output');
+else
+    % Set up the output directory
+    out_dir = fullfile('output');
+end
+
 save_dir = fullfile(out_dir,...
     cfg.sim_name, cfg.source_name);
 
