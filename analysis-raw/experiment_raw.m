@@ -1,19 +1,19 @@
 % Prototype code to compare dipole mse
 close all;
+force = false;
 
 aet_init();
 
 %% Get the data
 % Set up config to get the data file
 snr = '0';
-force = false;
 
 cfg_data = [];
 cfg_data.beam_cfgs = {...
     ...Matched
     ...'rmv_epsilon_20',...
     ...'lcmv',...
-    ...'lcmv_eig_1',...
+    ...'lcmv_eig_0',...
     ...'lcmv_reg_eig',...
     ...Mismatched
     'lcmv_3sphere',...
@@ -86,122 +86,113 @@ for i=1:length(bf_data)
         save(file_name, 'data');
         bf_out = data.bf_out;
     end
-    
-    % Set up file name for power calculations
-    cfg_data.tag = [bf_data{i}.name '_power.mat'];
-    file_name = db.get_full_file_name(cfg_data);
-    if force || ~exist(file_name, 'file')
-        fprintf('Calculating beamformer output power for %s\n', bf_data{i}.name);
-        data = [];
-        data.name = bf_data{i}.name;
-        data.data_file = data_file_name;
-        
-        % Calculate the power at each location
-        cfg_pow = [];
-        % Signal
-        cfg_pow.data = bf_out.signal.data;
-        output = metrics.power(cfg_pow);
-        data.bf_out.signal.power = output.power;
-        
-        % Interference
-        cfg_pow.data = bf_out.int.data;
-        output = metrics.power(cfg_pow);
-        data.bf_out.int.power = output.power;
-        
-        % Noise
-        cfg_pow.data = bf_out.noise.data;
-        output = metrics.power(cfg_pow);
-        data.bf_out.noise.power = output.power;
-        
-        % Save to a file
-        save(file_name, 'data');
-        
-    end
 end
 
-% Calculate vertex distances from source
-% Load the head model
-head_cfg = [];
-head_cfg.type = 'brainstorm';
-head_cfg.file = 'head_Default1_bem_500V.mat';
-data = hm_get_data(head_cfg);
-head = data.head;
-
-cfg_vert = [];
-cfg_vert.head = head;
-cfg_vert.voi_idx = 295;
-cfg_vert.location_idx = 1:501;
-vdist = metrics.vertex_distances(cfg_vert);
-
-%% Plot power vs dist
+%% Plot raw beamformer output
 close all;
-set(0,'DefaultAxesColorOrder',hsv(length(bf_data)));
 
 % Signal
-data_power = [];
+data_x = [];
 legend_str = [];
+location_idx = 295;
+component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_power.mat'];
+    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
     
+    % Select data at a particular location
+    data_loc = din.data.bf_out.signal.data{location_idx};
+    
     % Combine power and distance
-    data_power = [data_power din.data.bf_out.signal.power];
+    data_x = [data_x data_loc(component_idx,:)'];
 end
 
 cfg_plot = [];
 cfg_plot.legend_str = legend_str;
-cfg_plot.power = data_power;
-cfg_plot.distance = vdist.distance;
-cfg_plot.title = 'Signal Power';
-% plot_power_vs_distance(cfg_plot);
-plot_power_vs_distance_subplots(cfg_plot);
+cfg_plot.data = data_x;
+cfg_plot.title = 'Signal X Component';
+plot_raw_bfout_subplots(cfg_plot);
 
 % Interference
-data_power = [];
+data_x = [];
 legend_str = [];
+location_idx = 295;
+component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_power.mat'];
+    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
     
+    % Select data at a particular location
+    data_loc = din.data.bf_out.int.data{location_idx};
+    
     % Combine power and distance
-    data_power = [data_power din.data.bf_out.int.power];
+    data_x = [data_x data_loc(component_idx,:)'];
 end
 
 cfg_plot = [];
 cfg_plot.legend_str = legend_str;
-cfg_plot.power = data_power;
-cfg_plot.distance = vdist.distance;
-cfg_plot.title = 'Interference Power';
-% plot_power_vs_distance(cfg_plot);
-plot_power_vs_distance_subplots(cfg_plot);
+cfg_plot.data = data_x;
+cfg_plot.title = 'Interference X Component';
+plot_raw_bfout_subplots(cfg_plot);
 
 % Noise
-data_power = [];
+data_x = [];
 legend_str = [];
+location_idx = 295;
+component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_power.mat'];
+    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
     
+    % Select data at a particular location
+    data_loc = din.data.bf_out.noise.data{location_idx};
+    
     % Combine power and distance
-    data_power = [data_power din.data.bf_out.noise.power];
+    data_x = [data_x data_loc(component_idx,:)'];
 end
 
 cfg_plot = [];
 cfg_plot.legend_str = legend_str;
-cfg_plot.power = data_power;
-cfg_plot.distance = vdist.distance;
-cfg_plot.title = 'Noise Power';
-% plot_power_vs_distance(cfg_plot);
-plot_power_vs_distance_subplots(cfg_plot);
+cfg_plot.data = data_x;
+cfg_plot.title = 'Noise X Component';
+plot_raw_bfout_subplots(cfg_plot);
+
+% Combined
+data_x = [];
+legend_str = [];
+location_idx = 295;
+component_idx = 1;
+for i=1:length(bf_data)
+    % Load the data
+    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = db.get_full_file_name(cfg_data);
+    din = load(file_name);
+    
+    legend_str{i} = bf_data{i}.name;
+    
+    % Select data at a particular location
+    data_loc = din.data.bf_out.signal.data{location_idx};
+    data_loc = data_loc + din.data.bf_out.int.data{location_idx};
+    data_loc = data_loc + din.data.bf_out.noise.data{location_idx};
+    
+    % Combine power and distance
+    data_x = [data_x data_loc(component_idx,:)'];
+end
+
+cfg_plot = [];
+cfg_plot.legend_str = legend_str;
+cfg_plot.data = data_x;
+cfg_plot.title = 'Combined X Component';
+plot_raw_bfout_subplots(cfg_plot);
