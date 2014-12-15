@@ -11,6 +11,8 @@ function study_idx = bstcust_study_id(cfg)
 % Start Brainstorm
 brainstorm.bstcust_start();
 
+study_idx = 0;
+
 % Get the subject
 subject = bst_get('Subject', cfg.subject_name, 1);
 % Get the current conditions for our subject
