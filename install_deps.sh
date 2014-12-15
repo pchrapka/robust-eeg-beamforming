@@ -60,32 +60,6 @@ else
     echo "***************"
 fi
 
-## Phase reset
-PKG_NAME="Phase reset"
-PKG_DIR=phasereset
-# Check if the dir exists
-if [ ! -d "$PKG_DIR" ]; then
-    FILE=phase.zip
-    # Check if the zip file exists
-    if [ ! -f "$FILE" ]; then
-	# Download pkg
-	echo "Downloading $PKG_NAME"
-	wget http://www.cs.bris.ac.uk/~rafal/phasereset/phase.zip
-    fi
-    # Unzip the file
-    unzip -q -d phasereset $FILE
-
-    # Print confirmation
-    echo "***************"
-    echo "$PKG_NAME ready"
-    echo "***************"
-else
-    # Print confirmation
-    echo "***************"
-    echo "$PKG_NAME already exists"
-    echo "***************"
-fi
-
 ## CVX
 PKG_NAME="CVX"
 PKG_DIR=cvx
@@ -100,6 +74,39 @@ if [ ! -d "$PKG_DIR" ]; then
     fi
     # Untar the file
     tar -xzf $FILE
+
+    # Print confirmation
+    echo "***************"
+    echo "$PKG_NAME ready"
+    echo "***************"
+else
+    # Print confirmation
+    echo "***************"
+    echo "$PKG_NAME already exists"
+    echo "***************"
+fi
+
+## phasereset
+PKG_NAME="Phase reset"
+PKG_DIR=phasereset
+# Check if the dir exists
+if [ ! -d "$PKG_DIR" ]; then
+    FILE=master.tar.gz
+    # Check if the zip file exists
+    if [ ! -f "$FILE" ]; then
+	# Download pkg
+	echo "Downloading $PKG_NAME"
+	wget https://github.com/pchrapka/phasereset/tarball/master
+	mv master $FILE
+    fi
+    mkdir $PKG_DIR
+    # Untar the file
+    tar -C $PKG_DIR -xzf $FILE
+    # Save subfolder to be removed
+    RM_DIR=$(find $PKG_DIR -mindepth 1 -maxdepth 1 -type d)
+    # Move contents up a level
+    find $PKG_DIR -mindepth 2 -maxdepth 2 -exec mv -t $PKG_DIR \{\} +
+    rm -rf $RM_DIR
 
     # Print confirmation
     echo "***************"
