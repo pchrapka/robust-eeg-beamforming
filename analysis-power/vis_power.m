@@ -37,9 +37,9 @@ cfg_data.tag = [];
 data_file_name = [db.get_full_file_name(cfg_data) '.mat'];
 
 % Signal
-signal_type = 'signal';
+% signal_type = 'signal';
 % signal_type = 'interference';
-% signal_type = 'noise';
+signal_type = 'noise';
 
 for i=1:length(cfg_data.beam_cfgs)
     % Load the data
@@ -74,5 +74,3 @@ end
 
 %% Close all plots
 % brainstorm.bstcust_plot_close();
-
-% TODO Find a good way to save these plots
