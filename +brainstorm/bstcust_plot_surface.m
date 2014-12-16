@@ -11,6 +11,8 @@ function bstcust_plot_surface(cfg)
 %       data to be plotted on surface, [3 locs samples]
 %   cfg.data_tag
 %       tag describing the data
+%   cfg.plot
+%       flag for plotting the surface
 
 %% ==== NO IMPORT, PLOT THE DATA ====
 cfg_study = [];
@@ -124,7 +126,9 @@ cfg_db.source = source_template;
 cfg_db.tags = {cfg.data_tag};
 cfg_db = brainstorm.prep_import_source_auto(cfg_db);
 
-%% ==== PLOT THE BEAMPATTERN ====
-brainstorm.bstcust_plot(study_idx, '0');
+%% ==== PLOT THE SURFACE ====
+if cfg.plot
+    brainstorm.bstcust_plot(study_idx, '0');
+end
     
 end

@@ -188,7 +188,8 @@ if cvx_install
         % Check if there is a license file
         % And run cvx_setup
         if exist('cvx_license.dat','file') ~= 0
-            eval('cvx_setup cvx_license.dat');
+            cvx_startup
+            cvx_setup 'cvx_license.dat'
         else
             cvx_startup
             cvx_setup

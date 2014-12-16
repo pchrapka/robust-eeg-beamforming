@@ -16,7 +16,7 @@ img_file_name = fullfile(output_dir, name);
 % Get the image
 % img = out_figure_image(h_fig);
 % Focus on figure (captures the contents the topmost figure)
-pause(.01);
+pause(0.1);
 drawnow;
 figure(h_fig);
 drawnow;
