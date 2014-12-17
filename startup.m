@@ -105,7 +105,9 @@ if exist(phasereset_path,'dir') ~= 7
     % Turn on warnings
     warning('on','all')
     warning('reb:startup',...
-        'Missing cvx package.\nDownload and install from http://www.cs.bris.ac.uk/~rafal/phasereset/.\nSee README');
+        ['Missing phasereset package.\n'...
+        'Download and install from http://www.cs.bris.ac.uk/~rafal/phasereset/.\n'...
+        'See README']);
     complete(count) = false;
     count = count + 1;
 else
@@ -113,6 +115,24 @@ else
     count = count + 1;
     path(path,phasereset_path);
     fprintf('\tphasereset: ok\n');
+end
+
+%% Add export_fig package to Matlab path
+phasereset_path = [matlab_dir filesep 'export_fig'];
+if exist(phasereset_path,'dir') ~= 7
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
+        ['Missing export_fig package.\n'...
+        'Clone from https://github.com/ojwoodford/export_fig.git.\n'...
+        'See README']);
+    complete(count) = false;
+    count = count + 1;
+else
+    complete(count) = true;
+    count = count + 1;
+    path(path,phasereset_path);
+    fprintf('\texport_fig: ok\n');
 end
 
 % %% Check for mosek (Optional at this point)
