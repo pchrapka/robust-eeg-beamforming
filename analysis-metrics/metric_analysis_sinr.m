@@ -1,21 +1,4 @@
-%% metric_analysis_iter1_mult_paper_all
-
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
-% Set parallel for blade not my laptop
-if ispc
-    parallel = false;
-else
-    parallel = true;
-end
-if parallel
-    cfg_par = [];
-    aet_parallel_init(cfg_par);
-end
+%% metric_analysis_sinr
 
 %% Set up different metrics to calculate
 % Mult source results with 1 iteration
@@ -31,49 +14,101 @@ source_names = {...
 
 snrs = -20:10:0;
 location_idx = 1:501;
+cfg = [];
+cfg.force = false;
+
 % Loop through source names
 for j=1:length(source_names)
-    results = [];
     
-    % Loop through snrs
-    for i=1:length(snrs)
-        snr = snrs(i);
-        
-        cfg = [];
-        
-        % Set up metrics
-        cfg.source_name = source_names{j};
-        cfg.snr = snr;
-        k = 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 400;
-        cfg.metrics(k).flip = true;
-        k = k + 1;
-        cfg.metrics(k).name = 'sinr';
-        cfg.metrics(k).location_idx = 400;
-        cfg.metrics(k).flip = true;
-        k = k + 1;
-        cfg.metrics(k).name = 'rmse';
-        cfg.metrics(k).location_idx = 295;
-        k = k + 1;
-        cfg.metrics(k).name = 'rmse';
-        cfg.metrics(k).location_idx = 400;
-        k = k + 1;
-        
-        % Calculate the metrics
-        out = metric_analysis_iter1_mult_paper(cfg);
-        
-        % Accumulate the results
-        results = [results out];
-        
-    end
+    %% ==== MATCHED LEADFIELD ====
+    % Set up beamformer data sets to process
+    beam_cfgs_matched = {...
+        'rmv_epsilon_20',...
+        ...'rmv_epsilon_50',...
+        ...'rmv_eig_post_0_epsilon_20',...
+        ...'rmv_eig_post_0_epsilon_50',...
+        'lcmv',...
+        'lcmv_eig_0',...
+        'lcmv_eig_1',...
+        'lcmv_reg_eig'...
+        };
     
-    cfg = [];
-    cfg.source_name = source_names{j};
-    metric_analysis_iter1_summary(cfg, results);
+    cfg.beam_cfgs = beam_cfgs_matched;
+    
+    % Set up simulation info
+    cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+    cfg.data_set.source_name = source_names{j};
+    cfg.data_set.snr = '';
+    cfg.data_set.iteration = '1';
+    cfg.snrs = snrs;
+    cfg.save_tag = 'matched';
+    
+    %% Location: 295
+    % Set up metric
+    cfg.metrics.name = 'sinr';
+    cfg.metrics.location_idx = 295;
+    cfg.metrics.flip = false;
+    
+    plot_sinr_vs_snr(cfg);
+    
+    %% Location: 400
+    % Set up metric
+    cfg.metrics.name = 'sinr';
+    cfg.metrics.location_idx = 400;
+    cfg.metrics.flip = true;
+    
+    plot_sinr_vs_snr(cfg);
+    
+    
 end
 
-%% Close parallel execution
-if parallel
-    aet_parallel_close(cfg_par);
+% Loop through source names
+for j=1:length(source_names)
+    
+    %% ==== MISMATCHED LEADFIELD ====
+    % Set up beamformer data sets to process
+    beam_cfgs_mismatched = {...
+        ...'rmv_epsilon_50_3sphere',...
+        'rmv_epsilon_100_3sphere',...
+        'rmv_epsilon_150_3sphere',...
+        'rmv_epsilon_200_3sphere',...
+        ...'rmv_epsilon_250_3sphere',...
+        ...'rmv_epsilon_300_3sphere',...
+        'rmv_aniso_3sphere',...
+        ...'rmv_eig_post_0_epsilon_50_3sphere',...
+        ...'rmv_eig_post_0_epsilon_100_3sphere',...
+        ....'rmv_eig_post_0_epsilon_150_3sphere',...
+        ...'rmv_eig_post_0_epsilon_200_3sphere',...
+        ...'rmv_aniso_eig_0_3sphere',...
+        'lcmv_3sphere',...
+        'lcmv_eig_0_3sphere',...
+        'lcmv_eig_1_3sphere',...
+        'lcmv_reg_eig_3sphere'};
+    
+    cfg.beam_cfgs = beam_cfgs_mismatched;
+    
+    % Set up simulation info
+    cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+    cfg.data_set.source_name = source_names{j};
+    cfg.data_set.snr = '';
+    cfg.data_set.iteration = '1';
+    cfg.snrs = snrs;
+    cfg.save_tag = 'mismatched';
+    
+    %% Location: 295
+    % Set up metric
+    cfg.metrics.name = 'sinr';
+    cfg.metrics.location_idx = 295;
+    cfg.metrics.flip = false;
+    
+    plot_sinr_vs_snr(cfg);
+    
+    %% Location: 400
+    % Set up metric
+    cfg.metrics.name = 'sinr';
+    cfg.metrics.location_idx = 400;
+    cfg.metrics.flip = true;
+    
+    plot_sinr_vs_snr(cfg);
+    
 end

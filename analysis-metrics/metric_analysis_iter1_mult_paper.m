@@ -10,10 +10,13 @@ function [result] = metric_analysis_iter1_mult_paper(cfg_in)
 %   cfg_in.metrics
 %       struct array of metric configs to pass to run_metrics_on_files
 %       refer to the Metrics Section in the help of run_metrics_on_files
+%   cfg_in.save
+%       flag to save results or not, default = true
 
 % Set common parameters
 snr = cfg_in.snr;
 source_name = cfg_in.source_name;
+if ~isfield(cfg_in, 'save'), cfg_in.save = true; end
 
 fprintf('Calculating metrics for %s %d snr\n', source_name, snr);
 
@@ -68,7 +71,9 @@ cfg.data_set.iteration = '1';
 
 % Calculate the metrics
 result = metrics.run_metrics_on_files(cfg);
-% Save the results
-metrics.save(cfg, result);
+if cfg_in.save
+    % Save the results
+    metrics.save(cfg, result);
+end
 
 end
