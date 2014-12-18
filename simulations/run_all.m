@@ -6,8 +6,8 @@ aet_parallel_init([]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Running time: approx. 3 hours for one if RMVB is included
-% 11:36
+% Running time: approx. 30 minutes for one analysis (one snr, matched and
+% mismatched scenarios and RMVB included)
 
 %% Run all simulations
 % run_sim_vars_single
