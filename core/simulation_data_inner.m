@@ -5,7 +5,10 @@ temp_cfg = sim_cfg;
 % Adjust SNR of source 1
 cur_snr = temp_cfg.snr_range(snr_iter);
 temp_cfg.snr.signal = cur_snr;
-temp_cfg.snr.interference = cur_snr;
+% Only adjust interference if there are sources labeled as interference
+if sum(isinterference(temp_cfg.sources)) > 0
+    temp_cfg.snr.interference = cur_snr;
+end
 
 tmpcfg = [];
 tmpcfg.sim_name = temp_cfg.sim_name;
@@ -32,4 +35,9 @@ end
 
 function parsave(fname, data)
 save(fname, 'data')
+end
+
+function out = isinterference(sources)
+% Checks sources labeled as interference
+out = cellfun(@(x) ~isempty(strfind(x.type, 'interference')), sources);
 end

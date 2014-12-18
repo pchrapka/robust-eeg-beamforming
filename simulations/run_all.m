@@ -3,6 +3,12 @@
 %% Open the parallel pipeline
 aet_parallel_init([]);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Simulations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Running time: approx. 3 hours for one if RMVB is included
+% 11:36
+
 %% Run all simulations
 % run_sim_vars_single
 % run_sim_vars_mult
@@ -14,7 +20,8 @@ aet_parallel_init([]);
 % run_sim_vars_distr_bem
 
 %% Paper simulations
-% run_sim_vars_single_bem_paper
+% PAPER
+run_sim_vars_single_bem_paper
 run_sim_vars_mult_bem_paper % mult10
 % run_sim_vars_distr_bem_paper
 run_sim_vars_mult_bem_paper_2 % mult17
@@ -23,10 +30,6 @@ run_sim_vars_mult_bem_paper_2 % mult17
 % run_sim_vars_single_test
 % run_sim_vars_mult_time_spacing
 % run_sim_vars_mult_bem_paper_lags
-
-%% RMS analysis
-% Multiple iterations: Running time approx. 30 hours for one
-% run_rms
 
 %% Sacrifice with RMVB
 % run_sim_vars_single_bem_paper_2
@@ -39,9 +42,24 @@ run_sim_vars_mult_bem_paper_sine_uncor
 % run_sim_vars_single_bem_paper_complex
 run_sim_vars_mult_bem_paper_complex
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
-rms_analysis_iter1_mult_paper_all
-metric_analysis_iter1_mult_paper_all
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% RMS analysis with multiple iterations
+% WARNING: Running time approx. 30 hours for one
+% run_rms
+
+%% RMS
+% rms_analysis_iter1_mult_paper_all
+
+%% All Metrics
+% metric_analysis_iter1_mult_paper_all
+
+%% SINR
+% Calculate SINR for different source configurations
+% PAPER
+metric_analysis_sinr
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
