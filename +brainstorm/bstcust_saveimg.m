@@ -25,6 +25,8 @@ img = frameGfx.cdata;
 % Save the image
 imwrite(img, [img_file_name '.png']);
 
+% out_figure_image(h_fig, [img_file_name '.png']);
+
 % Save image as eps
 % set(gcf,'PaperPositionMode','auto')
 % saveas(h_fig, [img_file_name '.eps'],'epsc2');

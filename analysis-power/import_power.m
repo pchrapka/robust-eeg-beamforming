@@ -6,8 +6,8 @@ aet_init();
 % Set up config to get the data file
 snr = '0';
 force = false;
-% mismatch = true;
-mismatch = false;
+mismatch = true;
+% mismatch = false;
 
 cfg_data = [];
 if ~mismatch
@@ -58,6 +58,7 @@ for j=1:length(signal_types)
         file_name = db.get_full_file_name(cfg_data);
         din = load(file_name);
         
+        % Load the power data
         switch signal_type
             case 'signal'
                 data = din.data.bf_out.signal.power;
@@ -72,6 +73,9 @@ for j=1:length(signal_types)
                 error(['rmvb:' mfilename],...
                     'unknown signal type');
         end
+        
+        % Normalize the data
+        data = data./max(data);
         
         cfg = [];
         if mismatch
