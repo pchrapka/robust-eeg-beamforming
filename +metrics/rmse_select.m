@@ -5,9 +5,9 @@ function [output] = rmse_select(cfg)
 %   Input
 %   -----
 %   cfg.bf_out
-%       [components locations samples]
+%       (optional) [components locations samples]
 %   cfg.bf_in
-%       [components locations samples]
+%       (optional) [components locations samples]
 %   cfg.sample_idx
 %       sample index for RMSE calculation
 %   cfg.location_idx
@@ -21,29 +21,37 @@ function [output] = rmse_select(cfg)
 %       cfg.bf_in data selected by criteria
 
 % Make sure sample_idx and location_idx are initialized
-if ~isfield(cfg, 'sample_idx')
-    cfg.sample_idx = 0;
-end
-if ~isfield(cfg, 'location_idx')
-    cfg.location_idx = 0;
-end
-
-% Select the data at the user sample index
-if cfg.sample_idx > 0 && cfg.location_idx > 0
-    bf_select = squeeze(cfg.bf_out(:, cfg.location_idx, cfg.sample_idx));
-    input_select = squeeze(cfg.bf_in(:, cfg.location_idx, cfg.sample_idx));
-elseif cfg.sample_idx > 0
-    bf_select = squeeze(cfg.bf_out(:, :, cfg.sample_idx));
-    input_select = squeeze(cfg.bf_in(:, :, cfg.sample_idx));
-elseif cfg.location_idx > 0
-    bf_select = squeeze(cfg.bf_out(:, cfg.location_idx, :));
-    input_select = squeeze(cfg.bf_in(:, cfg.location_idx, :));
+if isfield(cfg, 'sample_idx') && ~isempty(cfg.sample_idx)
+    if ~isvector(cfg.sample_idx)
+        sample_idx = repmat(cfg.sample_idx, 1, 2);
+        cfg.sample_idx = sample_idx;
+    end
 else
-    error('metrics:rmse',...
-        'must specify either sample_idx or location_idx');
+    cfg.sample_idx = [1 size(cfg.bf_out,3)];
 end
 
-output.bf_out_select = bf_select;
-output.bf_in_select = input_select;
+if isfield(cfg, 'location_idx') && ~isempty(cfg.location_idx)
+    if ~isvector(cfg.location_idx)
+        location_idx = repmat(cfg.location_idx, 1, 2);
+        cfg.location_idx = location_idx;
+    end
+else
+    cfg.location_idx = [1 size(cfg.bf_out,2)];
+end
+
+% Convert the beg/end indices to a range
+cfg.sample_idx = cfg.sample_idx(1):cfg.sample_idx(end);
+cfg.location_idx = cfg.location_idx(1):cfg.location_idx(end);
+
+% Select the data at the user sample and location indices
+if isfield(cfg, 'bf_out')
+    bf_select = squeeze(cfg.bf_out(:, cfg.location_idx, cfg.sample_idx));
+    output.bf_out_select = bf_select;
+end
+
+if isfield(cfg, 'bf_in')
+    input_select = squeeze(cfg.bf_in(:, cfg.location_idx, cfg.sample_idx));
+    output.bf_in_select = input_select;
+end
 
 end

@@ -94,8 +94,8 @@ rmsedb = 20*log10(rmse);
 
 if length(rmse) == 3
     output.rmse_x = rmse(1);
-    output.rmse_y = rmse(1);
-    output.rmse_z = rmse(1);
+    output.rmse_y = rmse(2);
+    output.rmse_z = rmse(3);
 else
     warning('metrics:rmse',...
         ['not sure how to output the rmse, size: '...
@@ -104,8 +104,8 @@ end
 
 if length(rmsedb) == 3
     output.rmsedb_x = rmsedb(1);
-    output.rmsedb_y = rmsedb(1);
-    output.rmsedb_z = rmsedb(1);
+    output.rmsedb_y = rmsedb(2);
+    output.rmsedb_z = rmsedb(3);
 else
     warning('metrics:rmse',...
         ['not sure how to output the rmsedb, size: '...
