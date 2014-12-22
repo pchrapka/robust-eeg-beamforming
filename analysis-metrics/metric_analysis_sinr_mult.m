@@ -51,6 +51,9 @@ for j=1:length(source_names)
     cfg.metrics.location_idx = 295;
     cfg.metrics.flip = false;
     
+    % Compute SINR
+    cfg = compute_sinr_vs_snr(cfg);
+    % Plot SINR
     plot_sinr_vs_snr(cfg);
     
     %% Location: 400
@@ -59,6 +62,9 @@ for j=1:length(source_names)
     cfg.metrics.location_idx = 400;
     cfg.metrics.flip = true;
     
+    % Compute SINR
+    cfg = compute_sinr_vs_snr(cfg);
+    % Plot SINR
     plot_sinr_vs_snr(cfg);
     
     
@@ -103,6 +109,9 @@ for j=1:length(source_names)
     cfg.metrics.location_idx = 295;
     cfg.metrics.flip = false;
     
+    % Compute SINR
+    cfg = compute_sinr_vs_snr(cfg);
+    % Plot SINR
     plot_sinr_vs_snr(cfg);
     
     %% Location: 400
@@ -111,6 +120,9 @@ for j=1:length(source_names)
     cfg.metrics.location_idx = 400;
     cfg.metrics.flip = true;
     
+    % Compute SINR
+    cfg = compute_sinr_vs_snr(cfg);
+    % Plot SINR
     plot_sinr_vs_snr(cfg);
     
 end
