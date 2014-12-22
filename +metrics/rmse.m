@@ -18,7 +18,7 @@ function [output] = rmse(cfg)
 %       default = true;
 %   cfg.alpha
 %       (optional) custom normalization factor for bf_out, default =
-%       ignored
+%       calculated using least squares of the power
 %
 %   Output
 %   ------
@@ -54,36 +54,37 @@ end
 
 % Check if we should normalize the beamformer output
 if cfg.normalize
-    % Calculate the power of the signals
-    % The only reason for this step is so that we perform the least squares
-    % fit over the power of the signal instead of the amplitude itself, to
-    % avoid the normalization factor from flipping the sign
-    bf_pow = sqrt(sum(bf_out.^2,2));
-    input_pow = sqrt(sum(input.^2,2));
     
-    % % Calculate the support of the input
-    % select = input_pow > 0;
-    % if sum(select) == 0
-    %     % Display an error if the signal is 0
-    %     warning('metrics:rmse',...
-    %         ['the input signal is 0, cannot determine a reference '...
-    %         'for normalization']);
-    % end
-    
-    % Calculate the normalizing factor by least squares
-    % i.e. minimize the 2-norm between both signals
-    alpha = (input_pow'*bf_pow)...
-        /(bf_pow'*bf_pow);
+    % Apply a custom normalization factor
+    if isfield(cfg, 'alpha')
+        alpha = cfg.alpha;
+    else
+        % Calculate the power of the signals
+        % The only reason for this step is so that we perform the least squares
+        % fit over the power of the signal instead of the amplitude itself, to
+        % avoid the normalization factor from flipping the sign
+        bf_pow = sqrt(sum(bf_out.^2,2));
+        input_pow = sqrt(sum(input.^2,2));
+        
+        % % Calculate the support of the input
+        % select = input_pow > 0;
+        % if sum(select) == 0
+        %     % Display an error if the signal is 0
+        %     warning('metrics:rmse',...
+        %         ['the input signal is 0, cannot determine a reference '...
+        %         'for normalization']);
+        % end
+        
+        % Calculate the normalizing factor by least squares
+        % i.e. minimize the 2-norm between both signals
+        alpha = (input_pow'*bf_pow)...
+            /(bf_pow'*bf_pow);
+    end
     
     % Normalize the output power
     bf_out_norm = bf_out*alpha;
 else
-    % Apply a custom normalization factor
-    if isfield(cfg, 'alpha')
-        bf_out_norm = bf_out*cfg.alpha;
-    else
-        bf_out_norm = bf_out;
-    end
+    bf_out_norm = bf_out;
 end
 
 % Calculate the RMSE
