@@ -44,6 +44,13 @@ function [output] = run_metrics_on_file(cfg)
 %   flip (boolean, default = false)
 %       switches signal and interference signals, allows SINR calculation
 %       from perspective of the interference signal
+%
+%   RMSE
+%   name = 'rmse'
+%   location_idx
+%       location index for RMSE calculation
+%   sample_idx
+%       sample index for RMSE calculation
 
 
 if isfield(cfg, 'data_set')
@@ -148,36 +155,16 @@ for j=1:length(cfg.metrics)
             output.metrics(j).output = metrics.sinr(cfg_sinr);
             
         case 'rmse'
-            % Make sure sample_idx and location_idx are initialized
-            if ~isfield(metric_cfg, 'sample_idx')
-                metric_cfg.sample_idx = 0;
-            end
-            if ~isfield(metric_cfg, 'location_idx')
-                metric_cfg.location_idx = 0;
-            end
             
             % Get the beamformer output
-            bf = bf_data_in.source.beamformer_output;
+            metric_cfg.bf_out = bf_data_in.source.beamformer_output;
             % Get the beamformer input
-            bf_input = eeg_data_in.data.avg_dipole_signal;
+            metric_cfg.bf_in = eeg_data_in.data.avg_dipole_signal;
             
-            % Select the data at the user sample index
-            if metric_cfg.sample_idx > 0 && metric_cfg.location_idx > 0
-                bf_select = squeeze(bf(:, metric_cfg.location_idx, metric_cfg.sample_idx));
-                input_select = squeeze(bf_input(:, metric_cfg.location_idx, metric_cfg.sample_idx));
-            elseif metric_cfg.sample_idx > 0
-                bf_select = squeeze(bf(:, :, metric_cfg.sample_idx));
-                input_select = squeeze(bf_input(:, :, metric_cfg.sample_idx));
-            elseif metric_cfg.location_idx > 0
-                bf_select = squeeze(bf(:, metric_cfg.location_idx, :));
-                input_select = squeeze(bf_input(:, metric_cfg.location_idx, :));
-            else
-                error('metrics:rmse',...
-                    'must specify either sample_idx or location_idx');
-            end
-            
-            cfg_rmse.bf_out = bf_select';
-            cfg_rmse.input = input_select';
+            % Select data based on criteria
+            output_select = metrics.rmse_select(metric_cfg);
+            cfg_rmse.bf_out = output_select.bf_out_select';
+            cfg_rmse.input = output_select.bf_in_select';
             
             % Calculate the metric
             output.metrics(j).name = metric_cfg.name;
