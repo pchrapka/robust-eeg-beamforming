@@ -117,9 +117,36 @@ else
     fprintf('\tphasereset: ok\n');
 end
 
+%% Add lumberjack package to Matlab path
+if ispc
+    lumberjack_path = 'C:\Users\Phil\My Projects\head-models';
+else
+    [~,comp_name] = system('hostname');
+    if ~isempty(strfind(comp_name,'Valentina'))
+        lumberjack_path = '/home/phil/projects/lumberjack';
+    else
+        lumberjack_path = '/home/chrapkpk/Documents/projects/lumberjack';
+    end
+end
+if exist(lumberjack_path,'dir') ~= 7
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
+        ['Missing lumberjack package.\n'...
+        'Clone from https://github.com/pchrapka/lumberjack.git.\n'...
+        'See README']);
+    complete(count) = false;
+    count = count + 1;
+else
+    complete(count) = true;
+    count = count + 1;
+    path(path,lumberjack_path);
+    fprintf('\lumberjack: ok\n');
+end
+
 %% Add export_fig package to Matlab path
-phasereset_path = [matlab_dir filesep 'export_fig'];
-if exist(phasereset_path,'dir') ~= 7
+exportfig_path = [matlab_dir filesep 'export_fig'];
+if exist(exportfig_path,'dir') ~= 7
     % Turn on warnings
     warning('on','all')
     warning('reb:startup',...
@@ -131,9 +158,10 @@ if exist(phasereset_path,'dir') ~= 7
 else
     complete(count) = true;
     count = count + 1;
-    path(path,phasereset_path);
+    path(path,exportfig_path);
     fprintf('\texport_fig: ok\n');
 end
+
 
 % %% Check for mosek (Optional at this point)
 % mosek_try_install = false;

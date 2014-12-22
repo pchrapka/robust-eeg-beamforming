@@ -10,7 +10,12 @@ source_names = {...
     'mult_cort_src_sine_2_uncor',...
     'mult_cort_src_complex_1_dip_pos_freq',...
     };
-    
+
+components = {...
+    ...'signal',...
+    'interference',...
+    ...'noise',...
+    };
 
 snrs = -20:10:0;
 location_idx = 1:501;
@@ -46,15 +51,18 @@ for j=1:length(source_names)
     cfg.save_tag = 'matched';
     
     %% Location: 295
-    % Set up metric
-    cfg.metrics.name = 'rmse';
+    % Set up metric params
+    cfg.metrics = rmse_setup_source(source_names{j});
     cfg.metrics.location_idx = 295;
-    cfg.metrics.flip = false;
-    % FIXME
-    % Compute RMSE
-    cfg = compute_rmse_vs_snr(cfg);
-    % Plot RMSE
-    plot_rmse_vs_snr(cfg);
+    
+    for i=1:length(components)
+        % Select the component
+        cfg.metrics.component = components{i};
+        % Compute RMSE
+        cfg = compute_rmse_vs_snr(cfg);
+        % Plot RMSE
+        plot_rmse_vs_snr(cfg);
+    end
     
 %     %% Location: 400
 %     % Set up metric

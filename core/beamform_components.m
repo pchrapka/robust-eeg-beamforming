@@ -26,6 +26,7 @@ cfg.data_file = db.get_full_file_name(cfg.data_set);
 
 % Only compute the components if the file doesn't exist or explicitly force
 if ~exist(cfg.data_file, 'file') && ~cfg.force
+    fprintf('computing bf components %s\n', cfg.data_file);
     
     %% Load the original data
     cfg.data_set.tag = [];
@@ -59,6 +60,7 @@ if ~exist(cfg.data_file, 'file') && ~cfg.force
     data.bf_out.noise.data = beamform(cfg_bf);
     
     % Save to a file
+    fprintf('Saving %s\n', cfg.data_file);
     save(cfg.data_file, 'data');
 end
 

@@ -33,8 +33,8 @@ for i=1:n_plots
         'color', colors(i,:));
     hold on;
 end
-legend(output.bf_name{:}, 'Location', 'SouthEast');
-ylabel('RMSE (dB)');
+legend(output.bf_name{:}, 'Location', 'BestOutside');
+ylabel('RMSE X');
 xlabel('Input SNR (db)');
 
 % Save the figure
@@ -47,8 +47,8 @@ if cfg.save_fig
     % Set up an img dir
     cfg_save.out_dir = fullfile(save_dir, 'img');
     % Set up the image file name
-    cfg_save.file_name = ['metrics_rmse_vs_inputsnr_loc'...
-        num2str(cfg.metrics.location_idx) '_' cfg.save_tag];
+    cfg_save.file_name = ['metrics_rmse_vs_inputsnr_' cfg.metrics.component...
+        '_loc' num2str(cfg.metrics.location_idx) '_' cfg.save_tag];
     % FIXME location idx
     fprintf('Saving figure: %s\n', cfg_save.file_name);
     % Set the background to white
