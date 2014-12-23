@@ -30,6 +30,8 @@ function [cfg] = compute_rmse_vs_snr(cfg)
 %   cfg.save_tag
 %       tag for saving the data
 
+debug = false;
+
 if ~isfield(cfg, 'force'), cfg.force = false; end
 
 % Set up the output file name based on data set
@@ -160,13 +162,49 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             % Select data for RMSE calculation
             output_select = metrics.rmse_select(cfg_rmse_select);
             cfg_rmse.bf_out = output_select.bf_out_select';
+            
+            if debug
+                h = figure;
+                n_plots = 4;
+                k = 1;
+                subplot(n_plots,1,k);
+                plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,1),...
+                    1:size(cfg_rmse.input,1), cfg_rmse.input(:,1));
+                ylabel('x');
+                k = k+1;
+                legend('output', 'input');
+                title(['raw scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                
+                subplot(n_plots,1,k);
+                plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,2),...
+                    1:size(cfg_rmse.input,1), cfg_rmse.input(:,2));
+                ylabel('y');
+                k = k+1;
+                
+                subplot(n_plots,1,k);
+                plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,3),...
+                    1:size(cfg_rmse.input,1), cfg_rmse.input(:,3));
+                ylabel('z');
+                k = k+1;
+                
+                pow_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
+                pow_input = sqrt(sum(cfg_rmse.input.^2,2));
+                subplot(n_plots,1,k);
+                plot(1:length(pow_output), cfg_rmse.alpha*pow_output,...
+                    1:length(pow_input), pow_input);
+                k = k+1;
+                legend('output', 'input');
+                title(['power ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                close(h);
+            end
 
             % Calculate RMSE of component
             output_rmse = metrics.rmse(cfg_rmse);
             
             % Extract the output
             output.data(i,1) = snr;
-            output.data(i,1+m) = output_rmse.rmse_x;
+            rmse = [output_rmse.rmse_x output_rmse.rmse_y output_rmse.rmse_z];
+            output.data(i,1+m) = norm(rmse);
             
         end
         
