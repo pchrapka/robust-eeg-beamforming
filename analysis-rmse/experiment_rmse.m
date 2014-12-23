@@ -12,7 +12,7 @@ source_names = {...
     };
 
 components = {...
-    ...'signal',...
+    'signal',...
     'interference',...
     ...'noise',...
     };
@@ -20,8 +20,8 @@ components = {...
 snrs = -20:10:0;
 location_idx = 1:501;
 cfg = [];
-cfg.force = false;
-% cfg.force = true;
+% cfg.force = false;
+cfg.force = true;
 cfg.save_fig = true;
 
 % Loop through source names
@@ -109,15 +109,18 @@ for j=1:length(source_names)
     cfg.save_tag = 'mismatched';
     
     %% Location: 295
-    % Set up metric
-    cfg.metrics.name = 'sinr';
+    % Set up metric params
+    cfg.metrics = rmse_setup_source(source_names{j});
     cfg.metrics.location_idx = 295;
-    cfg.metrics.flip = false;
-    % FIXME
-    % Compute RMSE
-    cfg = compute_rmse_vs_snr(cfg);
-    % Plot RMSE
-    plot_rmse_vs_snr(cfg);
+    
+    for i=1:length(components)
+        % Select the component
+        cfg.metrics.component = components{i};
+        % Compute RMSE
+        cfg = compute_rmse_vs_snr(cfg);
+        % Plot RMSE
+        plot_rmse_vs_snr(cfg);
+    end
     
 %     %% Location: 400
 %     % Set up metric
