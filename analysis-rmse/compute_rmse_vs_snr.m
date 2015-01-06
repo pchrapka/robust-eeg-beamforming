@@ -30,7 +30,7 @@ function [cfg] = compute_rmse_vs_snr(cfg)
 %   cfg.save_tag
 %       tag for saving the data
 
-debug = false;
+debug = true;
 
 if ~isfield(cfg, 'force'), cfg.force = false; end
 
@@ -105,6 +105,32 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             output_rmse = metrics.rmse(cfg_rmse);
             alpha = output_rmse.rmse_alpha;
             
+            if debug
+                h = figure;
+                n_plots = 2;
+                k = 1;
+                subplot(n_plots,1,k);
+                
+                pow_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
+                pow_input = sqrt(sum(cfg_rmse.input.^2,2));
+                
+                subplot(n_plots,1,k);
+                plot(1:length(pow_output), pow_output,...
+                    1:length(pow_input), pow_input);
+                k = k+1;
+                title(['total power scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                legend('output', 'input');
+                ylabel('not scaled');
+                
+                subplot(n_plots,1,k);
+                plot(1:length(pow_output), alpha*pow_output,...
+                    1:length(pow_input), pow_input);
+                k = k+1;
+                legend('output', 'input');
+                ylabel('scaled');
+                close(h);
+            end
+            
             %% Compute rmse for the selected component 
             % using a common normalizing factor
             
@@ -162,6 +188,14 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             % Select data for RMSE calculation
             output_select = metrics.rmse_select(cfg_rmse_select);
             cfg_rmse.bf_out = output_select.bf_out_select';
+
+            % Calculate RMSE of component
+            output_rmse = metrics.rmse(cfg_rmse);
+            
+            % Extract the output
+            output.data(i,1) = snr;
+            rmse = [output_rmse.rmse_x output_rmse.rmse_y output_rmse.rmse_z];
+            output.data(i,1+m) = norm(rmse);
             
             if debug
                 h = figure;
@@ -170,21 +204,22 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                 subplot(n_plots,1,k);
                 plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,1),...
                     1:size(cfg_rmse.input,1), cfg_rmse.input(:,1));
-                ylabel('x');
+                ylabel(sprintf('x %0.4f', output_rmse.rmse_x));
                 k = k+1;
                 legend('output', 'input');
-                title(['raw scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                title({['raw scaled ' cfg.metrics.component],...
+                    [cfg.beam_cfg ' snr: ' num2str(snr)]});
                 
                 subplot(n_plots,1,k);
                 plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,2),...
                     1:size(cfg_rmse.input,1), cfg_rmse.input(:,2));
-                ylabel('y');
+                ylabel(sprintf('y %0.4f', output_rmse.rmse_y));
                 k = k+1;
                 
                 subplot(n_plots,1,k);
                 plot(1:size(cfg_rmse.bf_out,1), cfg_rmse.alpha*cfg_rmse.bf_out(:,3),...
                     1:size(cfg_rmse.input,1), cfg_rmse.input(:,3));
-                ylabel('z');
+                ylabel(sprintf('z %0.4f', output_rmse.rmse_z));
                 k = k+1;
                 
                 pow_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
@@ -194,17 +229,9 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     1:length(pow_input), pow_input);
                 k = k+1;
                 legend('output', 'input');
-                title(['power ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                ylabel(sprintf('power %0.4f', norm(rmse)));
                 close(h);
             end
-
-            % Calculate RMSE of component
-            output_rmse = metrics.rmse(cfg_rmse);
-            
-            % Extract the output
-            output.data(i,1) = snr;
-            rmse = [output_rmse.rmse_x output_rmse.rmse_y output_rmse.rmse_z];
-            output.data(i,1+m) = norm(rmse);
             
         end
         

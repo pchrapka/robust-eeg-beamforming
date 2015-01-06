@@ -131,7 +131,7 @@ for i=1:length(bf_data)
     legend_str{i} = bf_data{i}.name;
     
     % Select data at a particular location
-    data_loc = din.data.bf_out.int.data{location_idx};
+    data_loc = din.data.bf_out.interference.data{location_idx};
     
     % Combine power and distance
     data_x = [data_x data_loc(component_idx,:)'];
@@ -184,7 +184,7 @@ for i=1:length(bf_data)
     
     % Select data at a particular location
     data_loc = din.data.bf_out.signal.data{location_idx};
-    data_loc = data_loc + din.data.bf_out.int.data{location_idx};
+    data_loc = data_loc + din.data.bf_out.interference.data{location_idx};
     data_loc = data_loc + din.data.bf_out.noise.data{location_idx};
     
     % Combine power and distance

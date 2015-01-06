@@ -33,8 +33,8 @@ for i=1:n_plots
         'color', colors(i,:));
     hold on;
 end
-legend(output.bf_name{:}, 'Location', 'BestOutside');
-ylabel('RMSE X');
+legend(output.bf_name{:});%, 'Location', 'BestOutside');
+ylabel('RMSE Total');
 xlabel('Input SNR (db)');
 
 % Save the figure
@@ -49,10 +49,20 @@ if cfg.save_fig
     % Set up the image file name
     cfg_save.file_name = ['metrics_rmse_vs_inputsnr_' cfg.metrics.component...
         '_loc' num2str(cfg.metrics.location_idx) '_' cfg.save_tag];
+    cfg_save.options = {'-m2'};
     % FIXME location idx
-    fprintf('Saving figure: %s\n', cfg_save.file_name);
+    
     % Set the background to white
     set(gcf, 'Color', 'w');
+    % Change the figure size
+    position = get(gcf, 'Position');
+    set(gcf, 'Position', [0 position(2) 800 600]);
+    % Set y axis
+    ylim_cur = ylim;
+    ylim([0 ylim_cur(2)]);
+    
+    % Save the figure
+    fprintf('Saving figure: %s\n', cfg_save.file_name);
     lumberjack.save_figure(cfg_save);
     close(h);
 end
