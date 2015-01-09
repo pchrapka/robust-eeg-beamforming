@@ -1,6 +1,6 @@
 %% metric_analysis_rmse_mult
 
-test = true;
+test = false;
 
 %% Set up different metrics to calculate
 % Mult source results with 1 iteration
@@ -63,6 +63,7 @@ for j=1:length(source_names)
     cfg.metrics = rmse_setup_source(source_names{j});
     cfg.metrics.location_idx = 295;
     cfg.metrics.normalize = 'lspow';
+%     cfg.metrics.normalize = 'pow';
 %     cfg.metrics.normalize = 'fnorm';
     
     for i=1:length(components)
@@ -129,7 +130,8 @@ for j=1:length(source_names)
     cfg.metrics = rmse_setup_source(source_names{j});
     cfg.metrics.location_idx = 295;
     cfg.metrics.normalize = 'lspow';
-    %cfg.metrics.normalize = 'fnorm';
+%     cfg.metrics.normalize = 'pow';
+%     cfg.metrics.normalize = 'fnorm';
     
     for i=1:length(components)
         % Select the component

@@ -140,9 +140,12 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                 normalized = cfg_rmse.bf_out*alpha;
                 
                 % Compute power
-                pow_output = sqrt(sum(cfg_rmse.bf_out.^2,1));
-                pow_norm = sqrt(sum(normalized.^2,1));
-                pow_input = sqrt(sum(cfg_rmse.input.^2,1));
+                norm_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
+                norm_input = sqrt(sum(cfg_rmse.input.^2,2));
+                norm_norm = sqrt(sum(normalized.^2,2));
+                pow_output = sqrt(sum(norm_output.^2));
+                pow_input = sqrt(sum(norm_input.^2));
+                pow_norm = sqrt(sum(norm_norm.^2));
                 fprintf('power norm %f output %f input %f\n',...
                     pow_norm, pow_output, pow_input);
                 

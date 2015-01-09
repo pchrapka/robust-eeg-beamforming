@@ -94,6 +94,21 @@ else
             % Normalize the output power
             bf_out_norm = bf_out*alpha;
             
+        case 'pow'
+            % Take norm of components
+            bf_norm = sqrt(sum(bf_out.^2,2)); 
+            input_norm = sqrt(sum(input.^2,2));
+            
+            % Calculate power
+            bf_pow = sqrt(sum(bf_norm.^2));
+            input_pow = sqrt(sum(input_norm.^2));
+            
+            % Calculate the ratio between them
+            alpha = input_pow/bf_pow;
+            
+            % Normalize the output power
+            bf_out_norm = bf_out*alpha;            
+            
         case 'ls'
             % Calculate the normalizing factor by least squares
             % i.e. minimize the 2-norm between both signals
