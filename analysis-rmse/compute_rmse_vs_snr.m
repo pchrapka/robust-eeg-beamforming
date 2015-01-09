@@ -14,6 +14,8 @@ function [cfg] = compute_rmse_vs_snr(cfg)
 %       component
 %           selects signal component for RMSE calculation: signal,
 %           interference, noise
+%       normalize
+%           normalization type
 %       see METRICS.RMSE_SELECT and METRICS.RMSE
 %   
 %   cfg.force
@@ -35,15 +37,13 @@ debug = true;
 if ~isfield(cfg, 'force'), cfg.force = false; end
 
 % Set up the output file name based on data set
+cfg.file_type = 'metrics'; % Set up a new metrics subdir
 data_file = metrics.filename(cfg);
-
-% Set up metrics dir in data set dir
-out_dir = 'metrics';
 cfg_out = [];
 cfg_out.file_name = data_file;
-cfg_out.save_name = [filesep out_dir filesep...
+cfg_out.save_name = [filesep...
     'rmse_vs_inputsnr_' cfg.metrics.component '_loc'...
-    num2str(cfg.metrics.location_idx)];
+    num2str(cfg.metrics.location_idx) '_norm_' cfg.metrics.normalize];
 cfg_out.tag = cfg.save_tag;
 cfg_out.ext = '.mat';
 % Generate file name
@@ -73,6 +73,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg_copy = cfg;
             cfg_copy = beamform_components(cfg_copy);
             din = load(cfg_copy.data_file);
+            fprintf('data file: %s\n', cfg_copy.data_file);
             bf_out = din.data.bf_out;
             clear din;
             
@@ -99,8 +100,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             % Calculate alpha
             cfg_rmse = [];
-%             cfg_rmse.normalize = 'lspow';
-            cfg_rmse.normalize = 'fnorm';
+            cfg_rmse.normalize = cfg.metrics.normalize;
             cfg_rmse.bf_out = output_select.bf_out_select';
             cfg_rmse.input = output_select.bf_in_select';
             output_rmse = metrics.rmse(cfg_rmse);
@@ -136,25 +136,58 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                 n_cols = 2;
                 n_rows = n_comp;
                 
+                % Normalize
                 normalized = cfg_rmse.bf_out*alpha;
+                
+                % Compute power
+                pow_output = sqrt(sum(cfg_rmse.bf_out.^2,1));
+                pow_norm = sqrt(sum(normalized.^2,1));
+                pow_input = sqrt(sum(cfg_rmse.input.^2,1));
+                fprintf('power norm %f output %f input %f\n',...
+                    pow_norm, pow_output, pow_input);
+                
                 x_axis = 1:size(cfg_rmse.bf_out,1);
                 for n=1:n_comp
                     subplot(n_rows,n_cols,k);
                     plot(x_axis, cfg_rmse.bf_out(:,n)*20,...
                         x_axis, cfg_rmse.input(:,n));
                     k = k+1;
-                    title(['total amp scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
-                    legend('output', 'input');
+                    title(['amp scaled:20 ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                    legend('output','input','Location','Best');
                     ylabel(sprintf('comp %d not scaled',n));
                     
                     subplot(n_rows,n_cols,k);
                     plot(x_axis, normalized(:,n),...
                         x_axis, cfg_rmse.input(:,n));
                     k = k+1;
-                    legend('output', 'input');
+                    title(['amp norm ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                    legend('output','input','Location','Best');
                     ylabel(sprintf('comp %d scaled',n));
                 end
                 %                 end
+                
+                % Save the figure
+                if cfg.save_fig
+                    cfg_save = [];
+                    % Get the data file name
+                    cfg.file_type = 'img';
+                    data_file = metrics.filename(cfg);
+                    % Get the data file dir
+                    [cfg_save.out_dir,~,~] = fileparts(data_file);
+                    
+                    % Set up the image file name
+                    cfg_save.file_name = ['rmse_vs_inputsnr_'...
+                        num2str(cfg.metrics.location_idx) '_' cfg.save_tag...
+                        '_snr_' num2str(snr) '_' cfg.beam_cfg '_norm_' cfg.metrics.normalize];
+                    fprintf('Saving figure: %s\n', cfg_save.file_name);
+                    
+                    % Set the background to white
+                    set(gcf, 'Color', 'w');
+                    % Change the figure size
+                    position = get(gcf, 'Position');
+                    set(gcf, 'Position', [0 position(2) 800 600]);
+                    lumberjack.save_figure(cfg_save);
+                end
                 close(h);
             end
             
@@ -163,8 +196,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             % Set up rmse cfg
             cfg_rmse = [];
-%             cfg_rmse.normalize = 'lspow';
-            cfg_rmse.normalize = 'fnorm';
+            cfg_rmse.normalize = cfg.metrics.normalize;
             cfg_rmse.alpha = alpha;
             
             % Set up struct to select data

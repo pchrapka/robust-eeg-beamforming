@@ -14,14 +14,11 @@ function [cfg] = compute_sinr_vs_snr(cfg)
 if ~isfield(cfg, 'force'), cfg.force = false; end
 
 % Set up the output file name based on data set
+cfg.file_type = 'metrics'; % Set up a new metrics subdir
 data_file = metrics.filename(cfg);
-
-% img_dir = 'img';
-% Set up metrics dir in data set dir
-out_dir = 'metrics';
 cfg_out = [];
 cfg_out.file_name = data_file;
-cfg_out.save_name = [filesep out_dir filesep...
+cfg_out.save_name = [filesep...
     'metrics_outputsinr_vs_inputsnr_loc'...
     num2str(cfg.metrics.location_idx)];
 cfg_out.tag = cfg.save_tag;

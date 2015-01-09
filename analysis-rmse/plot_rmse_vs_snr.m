@@ -41,14 +41,15 @@ xlabel('Input SNR (db)');
 if cfg.save_fig
     cfg_save = [];
     % Get the data file name
+    cfg.file_type = 'img';
     data_file = metrics.filename(cfg);
     % Get the data file dir
-    [save_dir,~,~] = fileparts(data_file);
-    % Set up an img dir
-    cfg_save.out_dir = fullfile(save_dir, 'img');
+    [cfg_save.out_dir,~,~] = fileparts(data_file);
+    
     % Set up the image file name
-    cfg_save.file_name = ['metrics_rmse_vs_inputsnr_' cfg.metrics.component...
-        '_loc' num2str(cfg.metrics.location_idx) '_' cfg.save_tag];
+    cfg_save.file_name = ['rmse_vs_inputsnr_' cfg.metrics.component...
+        '_loc' num2str(cfg.metrics.location_idx) '_norm_' cfg.metrics.normalize...
+        '_' cfg.save_tag];
     cfg_save.options = {'-m2'};
     % FIXME location idx
     
