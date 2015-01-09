@@ -99,7 +99,8 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             % Calculate alpha
             cfg_rmse = [];
-            cfg_rmse.normalize = true;
+%             cfg_rmse.normalize = 'lspow';
+            cfg_rmse.normalize = 'fnorm';
             cfg_rmse.bf_out = output_select.bf_out_select';
             cfg_rmse.input = output_select.bf_in_select';
             output_rmse = metrics.rmse(cfg_rmse);
@@ -107,27 +108,53 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             if debug
                 h = figure;
-                n_plots = 2;
                 k = 1;
-                subplot(n_plots,1,k);
                 
-                pow_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
-                pow_input = sqrt(sum(cfg_rmse.input.^2,2));
+                %                 switch cfg_rmse.normalize
+                %                     case 'lspow'
+                %                         n_plots = 2;
+                %
+                %                         pow_output = sqrt(sum(cfg_rmse.bf_out.^2,2));
+                %                         pow_input = sqrt(sum(cfg_rmse.input.^2,2));
+                %
+                %                         subplot(n_plots,1,k);
+                %                         plot(1:length(pow_output), pow_output,...
+                %                             1:length(pow_input), pow_input);
+                %                         k = k+1;
+                %                         title(['total power scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                %                         legend('output', 'input');
+                %                         ylabel('not scaled');
+                %
+                %                         subplot(n_plots,1,k);
+                %                         plot(1:length(pow_output), alpha*pow_output,...
+                %                             1:length(pow_input), pow_input);
+                %                         k = k+1;
+                %                         legend('output', 'input');
+                %                         ylabel('scaled');
+                %                     case {'ls', 'fnorm','lspow'}
+                n_comp = size(cfg_rmse.bf_out,2);
+                n_cols = 2;
+                n_rows = n_comp;
                 
-                subplot(n_plots,1,k);
-                plot(1:length(pow_output), pow_output,...
-                    1:length(pow_input), pow_input);
-                k = k+1;
-                title(['total power scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
-                legend('output', 'input');
-                ylabel('not scaled');
-                
-                subplot(n_plots,1,k);
-                plot(1:length(pow_output), alpha*pow_output,...
-                    1:length(pow_input), pow_input);
-                k = k+1;
-                legend('output', 'input');
-                ylabel('scaled');
+                normalized = cfg_rmse.bf_out*alpha;
+                x_axis = 1:size(cfg_rmse.bf_out,1);
+                for n=1:n_comp
+                    subplot(n_rows,n_cols,k);
+                    plot(x_axis, cfg_rmse.bf_out(:,n)*20,...
+                        x_axis, cfg_rmse.input(:,n));
+                    k = k+1;
+                    title(['total amp scaled ' cfg.beam_cfg ' snr: ' num2str(snr)]);
+                    legend('output', 'input');
+                    ylabel(sprintf('comp %d not scaled',n));
+                    
+                    subplot(n_rows,n_cols,k);
+                    plot(x_axis, normalized(:,n),...
+                        x_axis, cfg_rmse.input(:,n));
+                    k = k+1;
+                    legend('output', 'input');
+                    ylabel(sprintf('comp %d scaled',n));
+                end
+                %                 end
                 close(h);
             end
             
@@ -136,7 +163,8 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             % Set up rmse cfg
             cfg_rmse = [];
-            cfg_rmse.normalize = true;
+%             cfg_rmse.normalize = 'lspow';
+            cfg_rmse.normalize = 'fnorm';
             cfg_rmse.alpha = alpha;
             
             % Set up struct to select data

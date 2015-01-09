@@ -14,11 +14,16 @@ function [output] = rmse(cfg)
 %       [location/time components] where components can be a single
 %       component
 %   cfg.normalize
-%       flag to toggle least squares normalization of input and output,
-%       default = true;
+%       string with normalization method: lspow, ls, none. default = none
+%       lspow
+%           normalizes based on least square error of power
+%       ls
+%           normalizes based on least square error of signal
+%           NOTE Not quite right
+%       fnorm
+%           normalizes based on frobenius norm of signal
 %   cfg.alpha
-%       (optional) custom normalization factor for bf_out, default =
-%       calculated using least squares of the power
+%       (optional) custom normalization factor for bf_out, default = none
 %
 %   Output
 %   ------
@@ -40,7 +45,7 @@ function [output] = rmse(cfg)
 %       power of the input for each component
 
 % Set defaults
-if ~isfield(cfg, 'normalize'), cfg.normalize = true; end
+if ~isfield(cfg, 'normalize'), cfg.normalize = 'none'; end
 
 
 if isvector(cfg.bf_out) && isvector(cfg.input)
@@ -52,39 +57,67 @@ else
     input = cfg.input;
 end
 
-% Check if we should normalize the beamformer output
-if cfg.normalize
-    
+% Check if we're doing a custom normalization
+if isfield(cfg, 'alpha')
     % Apply a custom normalization factor
-    if isfield(cfg, 'alpha')
-        alpha = cfg.alpha;
-    else
-        % Calculate the power of the signals
-        % The only reason for this step is so that we perform the least squares
-        % fit over the power of the signal instead of the amplitude itself, to
-        % avoid the normalization factor from flipping the sign
-        bf_pow = sqrt(sum(bf_out.^2,2));
-        input_pow = sqrt(sum(input.^2,2));
-        
-        % % Calculate the support of the input
-        % select = input_pow > 0;
-        % if sum(select) == 0
-        %     % Display an error if the signal is 0
-        %     warning('metrics:rmse',...
-        %         ['the input signal is 0, cannot determine a reference '...
-        %         'for normalization']);
-        % end
-        
-        % Calculate the normalizing factor by least squares
-        % i.e. minimize the 2-norm between both signals
-        alpha = (input_pow'*bf_pow)...
-            /(bf_pow'*bf_pow);
-    end
-    
+    alpha = cfg.alpha;
     % Normalize the output power
     bf_out_norm = bf_out*alpha;
+    
 else
-    bf_out_norm = bf_out;
+    
+    % Check if we should normalize the beamformer output
+    switch cfg.normalize
+        
+        case 'lspow'
+            % Calculate the power of the signals
+            % The only reason for this step is so that we perform the least squares
+            % fit over the power of the signal instead of the amplitude itself, to
+            % avoid the normalization factor from flipping the sign
+            bf_pow = sqrt(sum(bf_out.^2,2));
+            input_pow = sqrt(sum(input.^2,2));
+            
+            % % Calculate the support of the input
+            % select = input_pow > 0;
+            % if sum(select) == 0
+            %     % Display an error if the signal is 0
+            %     warning('metrics:rmse',...
+            %         ['the input signal is 0, cannot determine a reference '...
+            %         'for normalization']);
+            % end
+            
+            % Calculate the normalizing factor by least squares
+            % i.e. minimize the 2-norm between both signals
+            alpha = (input_pow'*bf_pow)...
+                /(bf_pow'*bf_pow);
+            
+            % Normalize the output power
+            bf_out_norm = bf_out*alpha;
+            
+        case 'ls'
+            % Calculate the normalizing factor by least squares
+            % i.e. minimize the 2-norm between both signals
+            alpha = pinv(bf_out'*bf_out)*bf_out'*input;
+            
+            % NOTE This doesn't really work as I wanted it to
+            
+            % Normalize the output power
+            bf_out_norm = bf_out*alpha;
+            
+        case 'fnorm'
+            
+            % Calculate the normalizing factor by f norm
+            alpha = norm(input, 'fro')/norm(bf_out, 'fro');
+            
+            % Normalize the output power
+            bf_out_norm = bf_out*alpha;
+            
+        case 'none'
+            bf_out_norm = bf_out;
+        otherwise
+            error(['reb:' mfilename],...
+                'unknown normalization option %s\n', cfg.normalize);
+    end
 end
 
 % Calculate the RMSE
