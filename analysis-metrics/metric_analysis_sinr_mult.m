@@ -15,8 +15,8 @@ source_names = {...
 snrs = -20:10:0;
 location_idx = 1:501;
 cfg = [];
-% cfg.force = false;
-cfg.force = true;
+cfg.force = false;
+% cfg.force = true;
 cfg.save_fig = true;
 
 % Loop through source names

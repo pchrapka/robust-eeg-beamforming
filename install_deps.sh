@@ -119,6 +119,39 @@ else
     echo "***************"
 fi
 
+## lumberjack
+PKG_NAME="lumberjack"
+PKG_DIR=lumberjack
+# Check if the dir exists
+if [ ! -d "$PKG_DIR" ]; then
+    FILE=phasereset.tar.gz
+    # Check if the zip file exists
+    if [ ! -f "$FILE" ]; then
+	# Download pkg
+	echo "Downloading $PKG_NAME"
+	wget https://github.com/pchrapka/lumberjack/tarball/master
+	mv master $FILE
+    fi
+    mkdir $PKG_DIR
+    # Untar the file
+    tar -C $PKG_DIR -xzf $FILE
+    # Save subfolder to be removed
+    RM_DIR=$(find $PKG_DIR -mindepth 1 -maxdepth 1 -type d)
+    # Move contents up a level
+    find $PKG_DIR -mindepth 2 -maxdepth 2 -exec mv -t $PKG_DIR \{\} +
+    rm -rf $RM_DIR
+
+    # Print confirmation
+    echo "***************"
+    echo "$PKG_NAME ready"
+    echo "***************"
+else
+    # Print confirmation
+    echo "***************"
+    echo "$PKG_NAME already exists"
+    echo "***************"
+fi
+
 ## export_fig
 PKG_NAME="export_fig"
 PKG_DIR=export_fig

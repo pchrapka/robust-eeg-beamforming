@@ -1,4 +1,4 @@
-%% run_sim_vars_mult_bem_paper_2.m
+%% run_sim_vars_bem_paper_mult17_lag8.m
 % Same run_sim_vars_mult_bem_paper except with more temporal spacing
 
 clear all;
@@ -18,7 +18,7 @@ k = 1;
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_17',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_17_lag8',...
     ...Allow aet_sim_eeg_avg to parallelize the trials
     'parallel',             false);
 scripts(k).vars = {cfg};
@@ -30,7 +30,7 @@ force = false;
 % Data files
 cfg_data = [];
 cfg_data.data_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_17';
+cfg_data.source_name = 'mult_cort_src_17_lag8';
 cfg_data.iteration_range = 1;
 cfg_data.snr_range = -20:10:0;%0;%-10:10:0;
 

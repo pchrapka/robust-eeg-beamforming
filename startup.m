@@ -125,7 +125,7 @@ else
     if ~isempty(strfind(comp_name,'Valentina'))
         lumberjack_path = '/home/phil/projects/lumberjack';
     else
-        lumberjack_path = '/home/chrapkpk/Documents/projects/lumberjack';
+        lumberjack_path = '/home/chrapkpk/Documents/MATLAB/lumberjack';
     end
 end
 if exist(lumberjack_path,'dir') ~= 7
@@ -141,7 +141,7 @@ else
     complete(count) = true;
     count = count + 1;
     path(path,lumberjack_path);
-    fprintf('\lumberjack: ok\n');
+    fprintf('\tlumberjack: ok\n');
 end
 
 %% Add export_fig package to Matlab path
