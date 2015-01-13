@@ -6,8 +6,8 @@ aet_init();
 % Set up config to get the data file
 snr = '0';
 force = false;
-mismatch = true;
-% mismatch = false;
+% mismatch = true;
+mismatch = false;
 
 cfg_data = [];
 if ~mismatch
@@ -64,8 +64,8 @@ for j=1:length(signal_types)
                 data = din.data.bf_out.signal.power;
                 n_locs = size(din.data.bf_out.signal.power,1);
             case 'interference'
-                data = din.data.bf_out.int.power;
-                n_locs = size(din.data.bf_out.int.power,1);
+                data = din.data.bf_out.interference.power;
+                n_locs = size(din.data.bf_out.interference.power,1);
             case 'noise'
                 data = din.data.bf_out.noise.power;
                 n_locs = size(din.data.bf_out.noise.power,1);

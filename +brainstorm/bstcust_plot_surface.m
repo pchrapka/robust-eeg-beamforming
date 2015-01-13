@@ -105,7 +105,7 @@ end
 if ~isequal(size(cfg.data,3), length(eeg.Time)) 
     if isequal(size(cfg.data,3), 1)
         % Copy data over time samples
-        cfg.data = repmat(cfg.data, 1,1, length(eeg.Time));
+        cfg.data = repmat(cfg.data,[1,1, length(eeg.Time)]);
     else
         disp(size(cfg.data));
         error(['rmvb:' mfilename],...

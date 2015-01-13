@@ -61,7 +61,7 @@ for i=1:length(cfg_data.beam_cfgs)
         fprintf('Calculating beamformer output power for %s\n', cfg_data.beam_cfgs{i});
         data = [];
         data.name = cfg_data.beam_cfgs{i};
-        data.data_file = data_file_name;
+        data.data_file = file_name;
         
         % Calculate the power at each location
         cfg_pow = [];
@@ -71,9 +71,9 @@ for i=1:length(cfg_data.beam_cfgs)
         data.bf_out.signal.power = output.power;
         
         % Interference
-        cfg_pow.data = bf_out.int.data;
+        cfg_pow.data = bf_out.interference.data;
         output = metrics.power(cfg_pow);
-        data.bf_out.int.power = output.power;
+        data.bf_out.interference.power = output.power;
         
         % Noise
         cfg_pow.data = bf_out.noise.data;
@@ -139,7 +139,7 @@ for i=1:length(cfg_data.beam_cfgs)
     legend_str{i} = cfg_data.beam_cfgs{i};
     
     % Combine power and distance
-    data_power = [data_power din.data.bf_out.int.power];
+    data_power = [data_power din.data.bf_out.interference.power];
 end
 
 cfg_plot = [];

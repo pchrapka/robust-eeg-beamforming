@@ -124,7 +124,7 @@ PKG_NAME="lumberjack"
 PKG_DIR=lumberjack
 # Check if the dir exists
 if [ ! -d "$PKG_DIR" ]; then
-    FILE=phasereset.tar.gz
+    FILE=lumberjack.tar.gz
     # Check if the zip file exists
     if [ ! -f "$FILE" ]; then
 	# Download pkg

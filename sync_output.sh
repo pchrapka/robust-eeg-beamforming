@@ -8,9 +8,10 @@ Sync output files from blade16 to local comp
      
     -h            display this help and exit
     -t FILETYPE   choose to include or exclude certain file types
-                  options: csv or mat
-                  - csv includes only csv files no mat files
-                  - mat includes only mat files no csv files
+                  options: csv, mat or img
+                  - csv includes only csv files no mat or image files
+                  - mat includes only mat files no csv or image files
+                  - img includes only eps files no csv or mat files
                   default: all files
 EOF
 }  
@@ -18,7 +19,7 @@ EOF
 # A POSIX variable
 OPTIND=1 # Reset in case getopts has been used previously in the shell
 
-INCLUDES="--include='*.csv' --include='*.mat'"
+INCLUDES="--include='*.csv' --include='*.mat' --include='*.eps'" 
 EXCLUDES=""
 
 # Parse inputs
@@ -35,6 +36,9 @@ while getopts "t:h" opt; do
 	    elif [ "$OPTARG" = "mat" ]; then
 		INCLUDES="--include='*.mat'"
 		EXCLUDES="--exclude='*.csv'"
+	    elif [ "$OPTARG" = "img" ]; then
+		INCLUDES="--include *.eps"
+		EXCLUDES="--exclude *.csv --exclude *.mat"
 	    else
 		:		
 	    fi
@@ -45,6 +49,9 @@ done
 shift $((OPTIND-1))
 
 # The include/exclude doesn't seem to work
+
+#echo $INCLUDES
+#echo $EXCLUDES
 
 rsync -rvz --progress $INCLUDES $EXCLUDES chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/
 
