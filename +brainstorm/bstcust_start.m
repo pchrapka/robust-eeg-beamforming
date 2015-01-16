@@ -15,7 +15,12 @@ catch e
     if ispc
         cd('C:\Users\Phil\Documents\MATLAB\brainstorm3');
     elseif isunix
-        cd('/home/chrapkpk/Documents/MATLAB/brainstorm3');
+        [~,comp_name] = system('hostname');
+        if ~isempty(strfind(comp_name,'Valentina'))
+            cd('/home/phil/Documents/MATLAB/brainstorm3');
+        else
+            cd('/home/chrapkpk/Documents/MATLAB/brainstorm3');
+        end
     else
         error('reb:brainstorm_start',...
             'unknown os');

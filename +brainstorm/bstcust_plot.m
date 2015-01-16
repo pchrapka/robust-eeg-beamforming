@@ -23,6 +23,9 @@ winPos = [200, 200, 400, 250];
 study = bst_get('Study', study_idx);
 
 % Load current fig handles
+if ~exist('output','dir')
+    mkdir('output');
+end
 out_file = fullfile('output','bst_current_figs.mat');
 if exist(out_file,'file')
     data = load(out_file);
@@ -42,8 +45,9 @@ find_snr = cellfun(...
 % Display the time series data
 [h_fig(start_idx),~,~] = view_timeseries(...
     study.Data(find_snr).FileName);
-% Don't show the scouts
-panel_scouts('SetScoutShowSelection','none');
+% FIXME
+% % Don't show the scouts
+% panel_scouts('SetScoutShowSelection','none');
 % Set the time cursor
 if time > 0
     panel_time('SetCurrentTime', time);
@@ -86,12 +90,16 @@ for i=1:n_files
     % Display the source results
     [h_fig(start_idx+i),~,~] = view_surface_data([], relative_file_names{i});
     % Don't show the scouts
-    panel_scouts('SetScoutShowSelection','none');
+    panel_scout('SetScoutShowSelection','none');
     % Set background to white
     set(h_fig(start_idx+i), 'Color', new_color);
     % Set the colormap text color to black
     h_colorbar = findobj(h_fig(start_idx+i),'tag','Colorbar');
     set(h_colorbar, 'YColor', text_colormap);
+    
+    % Stretch the colormap vertically
+    colorbar_stretch(h_fig(start_idx+i));
+
     % Set surface threshold
 %     iSurf = 1;
 %     panel_surface('SetDataThreshold', h_fig(start_idx+i), iSurf, data_threshold);
@@ -102,8 +110,19 @@ for i=1:n_files
 
     % Save & close the image
     if save_image
+        % Adjust the position
         set(h_fig(i+start_idx), 'Position', winPos);
-        drawnow; % Flush queue
+        % Call the resize call
+        resize_func = get(h_fig(i+start_idx), 'ResizeFcn');
+        resize_func(h_fig(i+start_idx),[]);
+        % Stretch the colormap vertically
+        colorbar_stretch(h_fig(start_idx+i));
+        
+        % Flush the queue
+        drawnow;
+        pause(1);
+        
+        % Save
         brainstorm.bstcust_saveimg(h_fig(i+start_idx),...
             relative_file_names{i}, time)
         close(h_fig(i+start_idx));
@@ -113,5 +132,22 @@ end
 
 % Save the current figure handles to a file
 save(out_file,'h_fig');
+
+end
+
+function colorbar_stretch(h_fig)
+% Stretch the colormap vertically
+
+% Get the colorbar handle
+h_colorbar = findobj(h_fig,'tag','Colorbar');
+
+% Get the positions of colorbar and figure
+fig_pos = get(h_fig, 'Position');
+cb_pos = get(h_colorbar, 'Position');
+
+% Adjust the colorbar position relative to the figure position
+spacing = cb_pos(2); % spacing at the bottom
+cb_pos(4) = fig_pos(4) - 2*spacing;
+set(h_colorbar, 'Position', cb_pos);
 
 end

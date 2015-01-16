@@ -1,0 +1,43 @@
+function simulation_data_inner(sim_cfg, snr_iter, run_iter)
+% Copy the config
+temp_cfg = sim_cfg;
+
+% Adjust SNR of source 1
+cur_snr = temp_cfg.snr_range(snr_iter);
+temp_cfg.snr.signal = cur_snr;
+% Only adjust interference if there are sources labeled as interference
+if sum(isinterference(temp_cfg.sources)) > 0
+    temp_cfg.snr.interference = cur_snr;
+end
+
+tmpcfg = [];
+tmpcfg.sim_name = temp_cfg.sim_name;
+tmpcfg.source_name = temp_cfg.source_name;
+tmpcfg.snr = cur_snr;
+tmpcfg.iteration = run_iter;
+save_file = db.save_setup(tmpcfg);
+if exist(save_file,'file') && ~temp_cfg.force
+    [~,name,~,~] = util.fileparts(save_file);
+    fprintf('File exists: %s\n', name);
+    fprintf('Skipping data generation\n');
+    return
+end
+
+% Create the data
+data = aet_sim_create_eeg(temp_cfg);
+
+% Add some info
+data.iteration = run_iter;
+data.snr = cur_snr;
+
+parsave(save_file, data);
+end
+
+function parsave(fname, data)
+save(fname, 'data')
+end
+
+function out = isinterference(sources)
+% Checks sources labeled as interference
+out = cellfun(@(x) ~isempty(strfind(x.type, 'interference')), sources);
+end

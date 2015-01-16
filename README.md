@@ -58,9 +58,19 @@ runtests tests
 
 ## Open source Matlab packages
 
+Run the following script to install the open source MATLAB packages 
+```
+sh install_deps.sh
+```
+It's only been tested on a linux machine (btw if you're not using linux, you should be).
+
+### EEG packages
+- [Phase Reset](http://www.cs.bris.ac.uk/~rafal/phasereset/)
+
 ### Optimization packages
-- yalmip
-- cvx
+- [SDPT3](http://www.math.nus.edu.sg/~mattohkc/sdpt3.html)
+- [YALMIP](http://users.isy.liu.se/johanl/yalmip/)
+- [CVX](http://cvxr.com/cvx/)
 
 ## Other programs
 

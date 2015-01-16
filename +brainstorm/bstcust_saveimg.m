@@ -16,7 +16,7 @@ img_file_name = fullfile(output_dir, name);
 % Get the image
 % img = out_figure_image(h_fig);
 % Focus on figure (captures the contents the topmost figure)
-pause(.01);
+pause(0.1);
 drawnow;
 figure(h_fig);
 drawnow;
@@ -24,6 +24,8 @@ frameGfx = getscreen(h_fig);
 img = frameGfx.cdata;
 % Save the image
 imwrite(img, [img_file_name '.png']);
+
+% out_figure_image(h_fig, [img_file_name '.png']);
 
 % Save image as eps
 % set(gcf,'PaperPositionMode','auto')

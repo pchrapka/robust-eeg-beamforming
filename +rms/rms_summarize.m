@@ -1,78 +1,89 @@
 function [rms_out, rms_col_labels] = rms_summarize(rms_data)
+%RMS_SUMMARIZE Summarize data for multiple beamformer configurations and
+%potentially multiple iterations
 
-if length(rms_data) > 1
-    % Summarize data for multiple beamformer configurations and potentially
-    % multiple iterations
-    
-    % Check if we have multiple iterations
-    if length(rms_data(1).iteration) > 1
-        multiple_iters = true;
-    end
-    
-    % Setup the columns
+multiple_iters = false;
+
+% Check if we have multiple iterations
+if length(rms_data(1).iteration) > 1
+    multiple_iters = true;
+end
+
+% Setup the columns
+if multiple_iters
+    rms_col_labels = {...
+        'Beamformer',...
+        'Location Index',...
+        'Sample Index',...
+        'Avg RMS Error',...
+        'Var RMS Error',...
+        'Avg RMS Input',...
+        'Var RMS Input',...
+        'Avg 20log(RMSE/RMS Input)'};
+else
+    rms_col_labels = {...
+        'Beamformer',...
+        'Location Index',...
+        'Sample Index',...
+        'X: RMS Error',...
+        'X: RMS Input',...
+        'X: 20log(RMSE/RMS Input)',...
+        'Y: RMS Error',...
+        'Y: RMS Input',...
+        'Y: 20log(RMSE/RMS Input)',...
+        'Z: RMS Error',...
+        'Z: RMS Input',...
+        'Z: 20log(RMSE/RMS Input)'};
+end
+
+n_cols = length(rms_data);
+n_rows = length(rms_col_labels);
+rms_out = cell(n_rows, n_cols);
+for i=1:length(rms_data)
+    cur_data = rms_data(i);
     if multiple_iters
-        rms_col_labels = {...
-            'Beamformer',...
-            'Peak Index',...
-            'Avg RMS Error',...
-            'Var RMS Error',...
-            'Avg RMS Input',...
-            'Var RMS Input',...
-            'Avg 20log(RMSE/RMS Input)'};
-    else    
-        rms_col_labels = {...
-            'Beamformer',...
-            'Peak Index',...
-            'RMS Error',...
-            'RMS Input',...
-            '20log(RMSE/RMS Input)'};
-    end
-    
-    n_cols = length(rms_data);
-    n_rows = length(rms_col_labels);
-    rms_out = cell(n_rows, n_cols);
-    for i=1:length(rms_data)
-        cur_data = rms_data(i);
-        if multiple_iters
-            rmse_avg = mean(cur_data.rmse);
-            rmse_var = var(cur_data.rmse);
-            rms_input_avg = mean(cur_data.rms_input);
-            rms_input_var = var(cur_data.rms_input);
-            
-            rms_out{1,i} = cur_data.name;
-            rms_out{2,i} = cur_data.true_peak_idx;
-            rms_out{3,i} = rmse_avg;
-            rms_out{4,i} = rmse_var;
-            rms_out{5,i} = rms_input_avg;
-            rms_out{6,i} = rms_input_var;
-            rms_out{7,i} = 20*log10(rmse_avg/rms_input_avg);
-        else
-            rms_out{1,i} = cur_data.name;
-            rms_out{2,i} = cur_data.true_peak_idx;
-            rms_out{3,i} = cur_data.rmse;
-            rms_out{4,i} = cur_data.rms_input;
-            rms_out{5,i} = 20*log10(cur_data.rmse/cur_data.rms_input);
+        rmse_avg = mean(cur_data.rmse);
+        rmse_var = var(cur_data.rmse);
+        rms_input_avg = mean(cur_data.rms_input);
+        rms_input_var = var(cur_data.rms_input);
+        location_idx = fprintf('%d ', cur_data.location_idx);
+        sample_idx = fprintf('%d ', cur_data.sample_idx);
+        
+        k = 1;
+        rms_out{k,i} = cur_data.name;
+        k = k+1;
+        rms_out{k,i} = location_idx;
+        k = k+1;
+        rms_out{k,i} = sample_idx;
+        k = k+1;
+        rms_out{k,i} = rmse_avg;
+        k = k+1;
+        rms_out{k,i} = rmse_var;
+        k = k+1;
+        rms_out{k,i} = rms_input_avg;
+        k = k+1;
+        rms_out{k,i} = rms_input_var;
+        k = k+1;
+        rms_out{k,i} = 20*log10(rmse_avg/rms_input_avg);
+    else
+        k = 1;
+        rms_out{k,i} = cur_data.name;
+        k = k+1;
+        rms_out{k,i} = cur_data.location_idx;
+        k = k+1;
+        rms_out{k,i} = cur_data.sample_idx;
+        k = k+1;
+        for j=1:length(cur_data.rmse)
+            rms_out{k,i} = cur_data.rmse(j);
+            k = k+1;
+            rms_out{k,i} = cur_data.rms_input(j);
+            k = k+1;
+            rms_out{k,i} = 20*log10(cur_data.rmse(j)...
+                /cur_data.rms_input(j));
+            k = k+1;
         end
     end
-    
-else
-    % Summarize data for a single iteration
-    rmse_2_rms_input = 20*log10(...
-        rms_data.rmse./rms_data.rms_input);
-    % Output the columns
-    rms_col_labels = {'Beamformer', 'Peak Index', 'RMS Error',...
-        'RMS Input', '20log(RMSE/RMS Input)'};
-    rms_out = {};
-    for i=1:size(rms_data.rmse,2)
-        A = [rms_data.name;...
-            num2cell(rms_data.true_peak_idx(:,i)');...
-            num2cell(rms_data.rmse(:,i)');...
-            num2cell(rms_data.rms_input(:,i)');...
-            num2cell(rmse_2_rms_input(:,i)')];
-        
-        rms_out = [rms_out A];
-    end
-    
 end
+
 
 end

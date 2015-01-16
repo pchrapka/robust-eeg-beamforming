@@ -24,17 +24,19 @@ if isempty(strfind(cfg.beam_cfgs{1}, '3sphere'))
 else
     cfg_out.tag = 'rms_3sphere';
 end
+if isfield(cfg,'location_idx')
+    cfg_out.tag = [cfg_out.tag '_loc' num2str(cfg.location_idx)];
+end
+if isfield(cfg,'sample_idx')
+    cfg_out.tag = [cfg_out.tag '_sam' num2str(cfg.sample_idx)];
+end
 if isfield(cfg,'cluster')
     if cfg.cluster
         cfg_out.tag = [cfg_out.tag '_cluster'];
     end
 end
 save_file = db.save_setup(cfg_out);
-if verLessThan('matlab', '7.14')
-    [~,name,~,~] = fileparts(save_file);
-else
-    [~,name,~] = fileparts(save_file);
-end
+[~,name,~,~] = util.fileparts(save_file);
 fprintf('Saving as: %s\n', name);
 save(save_file, 'rms_data');
 
