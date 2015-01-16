@@ -2,7 +2,10 @@
 \#*\#
 .#*
 *.asv
+analysis/output/*
+analysis/temp.mat
 output/*
 auto/*
 *.tex
 *eps-converted-to.pdf
+bst_current_figs.mat

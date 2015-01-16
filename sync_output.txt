@@ -1,0 +1,7 @@
+option batch on
+option confirm off
+open chrapkpk@blade16
+option transfer binary
+synchronize local -filemask="*.mat; *.csv" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_1_100t" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t
+synchronize local -filemask="*1-100*.mat" -delete "C:\Users\Phil\My Projects\robust-eeg-beamforming-paper\output\sim_data_bem_100_100t" Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t
+exit
