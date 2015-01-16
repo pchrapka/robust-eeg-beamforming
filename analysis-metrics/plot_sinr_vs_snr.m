@@ -27,10 +27,11 @@ end
 h = figure;
 n_plots = size(output.data,2)-1;
 colors = hsv(n_plots);
+markers = {'o', 'x', 's', 'd', '^', 'v', '+', '>', '<'};
 for i=1:n_plots
     % Loop through custom colors and line styles
     plot(output.data(:,1), output.data(:,1+i), output.line_style{i},...
-        'color', colors(i,:));
+        'color', colors(i,:), 'marker', markers{i});
     hold on;
 end
 legend(output.bf_name{:}, 'Location', 'SouthEast');
