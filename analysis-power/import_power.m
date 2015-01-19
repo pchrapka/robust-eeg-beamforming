@@ -1,13 +1,10 @@
-close all;
+function import_power(mismatch)
 
 aet_init();
 
 %% Get the data
 % Set up config to get the data file
 snr = '0';
-force = false;
-% mismatch = true;
-mismatch = false;
 
 cfg_data = [];
 if ~mismatch
@@ -48,6 +45,7 @@ signal_types = {...
     'signal',...
     'interference',...
     'noise',...
+    'all',...
     };
 
 for j=1:length(signal_types)
@@ -69,6 +67,9 @@ for j=1:length(signal_types)
             case 'noise'
                 data = din.data.bf_out.noise.power;
                 n_locs = size(din.data.bf_out.noise.power,1);
+            case 'all'
+                data = din.data.bf_out.all.power;
+                n_locs = size(din.data.bf_out.all.power,1);
             otherwise
                 error(['rmvb:' mfilename],...
                     'unknown signal type');
@@ -97,3 +98,4 @@ end
 
 %% Close all plots
 % brainstorm.bstcust_plot_close();
+end

@@ -25,7 +25,7 @@ cfg.data_set.tag = [cfg.beam_cfg '_bfcomp.mat'];
 cfg.data_file = db.get_full_file_name(cfg.data_set);
 
 % Only compute the components if the file doesn't exist or explicitly force
-if ~exist(cfg.data_file, 'file') && ~cfg.force
+if ~exist(cfg.data_file, 'file') || cfg.force
     fprintf('computing bf components %s\n', cfg.data_file);
     
     %% Load the original data
@@ -58,6 +58,9 @@ if ~exist(cfg.data_file, 'file') && ~cfg.force
     % Noise
     cfg_bf.data = din.data.avg_noise;
     data.bf_out.noise.data = beamform(cfg_bf);
+    % All
+    cfg_bf.data = din.data.avg_trials;
+    data.bf_out.all.data = beamform(cfg_bf);
     
     % Save to a file
     fprintf('Saving %s\n', cfg.data_file);

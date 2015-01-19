@@ -52,10 +52,9 @@ find_snr = cellfun(...
 if time > 0
     panel_time('SetCurrentTime', time);
     % Zoom in horizontally
-    zoom_factor = 10; % NOTE can be exposed as arg if necessary
-    gui_zoom(h_fig(start_idx), 'horizontal', zoom_factor);
-    % Try to center view on mouse
-    figure_timeseries('CenterViewOnCursor',h_fig(start_idx));
+    zoom_factor = 10; % NOTE can be exposed as arg if necessary   
+    figure_timeseries('FigureZoomLinked',...
+        h_fig(start_idx), 'horizontal', zoom_factor);
 end
 % Set the color to white
 new_color = [1 1 1]; % white

@@ -273,6 +273,7 @@ end
 addpath(project_dir);
 addpath(fullfile(project_dir, 'core'));
 addpath(fullfile(project_dir, 'experiments'));
+addpath(fullfile(project_dir, 'plotting'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
 addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
