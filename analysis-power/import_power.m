@@ -75,8 +75,13 @@ for j=1:length(signal_types)
                     'unknown signal type');
         end
         
+        % Convert data to dB scale
+        data = 20*log10(data);
+        
         % Normalize the data
+        data = data - min(data);
         data = data./max(data);
+
         
         cfg = [];
         if mismatch
