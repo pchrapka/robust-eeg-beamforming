@@ -9,3 +9,5 @@ auto/*
 *.tex
 *eps-converted-to.pdf
 bst_current_figs.mat
+anatomy/*
+.ftb/*

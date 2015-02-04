@@ -66,13 +66,22 @@ cfg = ftb.create_dipolesim(cfg);
 
 %% Stage 5
 % Source localization
-beamformer = 'BF1';
+beamformers = {...
+    'BFlcmv',...
+    'BFlcmv_reg',...
+    'BFlcmv_eig1',...
+    'BFlcmv_eig2',...
+    'BFrmvb256_eps200',...
+    };
 
-stage.beamformer = beamformer;
-% Get the config
-cfg = ftb.prepare_sourceanalysis(stage);
-% Create the model
-cfg = ftb.create_sourceanalysis(cfg);
+for i=1:length(beamformers)
+    beamformer = beamformers{i};
+    stage.beamformer = beamformer;
+    % Get the config
+    cfg = ftb.prepare_sourceanalysis(stage);
+    % Create the model
+    cfg = ftb.create_sourceanalysis(cfg);
+end
 
 % Check results
 cfg.checks = {'anatomical', 'headmodel', 'scatter'};
@@ -86,33 +95,33 @@ cfg.method = 'all';
 % cfg.plane.value = -50;
 % ftb.check_sourceanalysis(cfg);
 
-%% Stage 4b
-% Simulate noise for contrast plot
-dipolesimnoise = 'SN1';
+% %% Stage 4b
+% % Simulate noise for contrast plot
+% dipolesimnoise = 'SN1';
+% 
+% stage.dipolesim = dipolesimnoise;
+% % Get the config
+% cfg = ftb.prepare_dipolesim(stage);
+% % Create the model
+% cfg = ftb.create_dipolesim(cfg);
 
-stage.dipolesim = dipolesimnoise;
-% Get the config
-cfg = ftb.prepare_dipolesim(stage);
-% Create the model
-cfg = ftb.create_dipolesim(cfg);
-
-%% Stage 5b
-% Source localization with noise only
-stage.beamformer = beamformer;
-% Get the config
-cfg = ftb.prepare_sourceanalysis(stage);
-% Create the model
-cfg = ftb.create_sourceanalysis(cfg);
-
-%% Stage 5c
-% Check results with noise contrast
-stage.dipolesim = dipolesim;
-stage.beamformer = beamformer;
-% Get the config
-cfg = ftb.prepare_sourceanalysis(stage);
-
-% Check results with contrast
-cfgcopy = cfg;
-cfgcopy.contrast = dipolesimnoise;
-cfgcopy.checks = {'anatomical', 'headmodel', 'scatter'};
-ftb.check_sourceanalysis(cfgcopy);
+% %% Stage 5b
+% % Source localization with noise only
+% stage.beamformer = beamformer;
+% % Get the config
+% cfg = ftb.prepare_sourceanalysis(stage);
+% % Create the model
+% cfg = ftb.create_sourceanalysis(cfg);
+% 
+% %% Stage 5c
+% % Check results with noise contrast
+% stage.dipolesim = dipolesim;
+% stage.beamformer = beamformer;
+% % Get the config
+% cfg = ftb.prepare_sourceanalysis(stage);
+% 
+% % Check results with contrast
+% cfgcopy = cfg;
+% cfgcopy.contrast = dipolesimnoise;
+% cfgcopy.checks = {'anatomical', 'headmodel', 'scatter'};
+% ftb.check_sourceanalysis(cfgcopy);
