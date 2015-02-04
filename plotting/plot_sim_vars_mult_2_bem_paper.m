@@ -10,7 +10,8 @@ brainstorm.bstcust_start();
 %% Common Parameters
 snr = '0';
 mismatch = true;
-import = true;
+% import = true;
+import = false;
 
 %% Setup the config for mult_bem_paper
 cfg = [];

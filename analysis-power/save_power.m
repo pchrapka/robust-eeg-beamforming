@@ -1,3 +1,4 @@
+function save_power(mismatch)
 
 time = 0;
 save_images = true;
@@ -6,16 +7,21 @@ save_images = true;
 
 %% ==== mult_cort_src_17 ====
 
-sim_name = 'sim_data_bem_1_100t';
-source_name = 'mult_cort_src_17';
 snr = '0';
-% mismatch = true;
-mismatch = false;
 signal_types = {...
     'signal',...
     'interference',...
     'noise',...
+    'all',...
     };
+
+cfg_data.sim_name = 'sim_data_bem_1_100t';
+% cfg_data.source_name = 'single_cort_src_1';
+% cfg_data.source_config = 'src_param_single_cortical_source_1';
+cfg_data.source_name = 'mult_cort_src_17';
+cfg_data.source_config = 'src_param_mult_cortical_source_17';
+cfg_data.snr = snr;
+cfg_data.iteration = 1;
 
 for i=1:length(signal_types)
     % Select the signal component
@@ -36,4 +42,6 @@ for i=1:length(signal_types)
     % Plot and save the data
     brainstorm.bstcust_plot(study_idx, snr, time, save_images);
     
+end
+
 end

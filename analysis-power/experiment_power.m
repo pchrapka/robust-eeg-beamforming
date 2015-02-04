@@ -1,14 +1,10 @@
+function experiment_power(mismatch, force)
 % Prototype code to compare dipole mse
-close all;
-
 aet_init();
 
 %% Get the data
 % Set up config to get the data file
 snr = '0';
-force = false;
-mismatch = false;
-% mismatch = true;
 
 cfg_data = [];
 if ~mismatch
@@ -79,6 +75,11 @@ for i=1:length(cfg_data.beam_cfgs)
         cfg_pow.data = bf_out.noise.data;
         output = metrics.power(cfg_pow);
         data.bf_out.noise.power = output.power;
+        
+        % All
+        cfg_pow.data = bf_out.all.data;
+        output = metrics.power(cfg_pow);
+        data.bf_out.all.power = output.power;
         
         % Save to a file
         save(file_name, 'data');
@@ -172,3 +173,5 @@ cfg_plot.distance = vdist.distance;
 cfg_plot.title = 'Noise Power';
 % plot_power_vs_distance(cfg_plot);
 plot_power_vs_distance_subplots(cfg_plot);
+
+end

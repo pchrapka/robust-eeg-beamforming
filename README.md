@@ -4,20 +4,61 @@
 
 This project contains a full out analysis of a robust beamforming algorithm for EEG data that accounts for anisotropic uncertainties in the head model. 
 
-# Running simulations
+# How to get set up?
 
-1. Run startup.m. This checks for dependencies and notifies you if they are missing. I do not attempt to install all of them for you. (I wish there was an easy way in Matlab)
-2. Run run_all. It contains a bunch of scripts that are all run, you can comment out any that you don't want to run.
+## Running simulations
+
+Run 
+```
+startup
+```
+This checks for dependencies and notifies you if they are missing. I do not attempt to install all of them for you. (I wish there was an easy way in Matlab). See Dependencies below for more information.
+
+Once you have all the dependencies, run
+```
+run_all
+``` 
+It contains scripts that were used for the journal paper, you can comment out any that you don't want to run.
 
 Beware, this project can generate a lot of data and it takes a while. I've tried to parallelize as much as possible.
 
+## Generating plots for paper
+
+Run (line by line)
+```
+plot_all
+```
+The script lists all the other relevant scripts used to generate plots for the paper.
 
 ## Running on blade16
+
+### Linux
+
+1. Run
+    ```
+    $ sh upload.sh
+    ```
+
+### Windows
 
 1. Configure upload.txt with your credentials
 2. Run upload.bat
 
 ## Downloading output data from blade16
+
+### Linux
+
+1. Run 
+    ```
+    $ sh sync_output.sh
+    ```
+
+More options to select certain file types
+```
+$ sh sync_output.sh --help
+```
+
+### Windows
 
 1. Configure sync_output.txt with your credentials
 2. Run sync_output.bat
