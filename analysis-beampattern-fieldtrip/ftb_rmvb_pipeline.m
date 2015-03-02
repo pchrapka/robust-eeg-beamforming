@@ -130,6 +130,10 @@ cfg.method = 'all';
 
 %% Stage 6
 % Analysis
+
+cfg.checks= {'headmodel'};
+ftb.check_sourceanalysis(cfg);
+
 cfgtmp = ftb.get_stage(cfg,'dipolesim');
 cfgdp = ftb.load_config(cfgtmp.stage.full);
 pos = cfgdp.signal.ft_dipolesimulation.dip.pos;
