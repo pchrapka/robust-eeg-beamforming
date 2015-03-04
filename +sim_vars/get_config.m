@@ -46,11 +46,17 @@ k = k+1;
 
 % Beamformer locations
 if ~isfield(cfg,'loc')
-    cfg.loc = {1:501};
+    cfg.loc = 1:501;
 end
 params(k).name = 'loc';
 params(k).values = {cfg.loc};
 k = k+1;
+
+if isfield(cfg, 'tag')
+    params(k).name = 'tag';
+    params(k).values = {cfg.tag};
+    k = k+1;
+end
 
 % Beamformer configs
 params(k).name = 'beamformer_config';
@@ -362,12 +368,6 @@ if cfg.force
     idx = length(params) + 1;
     params(idx).name = 'force';
     params(idx).values = {cfg.force};
-end
-
-if isfield(cfg, 'tag')
-    idx = length(params) + 1;
-    params(idx).name = 'tag';
-    params(idx).values = {cfg.tag};
 end
 
 if isfield(cfg, 'time_idx')
