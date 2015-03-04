@@ -4,17 +4,24 @@ function params = get_config(cfg)
 %   by CFG.
 %   
 %   Input
-%   cfg         struct with the following fields
-%       id      id for simulation parameters config
-%       data    cfg describing data files to use during the simulation
-%               see sim_vars.get_data_files
-%       force   adds a flag that forces the analysis to be redone,
-%               overwriting the existing output files
-%       head    (optional) head model config, default is
-%               'head_Default1_3sphere_500V.mat'
-%           type    'brainstorm' or 'fieldtrip'
-%           file    head model file name in head-models project
-%       tag     additional tag for the output file
+%   cfg.id      
+%       id for simulation parameters config
+%   cfg.data
+%       config describing data files to use during the simulation see
+%       sim_vars.get_data_files
+%   cfg.head
+%       (optional) head model config, default is
+%       'head_Default1_3sphere_500V.mat'
+%       head.type    'brainstorm' or 'fieldtrip'
+%       head.file    head model file name in head-models project
+%   cfg.loc
+%       (optional) locations to scan specified as indices in the head model
+%       struct, default is 1:501
+%   cfg.tag
+%       additional tag for the output file
+%   cfg.force   
+%       adds a flag that forces the analysis to be redone, overwriting the
+%       existing output files
 %   
 %   NOTE New configs need to be added here explicity.
 
@@ -38,8 +45,11 @@ params(k).values = {cfg.head};
 k = k+1;
 
 % Beamformer locations
+if ~isfield(cfg,'loc')
+    cfg.loc = {1:501};
+end
 params(k).name = 'loc';
-params(k).values = {};
+params(k).values = {cfg.loc};
 k = k+1;
 
 % Beamformer configs
@@ -90,10 +100,6 @@ switch cfg.id
         
     case 'sim_vars_lcmv_basic'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -101,10 +107,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_lcmv'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -116,10 +118,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_lcmv_mismatch'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -139,10 +137,6 @@ switch cfg.id
         
     case 'sim_vars_rmv'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -157,10 +151,6 @@ switch cfg.id
         
     case 'sim_vars_rmv_coarse'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -171,10 +161,6 @@ switch cfg.id
             {'rmv','epsilon',400}};
         
     case 'sim_vars_rmv_coarse_mismatch'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -194,10 +180,6 @@ switch cfg.id
         
     case 'sim_vars_rmv_eig_coarse'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -208,10 +190,6 @@ switch cfg.id
             {'rmv','eig_type','eig post','n_src',1,'epsilon',400}};
         
     case 'sim_vars_rmv_eig_coarse_mismatch'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -231,10 +209,6 @@ switch cfg.id
         
     case 'sim_vars_rmv_eig_experiment'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -246,10 +220,6 @@ switch cfg.id
         
     case 'sim_vars_single_src_paper_matched'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -260,10 +230,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_single_src_paper_mismatched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -278,10 +244,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_single_src_eig_variations_mismatched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -319,10 +281,6 @@ switch cfg.id
         
     case 'sim_vars_mult_src_basic_matched'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -331,10 +289,6 @@ switch cfg.id
             {'rmv','epsilon',5}};
         
     case 'sim_vars_mult_src_basic_mismatched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -345,10 +299,6 @@ switch cfg.id
             {'rmv','aniso',true}};
         
     case 'sim_vars_mult_src_paper_matched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -361,10 +311,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_mult_src_paper_mismatched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
@@ -383,10 +329,6 @@ switch cfg.id
         
     case 'sim_vars_distr_src_paper_matched'
         
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
-        
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
         params(idx).values = {...
@@ -397,10 +339,6 @@ switch cfg.id
             {'lcmv','reg','eig'}};
         
     case 'sim_vars_distr_src_paper_mismatched'
-        
-        % Beamformer locations
-        idx = sim_vars.get_param_idx(params, 'loc');
-        params(idx).values = {1:501};
         
         % Beamformer configs
         idx = sim_vars.get_param_idx(params, 'beamformer_config');
