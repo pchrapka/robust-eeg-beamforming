@@ -1,8 +1,15 @@
+aet_init();
+
 %% Options
 % highres_model = 'head_Colin27_bem_vol_30000V.mat';
-highres_model = 'head_Colin27_bem_surf_15000V.mat';
+% highres_model = 'head_Colin27_bem_surf_15000V.mat';
+% highres_model = 'head_Default1_bem_15028V.mat';
+highres_model = 'head_Default1_bem_500V.mat';
 manual = false; % option to manually select the ROI
 plotdb = false;
+
+% NOTE Compare apples to apples, i.e. you have to compute the beampattern
+% using the actual head model used for simulation and analysis
 
 %% Select beampattern ROI
 roi_idx = select_beampattern_roi(highres_model, manual);
@@ -69,6 +76,7 @@ for j=1:n_data
     
     % Get index of voxel location in the data array
     W = data_in.source.filter{data_in.source.loc == voxel_idx};
+    nchannels = size(W,1);
     
     n_locs = length(roi_idx);
     % Allocate memory
@@ -78,10 +86,20 @@ for j=1:n_data
     % Loop through selected points
     for i=1:n_locs
         H = aet_source_get_gain(roi_idx(i), head_highres);
+        if nchannels < size(H,1)
+           H = H(1:nchannels,:); 
+        end
         
         % Calculate the beampattern
         beamnorm(i) = norm(W'*H, 'fro');
         beamtrace(i) = trace(W'*H);
+        
+        % Sanity check for known source
+        if x(i) == vert_source(1)
+            H_highres = H;
+            H_orig = data_in.source.leadfield{data_in.source.loc == voxel_idx};
+            disp(norm(H_highres - H_orig, 'fro'));
+        end
     end
     
     % Combine the beampattern with the x coord

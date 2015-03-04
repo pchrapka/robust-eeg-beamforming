@@ -11,7 +11,7 @@ function indices = select_beampattern_roi(modelname, manual)
 %       outputs vertex indices that are within the ROI
 
 % Plot data if we're doing it manually
-plots = false;
+plots = true;
 if manual
     plots = true;
 end
