@@ -1,15 +1,22 @@
 function beampattern_line_bf_file(cfg)
 %BEAMPATTERN_LINE_BF_FILE creates a line plot of the beampattern of a
 %beamformer
-%   cfg.voxel_idx   center voxel of beampattern
-%   cfg.beam_cfgs   cell array of beamformer cfg file tags to process
+%   cfg.voxel_idx   
+%       center voxel of beampattern
+%   cfg.beam_cfgs   
+%       cell array of beamformer cfg file tags to process
 %   cfg.sim_name    simulation config name
 %   cfg.source_name source config name
 %   cfg.snr         snr
 %   cfg.iteration   simulation iteration
-%   cfg.head        head model cfg (see hm_get_data);
+%   cfg.head        
+%       head model cfg (see hm_get_data);
 %   cfg.interference_idx
-%                   (optional) index of interfering source
+%       (optional) index of interfering source
+
+cfg.normalize = true;
+cfg.db = true;
+
 
 %% Set up simulation info
 cfg_data = [];
@@ -45,17 +52,29 @@ end
 %% Plot the beampattern
 n_data = length(mag_dist_data.name);
 cc=jet(n_data);
+
+n_plots = size(beampattern_data,2);
+n_cols = 2;
+n_rows = ceil(n_plots/n_cols);
 figure; 
-hold on;
-for i=1:n_data
+for i=1:n_plots
+    subplot(n_rows, n_cols, i);
     % Combine the data
     data = [distances(:,i) beampattern_data(:,i)];
     % Sort data based on distance
     data = sortrows(data,1);
+    if cfg.db
+        data(:,2) = db(data(:,2));
+    end
+    if cfg.normalize
+        data(:,2) = data(:,2)/data(1,2);
+    end
     plot(data(:,1),data(:,2),...
         'color',cc(i,:));
+    xlim([0 data(end,1)]);
+    ylabel(mag_dist_data.name{i});
 end
-legend(mag_dist_data.name);
+% legend(h, mag_dist_data.name);
 
 if isfield(cfg,'interference_idx')
     cfg_dist = [];

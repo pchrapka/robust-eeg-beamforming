@@ -13,7 +13,7 @@ function [beampattern, varargout] = beampattern(cfg)
 data_in = load(cfg.beamformer_file);
 
 % Determine the number of locations
-n_locs = length(data_in.source.loc);
+n_locs = hm_get_numvertices(cfg);
 
 % Allocate memory
 beampattern = zeros(n_locs,1);
@@ -25,11 +25,12 @@ end
 
 % Get index of voxel location in the data array
 W = data_in.source.filter{data_in.source.loc == cfg.voxel_idx};
-for i=1:n_locs
+for loc=1:n_locs
     % Extract the leadfield at each index
-    H = data_in.source.leadfield{i};
-    % Extract the head model index at each index
-    loc = data_in.source.loc(i);
+    cfglf = [];
+    cfglf.head = cfg.head;
+    cfglf.loc = loc;
+    H = hm_get_leadfield(cfglf);
     
     % Calculate the frobenius norm of the gain matrix
     beampattern(loc,1) = norm(W'*H, 'fro');
