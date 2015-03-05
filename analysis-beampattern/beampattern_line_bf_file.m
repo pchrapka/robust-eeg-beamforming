@@ -87,4 +87,13 @@ if isfield(cfg,'interference_idx')
     line(x,y);
 end
 
+%% Plot the 3D beampattern
+% Load the tesselated data
+bstdir = brainstorm.bstcust_getdir('db');
+tess = load(fullfile(bstdir,...
+    'Protocol-Phil-BEM','anat',head.SurfaceFile));
+for i=1:n_plots
+    brainstorm.bstcust_plot_surface3d_data(tess, beampattern_data(:,i));
+end
+
 end
