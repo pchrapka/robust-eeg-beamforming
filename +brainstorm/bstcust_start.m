@@ -13,7 +13,7 @@ catch e
     % Save the current dir
     cur_dir = pwd;
     % Switch to get Brainstorm directory
-    cd(bstcust_getdir('exe'));
+    cd(brainstorm.bstcust_getdir('exe'));
     
     % Start brainstorm
     brainstorm
