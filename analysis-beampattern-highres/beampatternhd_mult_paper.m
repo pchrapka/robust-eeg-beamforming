@@ -27,10 +27,10 @@ cfg.beam_cfgs = {...
     }; 
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bemhd_1_100t';
-cfg.source_name = 'mult_cort_src_17hd';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set.sim_name = 'sim_data_bemhd_1_100t';
+cfg.data_set.source_name = 'mult_cort_src_17hd';
+cfg.data_set.snr = snr;
+cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_15028V.mat';
 
@@ -64,10 +64,10 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig_3sphere'};
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bemhd_1_100t';
-cfg.source_name = 'mult_cort_src_17hd';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set.sim_name = 'sim_data_bemhd_1_100t';
+cfg.data_set.source_name = 'mult_cort_src_17hd';
+cfg.data_set.snr = snr;
+cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_15028V.mat';
 
