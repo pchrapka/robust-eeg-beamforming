@@ -1,4 +1,4 @@
-%% beampattern_mult_paper_s1
+%% beampattern_mult_paper
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ==== FIRST SOURCE ==== %%
@@ -33,8 +33,12 @@ cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 
 %% Plot the beampattern
-beampattern_line_bf_file(cfg);
-title(['Mult src index ' num2str(voxel_idx)]);
+cfg = compute_beampattern(cfg);
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
+plot_beampattern(cfgplt)
+cfgplt.head = cfg.head;
+plot_beampattern3d(cfgplt);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -68,5 +72,10 @@ cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 
 %% Plot the beampattern
-beampattern_line_bf_file(cfg);
-title(['Mult src index ' num2str(voxel_idx) ' mismatched']);
+cfg = compute_beampattern(cfg);
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
+plot_beampattern(cfgplt);
+cfgplt.head = cfg.head;
+plot_beampattern3d(cfgplt);
+% title(['Mult src index ' num2str(voxel_idx) ' mismatched']);
