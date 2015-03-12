@@ -83,6 +83,11 @@ if isfield(cfg,'interference_idx')
 end
 
 %% Calculate beampattern for all desired beamformer configs
+if isfield(cfg.save, 'file_tag')
+    file_tag = ['_' cfg.save.file_tag];
+else
+    file_tag = [];
+end
 for i=1:length(cfg.beam_cfgs)
     data = [];
     
@@ -109,13 +114,7 @@ for i=1:length(cfg.beam_cfgs)
     end
     
     % Set up output filename
-    saveprefix = [data.name '_beampattern'];
-    if isfield(cfg.save, 'file_tag')
-        % Prefix save tag with beampattern
-        cfg.save.file_tag = [saveprefix '_' cfg.save.file_tag];
-    else
-        cfg.save.file_tag = saveprefix;
-    end
+    cfg.save.file_tag = [data.name '_beampattern' file_tag];
     cfg.outputfile{i} = metrics.filename(cfg.save);
     % Save output data
     fprintf('Saving %s\n', cfg.outputfile{i});

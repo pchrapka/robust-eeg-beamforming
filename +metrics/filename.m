@@ -61,6 +61,9 @@ if ~isequal(cfg.file_type, 'none')
             % Set up a metrics dir
             out_dir = fullfile(out_dir, 'metrics');
     end
+    if ~exist(out_dir, 'dir')
+        mkdir(out_dir);
+    end
     
     % Put it together again
     out = fullfile(out_dir, [name ext]);
