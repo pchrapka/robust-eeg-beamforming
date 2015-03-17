@@ -57,6 +57,8 @@ for i=1:n_plots
     
     % Format axis
     xlim([0 data(end,1)]);
+    ylim_cur = ylim;
+    ylim([0 ylim_cur(2)]);
     
     % Format axis labels
     ystr = strrep(din.data.name, '_', ' ');
@@ -68,7 +70,7 @@ for i=1:n_plots
         dist = din.data.options.interference_dist;
         y = ylim();
         x = [dist dist];
-        line(x,y);
+        line(x,y,'color','black');
     end
 end
 % legend(h, mag_dist_data.name);

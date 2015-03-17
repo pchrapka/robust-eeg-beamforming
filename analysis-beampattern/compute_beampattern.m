@@ -58,6 +58,9 @@ function [cfg] = compute_beampattern(cfg)
 %   options.voxel_idx
 %   options.interference_dist
 
+%% Defaults
+if ~isfield(cfg, 'force'),  cfg.force = false; end
+
 %% Options
 
 % Save options
@@ -79,7 +82,7 @@ if isfield(cfg,'interference_idx')
     interference_dist = distance_from_vertex(cfg_dist);
 %     y = ylim();
 %     x = [dist dist];
-%     line(x,y);
+%     line(x,y,'color','black');
 end
 
 %% Calculate beampattern for all desired beamformer configs
@@ -94,6 +97,17 @@ for i=1:length(cfg.beam_cfgs)
     % Get the full data file name
     cfg.data_set.tag = [cfg.beam_cfgs{i}]; % No mini tag
     data_file = db.save_setup(cfg.data_set);
+    
+    % Set up output filename
+    cfg.save.file_tag = [cfg.beam_cfgs{i} '_beampattern' file_tag];
+    cfg.outputfile{i} = metrics.filename(cfg.save);
+    
+    % Skip the computation if the file exists
+    if exist(cfg.outputfile{i}, 'file') && ~cfg.force
+        fprintf('Skipping %s\n', cfg.outputfile{i});
+        fprintf('\tAlready exists\n');
+        continue;
+    end
     
     % Set up cfg for beampattern
     cfg_bp = [];
@@ -113,9 +127,6 @@ for i=1:length(cfg.beam_cfgs)
         data.options.interference_dist = interference_dist;
     end
     
-    % Set up output filename
-    cfg.save.file_tag = [data.name '_beampattern' file_tag];
-    cfg.outputfile{i} = metrics.filename(cfg.save);
     % Save output data
     fprintf('Saving %s\n', cfg.outputfile{i});
     save(cfg.outputfile{i}, 'data');

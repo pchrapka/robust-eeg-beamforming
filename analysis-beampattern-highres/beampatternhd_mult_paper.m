@@ -34,11 +34,18 @@ cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_15028V.mat';
 
-%% Plot the beampattern
+%% Compute the beampattern
 cfg = compute_beampattern(cfg);
+
+%% Plot the beampattern
 cfgplt = [];
+cfgplt.db = false;
+cfgplt.normalize = false;
 cfgplt.files = cfg.outputfile;
 plot_beampattern(cfgplt);
+
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
 cfgplt.head = cfg.head;
 plot_beampattern3d(cfgplt);
 % title(['Mult src index ' num2str(voxel_idx)]);
@@ -76,11 +83,18 @@ cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_15028V.mat';
 
-%% Plot the beampattern
+%% Compute the beampattern
 cfg = compute_beampattern(cfg);
+
+%% Plot the beampattern
 cfgplt = [];
+cfgplt.db = false;
+cfgplt.normalize = false;
 cfgplt.files = cfg.outputfile;
 plot_beampattern(cfgplt);
+
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
 cfgplt.head = cfg.head;
 plot_beampattern3d(cfgplt);
 % title(['Mult src index ' num2str(voxel_idx) ' mismatched']);
@@ -118,11 +132,18 @@ plot_beampattern3d(cfgplt);
 % cfg.head.type = 'brainstorm';
 % cfg.head.file = 'head_Default1_bem_500V.mat';
 % 
-% %% Plot the beampattern
+% %% Compute the beampattern
 % cfg = compute_beampattern(cfg);
+% 
+% %% Plot the beampattern
 % cfgplt = [];
+% cfgplt.db = false;
+% cfgplt.normalize = false;
 % cfgplt.files = cfg.outputfile;
 % plot_beampattern(cfgplt);
+% 
+% cfgplt = [];
+% cfgplt.files = cfg.outputfile;
 % cfgplt.head = cfg.head;
 % plot_beampattern3d(cfgplt);
 % % title(['Mult src index ' num2str(voxel_idx)]);
@@ -158,11 +179,18 @@ plot_beampattern3d(cfgplt);
 % cfg.head.type = 'brainstorm';
 % cfg.head.file = 'head_Default1_3sphere_500V.mat';
 % 
-% %% Plot the beampattern
+% %% Compute the beampattern
 % cfg = compute_beampattern(cfg);
+% 
+% %% Plot the beampattern
 % cfgplt = [];
+% cfgplt.db = false;
+% cfgplt.normalize = false;
 % cfgplt.files = cfg.outputfile;
 % plot_beampattern(cfgplt);
+% 
+% cfgplt = [];
+% cfgplt.files = cfg.outputfile;
 % cfgplt.head = cfg.head;
 % plot_beampattern3d(cfgplt);
 % % title(['Mult src index ' num2str(voxel_idx) ' mismatched']);

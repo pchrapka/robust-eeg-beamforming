@@ -1,4 +1,4 @@
-function out = filename(cfg)
+function outputfile = filename(cfg)
 %FILENAME Generates a metrics file name
 %   FILENAME(CFG) Generates a file name in the same directory as the
 %   original EEG data set, with the same file name and a suffix describing
@@ -38,21 +38,21 @@ if isfield(cfg.data_set,'iterations')
         '-' num2str(max(cfg.data_set.iterations))];
 end
 
-%% Set up output file cfg
-cfg_out = cfg_data;
+%% Set up db file cfg
+cfgdb = cfg_data;
 if isfield(cfg, 'file_tag') && ~isempty(cfg.file_tag)
-    cfg_out.tag = cfg.file_tag;
+    cfgdb.tag = cfg.file_tag;
 else
-    cfg_out.tag = 'metrics';
+    cfgdb.tag = 'metrics';
 end
 
 %% Create the file name
-out = db.save_setup(cfg_out);   
+outputfile = db.save_setup(cfgdb);   
 
 %% Create a subfolder
 if ~isequal(cfg.file_type, 'none')
     % Get the data file dir
-    [out_dir,name,ext] = fileparts(out);
+    [out_dir,name,ext] = fileparts(outputfile);
     switch cfg.file_type
         case 'img'
             % Set up an img dir
@@ -66,7 +66,7 @@ if ~isequal(cfg.file_type, 'none')
     end
     
     % Put it together again
-    out = fullfile(out_dir, [name ext]);
+    outputfile = fullfile(out_dir, [name ext]);
 end
 
 end

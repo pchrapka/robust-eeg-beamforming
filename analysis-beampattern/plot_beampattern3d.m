@@ -31,6 +31,7 @@ for i=1:n_plots
     % Plot the 3D beampattern
     % FIXME Move out of brainstorm package
     brainstorm.bstcust_plot_surface3d_data(tess, beampattern_data);
+    colorbar();
     
     figname = strrep(din.data.name, '_', ' ');
     set(gcf,'name',figname);%,'numbertitle','off')
