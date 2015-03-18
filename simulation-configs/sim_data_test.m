@@ -18,7 +18,10 @@ sim_cfg.head = data.head;
 clear data;
 
 % Figure out number of channels
-gain_temp = aet_source_get_gain(1, sim_cfg.head);
+cfgtmp = [];
+cfgtmp.head = sim_cfg.head;
+cfgtmp.loc = 1;
+gain_temp = hm_get_leadfield(cfgtmp);
 sim_cfg.n_channels = size(gain_temp,1);
 
 %% Simulation parameters

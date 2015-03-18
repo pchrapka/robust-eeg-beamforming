@@ -54,8 +54,12 @@ fprintf('old\n\tindex: %d\n\tvertex: %f %f %f\n', index_source, vert_source);
 fprintf('new\n\tindex: %d\n\tvertex: %f %f %f\n', index_dest, vert_dest);
 
 %% Check leadfields
-H_source = aet_source_get_gain(index_source, head_source);
-H_dest = aet_source_get_gain(index_dest, head_dest);
+cfgtmp = [];
+cfgtmp.head = head_source;
+cfgtmp.loc = index_source;
+H_source = hm_get_leadfield(cfgtmp);
+cfgtmp.loc = index_dest;
+H_dest = hm_get_leadfield(cfgtmp);
 
 % Remove nans
 for i=1:ncomp
