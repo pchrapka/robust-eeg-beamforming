@@ -1,4 +1,12 @@
 function surface_color = bstcust_get_surfacecolor(tess, data)
+%BSTCUST_GET_SURFACECOLOR returns surface colors for data on cortex surface
+%   BSTCUST_GET_SURFACECOLOR(tess, data, options) returns surface colors
+%   for data on cortex surface
+%
+%   tess
+%       tesselated data from surface file
+%   data
+%       vector containing data to be plotted, [vertices x 1]
 
 % Default colors
 DEFAULT_CMAP_SIZE = 64;
@@ -8,15 +16,11 @@ anatomy_color = [...
     0.45 0.45 0.45;...
     0.6  0.6  0.6];
 
-% Data options
-data_limit = [min(data) max(data)];
-data_alpha = 0;
-
 % EdgeColor = 'none';
 
-% Get data colors
+%% Get data colors
 surface_color = BlendAnatomyData(tess.SulciMap, anatomy_color,...
-    data, data_limit, data_alpha, surface_cmap);
+    data, tess.data_limit, tess.data_alpha, surface_cmap);
 
 end
 
