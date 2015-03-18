@@ -10,17 +10,7 @@ cfg = compute_beampatternhd_mult17hd(matched);
 
 %% Plot data
 
-cfgplt = [];
-cfgplt.db = false;
-cfgplt.normalize = false;
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt);
-
-cfgplt = [];
-cfgplt.files = cfg.outputfile;
-cfgplt.head = cfg.head;
-cfgplt.options.scale = 'globalabsolute';
-plot_beampattern3d(cfgplt);
+plot_beampatternhd_mult17hd(cfg);
 
 %% Compute beampatterns - mismatched
 
@@ -29,15 +19,4 @@ cfg = compute_beampatternhd_mult17hd(matched);
 
 %% Plot data
 
-cfgplt = [];
-cfgplt.db = false;
-cfgplt.normalize = false;
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt);
-
-cfgplt = [];
-cfgplt.files = cfg.outputfile;
-cfgplt.head = cfg.head;
-cfgplt.options.scale = 'globalabsolute';
-plot_beampattern3d(cfgplt);
-
+plot_beampatternhd_mult17hd(cfg);
