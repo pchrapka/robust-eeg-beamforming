@@ -38,7 +38,7 @@ cfg_data.snr_range = -20:10:0;%0;%-10:10:0;
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_mult_src_paper_matched';
+cfg_simvars_setup.id = 'sim_vars_mult_src_beampattern_matched';
 cfg_simvars_setup.loc = 5440;
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
@@ -58,7 +58,7 @@ k = k+1;
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_mult_src_paper_mismatched';
+cfg_simvars_setup.id = 'sim_vars_mult_src_beampattern_mismatched';
 cfg_simvars_setup.loc = 5440;
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
