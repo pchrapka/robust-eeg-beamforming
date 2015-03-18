@@ -27,10 +27,7 @@ end
 W = data_in.source.filter{data_in.source.loc == cfg.voxel_idx};
 for loc=1:n_locs
     % Extract the leadfield at each index
-    cfglf = [];
-    cfglf.head = cfg.head;
-    cfglf.loc = loc;
-    H = hm_get_leadfield(cfglf);
+    H = hm_get_leadfield(cfg.head, loc);
     
     % Calculate the frobenius norm of the gain matrix
     beampattern(loc,1) = norm(W'*H, 'fro');

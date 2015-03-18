@@ -85,10 +85,7 @@ for j=1:n_data
     
     % Loop through selected points
     for i=1:n_locs
-        cfgtmp = [];
-        cfgtmp.head = head_highres;
-        cfgtmp.loc = roi_idx(i);
-        H = hm_get_leadfield(cfgtmp);
+        H = hm_get_leadfield(head_highres, roi_idx(i));
         if nchannels < size(H,1)
            H = H(1:nchannels,:); 
         end

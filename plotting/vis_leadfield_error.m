@@ -65,9 +65,9 @@ error = zeros(n_locs,1);
 for i=1:n_locs
     % Get the leadfield matrices at the current index
     cfg_lf.actual.loc = i;
-    lf_actual = hm_get_leadfield(cfg_lf.actual);
+    lf_actual = hm_get_leadfield(cfg_lf.head, cfg_lf.actual.loc);
     cfg_lf.estimate.loc = i;
-    lf_estimate = hm_get_leadfield(cfg_lf.estimate);
+    lf_estimate = hm_get_leadfield(cfg_lf.head, cfg_lf.estimate.loc);
     
     % Project the leadfields
     if cfg.projection
