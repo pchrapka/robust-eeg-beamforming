@@ -5,7 +5,7 @@
 analysis/output/*
 analysis/temp.mat
 output/*
-auto/*
+**/auto/*
 *.tex
 *eps-converted-to.pdf
 bst_current_figs.mat
