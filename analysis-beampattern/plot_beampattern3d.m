@@ -4,7 +4,7 @@ function plot_beampattern3d(cfg)
 %   surface
 %
 %   cfg.file
-%       filename of beampattern data
+%       filename of beampattern data, as computed by COMPUTE_BEAMPATTERN
 %   cfg.head        
 %       head model cfg (see hm_get_data);
 %

@@ -9,7 +9,7 @@ function template = get_plot_save_template(plot_func, plot_cfg)
 switch(plot_func)
     case 'plot_beampattern'
         [~,name,~] = fileparts(plot_cfg.file);
-        template = [name]; % TODO add scaling plot_cfg
+        template = [name '_' plot_cfg.scale];
         
     case 'plot_beampattern3d'
         [~,name,~] = fileparts(plot_cfg.file);

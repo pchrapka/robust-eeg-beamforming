@@ -1,9 +1,8 @@
-function cfg = compute_beampatternhd_mult17hd(matched)
+function cfg = compute_beampatternhd_mult17hd(matched, snr)
 
 %% ==== FIRST SOURCE ==== %%
 voxel_idx = 5440;
 interference_idx = 13841;
-snr = '0';
 
 %% Set up the config
 cfg = [];
