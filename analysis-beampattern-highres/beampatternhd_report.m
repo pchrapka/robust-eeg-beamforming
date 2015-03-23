@@ -11,6 +11,7 @@
 matched = true;
 snr = 0;
 cfg = compute_beampatternhd_mult17hd(matched, snr);
+cfg_matched = cfg;
 
 %% Plot data
 
@@ -22,10 +23,17 @@ close all
 matched = false;
 snr = 0;
 cfg = compute_beampatternhd_mult17hd(matched, snr);
+cfg_mismatched = cfg;
 
 %% Plot data
 
 plot_beampatternhd_mult17hd(cfg);
+close all
+
+%% Plot data - matched, mismatched
+
+cfg.outputfile = [cfg_matched.outputfile cfg_mismatched.outputfile];
+plot_beampatternhd_mult17hd_matched_vs_mismatched(cfg);
 close all
 
 %% Plot beampattern diff - matched

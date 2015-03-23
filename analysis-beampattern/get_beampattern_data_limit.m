@@ -3,8 +3,12 @@ function data_limit = get_beampattern_data_limit(files, scale)
 %   files
 %       cell array of file names
 %   scale
-%       globalabsolute    0   - MAX, over all data
-%       globalrelative    MIN - MAX, over all data
+%       globalabsolute    
+%           0   - MAX, over all group data
+%       globalrelative    
+%           MIN - MAX, over all group data
+%       mmabsolute
+%           0   - MAX, over all data, matched and mismatched
 
 % Load the data
 beampattern_data = cell(length(files));
@@ -22,6 +26,10 @@ switch(scale)
     case 'globalrelative'
         data_limit = [y_min y_max];
     case 'globalabsolute'
+        data_limit = [0 y_max];
+    case 'mmabsolute'
+        % Same as globalabsolute, except over matched and mismatched files,
+        % need a different tag for saved files
         data_limit = [0 y_max];
     otherwise
         error(['reb:' mfilename],...
