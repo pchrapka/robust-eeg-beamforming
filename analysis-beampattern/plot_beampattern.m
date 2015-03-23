@@ -24,6 +24,7 @@ function plot_beampattern(cfg)
 % Set defaults
 if ~isfield(cfg, 'normalize'),  cfg.normalize = true;   end
 if ~isfield(cfg, 'db'),         cfg.db = true;          end
+if ~isfield(cfg, 'scale'),      cfg.scale = 'relative'; end
 
 % Load the data
 din = load(cfg.file);

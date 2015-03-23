@@ -12,12 +12,21 @@ function plot_beampattern_diff(cfg)
 %   cfg.normalize
 %       (optional, default = true) normalize data by the value at vertex of
 %       interest
+%   cfg.scale
+%       data scale for y axis, standard options:
+%       absolute        0   - MAX
+%       relative        MIN - MAX (default)
+%
+%       custom scale
+%       cfg.scale = name of scale,
+%       cfg.data_limit = [ymin ymax]
 %
 %   See also COMPUTE_BEAMPATTERN
 
 % Set defaults
 if ~isfield(cfg, 'normalize'),  cfg.normalize = true;   end
 if ~isfield(cfg, 'db'),         cfg.db = true;          end
+if ~isfield(cfg, 'scale'),      cfg.scale = 'relative'; end
 
 % Load the data
 dina = load(cfg.filea);
@@ -48,11 +57,23 @@ if cfg.normalize
     data(:,2) = data(:,2)/data(1,2);
 end
 
-% Plot
+%% Plot
 plot(data(:,1),data(:,2));
+
+%% Format plot
+% Data limit
+switch(cfg.scale)
+    case 'relative'
+        data_limit = [min(beampattern_data) max(beampattern_data)];
+    case 'absolute'
+        data_limit = [0 max(beampattern_data)];
+    otherwise % custom
+        data_limit = cfg.data_limit;
+end
 
 % Format axis
 xlim([0 data(end,1)]);
+ylim(data_limit);
 
 % Format axis labels
 figname = [dina.data.name ' - ' dinb.data.name];

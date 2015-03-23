@@ -8,28 +8,49 @@ function plot_beampattern3d_diff(cfg)
 %       filename of beampattern data B
 %   cfg.head        
 %       head model cfg (see hm_get_data);
+%   cfg.options
+%   cfg.options.scale
+%       colormap scale, standard options:
+%       absolute        0   - MAX
+%       relative        MIN - MAX (default)
+%
+%       custom scale include your own scale
+%       cfg.options.scale = name of scale,
+%       cfg.options.data_limit = [ymin ymax]
 %
 %   See also COMPUTE_BEAMPATTERN
 
-% Load the head model
+%% Load the head model
 data_in = hm_get_data(cfg.head);
 head = data_in.head;
 clear data_in;
 
-% Load the tesselated data
+%% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');
 fprintf('Loading surface file:\n\t%s\n', head.SurfaceFile);
 tess = load(fullfile(bstdir,...
     'Protocol-Phil-BEM','anat',head.SurfaceFile));
 
-% Load the data
+%% Load the data
 dina = load(cfg.filea);
 dinb = load(cfg.fileb);
 
-% Take the difference
+%% Take the difference
 beampattern_data = dina.data.beampattern - dinb.data.beampattern;
 
-% Plot the 3D beampattern
+%% Data options
+tess.data_alpha = 0;
+% Data limit
+switch(cfg.options.scale)
+    case 'relative'
+        tess.data_limit = [min(beampattern_data) max(beampattern_data)];
+    case 'absolute'
+        tess.data_limit = [0 max(beampattern_data)];
+    otherwise % custom
+        tess.data_limit = cfg.options.data_limit;
+end
+
+%% Plot the 3D beampattern
 % FIXME Move out of brainstorm package
 brainstorm.bstcust_plot_surface3d_data(tess, beampattern_data);
 
