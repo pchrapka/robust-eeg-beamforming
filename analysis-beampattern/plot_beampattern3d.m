@@ -13,6 +13,11 @@ function plot_beampattern3d(cfg)
 %       colormap scale, standard options:
 %       absolute        0   - MAX
 %       relative        MIN - MAX (default)
+%       relative-custommax
+%                       MIN - custom max, 
+%           custom max is specified with cfg.options.data_limit(2)
+%       mad             MIN - median + multiple*(mean absolute deviation)
+%           cfg.mad_multiple specifies the multiple
 %
 %       custom scale include your own scale
 %       cfg.options.scale = name of scale,
@@ -45,6 +50,14 @@ tess.data_alpha = 0;
 switch(cfg.options.scale)
     case 'relative'
         tess.data_limit = [min(beampattern_data) max(beampattern_data)];
+    case 'relative-custommax'
+        tess.data_limit = [min(beampattern_data) cfg.options.data_limit(2)];
+    case 'mad'
+        data_median = median(beampattern_data);
+        data_mad = mad(beampattern_data,1);
+        data_max = data_median + cfg.options.mad_multiple*data_mad;
+        tess.data_limit = [min(beampattern_data) data_max];
+        beampattern_data(beampattern_data > data_max) = 0;
     case 'absolute'
         tess.data_limit = [0 max(beampattern_data)];
     otherwise % custom

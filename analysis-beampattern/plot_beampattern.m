@@ -14,6 +14,8 @@ function plot_beampattern(cfg)
 %       data scale for y axis, standard options:
 %       absolute        0   - MAX
 %       relative        MIN - MAX (default)
+%       mad             MIN - median + multiple*(mean absolute deviation)
+%           cfg.mad_multiple specifies the multiple
 %
 %       custom scale
 %       cfg.scale = name of scale,
@@ -53,6 +55,12 @@ plot(data(:,1),data(:,2));
 switch(cfg.scale)
     case 'relative'
         data_limit = [min(beampattern_data) max(beampattern_data)];
+    case 'mad'
+        data_median = median(beampattern_data);
+        data_mad = mad(beampattern_data,1);
+        data_max = data_median + cfg.mad_multiple*data_mad;
+        beampattern_data(beampattern_data > data_max) = NaN;
+        data_limit = [min(beampattern_data) data_max];
     case 'absolute'
         data_limit = [0 max(beampattern_data)];
     otherwise % custom

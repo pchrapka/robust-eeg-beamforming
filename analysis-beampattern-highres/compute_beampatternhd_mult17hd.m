@@ -6,6 +6,7 @@ interference_idx = 13841;
 
 %% Set up the config
 cfg = [];
+cfg.force = false;
 % Sample index for beampattern calculation
 cfg.voxel_idx = voxel_idx;
 if ~isempty(interference_idx)
@@ -17,8 +18,13 @@ cfg.data_set.sim_name = 'sim_data_bemhd_1_100t';
 cfg.data_set.source_name = 'mult_cort_src_17hd';
 cfg.data_set.snr = snr;
 cfg.data_set.iteration = '1';
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_bem_15028V.mat';
+if matched
+    cfg.head.type = 'brainstorm';
+    cfg.head.file = 'head_Default1_bem_15028V.mat';
+else
+    cfg.head.type = 'brainstorm';
+    cfg.head.file = 'head_Default1_3sphere_15028V.mat';
+end
 
 %% Set up beamformer configs
 if matched
