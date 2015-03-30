@@ -14,6 +14,7 @@ function plot_beampattern(cfg)
 %       data scale for y axis, standard options:
 %       absolute        0   - MAX
 %       relative        MIN - MAX (default)
+%       relative-dist   MIN - MAX of closest 25% of vertices
 %       mad             MIN - median + multiple*(mean absolute deviation)
 %           cfg.mad_multiple specifies the multiple
 %
@@ -56,10 +57,21 @@ switch(cfg.scale)
     case 'relative'
         data_limit = [min(beampattern_data) max(beampattern_data)];
     case 'mad'
+        % Get the median
         data_median = median(beampattern_data);
+        % Get the mean absolute median
         data_mad = mad(beampattern_data,1);
+        % Calculate the max threshold
         data_max = data_median + cfg.mad_multiple*data_mad;
-        beampattern_data(beampattern_data > data_max) = NaN;
+        data_limit = [min(beampattern_data) data_max];
+    case 'relative-dist'
+        % Calculate 25% of the largest distance
+        dist_min = 0.25*max(distances);
+        % Count the number of distances
+        npoints = sum(distances < dist_min);
+        % Get max from sorted beampattern data that corresponds to the
+        % points in the 25th percentile of distances from the source
+        data_max = max(data(1:npoints,2));
         data_limit = [min(beampattern_data) data_max];
     case 'absolute'
         data_limit = [0 max(beampattern_data)];

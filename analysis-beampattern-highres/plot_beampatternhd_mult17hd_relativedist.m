@@ -1,14 +1,12 @@
-function plot_beampatternhd_mult17hd_mad(cfg)
+function plot_beampatternhd_mult17hd_relativedist(cfg)
 
-mad_multiple = 8;
-%% Beampattern 1D - mad scale
-scale = 'mad';
+%% Beampattern 1D - relative-dist scale
+scale = 'relative-dist';
 
 cfgplt = [];
 cfgplt.db = false;
 cfgplt.normalize = false;
 cfgplt.scale = scale;
-cfgplt.mad_multiple = mad_multiple;
 for i=1:length(cfg.outputfile)
     % Plot the data
     cfgplt.file = cfg.outputfile{i};
@@ -21,13 +19,13 @@ for i=1:length(cfg.outputfile)
 end
 close all
 
-%% Beampattern 3D - mad scale
-scale = 'mad';
+
+%% Beampattern 3D - relative-dist scale
+scale = 'relative-dist';
 
 cfgplt = [];
 cfgplt.head = cfg.head;
 cfgplt.options.scale = scale;
-cfgplt.options.mad_multiple = mad_multiple;
 for i=1:length(cfg.outputfile)
     % Plot the data
     cfgplt.file = cfg.outputfile{i};

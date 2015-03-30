@@ -1,7 +1,7 @@
-#+TITLE:     Beamforming with the Muse
+#+TITLE:     Beampattern Comparison
 #+AUTHOR:    Phil Chrapka
 #+EMAIL:     chrapkpk@mcmaster.ca
-#+DATE:      Jan 26, 2015
+#+DATE:      March 30, 2015
 
 #+DESCRIPTION:
 #+KEYWORDS:
@@ -366,19 +366,16 @@ Ranges from 0 to the global maximum of the group of data sets
 #+end_latex
 
 * Mismatched model beampatterns, SNR = 0
-
-** All beamformers
+** All beamformers, relative
 #+begin_latex
 \begin{figure*}[h]
 \centering
 
-\begin{tabular}{ccccc}
+\begin{tabular}{ccc}
 
 % header
 & 1d relative
 & 3d relative
-& 1d globalabsolute
-& 3d globalabsolute
 
 \\
 
@@ -393,18 +390,6 @@ Ranges from 0 to the global maximum of the group of data sets
 &
 \begin{subfigure}[h]{0.2\textwidth}
      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -424,18 +409,6 @@ Ranges from 0 to the global maximum of the group of data sets
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
 \\
 
 % row 3
@@ -449,18 +422,6 @@ Ranges from 0 to the global maximum of the group of data sets
 &
 \begin{subfigure}[h]{0.2\textwidth}
      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -480,18 +441,6 @@ Ranges from 0 to the global maximum of the group of data sets
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
-&
-\begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute}
-     %\caption{}
-     %\label{fig:}
-\end{subfigure}% 
 \\
 
 % row 5
@@ -508,15 +457,166 @@ Ranges from 0 to the global maximum of the group of data sets
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model, relative scale}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+
+** All beamformers
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -539,10 +639,10 @@ Ranges from 0 to the global maximum of the group of data sets
 \begin{tabular}{ccccc}
 
 % header
-& 1d relative
-& 3d relative
-& 1d globalabsolute
-& 3d globalabsolute
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
 
 \\
 
@@ -550,25 +650,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -578,25 +678,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -606,25 +706,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 100$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -634,25 +734,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -662,25 +762,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 200$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -714,8 +814,8 @@ Ranges from 0 to the global maximum of the group of data sets
 % header
 & 1d relative
 & 3d relative
-& 1d relative
-& 3d relative
+& 1d relative-dist
+& 3d relative-dist
 \\
 
 % row 1
@@ -734,13 +834,13 @@ Ranges from 0 to the global maximum of the group of data sets
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -762,13 +862,13 @@ Ranges from 0 to the global maximum of the group of data sets
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -790,13 +890,13 @@ Ranges from 0 to the global maximum of the group of data sets
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -818,13 +918,13 @@ Ranges from 0 to the global maximum of the group of data sets
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -836,13 +936,13 @@ Ranges from 0 to the global maximum of the group of data sets
 &
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -872,35 +972,35 @@ Ranges from 0 to the global maximum of the group of data sets
 \\
 
 % header
-& 1d mmabsolute
-& 3d mmabsolute
-& 1d mmabsolute
-& 3d mmabsolute
+& 1d mmabsolute-dist
+& 3d mmabsolute-dist
+& 1d mmabsolute-dist
+& 3d mmabsolute-dist
 \\
 
 % row 1
 \rotatebox[origin=c]{90}{MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -910,25 +1010,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{Regularized MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -938,25 +1038,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -966,25 +1066,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50,150$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -996,13 +1096,13 @@ Ranges from 0 to the global maximum of the group of data sets
 &
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_mmabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_mmabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1352,10 +1452,10 @@ Ranges from 0 to the global maximum of the group of data sets
 \begin{tabular}{ccccc}
 
 % header
-& 1d relative
-& 3d relative
-& 1d globalabsolute
-& 3d globalabsolute
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
 
 \\
 
@@ -1363,25 +1463,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1391,25 +1491,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{Regularized MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1419,25 +1519,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1447,25 +1547,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1475,25 +1575,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1516,10 +1616,10 @@ Ranges from 0 to the global maximum of the group of data sets
 \begin{tabular}{ccccc}
 
 % header
-& 1d relative
-& 3d relative
-& 1d globalabsolute
-& 3d globalabsolute
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
 
 \\
 
@@ -1527,25 +1627,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{MVB}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1555,25 +1655,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1583,25 +1683,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 100$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1611,25 +1711,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
@@ -1639,25 +1739,25 @@ Ranges from 0 to the global maximum of the group of data sets
 \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 200$}}
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_relative}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_relative-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 
 &
 \begin{subfigure}[h]{0.2\textwidth}
-     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute-dist}
      %\caption{}
      %\label{fig:}
 \end{subfigure}% 

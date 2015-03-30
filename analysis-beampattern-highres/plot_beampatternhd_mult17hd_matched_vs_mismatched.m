@@ -1,7 +1,7 @@
 function plot_beampatternhd_mult17hd_matched_vs_mismatched(cfg)
 
 %% Beampattern 1D - matched mismatched absolute scale
-scale = 'mmabsolute';
+scale = 'mmabsolute-dist';
 
 cfgplt = [];
 cfgplt.db = false;
@@ -22,7 +22,7 @@ for i=1:length(cfg.outputfile)
 end
 
 %% Beampattern 3D - matched mismatched absolute scale
-scale = 'mmabsolute';
+scale = 'mmabsolute-dist';
 
 cfgplt = [];
 cfgplt.head = cfg.head;

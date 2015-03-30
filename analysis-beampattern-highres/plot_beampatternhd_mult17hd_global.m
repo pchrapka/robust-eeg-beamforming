@@ -7,7 +7,7 @@ cfgplt = [];
 cfgplt.db = false;
 cfgplt.normalize = false;
 cfgplt.scale = scale;
-if isequal(scale, 'globalabsolute') || isequal(scale, 'globalrelative')
+if ~isequal(scale, 'absolute') && ~isequal(scale, 'relative')
     cfgplt.data_limit = get_beampattern_data_limit(cfg.outputfile, scale);
 end
 for i=1:length(cfg.outputfile)
@@ -28,7 +28,7 @@ scale = 'globalabsolute';
 cfgplt = [];
 cfgplt.head = cfg.head;
 cfgplt.options.scale = scale;
-if isequal(scale, 'globalabsolute') || isequal(scale, 'globalrelative')
+if ~isequal(scale, 'absolute') && ~isequal(scale, 'relative')
     cfgplt.options.data_limit = get_beampattern_data_limit(cfg.outputfile, scale);
 end
 for i=1:length(cfg.outputfile)

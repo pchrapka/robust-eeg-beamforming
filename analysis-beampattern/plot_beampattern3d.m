@@ -13,9 +13,7 @@ function plot_beampattern3d(cfg)
 %       colormap scale, standard options:
 %       absolute        0   - MAX
 %       relative        MIN - MAX (default)
-%       relative-custommax
-%                       MIN - custom max, 
-%           custom max is specified with cfg.options.data_limit(2)
+%       relative-dist   MIN - MAX of closest 25% of vertices
 %       mad             MIN - median + multiple*(mean absolute deviation)
 %           cfg.mad_multiple specifies the multiple
 %
@@ -50,12 +48,25 @@ tess.data_alpha = 0;
 switch(cfg.options.scale)
     case 'relative'
         tess.data_limit = [min(beampattern_data) max(beampattern_data)];
-    case 'relative-custommax'
-        tess.data_limit = [min(beampattern_data) cfg.options.data_limit(2)];
     case 'mad'
         data_median = median(beampattern_data);
         data_mad = mad(beampattern_data,1);
         data_max = data_median + cfg.options.mad_multiple*data_mad;
+        tess.data_limit = [min(beampattern_data) data_max];
+        beampattern_data(beampattern_data > data_max) = 0;
+    case 'relative-dist'
+        distances = din.data.distances;
+        % Combine the data
+        data = [distances(:) beampattern_data(:)];
+        % Sort data based on distance
+        data = sortrows(data,1);
+        % Calculate 25% of the largest distance
+        dist_min = 0.25*max(distances);
+        % Count the number of distances
+        npoints = sum(distances < dist_min);
+        % Get max from sorted beampattern data that corresponds to the
+        % points in the 25th percentile of distances from the source
+        data_max = max(data(1:npoints,2));
         tess.data_limit = [min(beampattern_data) data_max];
         beampattern_data(beampattern_data > data_max) = 0;
     case 'absolute'
