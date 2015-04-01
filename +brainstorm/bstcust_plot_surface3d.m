@@ -33,7 +33,8 @@ function varargout = bstcust_plot_surface3d( hFig, faces, verts, surface_color, 
     elseif (length(surface_color) == length(verts))
         FaceVertexCData = surface_color;
         FaceColor = 'interp';
-        EdgeColor = 'interp';
+%         EdgeColor = 'interp';
+        EdgeColor = 'none';
     else
         error('Invalid surface color.');
     end

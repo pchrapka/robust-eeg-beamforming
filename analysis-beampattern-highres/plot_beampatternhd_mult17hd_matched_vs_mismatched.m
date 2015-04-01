@@ -20,6 +20,7 @@ for i=1:length(cfg.outputfile)
     cfg.plot_cfg = cfgplt;
     plot_save(cfg);
 end
+close all
 
 %% Beampattern 3D - matched mismatched absolute scale
 scale = 'mmabsolute-dist';
@@ -40,5 +41,6 @@ for i=1:length(cfg.outputfile)
     cfg.plot_cfg = cfgplt;
     plot_save(cfg);
 end
+close all
 
 end

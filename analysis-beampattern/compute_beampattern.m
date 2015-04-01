@@ -124,6 +124,7 @@ for i=1:length(cfg.beam_cfgs)
     data.bf_file = data_file;
     data.options.voxel_idx = cfg.voxel_idx;
     if exist('interference_dist','var')
+        data.options.interference_idx = cfg.interference_idx;
         data.options.interference_dist = interference_dist;
     end
     

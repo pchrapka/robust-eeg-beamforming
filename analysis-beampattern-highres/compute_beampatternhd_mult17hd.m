@@ -6,7 +6,7 @@ interference_idx = 13841;
 
 %% Set up the config
 cfg = [];
-cfg.force = false;
+cfg.force = true;
 % Sample index for beampattern calculation
 cfg.voxel_idx = voxel_idx;
 if ~isempty(interference_idx)
