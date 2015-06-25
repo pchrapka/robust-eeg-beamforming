@@ -1,22 +1,21 @@
-function cfg = view_power_surface_mult17hd(matched, snr)
-%VIEW_POWER_SURFACE_MULTH17HD beamformer output power view for mult17hd
-%   VIEW_POWER_SURFACE_MULTH17HD sets up a view with the beamformer output
-%   power for mult17hd
+function cfg = compute_power_surface_mult17hd(matched, snr)
+%COMPUTE_POWER_SURFACE_MULTH17HD computes beamformer output power for
+%mult17hd
+%   COMPUTE_POWER_SURFACE_MULTH17HD computes beamformer output power for
+%mult17hd
 
-% FIXME remove if no problems
-% %% ==== FIRST SOURCE ==== %%
-% voxel_idx = 5440;
-% interference_idx = 13841;
+%% ==== FIRST SOURCE ==== %%
+voxel_idx = 5440;
+interference_idx = 13841;
 
 %% Set up the config
 cfg = [];
 cfg.force = true;
-% FIXME remove if no problems
-% % Sample index for beampattern calculation
-% cfg.voxel_idx = voxel_idx;
-% if ~isempty(interference_idx)
-%     cfg.interference_idx = interference_idx;
-% end
+% Sample index for beampattern calculation
+cfg.voxel_idx = voxel_idx;
+if ~isempty(interference_idx)
+    cfg.interference_idx = interference_idx;
+end
 
 % Set up simulation info
 cfg.data_set.sim_name = 'sim_data_bemhd_1_100t';
@@ -59,7 +58,7 @@ else
         'lcmv_reg_eig_3sphere'};
 end
 
-%% Plot the data
-cfg = view_power_surface_relative(cfg);
+%% Compute the beamformer output power
+cfg = compute_power(cfg);
 
 end

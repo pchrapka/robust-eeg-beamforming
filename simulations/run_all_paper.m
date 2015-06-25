@@ -43,7 +43,7 @@ metric_analysis_sinr_mult_paper
 % TODO FIRST do power plots for high res mult data
 % single
 % distr
-% mult
+% view_power_surface_mult17hd
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
