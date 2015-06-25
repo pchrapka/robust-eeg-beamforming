@@ -1,5 +1,5 @@
-function [output] = power(cfg)
-%POWER calculates the power of the signal
+function [output] = poweravg(cfg)
+%POWERAVG calculates the average power of the signal
 %   cfg.data
 %       data matrix [channels/components samples]
 %       or
