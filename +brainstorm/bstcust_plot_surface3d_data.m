@@ -13,6 +13,7 @@ function [hFig] = bstcust_plot_surface3d_data(tess, data)
 % tess = load(fullfile(bstdir,...
 %     'Protocol-Phil-BEM','anat','Subject01','tess_cortex.mat'));
 
+fprintf('**** FIXME Move output of brainstorm package: %s\n', mfilename);
 
 %% Get surface color based on data
 surface_color = brainstorm.bstcust_get_surfacecolor(tess, data);

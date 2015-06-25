@@ -312,6 +312,7 @@ addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
 addpath(fullfile(project_dir, 'analysis-sinr'));
 addpath(fullfile(project_dir, 'analysis-power'));
+addpath(fullfile(project_dir, 'analysis-power-surface'));
 addpath(fullfile(project_dir, 'analysis-raw'));
 addpath(fullfile(project_dir, 'analysis-rmse'));
 addpath(fullfile(project_dir, 'simulation-configs'));

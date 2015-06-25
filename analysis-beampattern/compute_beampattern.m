@@ -25,7 +25,7 @@ function [cfg] = compute_beampattern(cfg)
 %     cfg.data_set.iteration = '1';
 %
 %   cfg.head        
-%       head model cfg (see hm_get_data);
+%       head model cfg (see hm_get_data)
 %
 %   Outputfile Options
 %   ------------------

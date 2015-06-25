@@ -38,7 +38,7 @@ imgfile = get_plot_save_template(cfg.plot_func, cfg.plot_cfg);
 fprintf('Saving %s \n\tto %s\n', imgfile, imgdir);
 % Save the plot
 switch (cfg.plot_func)
-    case 'plot_beampattern3d'
+    case {'plot_beampattern3d','plot_power3d'}
         % Set background to white
         set(gcf, 'Color', [1 1 1]);
         
