@@ -306,6 +306,7 @@ addpath(fullfile(project_dir, 'experiments'));
 addpath(fullfile(project_dir, 'plotting'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
 addpath(fullfile(project_dir, 'analysis-beampattern-fieldtrip'));
+addpath(fullfile(project_dir, 'analysis-beampattern-highres'));
 addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
@@ -316,6 +317,7 @@ addpath(fullfile(project_dir, 'analysis-rmse'));
 addpath(fullfile(project_dir, 'simulation-configs'));
 addpath(fullfile(project_dir, 'simulations'));
 addpath(fullfile(project_dir, 'source-configs'));
+addpath(fullfile(project_dir, 'external', 'other'));
 
 
 %% Display message

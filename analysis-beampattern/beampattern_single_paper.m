@@ -21,15 +21,20 @@ cfg.beam_cfgs = {...
     }; 
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'single_cort_src_1';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+cfg.data_set.source_name = 'single_cort_src_1';
+cfg.data_set.snr = snr;
+cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_bem_500V.mat';
 
 %% Plot the beampattern
-beampattern_line_bf_file(cfg);
+cfg = compute_beampattern(cfg);
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
+plot_beampattern(cfgplt)
+cfgplt.head = cfg.head;
+plot_beampattern3d(cfgplt);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -54,12 +59,17 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig_3sphere'};
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'single_cort_src_1';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+cfg.data_set.source_name = 'single_cort_src_1';
+cfg.data_set.snr = snr;
+cfg.data_set.iteration = '1';
 cfg.head.type = 'brainstorm';
 cfg.head.file = 'head_Default1_3sphere_500V.mat';
 
 %% Plot the beampattern
-beampattern_line_bf_file(cfg);
+cfg = compute_beampattern(cfg);
+cfgplt = [];
+cfgplt.files = cfg.outputfile;
+plot_beampattern(cfgplt);
+cfgplt.head = cfg.head;
+plot_beampattern3d(cfgplt);

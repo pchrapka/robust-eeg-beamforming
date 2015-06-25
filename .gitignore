@@ -5,8 +5,9 @@
 analysis/output/*
 analysis/temp.mat
 output/*
-auto/*
+**/auto/*
 *.tex
+*.pdf
 *eps-converted-to.pdf
 bst_current_figs.mat
 anatomy/*

@@ -76,6 +76,7 @@ beamformers = {...
     'BFrmvb256_epsd025',...
     };
 
+debug = false;
 for i=1:length(beamformers)
     beamformer = beamformers{i};
     stage.beamformer = beamformer;
@@ -83,19 +84,33 @@ for i=1:length(beamformers)
     cfg = ftb.prepare_sourceanalysis(stage);
     % Create the model
     cfg = ftb.create_sourceanalysis(cfg);
+    
+    if debug
+        cfg.checks = {'scatter'};
+        % All
+        cfg.method = 'all';
+        % Outer
+        % cfg.method = 'outer';
+        % cfg.outer.size = 15;
+        % Plane
+%         cfg.method = 'plane';
+%         cfg.plane.axis = 'x';
+%         cfg.plane.value = -50;
+        ftb.check_sourceanalysis(cfg);
+    end
 end
 
 % Check results
-cfg.checks = {'anatomical', 'headmodel', 'scatter'};
+% cfg.checks = {'anatomical', 'headmodel', 'scatter'};
 cfg.method = 'all';
 % cfg.checks = {'headmodel', 'scatter'};
-% cfg.checks = {'scatter'};
+cfg.checks = {'scatter'};
 % cfg.method = 'outer';
 % cfg.outer.size = 15;
 % cfg.method = 'plane';
 % cfg.plane.axis = 'x';
 % cfg.plane.value = -50;
-% ftb.check_sourceanalysis(cfg);
+ftb.check_sourceanalysis(cfg);
 
 % %% Stage 4b
 % % Simulate noise for contrast plot

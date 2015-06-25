@@ -76,7 +76,7 @@ for j=1:length(signal_types)
         end
         
         % Convert data to dB scale
-        data = 20*log10(data);
+%         data = 20*log10(data);
         
         % Normalize the data
         data = data - min(data);

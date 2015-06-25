@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Usage info
 show_help() {
@@ -19,8 +19,30 @@ EOF
 # A POSIX variable
 OPTIND=1 # Reset in case getopts has been used previously in the shell
 
-INCLUDES="--include='*.csv' --include='*.mat' --include='*.eps'" 
-EXCLUDES=""
+INCLUDES=()
+EXCLUDES=()
+function exclude
+{
+  while
+    (( $# ))
+  do
+    EXCLUDES+=(--exclude="$1")
+    shift
+  done
+}
+
+function include
+{
+  while
+    (( $# ))
+  do
+    INCLUDES+=(--include="$1")
+    shift
+  done
+}
+
+#INCLUDES="--include='*.csv' --include='*.mat' --include='*.eps'" 
+#EXCLUDES=""
 
 # Parse inputs
 while getopts "t:h" opt; do
@@ -31,16 +53,23 @@ while getopts "t:h" opt; do
 	    ;;
 	t) 
 	    if [ "$OPTARG" = "csv" ]; then
-		INCLUDES="--include='*.csv'"
-		EXCLUDES="--exclude='*.mat'"
+		include "*.csv"
+		exclude "*.mat"
+		#INCLUDES="--include='*.csv'"
+		#EXCLUDES="--exclude='*.mat'"
 	    elif [ "$OPTARG" = "mat" ]; then
-		INCLUDES="--include='*.mat'"
-		EXCLUDES="--exclude='*.csv'"
+		include "*.mat"
+		exclude "*.csv"
+		#INCLUDES="--include='*.mat'"
+		#EXCLUDES="--exclude='*.csv'"
 	    elif [ "$OPTARG" = "img" ]; then
-		INCLUDES="--include *.eps"
-		EXCLUDES="--exclude *.csv --exclude *.mat"
+		include "*.eps"
+		exclude "*.csv" "*.mat"
+		#exclude "*.mat"
+		#INCLUDES="--include='*.eps'"
+		#EXCLUDES="--exclude='*.csv' --exclude='*.mat'"
 	    else
-		:		
+		include "*.csv" "*.mat" "*.eps"
 	    fi
 	    ;;
     esac
@@ -50,9 +79,9 @@ shift $((OPTIND-1))
 
 # The include/exclude doesn't seem to work
 
-#echo $INCLUDES
-#echo $EXCLUDES
+#echo "${INCLUDES[@]}"
+#echo "${EXCLUDES[@]}"
 
-rsync -rvz --progress $INCLUDES $EXCLUDES chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/
+rsync -rvz --progress "${INCLUDES[@]}" "${EXCLUDES[@]}" chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/
 
 #rsync -rvz --include='*1-100.mat' chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/
