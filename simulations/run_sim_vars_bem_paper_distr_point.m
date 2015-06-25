@@ -10,7 +10,9 @@ util.update_aet();
 %% Initialize the Advanced EEG Toolbox
 aet_init
 % Open the parallel pipeline
-aet_parallel_init([]);
+cfg = [];
+cfg.ncores = 10;
+aet_parallel_init(cfg);
 k = 1;
 
 %% Set up scripts to run

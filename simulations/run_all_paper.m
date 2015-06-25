@@ -4,7 +4,9 @@ util.update_aet();
 aet_init
 
 %% Open the parallel pipeline
-aet_parallel_init([]);
+cfg = [];
+cfg.ncores = 10;
+aet_parallel_init(cfg);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
@@ -16,8 +18,8 @@ aet_parallel_init([]);
 % run_sim_vars_distr_bem_paper
 run_sim_vars_bem_paper_mult17
 
-
 % HD for beampatterns and power plots
+% TODO scripts for single and distr
 % run_sim_vars_bemhd_paper_mult17hd
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,6 +40,7 @@ metric_analysis_sinr_mult_paper
 
 % high res
 % TODO simulate data for single and distr
+% TODO FIRST do power plots for high res mult data
 % single
 % distr
 % mult

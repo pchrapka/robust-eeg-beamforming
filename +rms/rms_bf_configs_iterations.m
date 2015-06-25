@@ -45,6 +45,7 @@ function [rms_data] = rms_bf_configs_iterations(cfg)
 %% Calculate rms for all desired iterations
 % Start parallel execution
 cfg_par = [];
+cfg_par.ncores = 10;
 aet_parallel_init(cfg_par)
 
 for i=1:length(cfg.beam_cfgs)
