@@ -11,11 +11,12 @@
 
 matched = true;
 snr = 0;
-time = 0.520;
-sample = time*250 + 1;
 cfg = compute_power_surface_mult17hd(matched, snr);
 
 %% Plot data
+
+time = 0.520;
+sample = time*250 + 1;
 
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
@@ -28,11 +29,12 @@ view_power_surface_relative(cfgview);
 
 matched = false;
 snr = 0;
-time = 0.520;
-sample = time*250 + 1;
 cfg = compute_power_surface_mult17hd(matched, snr);
 
 %% Plot data
+
+time = 0.520;
+sample = time*250 + 1;
 
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;

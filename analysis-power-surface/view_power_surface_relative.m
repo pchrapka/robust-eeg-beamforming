@@ -9,7 +9,7 @@ function view_power_surface_relative(cfg)
 %   cfg.head        
 %       head model cfg (see hm_get_data)
 %   cfg.datafiles
-%       array of file names
+%       array of file names, output from COMPUTE_POWER
 %
 %   View Options
 %   ------------
@@ -29,11 +29,11 @@ function view_power_surface_relative(cfg)
 %     cfg.data_set.source_name = 'mult_cort_src_10';
 %     cfg.data_set.snr = 0;
 %     cfg.data_set.iteration = '1';
+%
+%   See also COMPUTE_POWER
 
 %% Power map 3D - relative scale
 scale = 'relative';
-
-% TODO Specify time, get from plot_save_paper
 
 cfgplt = [];
 cfgplt.head = cfg.head;
@@ -44,18 +44,16 @@ end
 for i=1:length(cfg.datafiles)
     % Plot the data
     cfgplt.file = cfg.datafiles{i};
-%     plot_beampattern3d(cfgplt);
     plot_power3d(cfgplt);
     
     % Plot source markers
     plot_sources3d(cfgplt);
-    % FIXME will probably need to fix this
     
     % Save the plot
     cfg.plot_func = 'plot_power3d';
     cfg.plot_cfg = cfgplt;
     plot_save(cfg);
+    close;
 end
-close all
 
 end

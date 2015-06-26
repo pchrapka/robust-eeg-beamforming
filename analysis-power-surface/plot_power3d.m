@@ -44,7 +44,6 @@ din = load(cfg.file);
 power_data = din.data.power(:,cfg.options.sample);
 
 %% Data options
-tess.data_alpha = 0;
 % Data limit
 switch(cfg.options.scale)
     case 'relative'
@@ -54,6 +53,10 @@ switch(cfg.options.scale)
     otherwise % custom
         tess.data_limit = cfg.options.data_limit;
 end
+% Data alpha
+tess.data_alpha = 0;
+% Set NaNs to zero avoids problem in BlendAnatomyData
+power_data(isnan(power_data)) = 0;
 
 %% Plot the 3D beampattern
 % FIXME Move out of brainstorm package
