@@ -1,3 +1,10 @@
+% NOTE
+% This script imports the data into Brainstorm and then uses a bunch of
+% hacked code to interact with Brainstorm
+%
+% WARNING Old script for plotting power results, use power_surface_lowres
+
+fprintf('*** DEPRECATED:%s ***\n Use power_surface_lowres instead', mfilename);
 
 % brainstorm.bstcust_start
 save_images = true;

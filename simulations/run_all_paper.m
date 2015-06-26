@@ -8,19 +8,26 @@ cfg = [];
 cfg.ncores = 10;
 aet_parallel_init(cfg);
 
+highres = false;
+if highres
+    fprintf('Starting high res simultaions\n');
+end    
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Running time: approx. 30 minutes for one analysis (one snr, matched and
 % mismatched scenarios and RMVB included)
 
-% run_sim_vars_single_bem_paper
-% run_sim_vars_distr_bem_paper
+run_sim_vars_single_bem_paper
+run_sim_vars_distr_bem_paper
 run_sim_vars_bem_paper_mult17
 
 % HD for beampatterns and power plots
 % TODO scripts for single and distr
-% run_sim_vars_bemhd_paper_mult17hd
+if highres
+    run_sim_vars_bemhd_paper_mult17hd
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
@@ -28,22 +35,21 @@ run_sim_vars_bem_paper_mult17
 
 %% SINR
 % Calculate SINR for mult source configuration
-metric_analysis_sinr_mult_paper
+% metric_analysis_sinr_mult_paper
 
 %% Power plots at t=t1
 
-% low res
-% TODO have data, redo script using beampattern as example
-% single
-% distr
-% mult
+% % low res
+% power_surface_lowres
 
 % high res
 % TODO simulate data for single and distr
 % TODO FIRST do power plots for high res mult data
 % single
 % distr
-% view_power_surface_mult17hd
+if highres
+    power_surface_report
+end
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
