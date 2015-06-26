@@ -48,7 +48,7 @@ end
 % single
 % distr
 if highres
-    power_surface_report
+    power_surface_highres
 end
 
 %% Close the parallel pipeline
