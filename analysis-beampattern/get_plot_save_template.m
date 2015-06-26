@@ -15,6 +15,10 @@ switch(plot_func)
         [~,name,~] = fileparts(plot_cfg.file);
         template = [name '3d_' plot_cfg.options.scale];
         
+    case 'plot_power3d'
+        [~,name,~] = fileparts(plot_cfg.file);
+        template = [name '3d_s' num2str(plot_cfg.options.sample)];
+        
     otherwise
         error(['reb:' mfilename],...
             'unknown function plot_func %s', plot_func);

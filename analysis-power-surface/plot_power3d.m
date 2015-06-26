@@ -10,6 +10,8 @@ function plot_power3d(cfg)
 %       head model cfg (see hm_get_data);
 %
 %   cfg.options
+%   cfg.options.sample
+%       sample idx to plot, default=1
 %   cfg.options.scale
 %       colormap scale, standard options:
 %       absolute        0   - MAX
@@ -22,6 +24,7 @@ function plot_power3d(cfg)
 %% Set defaults
 if ~isfield(cfg, 'options'),        cfg.options = [];               end
 if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
+if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
 
 %% Load the head model
 data_in = hm_get_data(cfg.head);
@@ -38,25 +41,23 @@ fprintf('**** FIXME move to head-models project and change in head models file\n
 
 %% Load the data
 din = load(cfg.file);
-beampattern_data = din.data.beampattern;
-% FIXME
-% TODO Select data based on time index
+power_data = din.data.power(:,cfg.options.sample);
 
 %% Data options
 tess.data_alpha = 0;
 % Data limit
 switch(cfg.options.scale)
     case 'relative'
-        tess.data_limit = [min(beampattern_data) max(beampattern_data)];
+        tess.data_limit = [min(power_data) max(power_data)];
     case 'absolute'
-        tess.data_limit = [0 max(beampattern_data)];
+        tess.data_limit = [0 max(power_data)];
     otherwise % custom
         tess.data_limit = cfg.options.data_limit;
 end
 
 %% Plot the 3D beampattern
 % FIXME Move out of brainstorm package
-brainstorm.bstcust_plot_surface3d_data(tess, beampattern_data);
+brainstorm.bstcust_plot_surface3d_data(tess, power_data);
 
 
 %% Format the figure
