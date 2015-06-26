@@ -1,4 +1,4 @@
-function view_power_surface_relative(cfg)
+function [outfile] = view_power_surface_relative(cfg)
 %VIEW_POWER_SURFACE_RELATIVE beamformer output power view
 %   VIEW_POWER_SURFACE_RELATIVE sets up a view with the beamformer output
 %   power plotted on the cortex surface, marked source locations and saves
@@ -30,6 +30,11 @@ function view_power_surface_relative(cfg)
 %     cfg.data_set.snr = 0;
 %     cfg.data_set.iteration = '1';
 %
+%   Output
+%   ------
+%   outfile
+%       cell array of output files
+%
 %   See also COMPUTE_POWER
 
 %% Power map 3D - relative scale
@@ -41,6 +46,7 @@ cfgplt.options.scale = scale;
 if isfield(cfg,'sample')
     cfgplt.options.sample = cfg.sample;
 end
+outfile = cell(length(cfg.datafiles),1);
 for i=1:length(cfg.datafiles)
     % Plot the data
     cfgplt.file = cfg.datafiles{i};
@@ -52,7 +58,7 @@ for i=1:length(cfg.datafiles)
     % Save the plot
     cfg.plot_func = 'plot_power3d';
     cfg.plot_cfg = cfgplt;
-    plot_save(cfg);
+    outfile{i} = plot_save(cfg);
     close;
 end
 

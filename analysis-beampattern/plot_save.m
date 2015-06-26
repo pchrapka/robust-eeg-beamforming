@@ -1,4 +1,4 @@
-function plot_save(cfg)
+function [outfile] = plot_save(cfg)
 %PLOT_SAVE saves the current figure in a standardized format
 %   PLOT_SAVE(CFG) saves the current figure to the output database. The
 %   directory and file name format is standardized in
@@ -10,6 +10,8 @@ function plot_save(cfg)
 %       name of plotting function
 %   cfg.plot_cfg
 %       config used for plotting function
+%   cfg.force
+%       overwrite existing image, default = false
 %
 %   Data Set
 %   --------
@@ -27,6 +29,8 @@ function plot_save(cfg)
 %
 %   See also GET_PLOT_SAVE_TEMPLATE
 
+if ~isfield(cfg, 'force'),  cfg.force = false;  end;
+
 % Get the image directory
 cfg.file_type = 'img';
 temp = metrics.filename(cfg);
@@ -35,10 +39,20 @@ temp = metrics.filename(cfg);
 % Set up the file name
 imgfile = get_plot_save_template(cfg.plot_func, cfg.plot_cfg);
 
-fprintf('Saving %s \n\tto %s\n', imgfile, imgdir);
 % Save the plot
 switch (cfg.plot_func)
     case {'plot_beampattern3d','plot_power3d'}
+        outfile = fullfile(imgdir,[imgfile '.png']);
+        
+        % Skip the save if the file exists
+        if exist(outfile, 'file') && ~cfg.force
+            fprintf('Skipping %s\n', outfile);
+            fprintf('\tAlready exists\n');
+            return;
+        else
+            fprintf('Saving %s\n', outfile);
+        end
+
         % Set background to white
         set(gcf, 'Color', [1 1 1]);
         
@@ -50,9 +64,20 @@ switch (cfg.plot_func)
         frameGfx = getscreen(gcf);
         img = frameGfx.cdata;
         % Save the image
-        imwrite(img, fullfile(imgdir,[imgfile '.png']));
+        imwrite(img, outfile);
         
     otherwise
+        outfile = fullfile(imgdir, imgfile);
+        
+        % Skip the save if the file exists
+        if exist(outfile, 'file') && ~cfg.force
+            fprintf('Skipping %s\n', outfile);
+            fprintf('\tAlready exists\n');
+            return;
+        else
+            fprintf('Saving %s\n', outfile);
+        end
+        
         cfgsave= [];
         cfgsave.out_dir = imgdir;
         cfgsave.file_name = imgfile;  
