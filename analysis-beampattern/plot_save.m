@@ -27,31 +27,25 @@ function [outfile] = plot_save(cfg)
 %     cfg.data_set.snr = 0;
 %     cfg.data_set.iteration = '1';
 %
-%   See also GET_PLOT_SAVE_TEMPLATE
+%   See also GET_PLOT_SAVE_TEMPLATE, PLOT_SAVE_FILENAME
 
 if ~isfield(cfg, 'force'),  cfg.force = false;  end;
 
-% Get the image directory
-cfg.file_type = 'img';
-temp = metrics.filename(cfg);
-[imgdir,~,~] = fileparts(temp);
-
 % Set up the file name
-imgfile = get_plot_save_template(cfg.plot_func, cfg.plot_cfg);
+outfile = plot_save_filename(cfg);
+
+% Skip the save if the file exists
+if exist(outfile, 'file') && ~cfg.force
+    fprintf('Skipping %s\n', outfile);
+    fprintf('\tAlready exists\n');
+    return;
+else
+    fprintf('Saving %s\n', outfile);
+end
 
 % Save the plot
 switch (cfg.plot_func)
     case {'plot_beampattern3d','plot_power3d'}
-        outfile = fullfile(imgdir,[imgfile '.png']);
-        
-        % Skip the save if the file exists
-        if exist(outfile, 'file') && ~cfg.force
-            fprintf('Skipping %s\n', outfile);
-            fprintf('\tAlready exists\n');
-            return;
-        else
-            fprintf('Saving %s\n', outfile);
-        end
 
         % Set background to white
         set(gcf, 'Color', [1 1 1]);
@@ -67,20 +61,11 @@ switch (cfg.plot_func)
         imwrite(img, outfile);
         
     otherwise
-        outfile = fullfile(imgdir, imgfile);
-        
-        % Skip the save if the file exists
-        if exist(outfile, 'file') && ~cfg.force
-            fprintf('Skipping %s\n', outfile);
-            fprintf('\tAlready exists\n');
-            return;
-        else
-            fprintf('Saving %s\n', outfile);
-        end
+        [imgdir, imgfile,imgext] = fileparts(outfile);
         
         cfgsave= [];
         cfgsave.out_dir = imgdir;
-        cfgsave.file_name = imgfile;  
+        cfgsave.file_name = [imgfile imgext];  
         lumberjack.save_figure(cfgsave);
         
 end

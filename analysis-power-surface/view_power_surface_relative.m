@@ -48,8 +48,25 @@ if isfield(cfg,'sample')
 end
 outfile = cell(length(cfg.datafiles),1);
 for i=1:length(cfg.datafiles)
-    % Plot the data
+    % Set up plot options
     cfgplt.file = cfg.datafiles{i};
+    
+    % Set up plot save options
+    cfg.plot_func = 'plot_power3d';
+    cfg.plot_cfg = cfgplt;
+    
+    % Get file name
+    outfile{i} = plot_save_filename(cfg);
+    
+    % Check if plot exists
+    if exist(outfile{i}, 'file')
+        fprintf('Skipping %s\n\tImage exists\n', outfile{i});
+        continue;
+    end
+    % TODO Consider adding flags to control viewing vs saving vs
+    % overwriting
+    
+    % Plot the data
     plot_power3d(cfgplt);
     
     % Plot source markers

@@ -8,11 +8,6 @@ cfg = [];
 cfg.ncores = 10;
 aet_parallel_init(cfg);
 
-highres = false;
-if highres
-    fprintf('Starting high res simultaions\n');
-end    
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,9 +20,7 @@ run_sim_vars_bem_paper_mult17
 
 % HD for beampatterns and power plots
 % TODO scripts for single and distr
-if highres
-    run_sim_vars_bemhd_paper_mult17hd
-end
+run_sim_vars_bemhd_paper_mult17hd
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
@@ -47,9 +40,7 @@ end
 % TODO FIRST do power plots for high res mult data
 % single
 % distr
-if highres
-    power_surface_highres
-end
+power_surface_highres
 
 %% Close the parallel pipeline
 aet_parallel_close([]);

@@ -99,7 +99,1628 @@
 
 \end{tabular}
 
-\caption{Simulation results for sample= 120}
+\caption{Simulation results for sample 120}
 \label{fig_sim}
 \end{figure*}
 #+end_latex
+
+* Sample 121
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s121.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s121.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s121.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s121.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s121.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s121.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s121.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s121.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s121.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 121}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 122
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s122.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s122.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s122.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s122.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s122.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s122.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s122.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s122.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s122.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 122}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 123
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s123.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s123.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s123.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s123.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s123.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s123.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s123.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s123.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s123.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 123}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 124
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s124.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s124.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s124.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s124.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s124.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s124.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s124.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s124.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s124.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 124}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 125
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s125.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s125.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s125.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s125.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s125.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s125.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s125.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s125.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s125.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 125}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 126
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s126.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s126.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s126.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s126.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s126.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s126.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s126.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s126.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s126.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 126}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 127
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s127.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s127.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s127.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s127.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s127.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s127.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s127.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s127.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s127.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 127}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 128
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s128.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s128.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s128.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s128.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s128.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s128.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s128.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s128.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s128.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 128}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 129
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s129.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s129.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s129.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s129.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s129.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s129.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s129.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s129.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s129.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 129}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 130
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s130.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s130.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s130.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s130.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s130.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s130.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s130.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s130.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s130.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 130}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 131
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s131.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s131.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s131.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s131.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s131.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s131.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s131.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s131.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s131.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 131}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 132
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s132.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s132.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s132.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s132.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s132.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s132.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s132.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s132.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s132.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 132}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 133
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s133.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s133.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s133.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s133.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s133.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s133.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s133.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s133.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s133.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 133}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 134
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s134.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s134.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s134.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s134.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s134.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s134.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s134.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s134.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s134.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 134}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 135
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s135.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s135.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s135.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s135.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s135.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s135.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s135.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s135.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s135.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 135}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 136
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s136.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s136.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s136.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s136.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s136.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s136.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s136.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s136.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s136.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 136}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 137
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s137.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s137.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s137.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s137.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s137.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s137.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s137.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s137.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s137.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 137}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 138
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s138.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s138.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s138.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s138.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s138.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s138.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s138.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s138.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s138.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 138}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 139
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s139.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s139.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s139.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s139.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s139.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s139.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s139.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s139.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s139.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 139}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
+* Sample 140
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{cccc}
+
+% row 1
+& & \textbf{Matched model} & \textbf{Mismatched model}\\ 
+
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_power3d_s140.png}
+	\caption{MVB}
+	\label{fig_mvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_3sphere_power3d_s140.png}
+	\caption{MVB}
+	\label{fig_mvb_mismatched}
+\end{subfigure}
+\\
+
+% row 2
+\textbf{Matched model} & \textbf{Mismatched model} & &\\ 
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_power3d_s140.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_power3d_s140.png}
+	\caption{Regularized MVB}
+	\label{fig_mvb_reg_mismatched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_power3d_s140.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_power3d_s140.png}
+	\caption{Eigenspace-based MVB}
+	\label{fig_mvb_eig_mismatched}
+\end{subfigure}
+\\
+
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_20_power3d_s140.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_matched}
+\end{subfigure}
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_power3d_s140.png}
+	\caption{RMVB, isotropic uncertainty}
+	\label{fig_rmvb_mismatched}
+\end{subfigure}
+&
+&
+\begin{subfigure}[h]{0.20\textwidth}
+	\includegraphics[width=\textwidth]{output/sim_data_bemhd_1_100t/mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_power3d_s140.png}
+	\caption{RMVB, anisotropic uncertainty}
+	\label{fig_rmvb_aniso_mismatched}
+\end{subfigure}
+\\
+
+\end{tabular}
+
+\caption{Simulation results for sample 140}
+\label{fig_sim}
+\end{figure*}
+#+end_latex
+
