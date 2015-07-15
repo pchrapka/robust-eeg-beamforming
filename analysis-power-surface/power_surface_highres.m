@@ -15,6 +15,7 @@ sample = time*250 + 1;
 
 matched = true;
 cfg = compute_power_surface_mult17hd(matched, snr);
+% TODO refactor to compute_power_surface_highres, use lowres as an example
 
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;

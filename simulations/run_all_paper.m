@@ -19,8 +19,9 @@ run_sim_vars_distr_bem_paper
 run_sim_vars_bem_paper_mult17
 
 % HD for beampatterns and power plots
-% TODO scripts for single and distr
 run_sim_vars_bemhd_paper_mult17hd
+run_sim_vars_bemhd_paper_single1hd
+run_sim_vars_bemhd_paper_distr2hd
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
@@ -40,7 +41,7 @@ run_sim_vars_bemhd_paper_mult17hd
 % TODO FIRST do power plots for high res mult data
 % single
 % distr
-power_surface_highres
+% power_surface_highres
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
