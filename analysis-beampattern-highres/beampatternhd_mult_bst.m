@@ -1,3 +1,6 @@
+%% Plot high res beampatterns using brainstorm functions
+%% NOTE Use beampattern_report instead
+
 %% Update AET, just in case
 util.update_aet();
 
