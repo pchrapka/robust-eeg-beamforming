@@ -2,7 +2,7 @@
 % Beamformer output power plotted on the cortex at a particular point in
 % time, using a low resolution head model.
 %
-% These are the plots used in the paper
+% These are the low res version of those used in the paper
 %
 % See also, RUN_ALL_PAPER
 
