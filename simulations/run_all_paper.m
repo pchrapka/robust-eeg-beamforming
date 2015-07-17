@@ -14,6 +14,7 @@ aet_parallel_init(cfg);
 % Running time: approx. 30 minutes for one analysis (one snr, matched and
 % mismatched scenarios and RMVB included)
 
+% Low res simulations for Output SINR vs Input SNR
 run_sim_vars_single_bem_paper
 run_sim_vars_distr_bem_paper
 run_sim_vars_bem_paper_mult17
@@ -34,14 +35,11 @@ run_sim_vars_bemhd_paper_distr2hd
 %% Power plots at t=t1
 
 % % low res
+% NOTE Replace low-res plots with high-res
 % power_surface_lowres
 
 % high res
-% TODO simulate data for single and distr
-% TODO FIRST do power plots for high res mult data
-% single
-% distr
-% power_surface_highres
+power_surface_highres
 
 %% Close the parallel pipeline
 aet_parallel_close([]);
