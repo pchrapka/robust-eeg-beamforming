@@ -7,6 +7,7 @@ util.update_aet();
 aet_init
 
 cfg_par = [];
+cfg_par.ncores = 10;
 aet_parallel_init(cfg_par);
 
 %% Set up different rms analysis 

@@ -28,6 +28,7 @@ if cfg.parallel && ~cfg.debug
 
     % Control parallel execution explicity
     tmpcfg = [];
+    tmpcfg.ncores = 10;
     aet_parallel_init(tmpcfg);
     
     % Parallel

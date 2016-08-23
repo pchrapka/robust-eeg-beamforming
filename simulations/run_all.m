@@ -4,7 +4,9 @@ util.update_aet();
 aet_init
 
 %% Open the parallel pipeline
-aet_parallel_init([]);
+cfg = [];
+cfg.ncores = 10;
+aet_parallel_init(cfg);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations

@@ -37,6 +37,8 @@ bstdir = brainstorm.bstcust_getdir('db');
 fprintf('Loading surface file:\n\t%s\n', head.SurfaceFile);
 tess = load(fullfile(bstdir,...
     'Protocol-Phil-BEM','anat',head.SurfaceFile));
+% FIXME Move surface file to head models dir
+fprintf('**** FIXME move to head-models project and change in head models file');
 
 %% Load the data
 din = load(cfg.file);

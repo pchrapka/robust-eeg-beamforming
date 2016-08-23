@@ -33,6 +33,7 @@ if sim_cfg.debug || ~cfg.parallel
 else
     % Control parallel execution explicity
     sim_cfg.parallel = 'user';
+    sim_cfg.ncores = 10;
     aet_parallel_init(sim_cfg)
     
     % Parallelize based on which is longer

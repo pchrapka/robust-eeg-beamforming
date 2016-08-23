@@ -235,5 +235,7 @@ scripts(k).vars = {cfg};
 k = k+1;
 
 %% Run the scripts
-aet_parallel_init([]);
+cfg = [];
+cfg.ncores = 10;
+aet_parallel_init(cfg);
 aet_run_scripts( scripts );

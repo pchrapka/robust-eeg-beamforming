@@ -1,5 +1,6 @@
 %% run_sim_vars_bemhd_paper_mult17hd.m
-% Same run_sim_vars_mult_bem_paper except with more temporal spacing
+% Same as run_sim_vars_mult_bem_paper except with a higher resolution head
+% model
 
 clear all;
 close all;
