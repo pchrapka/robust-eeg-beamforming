@@ -14,6 +14,7 @@ else
 end
 if parallel
     cfg_par = [];
+    cfg_par.ncores = 10;
     aet_parallel_init(cfg_par);
 end
 

@@ -1,3 +1,10 @@
+% NOTE
+% This script imports the data into Brainstorm and then uses a bunch of
+% hacked code to interact with Brainstorm
+%
+% WARNING Old script for plotting power results, use power_surface_lowres
+
+fprintf('*** DEPRECATED:%s ***\n Use power_surface_lowres instead', mfilename);
 
 % brainstorm.bstcust_start
 save_images = true;
@@ -37,11 +44,41 @@ study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
 
-%% ==== mult_cort_src_10 ====
+% %% ==== mult_cort_src_10 ====
+% % Get the data file
+% cfg_data = [];
+% cfg_data.sim_name = 'sim_data_bem_1_100t';
+% cfg_data.source_name = 'mult_cort_src_10';
+% cfg_data.snr = '0';
+% cfg_data.iteration = '1';
+% cfg_data.mismatch = false;
+% 
+% % Get the study idx
+% study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
+% % Plot and save the data
+% time = 0.460;
+% brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+% 
+% % Get the data file
+% cfg_data = [];
+% cfg_data.sim_name = 'sim_data_bem_1_100t';
+% cfg_data.source_name = 'mult_cort_src_10';
+% cfg_data.snr = '0';
+% cfg_data.iteration = '1';
+% cfg_data.mismatch = true;
+% cfg_data.mismatch_tags = {'3sphere'};
+% 
+% % Get the study idx
+% study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
+% % Plot and save the data
+% time = 0.460;
+% brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
+
+%% ==== mult_cort_src_17 ====
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_10';
+cfg_data.source_name = 'mult_cort_src_17';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = false;
@@ -49,13 +86,13 @@ cfg_data.mismatch = false;
 % Get the study idx
 study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
-time = 0.460;
+time = 0.520;
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
 % Get the data file
 cfg_data = [];
 cfg_data.sim_name = 'sim_data_bem_1_100t';
-cfg_data.source_name = 'mult_cort_src_10';
+cfg_data.source_name = 'mult_cort_src_17';
 cfg_data.snr = '0';
 cfg_data.iteration = '1';
 cfg_data.mismatch = true;
@@ -64,7 +101,7 @@ cfg_data.mismatch_tags = {'3sphere'};
 % Get the study idx
 study_idx = brainstorm.bstcust_study_id_simdata(cfg_data);
 % Plot and save the data
-time = 0.460;
+time = 0.520;
 brainstorm.bstcust_plot(study_idx, cfg_data.snr, time, save_images);
 
 %% ==== distr_cort_src_2 ====

@@ -24,7 +24,8 @@ end
 %% ==== COPY EEG DATA ====
 tag = 'beampattern';
 cfg_eeg = [];
-cfg_eeg.data_file_in = 'output\sim_data_bem_1_100t\single_cort_src_1\0_1.mat';
+[datapath,~,~] = fileparts(cfg.beamformer_file);
+cfg_eeg.data_file_in = fullfile(datapath,'0_1.mat');
 cfg_eeg.data_file_out = fullfile('output', tag, 'eeg.mat');
 [pathstr,~,~,~] = util.fileparts(cfg_eeg.data_file_out);
 if ~exist(pathstr,'dir')
@@ -36,6 +37,14 @@ copyfile(cfg_eeg.data_file_in, cfg_eeg.data_file_out);
 
 %% ==== CALCULATE BEAMPATTERN ====
 cfg.distances = false;
+din = load(cfg.beamformer_file);
+head_cfg = din.source.head_cfg;
+if isfield(head_cfg,'current')
+    head_cfg = head_cfg.current;
+end
+din = hm_get_data(head_cfg);
+cfg.head = din.head;
+clear din
 beampattern_data = beampattern(cfg);
 if isfield(cfg,'beamformer_file_2')
     % Take the difference between the beampatterns of both beamformers
@@ -79,17 +88,19 @@ cfg_db = brainstorm.prep_import_eeg_auto(cfg_db);
 %% ==== SAVE BEAMPATTERN TO FILE ====
 % Have to fake a beamformer output file so I can reuse the bstcust import
 % functions
-n_locs = size(source_template.ImageGridAmp,1)/3;
+% n_locs = size(source_template.ImageGridAmp,1)/3;
+n_locs = length(beampattern_data);
 source.beamformer_output = zeros(3, n_locs, length(eeg.Time));
 source.beamformer_output(1,:,:) = repmat(beampattern_data',[1 1 length(eeg.Time)]);
 save_file = fullfile('output', tag,...
-    ['eeg_' tag '_mini.mat']);
+    ['eeg_' tag '.mat']);
 save(save_file,'source');
 
 %% ==== IMPORT SOURCE RESULTS TO BRAINSTORM ====
 
 cfg_db.source = source_template;
 cfg_db.tags = {tag};
+% FIXME Issue here
 cfg_db = brainstorm.prep_import_source_auto(cfg_db);
 
 %% ==== PLOT THE BEAMPATTERN ====

@@ -9,9 +9,9 @@ switch in
     case 'lcmv'
         out = 'MVB';
     case 'lcmv_eig_0'
-        out = 'Eigenspace-based MVB, J=0';
+        out = 'Eigenspace-based MVB, Q=1';
     case 'lcmv_eig_1'
-        out = 'Eigenspace-based MVB, J=1';
+        out = 'Eigenspace-based MVB, Q=2';
     case 'lcmv_reg_eig'
         out = 'Regularized MVB';
         %case 'rmv_epsilon_50_3sphere'
@@ -33,9 +33,9 @@ switch in
     case 'lcmv_3sphere'
         out = 'MVB';
     case 'lcmv_eig_0_3sphere'
-        out = 'Eigenspace-based MVB, J=0';
+        out = 'Eigenspace-based MVB, Q=1';
     case 'lcmv_eig_1_3sphere'
-        out = 'Eigenspace-based MVB, J=1';
+        out = 'Eigenspace-based MVB, Q=2';
     case 'lcmv_reg_eig_3sphere'
         out = 'Regularized MVB';
     otherwise

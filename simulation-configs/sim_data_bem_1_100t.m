@@ -18,7 +18,7 @@ sim_cfg.head = data.head;
 clear data;
 
 % Figure out number of channels
-gain_temp = aet_source_get_gain(1, sim_cfg.head);
+gain_temp = hm_get_leadfield(sim_cfg.head, 1);
 sim_cfg.n_channels = size(gain_temp,1);
 
 %% Simulation parameters
@@ -32,7 +32,7 @@ sim_cfg.timepoints = 1000;
 % Simulation runs
 sim_cfg.n_runs = 1;
 % SNR range
-sim_cfg.snr_range = -20:10:0; %-40:5:25; % in dB
+sim_cfg.snr_range = -20:10:20; %-40:5:25; % in dB
 
 % Option for averaged data
 sim_cfg.average_data = true;

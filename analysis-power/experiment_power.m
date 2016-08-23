@@ -1,14 +1,10 @@
+function experiment_power(mismatch, force)
 % Prototype code to compare dipole mse
-close all;
-
 aet_init();
 
 %% Get the data
 % Set up config to get the data file
 snr = '0';
-force = false;
-mismatch = false;
-% mismatch = true;
 
 cfg_data = [];
 if ~mismatch
@@ -55,7 +51,7 @@ for i=1:length(cfg_data.beam_cfgs)
     clear din;
     
     % Set up file name for power calculations
-    cfg_data.tag = [cfg_data.beam_cfgs{i} '_power.mat'];
+    cfg_data.tag = [cfg_data.beam_cfgs{i} '_bfcomppower.mat'];
     file_name = db.get_full_file_name(cfg_data);
     if force || ~exist(file_name, 'file')
         fprintf('Calculating beamformer output power for %s\n', cfg_data.beam_cfgs{i});
@@ -67,18 +63,23 @@ for i=1:length(cfg_data.beam_cfgs)
         cfg_pow = [];
         % Signal
         cfg_pow.data = bf_out.signal.data;
-        output = metrics.power(cfg_pow);
+        output = metrics.poweravg(cfg_pow);
         data.bf_out.signal.power = output.power;
         
         % Interference
         cfg_pow.data = bf_out.interference.data;
-        output = metrics.power(cfg_pow);
+        output = metrics.poweravg(cfg_pow);
         data.bf_out.interference.power = output.power;
         
         % Noise
         cfg_pow.data = bf_out.noise.data;
-        output = metrics.power(cfg_pow);
+        output = metrics.poweravg(cfg_pow);
         data.bf_out.noise.power = output.power;
+        
+        % All
+        cfg_pow.data = bf_out.all.data;
+        output = metrics.poweravg(cfg_pow);
+        data.bf_out.all.power = output.power;
         
         % Save to a file
         save(file_name, 'data');
@@ -109,7 +110,7 @@ data_power = [];
 legend_str = [];
 for i=1:length(cfg_data.beam_cfgs)
     % Load the data
-    cfg_data.tag = [cfg_data.beam_cfgs{i} '_power.mat'];
+    cfg_data.tag = [cfg_data.beam_cfgs{i} '_bfcomppower.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
@@ -132,7 +133,7 @@ data_power = [];
 legend_str = [];
 for i=1:length(cfg_data.beam_cfgs)
     % Load the data
-    cfg_data.tag = [cfg_data.beam_cfgs{i} '_power.mat'];
+    cfg_data.tag = [cfg_data.beam_cfgs{i} '_bfcomppower.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
@@ -155,7 +156,7 @@ data_power = [];
 legend_str = [];
 for i=1:length(cfg_data.beam_cfgs)
     % Load the data
-    cfg_data.tag = [cfg_data.beam_cfgs{i} '_power.mat'];
+    cfg_data.tag = [cfg_data.beam_cfgs{i} '_bfcomppower.mat'];
     file_name = db.get_full_file_name(cfg_data);
     din = load(file_name);
     
@@ -172,3 +173,5 @@ cfg_plot.distance = vdist.distance;
 cfg_plot.title = 'Noise Power';
 % plot_power_vs_distance(cfg_plot);
 plot_power_vs_distance_subplots(cfg_plot);
+
+end

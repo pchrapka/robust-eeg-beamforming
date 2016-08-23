@@ -4,7 +4,9 @@ util.update_aet();
 aet_init
 
 %% Open the parallel pipeline
-aet_parallel_init([]);
+cfg = [];
+cfg.ncores = 10;
+aet_parallel_init(cfg);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
@@ -39,12 +41,12 @@ run_sim_vars_bem_paper_mult17_lag8
 % run_sim_vars_single_bem_paper_2
 
 %% Sinusoidal sources
-run_sim_vars_bem_paper_mult_sine
-run_sim_vars_bem_paper_mult_sine_uncor
+% run_sim_vars_bem_paper_mult_sine
+% run_sim_vars_bem_paper_mult_sine_uncor
 
 %% Complex ERP sources
 % run_sim_vars_single_bem_paper_complex
-run_sim_vars_bem_paper_mult_complex
+% run_sim_vars_bem_paper_mult_complex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis

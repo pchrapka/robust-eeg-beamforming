@@ -118,30 +118,60 @@ else
 end
 
 %% Add lumberjack package to Matlab path
+pkg_name = 'lumberjack';
 if ispc
-    lumberjack_path = 'C:\Users\Phil\My Projects\head-models';
+    dep_path = ['C:\Users\Phil\My Projects\' pkg_name];
 else
     [~,comp_name] = system('hostname');
     if ~isempty(strfind(comp_name,'Valentina'))
-        lumberjack_path = '/home/phil/projects/lumberjack';
+        dep_path = ['/home/phil/projects/' pkg_name];
     else
-        lumberjack_path = '/home/chrapkpk/Documents/MATLAB/lumberjack';
+        dep_path = ['/home/chrapkpk/Documents/MATLAB/' pkg_name];
     end
 end
-if exist(lumberjack_path,'dir') ~= 7
+if exist(dep_path,'dir') ~= 7
     % Turn on warnings
     warning('on','all')
     warning('reb:startup',...
-        ['Missing lumberjack package.\n'...
-        'Clone from https://github.com/pchrapka/lumberjack.git.\n'...
-        'See README']);
+        ['Missing %s package.\n'...
+        'Clone from https://github.com/pchrapka/%s.git.\n'...
+        'See README'], pkg_name, pkg_name);
     complete(count) = false;
     count = count + 1;
 else
     complete(count) = true;
     count = count + 1;
-    path(path,lumberjack_path);
-    fprintf('\tlumberjack: ok\n');
+    path(path,dep_path);
+    fprintf('\t%s: ok\n', pkg_name);
+end
+
+%% Add fieldtrip-beamforming-rmvb package to Matlab path
+pkg_name = 'fieldtrip-beamforming-rmvb';
+if ispc
+    dep_path = ['C:\Users\Phil\My Projects\' pkg_name];
+else
+    [~,comp_name] = system('hostname');
+    if ~isempty(strfind(comp_name,'Valentina'))
+        dep_path = ['/home/phil/projects/' pkg_name];
+    else
+        dep_path = ['/home/chrapkpk/Documents/MATLAB/' pkg_name];
+    end
+end
+if exist(dep_path,'dir') ~= 7
+    % Turn on warnings
+    warning('on','all')
+    warning('reb:startup',...
+        ['Missing %s package.\n'...
+        'Clone from https://github.com/pchrapka/%s.git.\n'...
+        'See README'], pkg_name, pkg_name);
+    complete(count) = false;
+    count = count + 1;
+else
+    complete(count) = true;
+    count = count + 1;
+    path(path,dep_path);
+    fb_install
+    fprintf('\t%s: ok\n', pkg_name);
 end
 
 %% Add export_fig package to Matlab path
@@ -273,17 +303,22 @@ end
 addpath(project_dir);
 addpath(fullfile(project_dir, 'core'));
 addpath(fullfile(project_dir, 'experiments'));
+addpath(fullfile(project_dir, 'plotting'));
 addpath(fullfile(project_dir, 'analysis-beampattern'));
+addpath(fullfile(project_dir, 'analysis-beampattern-fieldtrip'));
+addpath(fullfile(project_dir, 'analysis-beampattern-highres'));
 addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
-addpath(fullfile(project_dir, 'analysis-metrics'));
+addpath(fullfile(project_dir, 'analysis-sinr'));
 addpath(fullfile(project_dir, 'analysis-power'));
+addpath(fullfile(project_dir, 'analysis-power-surface'));
 addpath(fullfile(project_dir, 'analysis-raw'));
 addpath(fullfile(project_dir, 'analysis-rmse'));
 addpath(fullfile(project_dir, 'simulation-configs'));
 addpath(fullfile(project_dir, 'simulations'));
 addpath(fullfile(project_dir, 'source-configs'));
+addpath(fullfile(project_dir, 'external', 'other'));
 
 
 %% Display message

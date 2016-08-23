@@ -1,0 +1,1772 @@
+#+TITLE:     Beampattern Comparison
+#+AUTHOR:    Phil Chrapka
+#+EMAIL:     chrapkpk@mcmaster.ca
+#+DATE:      March 30, 2015
+
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+#+latex_header: \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \graphicspath{{../output/sim_data_bemhd_1_100t/}}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{subcaption}
+#+latex_header: %\usepackage[backend=biber,sorting=none,url=false,doi=false]{biblatex}
+#+latex_header: %\addbibresource{2015_ix_report.bib}  %% point at your bib file
+
+#+latex: \clearpage
+
+* Terminology
+** Scales
+The data is scaled in a variety of ways to offer different perspectives on the data.
+*** Relative
+Ranges from the minimum to the maximum
+*** Absolute
+Ranges from 0 to the maximum
+*** Global relative
+Ranges from the global minimum to the global maximum of the group of data sets
+*** Global absolute
+Ranges from 0 to the global maximum of the group of data sets
+
+\clearpage
+* Matched model beampatterns, SNR = 0
+** All beamformers
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative
+& 3d relative
+& 1d globalabsolute
+& 3d globalabsolute
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for matched model}
+\label{fig:beampattern-matched}
+\end{figure*}
+\clearpage
+#+end_latex
+** Robust beamformer vs isotropic uncertainty 
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative
+& 3d relative
+& 1d globalabsolute
+& 3d globalabsolute
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+% Not showing because the figure becomes too big and skips a page
+% \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 10$}}
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_10_beampattern_relative}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_10_beampattern3d_relative}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_10_beampattern_globalabsolute}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_10_beampattern3d_globalabsolute}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% \\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 20$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_20_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 30$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_30_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_30_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_30_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_30_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 40$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_40_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_40_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_40_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_40_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for the robust beamformer with varying degrees of isotropic uncertainty}
+\label{fig:beampattern-matched-vs-epsilon}
+\end{figure*}
+\clearpage
+#+end_latex
+
+* Mismatched model beampatterns, SNR = 0
+** All beamformers, relative
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccc}
+
+% header
+& 1d relative
+& 3d relative
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model, relative scale}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+
+** All beamformers
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+
+** Robust beamformer vs isotropic uncertainty 
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 100$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 200$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for the robust beamformer with varying degrees of isotropic uncertainty}
+\label{fig:beampattern-mismatched-vs-epsilon}
+\end{figure*}
+\clearpage
+#+end_latex
+
+* Matched vs mismatched beampatterns, SNR = 0
+** All beamformers, relative scale
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+&
+\multicolumn{2}{c}{
+  \textbf{Matched model}
+} & 
+\multicolumn{2}{c}{
+  \textbf{Mismatched model}
+}
+\\
+
+% header
+& 1d relative
+& 3d relative
+& 1d relative-dist
+& 3d relative-dist
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50,150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+&
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+** All beamformers, matched-mismatched absolute scale
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+&
+\multicolumn{2}{c}{
+  \textbf{Matched model}
+} & 
+\multicolumn{2}{c}{
+  \textbf{Mismatched model}
+}
+\\
+
+% header
+& 1d mmabsolute-dist
+& 3d mmabsolute-dist
+& 1d mmabsolute-dist
+& 3d mmabsolute-dist
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_3sphere_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_reg_eig_3sphere_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_lcmv_eig_1_3sphere_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50,150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_50_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_epsilon_150_3sphere_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+&
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/0_1_rmv_aniso_3sphere_beampattern3d_mmabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+* Matched model beampatterns, SNR = -20
+** All beamformers
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative
+& 3d relative
+& 1d globalabsolute
+& 3d globalabsolute
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for matched model}
+\label{fig:beampattern-matched}
+\end{figure*}
+\clearpage
+#+end_latex
+** Robust beamformer vs isotropic uncertainty 
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative
+& 3d relative
+& 1d globalabsolute
+& 3d globalabsolute
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+% Not showing because the figure becomes too big and skips a page
+% \rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 10$}}
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_10_beampattern_relative}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_10_beampattern3d_relative}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_10_beampattern_globalabsolute}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% &
+% \begin{subfigure}[h]{0.2\textwidth}
+%      \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_10_beampattern3d_globalabsolute}
+%      %\caption{}
+%      %\label{fig:}
+% \end{subfigure}% 
+% \\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 20$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_20_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 30$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_30_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_30_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_30_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_30_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 40$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_40_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_40_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_40_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_40_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_beampattern_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_beampattern3d_relative}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_beampattern_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_beampattern3d_globalabsolute}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for the robust beamformer with varying degrees of isotropic uncertainty}
+\label{fig:beampattern-matched-vs-epsilon}
+\end{figure*}
+\clearpage
+#+end_latex
+
+* Mismatched model beampatterns, SNR = -20
+
+** All beamformers
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{Regularized MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_reg_eig_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{Eigenspace-\\based MVB}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_eig_1_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 5
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\anisotropic\\uncertainty}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_aniso_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for mismatched model}
+\label{fig:beampattern-mismatched}
+\end{figure*}
+\clearpage
+#+end_latex
+
+** Robust beamformer vs isotropic uncertainty 
+
+#+begin_latex
+\begin{figure*}[h]
+\centering
+
+\begin{tabular}{ccccc}
+
+% header
+& 1d relative-dist
+& 3d relative-dist
+& 1d globalabsolute-dist
+& 3d globalabsolute-dist
+
+\\
+
+% row 1
+\rotatebox[origin=c]{90}{MVB}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_lcmv_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 2
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 50$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_50_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 100$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_100_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 3
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 150$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_150_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+% row 4
+\rotatebox[origin=c]{90}{\shortstack[1]{RMVB\\isotropic\\uncertainty\\$\epsilon = 200$}}
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_relative-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+&
+\begin{subfigure}[h]{0.2\textwidth}
+     \includegraphics[width=\textwidth]{mult_cort_src_17hd/img/-20_1_rmv_epsilon_200_3sphere_beampattern3d_globalabsolute-dist}
+     %\caption{}
+     %\label{fig:}
+\end{subfigure}% 
+\\
+
+\end{tabular}
+
+\caption{Beampatterns for the robust beamformer with varying degrees of isotropic uncertainty}
+\label{fig:beampattern-mismatched-vs-epsilon}
+\end{figure*}
+\clearpage
+#+end_latex
