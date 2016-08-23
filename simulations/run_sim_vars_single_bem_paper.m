@@ -31,7 +31,7 @@ cfg_data = [];
 cfg_data.data_name = 'sim_data_bem_1_100t';
 cfg_data.source_name = 'single_cort_src_1';
 cfg_data.iteration_range = 1;
-cfg_data.snr_range = -20:10:0;%-10:10:0;%-20:10:0;
+cfg_data.snr_range = -20:10:20;%-10:10:0;%-20:10:0;
 
 %% ==== MATCHED LEADFIELD ====
 

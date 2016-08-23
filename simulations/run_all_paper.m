@@ -1,4 +1,4 @@
-%% run_all
+%% run_all_paper
 util.update_aet();
 % Initialize the Advanced EEG Toolbox
 aet_init
