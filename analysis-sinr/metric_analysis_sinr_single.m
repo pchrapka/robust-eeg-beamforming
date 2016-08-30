@@ -7,7 +7,7 @@ source_names = {...
     'single_cort_src_1',...
     };
     
-snrs = -20:10:0;
+snrs = -20:10:20;
 location_idx = 1:501;
 cfg = [];
 cfg.force = false;
