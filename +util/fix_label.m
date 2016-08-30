@@ -4,7 +4,10 @@ switch in
     case 'rmv_epsilon_20'
         out = 'RMVB, isotropic \epsilon = 20';
         %case 'rmv_epsilon_50'
-        %case 'rmv_eig_post_0_epsilon_20'
+    case 'rmv_eig_pre_cov_0_epsilon_20'
+        out = 'RMVB eig pre cov, Q=1, \epsilon = 20';
+    case 'rmv_eig_post_0_epsilon_20'
+        out = 'RMVB eig post, Q=1, \epsilon = 20';
         %case 'rmv_eig_post_0_epsilon_50'
     case 'lcmv'
         out = 'MVB';
@@ -25,10 +28,16 @@ switch in
         %case 'rmv_epsilon_300_3sphere'
     case 'rmv_aniso_3sphere'
         out = 'RMVB, anisotropic';
+    case 'rmv_eig_pre_cov_0_epsilon_150_3sphere'
+        out = 'RMVB eig pre cov, Q=1, \epsilon = 150';
+    case 'rmv_eig_pre_cov_0_epsilon_200_3sphere'
+        out = 'RMVB eig pre cov, Q=1, \epsilon = 200';
         %case 'rmv_eig_post_0_epsilon_50_3sphere'
         %case 'rmv_eig_post_0_epsilon_100_3sphere'
-        %.case 'rmv_eig_post_0_epsilon_150_3sphere'
-        %case 'rmv_eig_post_0_epsilon_200_3sphere'
+    case 'rmv_eig_post_0_epsilon_150_3sphere'
+        out = 'RMVB eig post, Q=1, \epsilon = 150';
+    case 'rmv_eig_post_0_epsilon_200_3sphere'
+        out = 'RMVB eig post, Q=1, \epsilon = 200';
         %case 'rmv_aniso_eig_0_3sphere'
     case 'lcmv_3sphere'
         out = 'MVB';
