@@ -38,7 +38,7 @@ classdef BeamformerRMV < Beamformer
             if p.Results.aniso
                 % setup anisotropic rmv
                 name = 'rmv aniso';
-                if obj.ninterference > 0
+                if obj.n_interfering_sources > 0
                     obj.name = sprintf('%s %s %d',...
                         name,...
                         obj.eigenspace,...
@@ -111,9 +111,22 @@ classdef BeamformerRMV < Beamformer
                 % Copy the uncertainty matrix
                 cfg_rmv.A = p.Results.A;
             end
+            
+            % Start timer
+            opt_start = tic;
         
             % Run beamformer
-            data = aet_analysis_rmv(cfg_rmv);
+            data_out = aet_analysis_rmv(cfg_rmv);
+            
+            % Save paramters
+            % End timer
+            data.opt_time = toc(opt_start);
+            data.opt_status = data_out.status;
+            data.loc = cfg.loc;
+            
+            % Save parameters
+            data.W = data_out.W;
+            data.H = H;
         end
     end
     
