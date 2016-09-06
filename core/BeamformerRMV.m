@@ -1,6 +1,7 @@
 classdef BeamformerRMV < Beamformer
     
     properties
+        epsilon;
         solver;
         eigenspace;
         n_interfering_sources; % number of interfereing sources
@@ -20,53 +21,47 @@ classdef BeamformerRMV < Beamformer
             addParameter(p,'eig_type','none',...
                 @(x) any(validatestring(x,eig_options)));
             addParameter(p,'ninterference',0,@isnumeric);
+            addParameter(p,'verbosity',0,@isnumeric);
             p.parse(varargin{:});
             
             %obj = obj@Beamformer();
-            % set default values
-            obj.type = 'rmv';
-            obj.eigenspace = '';
-            obj.n_interfering_sources = 0;
-            obj.solver = 'yalmip';
-            obj.verbosity = 0;
             
+            % set values
+            obj.type = 'rmv';
+            obj.epsilon = p.Results.epsilon;
+            obj.eigenspace = p.Results.eig_type;
+            obj.n_interfering_sources = p.Results.ninterference;
+            obj.solver = 'yalmip';
+            obj.verbosity = p.Results.verbosity;
+            
+            % setup the name
             if p.Results.aniso
                 % setup anisotropic rmv
                 name = 'rmv aniso';
-                if p.Results.ninterference > 0
+                if obj.ninterference > 0
                     obj.name = sprintf('%s %s %d',...
                         name,...
-                        p.Results.eig_type,...
-                        p.Results.ninterference);
-                    
-                    obj.n_interfering_sources = p.Results.ninterference;
-                    obj.eigenspace = p.Results.eig_type;
+                        obj.eigenspace,...
+                        obj.n_interfering_sources);
                 else
                     obj.name = name;
                 end
             else
                 % setup isotropic rmv
                 name = 'rmv';
-                if p.Results.ninterference > 0
+                if obj.n_interfering_sources > 0
                     % eig
                     obj.name = sprintf('%s %s %d epsilon %d',...
                         name,...
-                        p.Results.eig_type,...
-                        p.Results.ninterference,...
-                        p.Results.epsilon);
-                    
-                    obj.n_interfering_sources = p.Results.ninterference;
-                    obj.eigenspace = p.Results.eig_type;
-                    
+                        obj.eigenspace,...
+                        obj.n_interfering_sources,...
+                        obj.epsilon);
                 else
                     % not eig
                     obj.name = sprintf('%s epsilon %d',...
                         name,...
-                        p.Results.epsilon);
+                        obj.epsilon);
                 end
-                
-                
-                
             end
             
         end
@@ -81,7 +76,7 @@ classdef BeamformerRMV < Beamformer
             
             p = inputParser();
             addParameter(p,'A',{},@iscell);
-            addParameter(p,'Afile','',@ischar);
+            %addParameter(p,'Afile','',@ischar);
             p.parse(varargin{:});
             
             % check uncertainty matrix
