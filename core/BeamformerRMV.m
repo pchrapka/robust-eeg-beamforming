@@ -43,7 +43,9 @@ classdef BeamformerRMV < Beamformer
             %       number of interfering sources for eigenspace beamformer
             
             p = inputParser();
-            p.PartialMatching = false;
+            if ~verLessThan('matlab','R2015a')
+                p.PartialMatching = false;
+            end
             addParameter(p,'epsilon',0,@isnumeric);
             addParameter(p,'aniso',false,@islogical);
             eig_options = {...

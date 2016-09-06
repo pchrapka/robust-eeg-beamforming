@@ -46,7 +46,9 @@ classdef BeamformerLCMV < Beamformer
             %       number of interfering sources
             
             p = inputParser();
-            p.PartialMatching = false;
+            if ~verLessThan('matlab','R2015a')
+                p.PartialMatching = false;
+            end
             addParameter(p,'multiplier',0.005,@isnumeric);
             addParameter(p,'regularization','none',...
                 @(x) any(validatestring(x,{'eig','none'})));
