@@ -129,7 +129,7 @@ classdef BeamformerLCMV < Beamformer
                     cfg_lcmv.H = H;
                     cfg_lcmv.R = R;
                     cfg_lcmv.n_interfering_sources = ...
-                        cfg.n_interfering_sources;
+                        obj.n_interfering_sources;
                     
                     % Run beamformer
                     data_out = aet_analysis_lcmv_eig(cfg_lcmv);
