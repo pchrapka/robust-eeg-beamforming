@@ -152,7 +152,7 @@ classdef BeamformerLCMV < Beamformer
                     % Set up cfg
                     cfg_lcmv = [];
                     cfg_lcmv.H = H;
-                    cfg_lcmv.R = R + cfg.lambda*eye(size(R));
+                    cfg_lcmv.R = R + obj.lambda*eye(size(R));
                     
                     % Run beamformer
                     data_out = aet_analysis_lcmv(cfg_lcmv);
