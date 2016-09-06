@@ -1,0 +1,125 @@
+classdef BeamformerRMV < Beamformer
+    
+    properties
+        solver;
+        eigenspace;
+        n_interfering_sources; % number of interfereing sources
+    end
+    
+    methods
+        function obj = BeamformerRMV(varargin)
+            p = inputParser();
+            addParameter(p,'epsilon',0,@isnumeric);
+            addParameter(p,'aniso',false,@islogical);
+            eig_options = {...
+                'eig pre cov',...
+                'eig pre leadfield',...
+                'eig post',...
+                'none'...
+                };
+            addParameter(p,'eig_type','none',...
+                @(x) any(validatestring(x,eig_options)));
+            addParameter(p,'ninterference',0,@isnumeric);
+            p.parse(varargin{:});
+            
+            %obj = obj@Beamformer();
+            % set default values
+            obj.type = 'rmv';
+            obj.eigenspace = '';
+            obj.n_interfering_sources = 0;
+            obj.solver = 'yalmip';
+            obj.verbosity = 0;
+            
+            if p.Results.aniso
+                % setup anisotropic rmv
+                name = 'rmv aniso';
+                if p.Results.ninterference > 0
+                    obj.name = sprintf('%s %s %d',...
+                        name,...
+                        p.Results.eig_type,...
+                        p.Results.ninterference);
+                    
+                    obj.n_interfering_sources = p.Results.ninterference;
+                    obj.eigenspace = p.Results.eig_type;
+                else
+                    obj.name = name;
+                end
+            else
+                % setup isotropic rmv
+                name = 'rmv';
+                if p.Results.ninterference > 0
+                    % eig
+                    obj.name = sprintf('%s %s %d epsilon %d',...
+                        name,...
+                        p.Results.eig_type,...
+                        p.Results.ninterference,...
+                        p.Results.epsilon);
+                    
+                    obj.n_interfering_sources = p.Results.ninterference;
+                    obj.eigenspace = p.Results.eig_type;
+                    
+                else
+                    % not eig
+                    obj.name = sprintf('%s epsilon %d',...
+                        name,...
+                        p.Results.epsilon);
+                end
+                
+                
+                
+            end
+            
+        end
+        
+        function A = create_uncertainty(obj, head_actual, head_estimate, idx)
+            % FIXME
+            A = aet_analysis_rmv_uncertainty_create(...
+                head_actual, head_estimate, idx);
+        end
+        
+        function data = inverse(obj, H, R, varargin)
+            
+            p = inputParser();
+            addParameter(p,'A',{},@iscell);
+            addParameter(p,'Afile','',@ischar);
+            p.parse(varargin{:});
+            
+            % check uncertainty matrix
+            if obj.epsilon > 0 && ~isempty(p.Results.A)
+                error([mfilename ':aet_analysis_beamform'],...
+                    'Use either isotropic or anisotropic');
+            end
+              
+            % Set up cfg
+            cfg_rmv = [];
+            cfg_rmv.H = H;
+            cfg_rmv.R = R;
+            cfg_rmv.verbosity = obj.verbosity;
+            cfg_rmv.solver = obj.solver;
+            cfg_rmv.eigenspace = obj.eigenspace;
+            cfg_rmv.n_interfering_sources = obj.n_interfering_sources;
+            
+            if obj.epsilon > 0
+                % Set up A for isotropic
+                nchannels = size(R,1);
+                ndims = 3;
+            
+                epsilon_vec = ones(ndims,1)*sqrt(obj.epsilon^2/ndims);
+                A = cell(ndims,1);
+                for i=1:ndims
+                    A{i} = epsilon_vec(i,1)*eye(nchannels);
+                end
+                
+                % Copy the uncertainty matrix
+                cfg_rmv.A = A;
+            else
+                % Copy the uncertainty matrix
+                cfg_rmv.A = p.Results.A;
+            end
+        
+            % Run beamformer
+            data = aet_analysis_rmv(cfg_rmv);
+        end
+    end
+    
+end

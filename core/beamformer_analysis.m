@@ -31,9 +31,6 @@ function beamformer_analysis(cfg)
 %       force
 %           (boolean, default = false)
 %           forces beamformer analysis and overwrites any existing analysis
-%       perturb_config (optional)
-%           config specifying the covariance matrix of random perturbation
-%           for leadfield matrix
 %       tag (optional)
 %           additional tag for the output file name
 %
@@ -61,19 +58,18 @@ if ~isfield(data,'R')
 end
 
 %% Load the beamformer config
-cfg_beam = beamformer_configs.get_config(...
-    cfg.beamformer_config{:}, 'data', data);
+% cfg_beam = beamformer_configs.get_config(...
+%     cfg.beamformer_config{:}, 'data', data); % REMOVE
+
+fbeamformer = str2func(cfg.beamformer_config{1});
+beamformer = fbeamformer(cfg.beamformer_config{2:end});
 
 %% Set up the output file name
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-name_temp = strrep(cfg_beam.name,'.','-');
+name_temp = strrep(beamformer.name,'.','-');
 tmpcfg.tag = strrep(name_temp,' ','_');
-% Add perturb name to the output file
-if isfield(cfg, 'perturb_config')
-    tmpcfg.tag = [tmpcfg.tag '_' cfg.perturb_config];
-end
 % Add the additional tag to the output file name, typically if it's a
 % different head model
 if isfield(cfg, 'tag')
@@ -89,7 +85,7 @@ if exist(save_file,'file') && ~cfg.force
    return
 else
     fprintf('Analyzing: %s\n',cfg.data_file);
-    fprintf('Running: %s\n',cfg_beam.name);
+    fprintf('Running: %s\n',beamformer.name);
 end
 
 %% Load the head model
@@ -112,26 +108,20 @@ if ~isfield(cfg, 'loc')
 end
 
 %% Finalize the beamformer config
-% Add the covariance matrix
-cfg_beam.R = data.R;
+% % Add the covariance matrix
+% cfg_beam.R = data.R; % REMOVE
 % Add the head model if it's not a perturbed scenario
-if ~isfield(cfg, 'perturb_config')
-    cfg_beam.head_model = head;
-end
+%if ~isfield(cfg, 'perturb_config')
+    %cfg_beam.head_model = head;
+    %beamformer.head_model = head;
+    % FIXME
+%end % REMOVE
 % Print a warning just in case for cvx
-if isfield(cfg_beam,'solver')
-    if isequal(cfg_beam.solver,'cvx')
+if isfield(beamformer,'solver')
+    if isequal(beamformer.solver,'cvx')
         warning('reb:beamformer_analysis',...
             'Make sure you''re not running in parfor');
     end
-end
-
-%% Load the perturb config
-cfg_mis = [];
-if isfield(cfg, 'perturb_config')
-    cfg_mis = perturb_configs.get_config(...
-        cfg.perturb_config, data);
-    fprintf('Mismatch: %s\n',cfg.perturb_config);
 end
 
 %% Set up the output
@@ -153,24 +143,18 @@ out_snr = out.snr;
 out_iteration = out.iteration;
 cfg_loc = cfg.loc;
 data_avg_trials = data.avg_trials;
+R = data.R;
 
 %% Scan locations
 parfor i=1:n_scans
-    cfg_beam_copy = cfg_beam;
+    %beamformer_cpy = beamformer;
+    %cfg_beam_copy = cfg_beam; % REMOVE
+    
     fprintf('%s snr %d iter %d %d/%d\n',...
-        cfg_beam_copy.name, out_snr, out_iteration, i, n_scans);
+        beamformer.name, out_snr, out_iteration, i, n_scans);
     idx = cfg_loc(i);
     
-    % Check if it's a perturbed scenario
-    % FIXME This stuff should really be in the data generation pipeline
-    % Not in the beamformer
-    if isfield(cfg, 'perturb_config')
-        cfg_mis_copy = cfg_mis;
-        cfg_mis_copy.head_model = head;
-        cfg_mis_copy.loc = idx;
-        [cfg_beam_copy.H,E] = ...
-            aet_analysis_perturb_leadfield(cfg_mis_copy);
-    end
+    args = {};
     
     % Check for anisotropic rmv beamformer
     if ~isempty(regexp(cfg_beam_copy.name, 'rmv aniso', 'match'))
@@ -179,20 +163,26 @@ parfor i=1:n_scans
         head_estimate = hm_get_data(cfg.head_cfg.current);
     
         % Generate the uncertainty matrix
-        cfg_beam_copy.A = aet_analysis_rmv_uncertainty_create(...
-            head_actual.head, head_estimate.head, idx);
+        A = beamformer.create_uncertainty(head_actual.head, head_estimate.head, idx);
+        %cfg_beam_copy.A = aet_analysis_rmv_uncertainty_create(...
+        %    head_actual.head, head_estimate.head, idx); % REMOVE
+        args = {'A',A};
     end
     
-    % Set the location to scan
-    cfg_beam_copy.loc = idx;
+    % % Set the location to scan
+    %cfg_beam_copy.loc = idx;
+    % REMOVE
+    
     % Calculate the beamformer
-    beam_out = aet_analysis_beamform(cfg_beam_copy);
+    %beam_out = aet_analysis_beamform(cfg_beam_copy); % REMOVE
+    
+    % get the leafield matrix from the head model
+    H = hm_get_leadfield(head, idx);
+    beam_out = beamformer.inverse(H, R, args{:});
+    
     out_filter{i} = beam_out.W;
     out_leadfield{i} = beam_out.H;
     out_loc(i) = idx;
-    if isfield(cfg, 'perturb_config')
-        out_perturb{i} = E;
-    end
     
     % Calculate the beamformer output for each component
     tmpcfg =[];
@@ -238,9 +228,6 @@ end
 out.filter = out_filter;
 out.leadfield = out_leadfield;
 out.loc = out_loc;
-if exist('out_perturb','var')
-    out.perturb = out_perturb;
-end
 % out.beamformer_output = out_beamformer_output;
 % out.beamformer_output_type = out_beamformer_output_type;
 

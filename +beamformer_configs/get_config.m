@@ -12,7 +12,7 @@ function cfg = get_config(type, varargin)
 %                   gets converted to A = sqrt(epsilon^2/3) * I
 %       'aniso'     (boolean) to use anisotropic uncertainty
 %       'eig_type'  'eig pre' or 'eig post'
-%       'n_src'     number of interfering sources
+%       'ninterference'     number of interfering sources
 %       'data'      struct with a field 'R' containing the covariance
 %                   matrix
 %
@@ -33,7 +33,7 @@ switch type
             switch name
                 case 'epsilon'
                     epsilon = value;
-                case 'n_src'
+                case 'ninterference'
                     n_interfering_sources = value;
                 case 'eig_type'
                     eig_type = value;
@@ -72,7 +72,7 @@ switch type
             switch name
                 case 'reg'
                     reg_type = value;
-                case 'n_src'
+                case 'ninterference'
                     n_interfering_sources = value;
                 case 'data'
                     data = value;
