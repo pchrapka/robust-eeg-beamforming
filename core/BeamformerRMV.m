@@ -1,15 +1,49 @@
 classdef BeamformerRMV < Beamformer
     
     properties
-        epsilon;
-        solver;
-        eigenspace;
+        epsilon;        % isotropic error uncertainty
+        solver;         % optimization solver
+        eigenspace;     % eigenspace method
         n_interfering_sources; % number of interfereing sources
     end
     
     methods
         function obj = BeamformerRMV(varargin)
+            %BeamformerRMV Robust Minimum Variance Beamformer object
+            %   BeamformerRMV('name',value,...) creates a BeamformerRMV
+            %   object
+            %
+            %   Parameters
+            %   ----------
+            %   verbosity (integer, default = 0)
+            %       verbosity level
+            %
+            %   Isotropic RMVB
+            %   --------------
+            %   default beamformer
+            %
+            %   epsilon (double, default = 0)
+            %       level of uncertainty in leadfield matrix, used to
+            %       compute A = sqrt(epsilon^2/3) * I
+            %
+            %   Anisotropic RMVB
+            %   ----------------
+            %   aniso (logical, default = false)
+            %       selects anisotropic RMVB
+            %
+            %   Eigenspace RMVB (anisotropic/isotropic)
+            %   ---------------
+            %   eigenspace (string, default = 'none')
+            %       selects an eigenspace beamformer
+            %       options: 'eig pre cov', 'eig pre leadfield', 'eig
+            %       post', 'none'
+            %
+            %       FIXME explain each one
+            %   ninterference (integer, default = 0)
+            %       number of interfering sources for eigenspace beamformer
+            
             p = inputParser();
+            p.PartialMatching = false;
             addParameter(p,'epsilon',0,@isnumeric);
             addParameter(p,'aniso',false,@islogical);
             eig_options = {...
@@ -34,11 +68,16 @@ classdef BeamformerRMV < Beamformer
             obj.solver = 'yalmip';
             obj.verbosity = p.Results.verbosity;
             
+            if obj.n_interfering_sources > 0 && isequal(obj.eigenspace,'none')
+                error([mfilename ':' mfilename],...
+                    'did you forget the eigenspace parameter?');
+            end
+            
             % setup the name
             if p.Results.aniso
                 % setup anisotropic rmv
                 name = 'rmv aniso';
-                if obj.n_interfering_sources > 0
+                if ~isequal(obj.eigenspace,'none')
                     obj.name = sprintf('%s %s %d',...
                         name,...
                         obj.eigenspace,...
@@ -46,10 +85,11 @@ classdef BeamformerRMV < Beamformer
                 else
                     obj.name = name;
                 end
+                obj.epsilon = 0;
             else
                 % setup isotropic rmv
                 name = 'rmv';
-                if obj.n_interfering_sources > 0
+                if ~isequal(obj.eigenspace,'none')
                     % eig
                     obj.name = sprintf('%s %s %d epsilon %d',...
                         name,...
@@ -73,6 +113,16 @@ classdef BeamformerRMV < Beamformer
         end
         
         function data = inverse(obj, H, R, varargin)
+            %
+            %
+            %   Output
+            %   ------
+            %   data.opt_time	beamforming duration
+            %       opt_status 	optimization status, relevant for robust beamformers
+            %       idx         location index
+            %       variance    variance otrace(transpose(W)*R*W))
+            %       W           weight matrix [channels x 3]
+            %       H           leadfield matrix [channels x 3]
             
             p = inputParser();
             addParameter(p,'A',{},@iscell);

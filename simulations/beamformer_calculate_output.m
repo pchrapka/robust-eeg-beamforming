@@ -34,15 +34,15 @@ data_in = load(cfg.data_file); % loads data
 data = data_in.data;
 clear data_in;
 
-%% Load the beamformer config
-cfg_beam = beamformer_configs.get_config(...
-    cfg.beamformer_config{:}, 'data', data);
+%% Load the beamformer
+fbeamformer = str2func(cfg.beamformer_config{1});
+beamformer = fbeamformer(cfg.beamformer_config{2:end});
 
 %% Set up the output file name
 tmpcfg = [];
 tmpcfg.file_name = cfg.data_file;
 % Construct the tag
-name_temp = strrep(cfg_beam.name,'.','-');
+name_temp = strrep(beamformer.name,'.','-');
 tmpcfg.tag = strrep(name_temp,' ','_');
 % Add the additional tag to the output file name, typically if it's a
 % different head model
@@ -80,12 +80,12 @@ n_scans = length(cfg.loc);
 %% Scan locations
 for i=1:n_scans
     fprintf('%s snr %d iter %d %d/%d\n',...
-        cfg_beam.name,out.snr,out.iteration,i,n_scans);
+        beamformer.name,out.snr,out.iteration,i,n_scans);
     
     % Calculate the beamformer output for each component
     tmpcfg =[];
     tmpcfg.W = bf_data.source.filter{i};
-    tmpcfg.type = cfg_beam.type;
+    tmpcfg.type = beamformer.type;
     beam_signal = aet_analysis_beamform_output(...
         tmpcfg, data.avg_trials);
     

@@ -1,37 +1,89 @@
 classdef BeamformerLCMV < Beamformer
     
     properties
-        nsources_int; % number of interfereing sources
-        lambda;
+        n_interfering_sources; % number of interfereing sources
+        eigenspace;         % eigenspace flag
+        lambda;             % scaling for regularization
+        regularization;     % regularization method
+        multiplier;         % multiplier for regularization method
     end
     
     methods
         function obj = BeamformerLCMV(varargin)
+            %BeamformerLCMV Linearly Constrained Minimum Variance
+            %Beamformer object
+            %   BeamformerLCMV('name',value,...) creates a BeamformerLCMV
+            %   object
+            %
+            %   Parameters
+            %   ----------
+            %   verbosity (integer, default = 0)
+            %       verbosity level
+            %
+            %   LCMV
+            %   ----
+            %   default beamformer, no additional parameters are required
+            %
+            %   Regularized LCMV Beamformer
+            %   ---------------------------
+            %
+            %   regularization (string, default = 'none')
+            %       selects the type of diagonal loading regularization,
+            %       options: eig or none
+            %       
+            %       eig - adds the identity scaled by the smallest
+            %       eigenvalue of the covariance matrix
+            %
+            %   multiplier  (double, default = 0.005)
+            %       multiplier for eigenvalue determined when
+            %       regularization = 'eig'
+            %
+            %   Eigenspace LCMV Beamformer
+            %   --------------------------
+            %   eigenspace (logical, default = false)
+            %       selects eigenspace beamformer
+            %   ninterference (integer, default = 0)
+            %       number of interfering sources
+            
             p = inputParser();
+            p.PartialMatching = false;
             addParameter(p,'multiplier',0.005,@isnumeric);
             addParameter(p,'regularization','none',...
                 @(x) any(validatestring(x,{'eig','none'})));
             addParameter(p,'ninterference',0,@isnumeric);
+            addParameter(p,'eigenspace',false,@islogical);
+            addParameter(p,'verbosity',0,@isnumeric);
             p.parse(varargin{:});
             
+            % FIXME consider splitting this up into 3 classes, parameters
+            % would be more straightforward
+            
             %obj = obj@Beamformer();
-            obj.nsources_int = 0;
+            obj.n_interfering_sources = p.Results.ninterference;
+            obj.eigenspace = p.Results.eigenspace;
+            obj.multiplier = p.Results.multiplier;
+            obj.regularization = p.Results.regularization;
             obj.verbosity = 0;
             obj.lambda = 0;
             
-            if p.Results.ninterference > 0
+            if obj.n_interfering_sources > 0 && ~obj.eigenspace
+                error([mfilename ':' mfilename],...
+                    'did you forget ''eigenspace'',true as parameters?');
+            end
+            
+            if obj.eigenspace
                 % eig
                 obj.type = 'lcmv_eig';
                 obj.name = sprintf('lcmv eig %d',...
-                    p.Results.ninterference);
+                    obj.n_interfering_sources);
                 
-                obj.nsources_int = p.Results.ninterference;
+                obj.regularization = 'none';
                 
-            elseif ~isequal(p.Results.regularization,'none')
+            elseif ~isequal(obj.regularization,'none')
                 % regularized
                 obj.type = 'lcmv_reg';
                 obj.name = sprintf('lcmv reg %s',...
-                    p.Results.regularization);
+                    obj.regularization);
             else
                 % vanilla
                 obj.type = 'lcmv';
@@ -40,7 +92,17 @@ classdef BeamformerLCMV < Beamformer
             
         end
         
-        function data = inverse(obj, H, R)
+        function data = inverse(obj, H, R) %
+            %
+            %   Output
+            %   ------
+            %   data.opt_time	beamforming duration
+            %       opt_status 	optimization status, relevant for robust beamformers
+            %       idx         location index
+            %       variance    variance otrace(transpose(W)*R*W))
+            %       W           weight matrix [channels x 3]
+            %       H           leadfield matrix [channels x 3]
+            
             % FIXME
             % Start timer
             opt_start = tic;
@@ -78,8 +140,8 @@ classdef BeamformerLCMV < Beamformer
                     % FIXME change to OOP and param list
                     lambda_cfg = [];
                     lambda_cfg.R = R;
-                    lambda_cfg.type = p.Results.regularization;
-                    lambda_cfg.multiplier = p.Results.multiplier;
+                    lambda_cfg.type = obj.regularization;
+                    lambda_cfg.multiplier = obj.multiplier;
                     obj.lambda = aet_analysis_beamform_get_lambda(lambda_cfg);
                     
                     % New code

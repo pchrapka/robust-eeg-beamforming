@@ -57,10 +57,7 @@ if ~isfield(data,'R')
     save(cfg.data_file, 'data');
 end
 
-%% Load the beamformer config
-% cfg_beam = beamformer_configs.get_config(...
-%     cfg.beamformer_config{:}, 'data', data); % REMOVE
-
+%% Load the beamformer
 fbeamformer = str2func(cfg.beamformer_config{1});
 beamformer = fbeamformer(cfg.beamformer_config{2:end});
 
@@ -108,16 +105,8 @@ if ~isfield(cfg, 'loc')
 end
 
 %% Finalize the beamformer config
-% % Add the covariance matrix
-% cfg_beam.R = data.R; % REMOVE
-% Add the head model if it's not a perturbed scenario
-%if ~isfield(cfg, 'perturb_config')
-    %cfg_beam.head_model = head;
-    %beamformer.head_model = head;
-    % FIXME
-%end % REMOVE
 % Print a warning just in case for cvx
-if isfield(beamformer,'solver')
+if isprop(beamformer,'solver')
     if isequal(beamformer.solver,'cvx')
         warning('reb:beamformer_analysis',...
             'Make sure you''re not running in parfor');
@@ -147,16 +136,14 @@ R = data.R;
 
 %% Scan locations
 parfor i=1:n_scans
-    %beamformer_cpy = beamformer;
-    %cfg_beam_copy = cfg_beam; % REMOVE
     
     fprintf('%s snr %d iter %d %d/%d\n',...
         beamformer.name, out_snr, out_iteration, i, n_scans);
     idx = cfg_loc(i);
     
-    args = {};
     
     % Check for anisotropic rmv beamformer
+    args = {};
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         % Get the head model data
         head_actual = hm_get_data(cfg.head_cfg.actual);
@@ -164,20 +151,13 @@ parfor i=1:n_scans
     
         % Generate the uncertainty matrix
         A = beamformer.create_uncertainty(head_actual.head, head_estimate.head, idx);
-        %cfg_beam_copy.A = aet_analysis_rmv_uncertainty_create(...
-        %    head_actual.head, head_estimate.head, idx); % REMOVE
         args = {'A',A};
     end
     
-    % % Set the location to scan
-    %cfg_beam_copy.loc = idx;
-    % REMOVE
-    
-    % Calculate the beamformer
-    %beam_out = aet_analysis_beamform(cfg_beam_copy); % REMOVE
-    
     % get the leafield matrix from the head model
     H = hm_get_leadfield(head, idx);
+    
+    % Calculate the beamformer
     beam_out = beamformer.inverse(H, R, args{:});
     
     out_filter{i} = beam_out.W;
