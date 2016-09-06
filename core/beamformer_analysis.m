@@ -157,7 +157,7 @@ parfor i=1:n_scans
     args = {};
     
     % Check for anisotropic rmv beamformer
-    if ~isempty(regexp(cfg_beam_copy.name, 'rmv aniso', 'match'))
+    if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         % Get the head model data
         head_actual = hm_get_data(cfg.head_cfg.actual);
         head_estimate = hm_get_data(cfg.head_cfg.current);
