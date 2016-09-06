@@ -32,7 +32,7 @@ cfg_data = [];
 cfg_data.data_name = 'sim_data_test';
 cfg_data.source_name = 'mult_cort_src_3';
 cfg_data.iteration_range = 1;
-cfg_data.snr_range = [-5 0 5 10];
+cfg_data.snr_range = -10:10:10;
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
