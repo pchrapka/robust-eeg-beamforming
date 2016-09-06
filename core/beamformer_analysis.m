@@ -187,7 +187,7 @@ parfor i=1:n_scans
     % Calculate the beamformer output for each component
     tmpcfg =[];
     tmpcfg.W = beam_out.W;
-    tmpcfg.type = cfg_beam_copy.type;
+    tmpcfg.type = beamformer.type;
     beam_signal{i} = aet_analysis_beamform_output(...
         tmpcfg, data_avg_trials);
     
