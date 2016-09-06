@@ -28,6 +28,10 @@ h = figure;
 n_plots = size(output.data,2)-1;
 colors = hsv(n_plots);
 markers = {'o', 'x', 's', 'd', '^', 'v', '+', '>', '<'};
+if n_plots > length(markers)
+    nreps = ceil(n_plots/length(markers));
+    markers = repmat(markers,1,nreps);
+end
 for i=1:n_plots
     % Loop through custom colors and line styles
     plot(output.data(:,1), output.data(:,1+i), output.line_style{i},...
