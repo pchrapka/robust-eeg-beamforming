@@ -122,7 +122,7 @@ classdef BeamformerRMV < Beamformer
             % End timer
             data.opt_time = toc(opt_start);
             data.opt_status = data_out.status;
-            data.loc = cfg.loc;
+            %data.loc = cfg.loc; % REMOVE?
             
             % Save parameters
             data.W = data_out.W;
