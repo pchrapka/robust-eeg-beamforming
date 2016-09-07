@@ -24,8 +24,6 @@ function params = get_beamformer_analysis_config(cfg)
 %   cfg.force (logical)
 %       adds a flag that forces the analysis to be redone, overwriting the
 %       existing output files
-%   
-%   NOTE New configs need to be added here explicity.
 
 k = 1;
 if isfield(cfg, 'data')
