@@ -27,18 +27,21 @@ force = false;
 % force = true; % ===== forcing another analysis ======
 
 % Data files
-cfg_data = [];
-cfg_data.data_name = 'sim_data_2_100t';
-cfg_data.source_name = 'mult_cort_src_6';
-cfg_data.iteration_range = 1;
-cfg_data.snr_range = -20:20:0;%-40:20:20; %-40:5:25
+data_files = get_sim_data_files(...
+    'sim','sim_data_2_100t',...
+    'source','mult_cort_src_6',...
+    'iterations',1,...
+    'snr',-20:20:0 ...
+    ...'snr',-40:20:20 ...
+    ...'snr',-40:5:25 ...
+    );
 
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_lcmv';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -51,7 +54,7 @@ k = k+1;
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_coarse';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -64,7 +67,7 @@ k = k+1;
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -80,7 +83,7 @@ k = k+1;
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_lcmv_mismatch';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -93,7 +96,7 @@ k = k+1;
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_coarse_mismatch';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
@@ -106,7 +109,7 @@ k = k+1;
 scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse_mismatch';
-cfg_simvars_setup.data = cfg_data;
+cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);

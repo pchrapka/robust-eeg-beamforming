@@ -14,11 +14,12 @@ k = 1;
 force = false;
 
 % Data files
-cfg_data = [];
-cfg_data.data_name = 'sim_data_bem_100_100t';
-cfg_data.source_name = 'single_cort_src_1';
-cfg_data.iteration_range = 1:100;
-cfg_data.snr_range = 0;
+data_files = get_sim_data_files(...
+    'sim','sim_data_bem_100_100t',...
+    'source','single_cort_src_1',...
+    'iterations',1:100,...
+    'snr',0 ...
+    );
 
 %% ==== MATCHED LEADFIELD ====
 

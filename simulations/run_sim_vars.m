@@ -21,11 +21,12 @@ k = 1;
 force = false;
 
 % Data files
-cfg_data = [];
-cfg_data.data_name = 'sim_data_2';
-cfg_data.source_name = 'mult_cort_src_4';
-cfg_data.iteration_range = 1;
-cfg_data.snr_range = -40:5:25;
+data_files = get_sim_data_files(...
+    'sim','sim_data_2',...
+    'source','mult_cort_src_4',...
+    'iterations',1,...
+    'snr',-40:5:25 ...
+    );
 
 % FIXME Still need somewhere to save the file
 % scripts(k).func = @sim_vars.run;
@@ -36,8 +37,13 @@ cfg_data.snr_range = -40:5:25;
 % k = k+1;
 
 scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = [];
+cfg_simvars_setup.id = 'sim_vars_rmv';
+cfg_simvars_setup.data_file = data_files;
+cfg_simvars_setup.force = force;
+cfg_simvars = sim_var.get_config(cfg_simvars_setup);
 cfg = struct(...
-    'sim_vars',             sim_vars.get_config('sim_vars_rmv',cfg_data,force),...
+    'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis);
 scripts(k).vars = {cfg};
 k = k+1;

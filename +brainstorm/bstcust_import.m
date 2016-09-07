@@ -17,19 +17,25 @@
 
 %% Prep conditions parameters
 % Get the data file
-cfg_data = [];
-cfg_data.sim_name = 'sim_data_2';
-cfg_data.source_name = 'single_cort_src_1';
-cfg_data.snr = '0';
-cfg_data.iteration = '1';
+sim_name = 'sim_data_2';
+source_name = 'single_cort_src_1';
+iteration = 1;
+snr = 0;
+
+data_files = get_sim_data_files(...
+    'sim',sim_name,...
+    'source',source_name,...
+    'iterations',iteration,...
+    'snr',snr ...
+    );
 
 fprintf('Condition name: %s_%s\n',...
-    cfg_data.sim_name, cfg_data.source_name);
+    sim_name, source_name);
 
 %% Format EEG data for Brainstorm
 cfg = [];
-cfg.data_file = db.get_full_file_name(cfg_data);
-cfg.data_file_tag = ['snr_' cfg_data.snr '_' cfg_data.iteration];
+cfg.data_file = data_files{1};
+cfg.data_file_tag = ['snr_' snr '_' iteration];
 cfg.eeg = eeg;          % export from Brainstorm
 
 brainstorm.prep_import_eeg(cfg);

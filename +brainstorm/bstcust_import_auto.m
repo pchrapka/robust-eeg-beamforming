@@ -35,21 +35,23 @@ if mismatch
 end
 
 %% ==== SETUP STUDY ====
-% Config for the data file
-cfg_data = [];
-cfg_data.sim_name = cfg.sim_name;
-cfg_data.source_name = cfg.source_name;
-cfg_data.snr = cfg.snr;
-cfg_data.iteration = '1';
+cfg.iteration = 1; % add iteration
+
+data_files = get_sim_data_files(...
+    'sim',cfg.sim_name,...
+    'source',cfg.source_name,...
+    'iterations',cfg.iteration,...
+    'snr',cfg.snr ...
+    );
 
 subject_name = 'Subject01';
 % Set up the condition name
 if mismatch
-    condition_name = [cfg_data.sim_name '_'...
-        cfg_data.source_name '_' mismatch_tags{1}];
+    condition_name = [cfg.sim_name '_'...
+        cfg.source_name '_' mismatch_tags{1}];
 else
-    condition_name = [cfg_data.sim_name '_'...
-        cfg_data.source_name];
+    condition_name = [cfg.sim_name '_'...
+        cfg.source_name];
 end
 
 fprintf('Condition name: %s \n',condition_name);
@@ -77,8 +79,8 @@ source = load(template_source_file);
 
 %% ==== IMPORT EEG DATA TO BRAINSTORM ====
 cfg_db = [];
-cfg_db.data_file = db.get_full_file_name(cfg_data);
-cfg_db.data_file_tag = ['snr_' cfg_data.snr '_' cfg_data.iteration];
+cfg_db.data_file = data_files{1};
+cfg_db.data_file_tag = ['snr_' cfg.snr '_' cfg.iteration];
 cfg_db.eeg = eeg;
 cfg_db.study_idx = cfg.study_idx;
 

@@ -20,7 +20,4 @@ for i=1:length(cfg.snr_range)
     end
 end
 
-if length(out) == 1
-    out{count} = 'dummy';
-end
 end

@@ -26,13 +26,19 @@ function params = get_config(cfg)
 
 k = 1;
 if isfield(cfg, 'data')
+    error('sim_vars:get_config',...
+        'use data_file instead');
+end
+
+if isfield(cfg,'data_file')
     params(k).name = 'data_file';
-    params(k).values = sim_vars.get_data_files(cfg.data);
+    if iscell(cfg.data_file)
+        params(k).values = cfg.data_file;
+    else
+        params(k).values = {cfg.data_file};
+    end
     k = k+1;
-else
-    warning('sim_vars:get_config',...
-        'no data files specified');
-end 
+end
 
 % Head model
 if ~isfield(cfg,'head')
