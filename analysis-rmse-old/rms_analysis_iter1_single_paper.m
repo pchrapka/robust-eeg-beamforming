@@ -34,8 +34,8 @@ cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_bem_500V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 cfg.source_type = 'single';
 
 %% Calculate the rms
@@ -76,8 +76,8 @@ cfg.sim_name = 'sim_data_bem_1_100t';
 cfg.source_name = source_name;
 cfg.snr = snr;
 cfg.iteration = '1';
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_3sphere_500V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 cfg.source_type = 'single';
 
 %% Calculate the rms

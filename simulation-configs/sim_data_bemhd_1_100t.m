@@ -15,12 +15,11 @@ sim_cfg.verbosity = 3;
 sim_cfg.parallel = 'user';
 
 %% Head model
-sim_cfg.head_cfg.type = 'brainstorm';
-sim_cfg.head_cfg.file = 'head_Default1_bem_15028V.mat';
-% Load the head model
-data = hm_get_data(sim_cfg.head_cfg);
-sim_cfg.head = data.head;
-clear data;
+hmfactory = HeadModel();
+sim_cfg.head_cfg = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
+sim_cfg.head_cfg.load();
+sim_cfg.head = sim_cfg.head_cfg.data;
+% FIXME don't copy data
 
 % Figure out number of channels
 gain_temp = hm_get_leadfield(sim_cfg.head, 1);

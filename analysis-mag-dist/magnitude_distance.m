@@ -2,7 +2,7 @@ function [mag, dist] = magnitude_distance(cfg)
 %MAGNITUDE_DISTANCE calculates the magnitude as a function of distance from
 %the peak
 %
-%   cfg.head    head struct (see hm_get_data)
+%   cfg.head    IHeadModel obj, see HeadModel
 %   cfg.bf_out  beamformer output [components vertices samples]
 %   cfg.sample_idx
 %               sample index at which to calculate the dispersion

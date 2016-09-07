@@ -16,7 +16,7 @@ function [rmse, rms_input] = rms_bf(cfg)
 %       type of source being analyzed
 %
 %   source_type = 'mult'
-%   cfg.head    head struct (see hm_get_data)
+%   cfg.head    IHeadModel obj, see HeadModel
 %
 %   source_type = 'distr'
 %   cfg.input_signal

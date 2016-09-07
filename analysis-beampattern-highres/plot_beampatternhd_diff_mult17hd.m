@@ -6,8 +6,8 @@ function plot_beampatternhd_diff_mult17hd(cfg)
 %       filename of beampattern data B
 
 data_set = fullfile('sim_data_bemhd_1_100t','mult_cort_src_17hd');
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_bem_15028V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_15028V.mat');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Matched

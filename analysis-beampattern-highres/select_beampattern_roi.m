@@ -18,11 +18,11 @@ end
 
 %% Load data
 % Load head model used for simulation
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = 'head_Default1_bem_500V.mat';
-din = hm_get_data(cfg);
-head_orig = din.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm.load();
+head_orig = hm.data;
+% FIXME don't copy data
 
 % Load source vertex
 cfg = [];
@@ -32,11 +32,11 @@ cfg.idx = 295;
 [vert_idx, vert_source] = hm_get_vertices(cfg);
 
 % Load high res head model
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = modelname;
-din = hm_get_data(cfg);
-head_highres = din.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm',modelname);
+hm.load();
+head_highres = hm.data;
+% FIXME don't copy data
 
 %% Plot grid points
 if plots

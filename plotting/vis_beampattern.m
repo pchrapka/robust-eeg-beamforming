@@ -42,9 +42,8 @@ head_cfg = din.source.head_cfg;
 if isfield(head_cfg,'current')
     head_cfg = head_cfg.current;
 end
-din = hm_get_data(head_cfg);
-cfg.head = din.head;
-clear din
+cfg.head = head_cfg;
+
 beampattern_data = beampattern(cfg);
 if isfield(cfg,'beamformer_file_2')
     % Take the difference between the beampatterns of both beamformers

@@ -7,7 +7,7 @@ function [rmse, rms_input] = rms_mult_bf(cfg)
 %   cfg.input
 %       input amplitude
 %   cfg.head
-%       head struct (see hm_get_data)
+%       IHeadModel obj, see HeadModel
 %   cfg.true_peak
 %       index of the true peak
 %   cfg.cluster (boolean, default = false)

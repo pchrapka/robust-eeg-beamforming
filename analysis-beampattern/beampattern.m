@@ -7,7 +7,7 @@ function [beampattern, varargout] = beampattern(cfg)
 %   cfg.distances
 %               (boolean), flag to calculate distances between each vertex
 %               and the vertex of interest
-%   cfg.head    head struct (see hm_get_data)
+%   cfg.head    IHeadModel obj, see HeadModel
 
 % Load the beamformer output data
 data_in = load(cfg.beamformer_file);

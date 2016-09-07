@@ -35,7 +35,7 @@ function [rmse, rms_input] = rms_bf_file(cfg)
 %
 %   Extra arguments based on source_type
 %   source_type = 'mult'
-%   cfg.head    head struct (see hm_get_data)
+%   cfg.head    IHeadModel obj, see HeadModel
 %
 
 %% Set up simulation info
@@ -48,9 +48,9 @@ cfg_data.iteration = cfg.iteration;
 %% Load the head model
 
 if isfield(cfg,'head')
-    data_in = hm_get_data(cfg.head);
-    head = data_in.head;
-    clear data_in;
+    cfg.head.load();
+    head = cfg.head.data;
+    % FIXME don't copy data
 end
 
 %% Calculate rms for the beamformer source file

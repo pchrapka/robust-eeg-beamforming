@@ -21,11 +21,11 @@ aet_init
 %% Set up metrics to calculate
 
 % Load the head model
-head_cfg = [];
-head_cfg.type = 'brainstorm';
-head_cfg.file = 'head_Default1_bem_500V.mat';
-data = hm_get_data(head_cfg);
-head = data.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm.load();
+head = hm.data;
+% FIXME don't copy data
 
 location_idx = 1:501;
 

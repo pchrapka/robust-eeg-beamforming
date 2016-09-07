@@ -6,12 +6,13 @@ close all;
 location_idx = 295;
 
 cfg = [];
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_bem_500V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
 %% Load the head model
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
+cfg.head.load();
+head = cfg.head.data;
+% FIXME don't copy data
 
 %% Get the coordinates of the poi
 cfg_vert = [];

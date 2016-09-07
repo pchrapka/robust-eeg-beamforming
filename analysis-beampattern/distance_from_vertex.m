@@ -1,7 +1,7 @@
 function dist = distance_from_vertex(cfg)
 %
 %   cfg.head    
-%       head struct (see hm_get_data)
+%       IHeadModel obj, see HeadModel
 %   cfg.vertex_idx
 %       index of center vertex (head model index)
 %   cfg.voi_idx

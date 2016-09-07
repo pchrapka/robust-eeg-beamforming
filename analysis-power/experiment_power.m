@@ -89,11 +89,11 @@ end
 
 % Calculate vertex distances from source
 % Load the head model
-head_cfg = [];
-head_cfg.type = 'brainstorm';
-head_cfg.file = 'head_Default1_bem_500V.mat';
-data = hm_get_data(head_cfg);
-head = data.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm.load();
+head = hm.data;
+% FIXME don't copy data
 
 cfg_vert = [];
 cfg_vert.head = head;

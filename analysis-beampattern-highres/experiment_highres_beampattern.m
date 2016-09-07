@@ -15,11 +15,12 @@ plotdb = false;
 roi_idx = select_beampattern_roi(highres_model, manual);
 
 % Check selected indices
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = highres_model;
-din = hm_get_data(cfg);
-head_highres = din.head;
+
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm',highres_model);
+hm.load();
+head_highres = hm.data;
+% FIXME don't copy data
 
 head_roi = head_highres;
 head_roi.GridLoc = head_highres.GridLoc(roi_idx,:);
@@ -136,11 +137,11 @@ legend(cfg.beam_cfgs);
 
 %% Add the source
 % Load head model used for simulation
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = 'head_Default1_bem_500V.mat';
-din = hm_get_data(cfg);
-head_orig = din.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm.load();
+head_orig = hm.data;
+% FIXME don't copy data
 
 % Load source vertex
 cfg = [];

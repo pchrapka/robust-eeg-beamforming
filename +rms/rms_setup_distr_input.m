@@ -3,9 +3,9 @@ function input_power = rms_setup_distr_input(cfg)
 %   cfg.head
 %   cfg.true_peak
 
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+cfg.head.load();
+head = cfg.head.data;
+% FIXME don't copy data
 
 % Set up sources
 radius = 4/100; % 4 cm

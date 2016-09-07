@@ -10,10 +10,9 @@ function params = get_config(cfg)
 %       config describing data files to use during the simulation see
 %       sim_vars.get_data_files
 %   cfg.head
-%       (optional) head model config, default is
+%       (optional) IHeadModel obj, see HeadModel
+%       default is
 %       'head_Default1_3sphere_500V.mat'
-%       head.type    'brainstorm' or 'fieldtrip'
-%       head.file    head model file name in head-models project
 %   cfg.loc
 %       (optional) locations to scan specified as indices in the head model
 %       struct, default is 1:501
@@ -37,8 +36,8 @@ end
 
 % Head model
 if ~isfield(cfg,'head')
-    cfg.head.type = 'brainstorm';
-    cfg.head.file = 'head_Default1_3sphere_500V.mat';
+    hmfactory = HeadModel();
+    cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 end
 params(k).name = 'head_cfg';
 params(k).values = {cfg.head};

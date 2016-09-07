@@ -3,7 +3,7 @@ function output = vertex_distances(cfg)
 %vertex of interest
 %
 %   cfg.head    
-%       head struct (see hm_get_data)
+%       IHeadModel obj, see HeadModel
 %   cfg.voi_idx
 %       index for vertex of interest
 %   cfg.location_idx
@@ -15,17 +15,11 @@ function output = vertex_distances(cfg)
 
 %% Calculate the distances
 
-% cfg for hm_get_vertices
-cfg_vert = [];
-cfg_vert.head = cfg.head;
-cfg_vert.type = 'index';
-cfg_vert.idx = cfg.voi_idx;
 % Get the coordinates of the max
-[~,r_voi] = hm_get_vertices(cfg_vert);
+[~,r_voi] = cfg.head.get_vertices('type','index','idx',cfg.voi_idx);
 
 % Get the coordinates of the poi 
-cfg_vert.idx = cfg.location_idx;
-[~,r] = hm_get_vertices(cfg_vert);
+[~,r] = cfg.head.get_vertices('type','index','idx',cfg.location_idx);
 
 d_vec = r - repmat(r_voi,size(r,1),1);
 d_vec = d_vec.^2;

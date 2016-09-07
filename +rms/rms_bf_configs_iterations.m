@@ -39,7 +39,7 @@ function [rms_data] = rms_bf_configs_iterations(cfg)
 %
 %   Extra arguments based on source_type
 %   source_type = 'mult'
-%   cfg.head    head struct (see hm_get_data)
+%   cfg.head    IHeadModel obj, see HeadModel
 %
 
 %% Calculate rms for all desired iterations

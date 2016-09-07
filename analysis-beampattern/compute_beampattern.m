@@ -25,7 +25,7 @@ function [cfg] = compute_beampattern(cfg)
 %     cfg.data_set.iteration = '1';
 %
 %   cfg.head        
-%       head model cfg (see hm_get_data)
+%       IHeadModel obj, see HeadModel
 %
 %   Outputfile Options
 %   ------------------
@@ -69,9 +69,9 @@ cfg.save.file_type = 'metrics';
 
 %% Load the head model
 
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+cfg.head.load();
+head = cfg.head.data;
+% FIXME don't copy data
 
 %% Calculate distance between interfering source and source of interest
 if isfield(cfg,'interference_idx')

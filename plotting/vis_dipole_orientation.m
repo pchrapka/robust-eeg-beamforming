@@ -1,9 +1,9 @@
 % Get the head model
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = 'head_Default1_3sphere_500V.mat';
-data = hm_get_data(cfg);
-head = data.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
+hm.load();
+head = hm.data;
+% FIXME don't copy data
 
 % % NOTE requires the surface tesselation file
 % % Plot surface file

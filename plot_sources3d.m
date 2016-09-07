@@ -6,14 +6,14 @@ function plot_sources3d(cfg)
 %   cfg.file
 %       filename of beampattern data, as computed by COMPUTE_BEAMPATTERN
 %   cfg.head        
-%       head model cfg (see hm_get_data);
+%       IHeadModel obj, see HeadModel
 %
 %   See also COMPUTE_BEAMPATTERN
 
 %% Load the head model
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+cfg.head.load();
+head = cfg.head.data;
+% FIXME don't copy data
 
 %% Load the data
 din = load(cfg.file);

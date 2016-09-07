@@ -7,7 +7,7 @@ function plot_power3d(cfg)
 %       filename of beamformer output data, as computed by COMPUTE_BEAMPATTERN
 %       FIXME look up function
 %   cfg.head        
-%       head model cfg (see hm_get_data);
+%       IHeadModel obj, see HeadModel
 %
 %   cfg.options
 %   cfg.options.sample
@@ -27,9 +27,9 @@ if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
 if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
 
 %% Load the head model
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+cfg.head.load();
+head = cfg.head.data;
+% FIXME don't copy data
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');

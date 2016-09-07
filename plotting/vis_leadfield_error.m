@@ -56,8 +56,13 @@ cfg_head.actual.file = 'head_Default1_bem_500V.mat';
 
 % Get the head model data
 cfg_lf = [];
-cfg_lf.actual = hm_get_data(cfg_head.actual);
-cfg_lf.estimate = hm_get_data(cfg_head.current);
+cfg_head.actual.load();
+cfg_lf.actual = cfg_head.actual.data;
+% FIXME don't copy data
+
+cfg_head.current.load();
+cfg_lf.estimate = cfg_head.current.data;
+% FIXME don't copy data
 
 n_locs = size(cfg_lf.actual.head.GridLoc,1);
 % Allocate memory

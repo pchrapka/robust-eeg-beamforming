@@ -90,13 +90,15 @@ if isfield(cfg.head_cfg, 'current')
     % Get the estimated head model
     % Need to differentiate between actual and estimated head models in
     % mismatched scenario
-    data_in = hm_get_data(cfg.head_cfg.current);
+    cfg.head_cfg.current.load();
+    head = cfg.head_cfg.current.data;
+    % FIXME don't copy data
 else
     % Get the actual head model
-    data_in = hm_get_data(cfg.head_cfg);
+    cfg.head_cfg.load();
+    head = cfg.head_cfg.data;
+    % FIXME don't copy data
 end
-head = data_in.head;
-clear data_in;
 
 %% Finalize locations to scan
 if ~isfield(cfg, 'loc')
@@ -141,16 +143,21 @@ parfor i=1:n_scans
         beamformer.name, out_snr, out_iteration, i, n_scans);
     idx = cfg_loc(i);
     
-    
     % Check for anisotropic rmv beamformer
     args = {};
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         % Get the head model data
-        head_actual = hm_get_data(cfg.head_cfg.actual);
-        head_estimate = hm_get_data(cfg.head_cfg.current);
+        
+        cfg.head_cfg.actual.load();
+        head_actual = cfg.head_cfg.actual.data;
+        % FIXME don't copy data
+        
+        cfg.head_cfg.current.load();
+        head_estimate = cfg.head_cfg.current.data;
+        % FIXME don't copy data
     
         % Generate the uncertainty matrix
-        A = beamformer.create_uncertainty(head_actual.head, head_estimate.head, idx);
+        A = beamformer.create_uncertainty(head_actual, head_estimate, idx);
         args = {'A',A};
     end
     

@@ -7,7 +7,7 @@ function [outfile] = view_power_surface_relative(cfg)
 %   Data Options
 %   ------------
 %   cfg.head        
-%       head model cfg (see hm_get_data)
+%       IHeadModel obj, see HeadModel
 %   cfg.datafiles
 %       array of file names, output from COMPUTE_POWER
 %

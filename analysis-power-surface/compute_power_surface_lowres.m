@@ -26,11 +26,11 @@ cfg.data_set.source_name = source_name;
 cfg.data_set.snr = snr;
 cfg.data_set.iteration = '1';
 if matched
-    cfg.head.type = 'brainstorm';
-    cfg.head.file = 'head_Default1_bem_500V.mat';
+    hmfactory = HeadModel();
+    cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 else
-    cfg.head.type = 'brainstorm';
-    cfg.head.file = 'head_Default1_3sphere_500V.mat';
+    hmfactory = HeadModel();
+    cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 end
 
 %% Set up beamformer configs

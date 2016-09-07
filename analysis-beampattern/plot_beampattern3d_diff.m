@@ -7,7 +7,7 @@ function plot_beampattern3d_diff(cfg)
 %   cfg.fileb
 %       filename of beampattern data B
 %   cfg.head        
-%       head model cfg (see hm_get_data);
+%       IHeadModel obj, see HeadModel
 %   cfg.options
 %   cfg.options.scale
 %       colormap scale, standard options:
@@ -21,9 +21,9 @@ function plot_beampattern3d_diff(cfg)
 %   See also COMPUTE_BEAMPATTERN
 
 %% Load the head model
-data_in = hm_get_data(cfg.head);
-head = data_in.head;
-clear data_in;
+hm.load();
+head = hm.data;
+% FIXME don't copy data
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');

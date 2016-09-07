@@ -19,11 +19,11 @@ cfg.data_set.source_name = 'mult_cort_src_17hd';
 cfg.data_set.snr = snr;
 cfg.data_set.iteration = '1';
 if matched
-    cfg.head.type = 'brainstorm';
-    cfg.head.file = 'head_Default1_bem_15028V.mat';
+    hmfactory = HeadModel();
+    cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_15028V.mat');
 else
-    cfg.head.type = 'brainstorm';
-    cfg.head.file = 'head_Default1_3sphere_15028V.mat';
+    hmfactory = HeadModel();
+    cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_15028V.mat');
 end
 
 %% Set up beamformer configs

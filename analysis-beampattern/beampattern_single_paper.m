@@ -25,8 +25,8 @@ cfg.data_set.sim_name = 'sim_data_bem_1_100t';
 cfg.data_set.source_name = 'single_cort_src_1';
 cfg.data_set.snr = snr;
 cfg.data_set.iteration = '1';
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_bem_500V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
 %% Plot the beampattern
 cfg = compute_beampattern(cfg);
@@ -63,8 +63,8 @@ cfg.data_set.sim_name = 'sim_data_bem_1_100t';
 cfg.data_set.source_name = 'single_cort_src_1';
 cfg.data_set.snr = snr;
 cfg.data_set.iteration = '1';
-cfg.head.type = 'brainstorm';
-cfg.head.file = 'head_Default1_3sphere_500V.mat';
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 
 %% Plot the beampattern
 cfg = compute_beampattern(cfg);

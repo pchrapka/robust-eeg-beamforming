@@ -7,18 +7,18 @@ index_source = 400;
 
 %% Load head models
 % Load source head model
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = headfile_source;
-din = hm_get_data(cfg);
-head_source = din.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm',headfile_source);
+hm.load();
+head_source = hm.data;
+% FIXME don't copy data
 
 % Load destination head model
-cfg = [];
-cfg.type = 'brainstorm';
-cfg.file = headfile_dest;
-din = hm_get_data(cfg);
-head_dest = din.head;
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel('brainstorm',headfile_dest);
+hm.load();
+head_dest = hm.data;
+% FIXME don't copy data
 
 %% Get source vertex
 cfg = [];
