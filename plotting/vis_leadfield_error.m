@@ -49,30 +49,23 @@ end
     
 %% ==== CALCULATE LEADFIELD ERRORS ====
 % Set up head model configs
-cfg_head.current.type = 'brainstorm';
-cfg_head.current.file = 'head_Default1_3sphere_500V.mat';
-cfg_head.actual.type = 'brainstorm';
-cfg_head.actual.file = 'head_Default1_bem_500V.mat';
+hmfactory = HeadModel();
+hm_actual = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm_estimate = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_500V');
 
 % Get the head model data
-cfg_lf = [];
-cfg_head.actual.load();
-cfg_lf.actual = cfg_head.actual.data;
-% FIXME don't copy data
+hm_actual.load();
+hm_estimate.load();
 
-cfg_head.current.load();
-cfg_lf.estimate = cfg_head.current.data;
-% FIXME don't copy data
-
-n_locs = size(cfg_lf.actual.head.GridLoc,1);
+n_locs = size(hm_actual.data.GridLoc,1);
 % Allocate memory
 error = zeros(n_locs,1);
 for i=1:n_locs
     % Get the leadfield matrices at the current index
-    cfg_lf.actual.loc = i;
-    lf_actual = hm_get_leadfield(cfg_lf.head, cfg_lf.actual.loc);
-    cfg_lf.estimate.loc = i;
-    lf_estimate = hm_get_leadfield(cfg_lf.head, cfg_lf.estimate.loc);
+    loc_actual = i;
+    lf_actual = hm_actual.get_leadfield(loc_actual);
+    loc_estimate = i;
+    lf_estimate = hm_estimate.get_leadfield(loc_estimate);
     
     % Project the leadfields
     if cfg.projection

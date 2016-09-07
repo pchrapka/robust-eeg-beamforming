@@ -22,7 +22,7 @@ sim_cfg.head = sim_cfg.head_cfg.data;
 % FIXME don't copy data
 
 % Figure out number of channels
-gain_temp = hm_get_leadfield(sim_cfg.head, 1);
+gain_temp = sim_cfg.head_cfg.get_leadfield(1);
 sim_cfg.n_channels = size(gain_temp,1);
 
 %% Simulation parameters

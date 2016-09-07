@@ -21,15 +21,13 @@ function plot_beampattern3d_diff(cfg)
 %   See also COMPUTE_BEAMPATTERN
 
 %% Load the head model
-hm.load();
-head = hm.data;
-% FIXME don't copy data
+cfg.head.load();
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');
-fprintf('Loading surface file:\n\t%s\n', head.SurfaceFile);
+fprintf('Loading surface file:\n\t%s\n', cfg.head.data.SurfaceFile);
 tess = load(fullfile(bstdir,...
-    'Protocol-Phil-BEM','anat',head.SurfaceFile));
+    'Protocol-Phil-BEM','anat',cfg.head.data.SurfaceFile));
 
 %% Load the data
 dina = load(cfg.filea);

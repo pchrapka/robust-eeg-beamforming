@@ -8,20 +8,11 @@ function dist = distance_from_vertex(cfg)
 %       indices of vertices of interest (head model indices)
 
 %% Calculate the distances
-
-% cfg for hm_get_vertices
-cfg_vert = [];
-cfg_vert.head = cfg.head;
-cfg_vert.type = 'index';
-
-% Select center vertex
-cfg_vert.idx = cfg.vertex_idx;
 % Get the coordinates of the center
-[~,r_center] = hm_get_vertices(cfg_vert);
+[~,r_center] = cfg.head.get_vertices('type','index','idx',cfg.vertex_idx);
 
 % Get the coordinates of the vertices of interest 
-cfg_vert.idx = cfg.voi_idx;
-[~,r] = hm_get_vertices(cfg_vert);
+[~,r] = cfg.head.get_vertices('type','index','idx',cfg.void_idx);
 
 d_vec = r - repmat(r_center, size(r,1), 1);
 d_vec = d_vec.^2;

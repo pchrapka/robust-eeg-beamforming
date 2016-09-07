@@ -19,13 +19,8 @@ if cfg.cluster
     warning('reg:rms_mult_bf',...
         'i think clustering might be broken');
     % Get all the vertices
-    n_vertices = size(cfg.head.GridLoc,1);
-    % cfg for hm_get_vertices
-    cfg_vert = [];
-    cfg_vert.head = cfg.head;
-    cfg_vert.type = 'index';
-    cfg_vert.idx = cfg.true_peak;
-    [~,cluster_points] = hm_get_vertices(cfg_vert);
+    n_vertices = size(cfg.head.data.GridLoc,1);
+    [~,cluster_points] = cfg.head.get_vertices('type','index','idx',cfg.true_peak);
     
     
     % Calculate the midpoint
@@ -34,11 +29,7 @@ if cfg.cluster
     normal = cluster_points(2,:) - cluster_points(1,:);
     
     % Get all the vertices
-    cfg_vert = [];
-    cfg_vert.head = cfg.head;
-    cfg_vert.type = 'index';
-    cfg_vert.idx = 1:n_vertices;
-    [~,vertices] = hm_get_vertices(cfg_vert);
+    [~,vertices] = cfg.head.get_vertices('type','index','idx',1:n_vertices);
     
     difference = vertices - repmat(midpoint, size(vertices,1), 1);
     dot_product = dot(difference, repmat(normal, size(vertices,1), 1),2);

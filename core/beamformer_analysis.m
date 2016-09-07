@@ -91,19 +91,17 @@ if isfield(cfg.head_cfg, 'current')
     % Need to differentiate between actual and estimated head models in
     % mismatched scenario
     cfg.head_cfg.current.load();
-    head = cfg.head_cfg.current.data;
-    % FIXME don't copy data
+    hm = cfg.head_cfg.current;
 else
     % Get the actual head model
     cfg.head_cfg.load();
-    head = cfg.head_cfg.data;
-    % FIXME don't copy data
+    hm = cfg.head_cfg;
 end
 
 %% Finalize locations to scan
 if ~isfield(cfg, 'loc')
     % Scanning all vertices in head model
-    cfg.loc = 1:size(head.GridLoc,1);
+    cfg.loc = 1:size(hm.data.GridLoc,1);
 end
 
 %% Finalize the beamformer config
@@ -147,22 +145,18 @@ parfor i=1:n_scans
     args = {};
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         % Get the head model data
-        
         cfg.head_cfg.actual.load();
-        head_actual = cfg.head_cfg.actual.data;
-        % FIXME don't copy data
-        
         cfg.head_cfg.current.load();
-        head_estimate = cfg.head_cfg.current.data;
-        % FIXME don't copy data
     
         % Generate the uncertainty matrix
-        A = beamformer.create_uncertainty(head_actual, head_estimate, idx);
+        A = beamformer.create_uncertainty(...
+            cfg.head_cfg.actual.data,...
+            cfg.head_cfg.current.data, idx);
         args = {'A',A};
     end
     
     % get the leafield matrix from the head model
-    H = hm_get_leadfield(head, idx);
+    H = hm.get_leadfield(idx);
     
     % Calculate the beamformer
     beam_out = beamformer.inverse(H, R, args{:});

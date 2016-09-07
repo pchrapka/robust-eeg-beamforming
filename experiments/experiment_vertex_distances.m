@@ -5,26 +5,17 @@ close all;
 % Specify the point of interest
 location_idx = 295;
 
-cfg = [];
 hmfactory = HeadModel();
-cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
+hm = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
 %% Load the head model
-cfg.head.load();
-head = cfg.head.data;
-% FIXME don't copy data
+hm.load();
 
 %% Get the coordinates of the poi
-cfg_vert = [];
-cfg_vert.head = head;
-cfg_vert.type = 'index';
-
-cfg_vert.idx = location_idx;
-[~,r] = hm_get_vertices(cfg_vert);
+[~,r] = hm.get_vertices('type','index','idx',location_idx);
 
 %% Get the coordinates of all the vertices
-cfg_vert.idx = 1:size(head.GridLoc,1);
-[~,r_all] = hm_get_vertices(cfg_vert);
+[~,r_all] = hm.get_vertices('type','index','idx',1:size(hm.data.GridLoc,1));
 
 %% Calculate the distance between the poi and all the other vertices
 d_vec = r_all - repmat(r,size(r_all,1),1);

@@ -92,11 +92,9 @@ end
 hmfactory = HeadModel();
 hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 hm.load();
-head = hm.data;
-% FIXME don't copy data
 
 cfg_vert = [];
-cfg_vert.head = head;
+cfg_vert.head = hm;
 cfg_vert.voi_idx = 295;
 cfg_vert.location_idx = 1:501;
 vdist = metrics.vertex_distances(cfg_vert);

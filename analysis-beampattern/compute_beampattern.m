@@ -68,15 +68,12 @@ cfg.save.data_set = cfg.data_set;
 cfg.save.file_type = 'metrics';
 
 %% Load the head model
-
 cfg.head.load();
-head = cfg.head.data;
-% FIXME don't copy data
 
 %% Calculate distance between interfering source and source of interest
 if isfield(cfg,'interference_idx')
     cfg_dist = [];
-    cfg_dist.head = head;
+    cfg_dist.head = cfg.head;
     cfg_dist.vertex_idx = cfg.voxel_idx;
     cfg_dist.voi_idx = cfg.interference_idx;
     interference_dist = distance_from_vertex(cfg_dist);
@@ -114,7 +111,7 @@ for i=1:length(cfg.beam_cfgs)
     cfg_bp.voxel_idx = cfg.voxel_idx;
     cfg_bp.beamformer_file = data_file;
     cfg_bp.distances = true;
-    cfg_bp.head = head;
+    cfg_bp.head = cfg.head;
     
     % Calculate the beampattern
     [data.beampattern, data.distances] = beampattern(cfg_bp);

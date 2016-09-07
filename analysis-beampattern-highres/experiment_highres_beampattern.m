@@ -17,13 +17,11 @@ roi_idx = select_beampattern_roi(highres_model, manual);
 % Check selected indices
 
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm',highres_model);
-hm.load();
-head_highres = hm.data;
-% FIXME don't copy data
+hm_highres = hmfactory.createHeadModel('brainstorm',highres_model);
+hm_highres.load();
 
-head_roi = head_highres;
-head_roi.GridLoc = head_highres.GridLoc(roi_idx,:);
+head_roi = hm_highres.data;
+head_roi.GridLoc = hm_highres.data.GridLoc(roi_idx,:);
 
 figure;
 plot_brainstorm_grid(head_roi,20,'red','o','filled');
@@ -56,7 +54,7 @@ cfg.snr = snr;
 cfg.iteration = '1';
 
 % Extract x coordinates from head model
-x = head_highres.GridLoc(roi_idx,1);
+x = hm_highres.data.GridLoc(roi_idx,1);
 x = x(:);
 cc=jet(n_data);
 
@@ -86,7 +84,7 @@ for j=1:n_data
     
     % Loop through selected points
     for i=1:n_locs
-        H = hm_get_leadfield(head_highres, roi_idx(i));
+        H = hm_highres.get_leadfield(roi_idx(i));
         if nchannels < size(H,1)
            H = H(1:nchannels,:); 
         end
@@ -138,17 +136,10 @@ legend(cfg.beam_cfgs);
 %% Add the source
 % Load head model used for simulation
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
-hm.load();
-head_orig = hm.data;
-% FIXME don't copy data
+hm_orig = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 
 % Load source vertex
-cfg = [];
-cfg.head = head_orig;
-cfg.type = 'index';
-cfg.idx = 295;
-[vert_idx, vert_source] = hm_get_vertices(cfg);
+[vert_idx, vert_source] = hm_orig.get_vertices('type','index','idx',295);
 
 x = [vert_source(1) vert_source(1)];
 subplot(2,1,1);

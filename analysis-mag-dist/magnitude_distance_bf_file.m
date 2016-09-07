@@ -18,12 +18,6 @@ cfg_data.source_name = cfg.source_name;
 cfg_data.snr = cfg.snr;
 cfg_data.iteration = cfg.iteration;
 
-%% Load the head model
-
-cfg.head.load();
-head = cfg.head.data;
-% FIXME don't copy data
-
 %% Calculate dispersion for all desired beamformer configs
 for i=1:length(cfg.beam_cfgs)
     
@@ -36,7 +30,7 @@ for i=1:length(cfg.beam_cfgs)
     
     % Set up cfg for dispersion
     cfg_disp = [];
-    cfg_disp.head = head;
+    cfg_disp.head = cfg.head;
     cfg_disp.bf_out = data_in.source.beamformer_output;
     cfg_disp.sample_idx = cfg.sample_idx;
     

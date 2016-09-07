@@ -77,26 +77,31 @@ else
 end
 
 %% Add aet package to Matlab path
-aet_path = [matlab_dir filesep 'aet'];
-if exist(aet_path,'dir') ~= 7
-    try
-        % Try installing
-        util.update_aet();
-    catch e
+pkg_name = 'advanced-eeg-toolbox';
+if ispc
+    dep_path = ['C:\Users\Phil\My Projects\' pkg_name];
+else
+    [~,comp_name] = system('hostname');
+    if ~isempty(strfind(comp_name,'Valentina'))
+        dep_path = ['/home/phil/projects/' pkg_name];
+    else
+        dep_path = ['/home/chrapkpk/Documents/MATLAB/' pkg_name];
     end
-end    
-if exist(aet_path,'dir') ~= 7
+end
+if exist(dep_path,'dir') ~= 7
     % Turn on warnings
     warning('on','all')
     warning('reb:startup',...
-        'Missing aet package.\nDownload and install from Phil'' BitBucket See README');
+        ['Missing %s package.\n'...
+        'Clone from https://bitbucket.com/pchrapka/%s.git.\n'...
+        'See README'], pkg_name, pkg_name);
     complete(count) = false;
     count = count + 1;
 else
     complete(count) = true;
     count = count + 1;
-    path(path,aet_path);
-    fprintf('\taet: ok\n');
+    path(path,dep_path);
+    fprintf('\t%s: ok\n', pkg_name);
 end
 
 %% Add phasereset package to Matlab path

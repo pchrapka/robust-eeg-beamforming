@@ -8,32 +8,24 @@ index_source = 400;
 %% Load head models
 % Load source head model
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm',headfile_source);
-hm.load();
-head_source = hm.data;
-% FIXME don't copy data
+hm_source = hmfactory.createHeadModel('brainstorm',headfile_source);
+hm_source.load();
 
 % Load destination head model
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm',headfile_dest);
-hm.load();
-head_dest = hm.data;
-% FIXME don't copy data
+hm_dest = hmfactory.createHeadModel('brainstorm',headfile_dest);
+hm_dest.load();
 
 %% Get source vertex
-cfg = [];
-cfg.head = head_source;
-cfg.type = 'index';
-cfg.idx = index_source;
-[vert_idx, vert_source] = hm_get_vertices(cfg);
+[vert_idx, vert_source] = hm_source.get_vertices('type','index','idx',index_source);
 
 %% Find matching vertex in destination head model
 ncomp = length(vert_source);
-nvert = size(head_dest.GridLoc,1);
+nvert = size(hm_dest.data.GridLoc,1);
 
 sel = ones(nvert, 1);
 for i=1:ncomp
-    sel = sel & (head_dest.GridLoc(:,i) == vert_source(i));
+    sel = sel & (hm_dest.data.GridLoc(:,i) == vert_source(i));
 end
 
 index_dest = find(sel > 0);
@@ -43,19 +35,15 @@ if isempty(index_dest)
 end
 
 %% Get dest vertex
-cfg = [];
-cfg.head = head_dest;
-cfg.type = 'index';
-cfg.idx = index_dest;
-[vert_idx, vert_dest] = hm_get_vertices(cfg);
+[vert_idx, vert_dest] = hm_dest.get_vertices('type','index','idx',index_dest);
 
 %% Print results
 fprintf('old\n\tindex: %d\n\tvertex: %f %f %f\n', index_source, vert_source);
 fprintf('new\n\tindex: %d\n\tvertex: %f %f %f\n', index_dest, vert_dest);
 
 %% Check leadfields
-H_source = hm_get_leadfield(head_source, index_source);
-H_dest = hm_get_leadfield(head_source, index_dest);
+H_source = hm_source.get_leadfield(index_source);
+H_dest = hm_source.get_leadfield(index_dest);
 
 % Remove nans
 for i=1:ncomp

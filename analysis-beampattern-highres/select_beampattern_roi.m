@@ -19,29 +19,20 @@ end
 %% Load data
 % Load head model used for simulation
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
-hm.load();
-head_orig = hm.data;
-% FIXME don't copy data
+hm_orig = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 
 % Load source vertex
-cfg = [];
-cfg.head = head_orig;
-cfg.type = 'index';
-cfg.idx = 295;
-[vert_idx, vert_source] = hm_get_vertices(cfg);
+[vert_idx, vert_source] = hm_orig.get_vertices('type','index','idx',295);
 
 % Load high res head model
 hmfactory = HeadModel();
-hm = hmfactory.createHeadModel('brainstorm',modelname);
-hm.load();
-head_highres = hm.data;
-% FIXME don't copy data
+hm_highres = hmfactory.createHeadModel('brainstorm',modelname);
+hm_highres.load();
 
 %% Plot grid points
 if plots
     figure;
-    plot_brainstorm_grid(head_highres,10,'black','o','filled');
+    plot_brainstorm_grid(hm_highres.data,10,'black','o','filled');
     axis equal
     title('Full High Resolution');
 end
@@ -52,17 +43,17 @@ marginy = 0.005; % in m
 marginz = 0.04;
 
 % Initialize indices
-indices = 1:size(head_highres.GridLoc,1);
+indices = 1:size(hm_highres.data.GridLoc,1);
 
 % Select grid points along the x direction (front to back)
-% selx = select_points(head_highres.GridLoc(:,1), vert_source(1), margin);
-sely = select_points(head_highres.GridLoc(:,2), vert_source(2), marginy);
-selz = select_points(head_highres.GridLoc(:,3), vert_source(3), marginz);
+% selx = select_points(hm_highres.data.GridLoc(:,1), vert_source(1), margin);
+sely = select_points(hm_highres.data.GridLoc(:,2), vert_source(2), marginy);
+selz = select_points(hm_highres.data.GridLoc(:,3), vert_source(3), marginz);
 
 sel = sely & selz;
 
-head_line = head_highres;
-head_line.GridLoc = head_highres.GridLoc(sel,:);
+head_line = hm_highres.data;
+head_line.GridLoc = hm_highres.data.GridLoc(sel,:);
 indices = indices(sel);
 
 %% Plot selected points superimposed

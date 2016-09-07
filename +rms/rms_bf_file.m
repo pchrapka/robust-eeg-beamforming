@@ -49,8 +49,6 @@ cfg_data.iteration = cfg.iteration;
 
 if isfield(cfg,'head')
     cfg.head.load();
-    head = cfg.head.data;
-    % FIXME don't copy data
 end
 
 %% Calculate rms for the beamformer source file
@@ -68,7 +66,7 @@ cfg_rms.source_type = cfg.source_type;
 cfg_rms.bf_out = bf_data_in.source.beamformer_output;
 
 if isfield(cfg,'head')
-    cfg_rms.head = head;
+    cfg_rms.head = cfg.head;
 end
 if isfield(cfg,'sample_idx')
     cfg_rms.sample_idx = cfg.sample_idx;

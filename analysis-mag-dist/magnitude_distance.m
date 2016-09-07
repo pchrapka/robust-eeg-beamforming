@@ -48,21 +48,13 @@ bf_power = bf_power/max_power;
 max_power = 1;
 
 %% Calculate the distances
-
-% cfg for hm_get_vertices
-cfg_vert = [];
-cfg_vert.head = cfg.head;
-cfg_vert.type = 'index';
-
 % TODO The indices of the max may be transposed if bf_power is matrix
-cfg_vert.idx = col;
 % Get the coordinates of the max
-[~,r_max] = hm_get_vertices(cfg_vert);
+[~,r_max] = cfg.head.get_vertices('type','index','idx',col);
 
 % Get the coordinates of the poi 
 % idx = 1:length(poi);
-cfg_vert.idx = true(size(bf_power));
-[~,r] = hm_get_vertices(cfg_vert);
+[~,r] = cfg.head.get_vertices('type','index','idx',true(size(bf_power)));
 
 d_vec = r - repmat(r_max,size(r,1),1);
 d_vec = d_vec.^2;

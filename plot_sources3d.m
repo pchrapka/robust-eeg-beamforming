@@ -10,21 +10,12 @@ function plot_sources3d(cfg)
 %
 %   See also COMPUTE_BEAMPATTERN
 
-%% Load the head model
-cfg.head.load();
-head = cfg.head.data;
-% FIXME don't copy data
-
 %% Load the data
 din = load(cfg.file);
 
 %% Plot the source location
 % Get the source location
-cfgvert = [];
-cfgvert.type = 'index';
-cfgvert.idx = din.data.options.voxel_idx;
-cfgvert.head = head;
-[~, loc] = hm_get_vertices(cfgvert);
+[~, loc] = cfg.head.get_vertices('type','index','idx',din.data.options.voxel_idx);
 
 hold on;
 % Plot a black circle
@@ -33,11 +24,7 @@ scatter3(loc(1), loc(2), loc(3), 100, [0 0 0], 'filled');
 %% Plot the interference location
 if isfield(din.data.options, 'interference_idx');
     % Get the interference location
-    cfgvert = [];
-    cfgvert.type = 'index';
-    cfgvert.idx = din.data.options.interference_idx;
-    cfgvert.head = head;
-    [~, loc] = hm_get_vertices(cfgvert);
+    [~, loc] = cfg.head.get_vertices('type','index','idx',din.data.options.interference_idx);
     
     hold on;
     % Plot a black x

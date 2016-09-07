@@ -28,14 +28,12 @@ if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
 
 %% Load the head model
 cfg.head.load();
-head = cfg.head.data;
-% FIXME don't copy data
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');
-fprintf('Loading surface file:\n\t%s\n', head.SurfaceFile);
+fprintf('Loading surface file:\n\t%s\n', cfg.head.data.SurfaceFile);
 tess = load(fullfile(bstdir,...
-    'Protocol-Phil-BEM','anat',head.SurfaceFile));
+    'Protocol-Phil-BEM','anat',cfg.head.data.SurfaceFile));
 % FIXME Move surface file to head models dir
 fprintf('**** FIXME move to head-models project and change in head models file\n');
 
