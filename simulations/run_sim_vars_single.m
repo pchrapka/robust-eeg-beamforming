@@ -6,6 +6,11 @@ clc;
 
 k = 1;
 
+%% set up head models
+hmfactory = HeadModel();
+hm_3sphere = hmfactory.creatHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
+hm_bem = hmfactory.creatHeadModel('brainstorm','head_Default1_bem_500V.mat');
+
 %% Set up scripts to run
 
 
@@ -33,8 +38,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_lcmv';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -47,8 +51,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_coarse';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -61,8 +64,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -78,8 +80,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_lcmv_mismatch';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -92,8 +93,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_coarse_mismatch';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -106,8 +106,7 @@ cfg_simvars_setup = [];
 cfg_simvars_setup.id = 'sim_vars_rmv_eig_coarse_mismatch';
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_3sphere_500V.mat';
+cfg_simvars_setup.head = hm_3sphere;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...

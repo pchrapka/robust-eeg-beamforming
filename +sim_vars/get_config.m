@@ -39,7 +39,7 @@ if ~isfield(cfg,'head')
     hmfactory = HeadModel();
     cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 end
-params(k).name = 'head_cfg';
+params(k).name = 'head';
 params(k).values = {cfg.head};
 k = k+1;
 

@@ -3,16 +3,16 @@ function beamformer_analysis(cfg)
 %   BEAMFORMER_ANALYSIS(CFG)
 %
 %   cfg
-%       head_cfg    
+%       head    
 %           struct containing config for the head models used
-%       head_cfg.current
+%       head.current
 %           struct containing config for the head model used for the
 %           beamformer analysis, can be estimated or exact
 %
 %           type    current head model type
 %           file    current head model file
 %
-%       head_cfg.actual  
+%       head.actual  
 %           struct containing config for the actual head model used to
 %           generate the data (only used for anisotropic rmv)
 %
@@ -86,16 +86,16 @@ else
 end
 
 %% Load the head model
-if isfield(cfg.head_cfg, 'current')
+if isfield(cfg.head, 'current')
     % Get the estimated head model
     % Need to differentiate between actual and estimated head models in
     % mismatched scenario
-    cfg.head_cfg.current.load();
-    hm = cfg.head_cfg.current;
+    cfg.head.current.load();
+    hm = cfg.head.current;
 else
     % Get the actual head model
-    cfg.head_cfg.load();
-    hm = cfg.head_cfg;
+    cfg.head.load();
+    hm = cfg.head;
 end
 
 %% Finalize locations to scan
@@ -116,7 +116,18 @@ end
 %% Set up the output
 out = [];
 out.data_file = cfg.data_file;
-out.head_cfg = cfg.head_cfg;
+if isfield(cfg.head,'current')
+    % copy head model config not entire data struct
+    out.head_cfg.current.type = cfg.head.current.type;
+    out.head_cfg.current.file = cfg.head.current.file;
+    
+    out.head_cfg.actual.type = cfg.head.actual.type;
+    out.head_cfg.actual.file = cfg.head.actual.file;
+else
+    % copy head model config not entire data struct
+    out.head_cfg.type = cfg.head.type;
+    out.head_cfg.file = cfg.head.file;
+end
 out.snr = data.snr;
 out.iteration = data.iteration;
 out.beamformer_config = cfg.beamformer_config;
@@ -145,13 +156,13 @@ parfor i=1:n_scans
     args = {};
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         % Get the head model data
-        cfg.head_cfg.actual.load();
-        cfg.head_cfg.current.load();
+        cfg.head.actual.load();
+        cfg.head.current.load();
     
         % Generate the uncertainty matrix
         A = beamformer.create_uncertainty(...
-            cfg.head_cfg.actual.data,...
-            cfg.head_cfg.current.data, idx);
+            cfg.head.actual.data,...
+            cfg.head.current.data, idx);
         args = {'A',A};
     end
     

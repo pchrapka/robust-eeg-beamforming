@@ -8,6 +8,11 @@ clc;
 
 k = 1;
 
+%% set up head models
+hmfactory = HeadModel();
+hm_3sphere = hmfactory.creatHeadModel('brainstorm','head_Default1_3sphere_15028V.mat');
+hm_bem = hmfactory.creatHeadModel('brainstorm','head_Default1_bem_15028V.mat');
+
 %% Set up scripts to run
 
 % Simulate ERP data
@@ -38,8 +43,7 @@ cfg_simvars_setup.id = 'sim_vars_distr_src_paper_matched';
 cfg_simvars_setup.loc = 1:15028;
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.head.type = 'brainstorm';
-cfg_simvars_setup.head.file = 'head_Default1_bem_15028V.mat';
+cfg_simvars_setup.head = hm_bem;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
@@ -59,10 +63,8 @@ cfg_simvars_setup.loc = 1:15028;
 cfg_simvars_setup.data = cfg_data;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = '3sphere';
-cfg_simvars_setup.head.current.type = 'brainstorm';
-cfg_simvars_setup.head.current.file = 'head_Default1_3sphere_15028V.mat';
-cfg_simvars_setup.head.actual.type = 'brainstorm';
-cfg_simvars_setup.head.actual.file = 'head_Default1_bem_15028V.mat';
+cfg_simvars_setup.head.current = hm_3sphere;
+cfg_simvars_setup.head.actual = hm_bem;
 cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...

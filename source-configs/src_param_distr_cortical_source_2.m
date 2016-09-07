@@ -15,7 +15,7 @@ sim_cfg.snr.signal = -10; % in dB
 %% Set up sources
 center_idx = 295;
 radius = 4/100; % 4 cm
-% [distr_idx,distr_loc] = sim_cfg.head_cfg.get_vertices(...
+% [distr_idx,distr_loc] = sim_cfg.head.get_vertices(...
 %     'type','radius','center_idx',center_idx,'radius',radius);
 
 % % Get the dipole orientation, normal to the cortex surface
@@ -24,7 +24,7 @@ radius = 4/100; % 4 cm
 % cfg.idx = distr_idx;
 % distr_orient = aet_sim_dipole_orientation(cfg);
 
-% [~,center_loc] = sim_cfg.head_cfg.get_vertices('type','index','idx',center_idx);
+% [~,center_loc] = sim_cfg.head.get_vertices('type','index','idx',center_idx);
 sigma = radius/3; % 3 std devs to be within the radius
 spatial_cov = (sigma^2)*ones(1,3);
 

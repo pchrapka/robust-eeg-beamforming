@@ -38,11 +38,14 @@ copyfile(cfg_eeg.data_file_in, cfg_eeg.data_file_out);
 %% ==== CALCULATE BEAMPATTERN ====
 cfg.distances = false;
 din = load(cfg.beamformer_file);
+
+% laod head model
 head_cfg = din.source.head_cfg;
 if isfield(head_cfg,'current')
     head_cfg = head_cfg.current;
 end
-cfg.head = head_cfg;
+hmfactory = HeadModel();
+cfg.head = hmfactory.createHeadModel(head_cfg.type, head_cfg.file);
 
 beampattern_data = beampattern(cfg);
 if isfield(cfg,'beamformer_file_2')
