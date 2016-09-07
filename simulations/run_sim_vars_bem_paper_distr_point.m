@@ -12,8 +12,8 @@ k = 1;
 
 %% set up head models
 hmfactory = HeadModel();
-hm_3sphere = hmfactory.creatHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
-hm_bem = hmfactory.creatHeadModel('brainstorm','head_Default1_bem_500V.mat');
+hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
+hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 
 %% Set up scripts to run
 
