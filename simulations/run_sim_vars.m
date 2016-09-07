@@ -31,14 +31,13 @@ data_files = get_sim_data_files(...
 % FIXME Still need somewhere to save the file
 % scripts(k).func = @sim_vars.run;
 % cfg = struct(...
-%     'sim_vars',             sim_vars.get_config('sim_vars_lcmv',cfg_data,force),...
+%     'sim_vars',             get_beamformer_analysis_config('sim_vars_lcmv',cfg_data,force),...
 %     'analysis_run_func',    @beamformer_analysis);
 % scripts(k).vars = {cfg};
 % k = k+1;
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_rmv';
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_rmv');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars = sim_var.get_config(cfg_simvars_setup);

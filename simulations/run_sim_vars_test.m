@@ -36,12 +36,11 @@ data_files = get_sim_data_files(...
     );
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = [];
-cfg_simvars_setup.id = 'sim_vars_test_mismatch';
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_test_mismatch');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_3sphere;
-cfg_simvars = sim_vars.get_config(cfg_simvars_setup);
+cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
