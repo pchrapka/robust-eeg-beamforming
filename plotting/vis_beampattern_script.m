@@ -1,8 +1,4 @@
-%% Update AET, just in case
-util.update_aet();
 
-%% Initialize the Advanced EEG Toolbox
-aet_init
 
 %% Options
 sim_name = 'sim_data_bem_1_100t';

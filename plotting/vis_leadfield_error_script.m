@@ -1,8 +1,4 @@
-%% Update AET, just in case
-util.update_aet();
 
-%% Initialize the Advanced EEG Toolbox
-aet_init
 
 %% Visualize the leadfield errors
 cfg = [];

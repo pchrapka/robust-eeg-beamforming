@@ -100,7 +100,8 @@ if exist(dep_path,'dir') ~= 7
 else
     complete(count) = true;
     count = count + 1;
-    path(path,dep_path);
+    addpath(dep_path);
+    aet_install();
     fprintf('\t%s: ok\n', pkg_name);
 end
 
@@ -118,7 +119,7 @@ if exist(phasereset_path,'dir') ~= 7
 else
     complete(count) = true;
     count = count + 1;
-    path(path,phasereset_path);
+    addpath(phasereset_path);
     fprintf('\tphasereset: ok\n');
 end
 
@@ -146,7 +147,7 @@ if exist(dep_path,'dir') ~= 7
 else
     complete(count) = true;
     count = count + 1;
-    path(path,dep_path);
+    addpath(dep_path);
     fprintf('\t%s: ok\n', pkg_name);
 end
 

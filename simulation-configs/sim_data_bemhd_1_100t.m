@@ -16,13 +16,10 @@ sim_cfg.parallel = 'user';
 
 %% Head model
 hmfactory = HeadModel();
-sim_cfg.head_cfg = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
-sim_cfg.head_cfg.load();
-sim_cfg.head = sim_cfg.head_cfg.data;
-% FIXME don't copy data
+sim_cfg.head = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
 
 % Figure out number of channels
-gain_temp = sim_cfg.head_cfg.get_leadfield(1);
+gain_temp = sim_cfg.head.get_leadfield(1);
 sim_cfg.n_channels = size(gain_temp,1);
 
 %% Simulation parameters

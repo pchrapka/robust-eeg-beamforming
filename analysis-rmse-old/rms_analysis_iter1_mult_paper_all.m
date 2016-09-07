@@ -1,11 +1,5 @@
 %% rms_analysis_iter1_mult_paper_all
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
 cfg_par = [];
 cfg_par.ncores = 10;
 aet_parallel_init(cfg_par);

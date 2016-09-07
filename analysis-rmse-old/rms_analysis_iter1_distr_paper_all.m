@@ -1,11 +1,5 @@
 %% rms_analysis_iter1_distr_paper_all
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
 %% Set up different rms analysis
 % For distr source results with 1 iteration
 cfg = [];

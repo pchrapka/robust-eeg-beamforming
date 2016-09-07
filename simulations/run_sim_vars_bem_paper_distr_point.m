@@ -4,12 +4,7 @@ clear all;
 close all;
 clc;
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-% Open the parallel pipeline
+%% Open the parallel pipeline
 cfg = [];
 cfg.ncores = 10;
 aet_parallel_init(cfg);

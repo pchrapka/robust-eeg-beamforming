@@ -1,12 +1,6 @@
 %% Plot high res beampatterns using brainstorm functions
 %% NOTE Use beampattern_report instead
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
 %% Options
 sim_name = 'sim_data_bemhd_1_100t';
 voxel_idx = 5440;

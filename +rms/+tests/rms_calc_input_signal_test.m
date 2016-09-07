@@ -10,8 +10,6 @@ classdef rms_calc_input_signal_test < TestCase
         
         function setUp(self)
             % Nothing to do
-            aet_init();
-            util.update_aet();
         end
 
         function test_single_src_1(self)

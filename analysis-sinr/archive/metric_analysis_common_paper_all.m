@@ -1,10 +1,6 @@
 %% metric_analysis_common_paper_all
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
+%% init parallel
 
 % % Set parallel for blade not my laptop
 % if ispc

@@ -3,11 +3,6 @@ clear all;
 close all;
 clc;
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
 
 %% Setup the source parameter file to test
 

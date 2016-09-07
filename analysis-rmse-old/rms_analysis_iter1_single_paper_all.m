@@ -1,11 +1,5 @@
 %% rms_analysis_iter1_single_paper_all
 
-%% Update AET, just in case
-util.update_aet();
-
-%% Initialize the Advanced EEG Toolbox
-aet_init
-
 %% Set up different rms analysis 
 % Single source results with 1 iteration
 cfg = [];

@@ -1,7 +1,4 @@
 %% run_all
-util.update_aet();
-% Initialize the Advanced EEG Toolbox
-aet_init
 
 %% Open the parallel pipeline
 cfg = [];
