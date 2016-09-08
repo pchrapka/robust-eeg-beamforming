@@ -170,6 +170,8 @@ classdef BeamformerLCMV < Beamformer
             data.W = data_out.W;
             data.H = H;
         end
+
+
     end
     
 %     methods (Access = protected)

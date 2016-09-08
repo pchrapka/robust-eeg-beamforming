@@ -37,5 +37,8 @@ run_sim_vars_bemhd_paper_distr2hd
 % high res
 power_surface_highres
 
+% beampattern
+% beampattern_report
+
 
 
