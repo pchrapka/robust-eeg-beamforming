@@ -31,15 +31,13 @@ if isfield(cfg, 'data')
         'use data_file instead');
 end
 
-if isfield(cfg,'data_file')
-    params(k).name = 'data_file';
-    if iscell(cfg.data_file)
-        params(k).values = cfg.data_file;
-    else
-        params(k).values = {cfg.data_file};
-    end
-    k = k+1;
+params(k).name = 'data_file';
+if iscell(cfg.data_file)
+    params(k).values = cfg.data_file;
+else
+    params(k).values = {cfg.data_file};
 end
+k = k+1;
 
 % Beamformer configs
 params(k).name = 'beamformer_config';
@@ -48,6 +46,7 @@ if iscell(cfg.beamformer_config{1})
 else
     params(k).values = {cfg.beamformer_config};
 end
+k = k+1;
 
 % fields with single options
 % NOTE limitation in naming convention
