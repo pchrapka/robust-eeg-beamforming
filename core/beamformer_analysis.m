@@ -217,7 +217,7 @@ parfor i=1:n_scans
     % get the leafield matrix from the head model
     H = hm.get_leadfield(idx);
     
-    switch cov_type
+    switch cfg.cov_type
         case 'time'
             % Calculate the beamformer
             beam_out = beamformer.inverse(H, R, args{:});
