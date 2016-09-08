@@ -51,7 +51,7 @@ data.iteration = run_iter;
 data.snr = snr;
 
 % save data
-save(save_file, 'data');
+save(save_file, 'data','-v7.3');
 end
 
 
