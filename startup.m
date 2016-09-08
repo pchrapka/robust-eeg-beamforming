@@ -105,51 +105,51 @@ else
     fprintf('\t%s: ok\n', pkg_name);
 end
 
-%% Add phasereset package to Matlab path
-phasereset_path = [matlab_dir filesep 'phasereset'];
-if exist(phasereset_path,'dir') ~= 7
-    % Turn on warnings
-    warning('on','all')
-    warning('reb:startup',...
-        ['Missing phasereset package.\n'...
-        'Download and install from http://www.cs.bris.ac.uk/~rafal/phasereset/.\n'...
-        'See README']);
-    complete(count) = false;
-    count = count + 1;
-else
-    complete(count) = true;
-    count = count + 1;
-    addpath(phasereset_path);
-    fprintf('\tphasereset: ok\n');
-end
-
-%% Add lumberjack package to Matlab path
-pkg_name = 'lumberjack';
-if ispc
-    dep_path = ['C:\Users\Phil\My Projects\' pkg_name];
-else
-    [~,comp_name] = system('hostname');
-    if ~isempty(strfind(comp_name,'Valentina'))
-        dep_path = ['/home/phil/projects/' pkg_name];
-    else
-        dep_path = ['/home/chrapkpk/Documents/projects/' pkg_name];
-    end
-end
-if exist(dep_path,'dir') ~= 7
-    % Turn on warnings
-    warning('on','all')
-    warning('reb:startup',...
-        ['Missing %s package.\n'...
-        'Clone from https://github.com/pchrapka/%s.git.\n'...
-        'See README'], pkg_name, pkg_name);
-    complete(count) = false;
-    count = count + 1;
-else
-    complete(count) = true;
-    count = count + 1;
-    addpath(dep_path);
-    fprintf('\t%s: ok\n', pkg_name);
-end
+% % %% Add phasereset package to Matlab path
+% % phasereset_path = [matlab_dir filesep 'phasereset'];
+% % if exist(phasereset_path,'dir') ~= 7
+% %     % Turn on warnings
+% %     warning('on','all')
+% %     warning('reb:startup',...
+% %         ['Missing phasereset package.\n'...
+% %         'Download and install from http://www.cs.bris.ac.uk/~rafal/phasereset/.\n'...
+% %         'See README']);
+% %     complete(count) = false;
+% %     count = count + 1;
+% % else
+% %     complete(count) = true;
+% %     count = count + 1;
+% %     addpath(phasereset_path);
+% %     fprintf('\tphasereset: ok\n');
+% % end
+% % 
+% % %% Add lumberjack package to Matlab path
+% % pkg_name = 'lumberjack';
+% % if ispc
+% %     dep_path = ['C:\Users\Phil\My Projects\' pkg_name];
+% % else
+% %     [~,comp_name] = system('hostname');
+% %     if ~isempty(strfind(comp_name,'Valentina'))
+% %         dep_path = ['/home/phil/projects/' pkg_name];
+% %     else
+% %         dep_path = ['/home/chrapkpk/Documents/projects/' pkg_name];
+% %     end
+% % end
+% % if exist(dep_path,'dir') ~= 7
+% %     % Turn on warnings
+% %     warning('on','all')
+% %     warning('reb:startup',...
+% %         ['Missing %s package.\n'...
+% %         'Clone from https://github.com/pchrapka/%s.git.\n'...
+% %         'See README'], pkg_name, pkg_name);
+% %     complete(count) = false;
+% %     count = count + 1;
+% % else
+% %     complete(count) = true;
+% %     count = count + 1;
+% %     addpath(dep_path);
+% %     fprintf('\t%s: ok\n', pkg_name);
+% % end
 
 %% Add fieldtrip-beamforming-rmvb package to Matlab path
 % pkg_name = 'fieldtrip-beamforming-rmvb';
