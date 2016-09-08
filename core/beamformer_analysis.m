@@ -71,7 +71,7 @@ switch cfg.cov_type
             % remove old field
             data.Rtime = data.R;
             data = rmfield(data,'R');
-            save(cfg.data_file, 'data');
+            save(cfg.data_file, 'data','-v7.3');
         end
         
         % compute time-wise covariance if it doesn't exist
@@ -79,7 +79,7 @@ switch cfg.cov_type
             data.Rtime = aet_analysis_cov(data.avg_trials);
             
             % calculate it once and save it to the data file
-            save(cfg.data_file, 'data');
+            save(cfg.data_file, 'data','-v7.3');
         end
         
         % copy covariance
@@ -96,7 +96,7 @@ switch cfg.cov_type
         if length(cfg.sample_idx) > 1
             error('feature not implemented');
         end
-        R = squeeze(data.Rtrial(cfg.sample_idx));
+        R = data.Rtrial;
         
         if ~isfield(data,'avg_trials')
             data.avg_trials = zeros(size(data.trials{1}));
@@ -110,7 +110,7 @@ switch cfg.cov_type
         end
     
         % Calculate it once and save it to the data file
-        save(cfg.data_file, 'data');
+        save(cfg.data_file, 'data','-v7.3');
     otherwise
         error('unknown covariance type');
 end
@@ -194,7 +194,8 @@ data_trials = data.avg_trials(:,cfg.sample_idx);
 beam_signal = zeros(n_scans, length(cfg.sample_idx), n_components);
 
 %% Scan locations
-parfor i=1:n_scans
+%parfor i=1:n_scans
+for i=1:n_scans
     
     fprintf('%s snr %d iter %d %d/%d\n',...
         beamformer.name, out_snr, out_iteration, i, n_scans);
@@ -322,7 +323,7 @@ out.loc = out_loc;
 
 %% Save beamformer output
 source = out;
-save(save_file, 'source');
+save(save_file, 'source','-v7.3');
 
 %% Save beamformer output mini 
 % % Save just the beamformer_output
