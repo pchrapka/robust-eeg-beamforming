@@ -71,10 +71,10 @@ for i=1:length(fields_single)
             if length(data) > 1
                 error('too many permutations');
             else
-                params(k).value = data;
+                params(k).values = data;
             end
         else
-            params(k).value = {data};
+            params(k).values = {data};
         end
         k = k+1;
     end
