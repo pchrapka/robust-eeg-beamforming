@@ -41,34 +41,6 @@ if isfield(cfg,'data_file')
     k = k+1;
 end
 
-% Head model
-if isfield(cfg,'head')
-    params(k).name = 'head';
-    if iscell(cfg.head)
-        params(k).values = cfg.head;
-    else
-        params(k).values = {cfg.head};
-    end
-    k = k+1;
-end
-
-% Beamformer locations
-if isfield(cfg,'loc')
-    params(k).name = 'loc';
-    if iscell(cfg.loc)
-        params(k).values = cfg.loc;
-    else
-        params(k).values = {cfg.loc};
-    end
-    k = k+1;
-end
-
-if isfield(cfg, 'tag')
-    params(k).name = 'tag';
-    params(k).values = {cfg.tag};
-    k = k+1;
-end
-
 % Beamformer configs
 params(k).name = 'beamformer_config';
 if iscell(cfg.beamformer_config{1})
@@ -77,18 +49,35 @@ else
     params(k).values = {cfg.beamformer_config};
 end
 
-if isfield(cfg,'force')
-    if cfg.force
-        idx = length(params) + 1;
-        params(idx).name = 'force';
-        params(idx).values = {cfg.force};
-    end
-end
+% fields with single options
+% NOTE limitation in naming convention
+fields_single = {...
+    'head',...
+    'loc',...
+    'tag',...
+    'time_idx',...
+    'cov_type',...
+    'sample_idx',...
+    'force',...
+    };
 
-if isfield(cfg, 'time_idx')
-    idx = length(params) + 1;
-    params(idx).name = 'time_idx';
-    params(idx).values = {cfg.time_idx};
+for i=1:length(fields_single)
+    field = fields_single{i};
+    if isfield(cfg,field)
+        params(k).name = field;
+        
+        data = cfg.(field);
+        if iscell(data)
+            if length(data) > 1
+                error('too many permutations');
+            else
+                params(k).value = data;
+            end
+        else
+            params(k).value = {data};
+        end
+        k = k+1;
+    end
 end
 
 end

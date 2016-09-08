@@ -40,21 +40,23 @@ data_files = get_sim_data_files(...
 
 %% ==== MATCHED LEADFIELD ====
 
-% scripts(k).func = @sim_vars.run;
-% cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
-% cfg_simvars_setup.data_file = data_files;
-% cfg_simvars_setup.force = force;
-% cfg_simvars_setup.head = hm_bem;
-% cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
-% 
-% cfg = struct(...
-%     'sim_vars',             cfg_simvars,...
-%     'analysis_run_func',    @beamformer_analysis,...
-%     ...Allow parallel execution of the scans
-%     'parallel',             false,...
-%     'debug',                false);
-% scripts(k).vars = {cfg};
-% k = k+1;
+scripts(k).func = @sim_vars.run;
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
+cfg_simvars_setup.data_file = data_files;
+cfg_simvars_setup.force = force;
+cfg_simvars_setup.head = hm_bem;
+cfg_simvars_setup.cov_type = 'trial';
+cfg_simvars_setup.sample_idx = 120;
+cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
+
+cfg = struct(...
+    'sim_vars',             cfg_simvars,...
+    'analysis_run_func',    @beamformer_analysis,...
+    ...Allow parallel execution of the scans
+    'parallel',             false,...
+    'debug',                false);
+scripts(k).vars = {cfg};
+k = k+1;
 
 %% ==== MISMATCHED LEADFIELD ====
 
