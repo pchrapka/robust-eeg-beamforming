@@ -44,8 +44,6 @@ switch name
             {'BeamformerLCMV','regularization','eig'}};
         
         % Mismatch covariance matrix
-        idx = length(params) + 1;
-        params(idx).name = 'perturb_config';
         out.perturb_config = {...
             'perturb_1',...
             'perturb_2'};
@@ -78,8 +76,6 @@ switch name
             {'BeamformerLCMV','regularization','eig'}};
         
         % Mismatch covariance matrix
-        idx = length(params) + 1;
-        params(idx).name = 'perturb_config';
         out.perturb_config = {...
             'perturb_1',...
             'perturb_2'};   
@@ -118,8 +114,6 @@ switch name
             {'BeamformerRMV','epsilon',400}};
         
         % Mismatch covariance matrix
-        idx = length(params) + 1;
-        params(idx).name = 'perturb_config';
         out.perturb_config = {...
             'perturb_1',...
             'perturb_2'};      
