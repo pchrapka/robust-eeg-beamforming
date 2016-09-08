@@ -17,9 +17,6 @@ classdef Beamformer
     methods (Abstract)
         data = inverse(obj, H, R)
         %INVERSE compute spatial filter
-        
-        data = beamformer_output(obj, W, signal)
-        %BEAMFORM_OUTPUT compute beamformer output
     end
     
     methods
