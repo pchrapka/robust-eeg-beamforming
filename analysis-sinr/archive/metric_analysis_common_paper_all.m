@@ -2,17 +2,9 @@
 
 %% init parallel
 
-% % Set parallel for blade not my laptop
-% if ispc
-%     parallel = false;
-% else
-%     parallel = true;
-% end
-% if parallel
-%     cfg_par = [];
-%     cfg_par.ncores = 10;
-%     aet_parallel_init(cfg_par);
-% end
+% set up parallel execution
+lumberjack.parfor_setup();
+
 
 %% Set up metrics to calculate
 

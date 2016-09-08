@@ -1,9 +1,8 @@
 %% run_all_paper
 
 %% Open the parallel pipeline
-cfg = [];
-cfg.ncores = 10;
-aet_parallel_init(cfg);
+% set up parallel execution
+lumberjack.parfor_setup();
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
@@ -38,7 +37,5 @@ run_sim_vars_bemhd_paper_distr2hd
 % high res
 power_surface_highres
 
-%% Close the parallel pipeline
-aet_parallel_close([]);
 
 

@@ -5,9 +5,9 @@ close all;
 clc;
 
 %% Open the parallel pipeline
-cfg = [];
-cfg.ncores = 10;
-aet_parallel_init(cfg);
+% set up parallel execution
+lumberjack.parfor_setup();
+
 k = 1;
 
 %% set up head models

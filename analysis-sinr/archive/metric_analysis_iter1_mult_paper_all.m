@@ -2,17 +2,8 @@
 
 %% init parallel
 
-% Set parallel for blade not my laptop
-if ispc
-    parallel = false;
-else
-    parallel = true;
-end
-if parallel
-    cfg_par = [];
-    cfg_par.ncores = 10;
-    aet_parallel_init(cfg_par);
-end
+% set up parallel execution
+lumberjack.parfor_setup();
 
 %% Set up different metrics to calculate
 % Mult source results with 1 iteration
@@ -104,9 +95,4 @@ for j=1:length(source_names)
     cfg = [];
     cfg.source_name = source_names{j};
     metric_analysis_iter1_summary(cfg, results);
-end
-
-%% Close parallel execution
-if parallel
-    aet_parallel_close(cfg_par);
 end

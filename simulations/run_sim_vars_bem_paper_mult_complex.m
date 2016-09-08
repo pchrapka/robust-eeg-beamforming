@@ -73,7 +73,7 @@ scripts(k).vars = {cfg};
 k = k+1;
 
 %% Run the scripts
-cfg = [];
-cfg.ncores = 10;
-aet_parallel_init(cfg);
+% set up parallel execution
+lumberjack.parfor_setup();
+
 aet_run_scripts( scripts );

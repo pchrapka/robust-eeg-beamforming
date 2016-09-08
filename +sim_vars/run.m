@@ -26,10 +26,8 @@ p = sim_vars.expand_vars(cfg.sim_vars);
 
 if cfg.parallel && ~cfg.debug
 
-    % Control parallel execution explicity
-    tmpcfg = [];
-    tmpcfg.ncores = 10;
-    aet_parallel_init(tmpcfg);
+    % set up parallel execution
+    lumberjack.parfor_setup();
     
     % Parallel
     analysis_run_func = cfg.analysis_run_func;
@@ -39,7 +37,6 @@ if cfg.parallel && ~cfg.debug
         feval(analysis_run_func, p(i));
     end
     
-    aet_parallel_close(tmpcfg);
 else
     % Regular
     analysis_run_func = cfg.analysis_run_func;

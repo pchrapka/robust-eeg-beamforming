@@ -22,7 +22,7 @@ if ~isfield(cfg,'parallel'),    cfg.parallel = true;    end
 if ~isfield(sim_cfg,'force'),   sim_cfg.force = false;  end
 if ~isfield(sim_cfg,'debug'),   sim_cfg.debug = false;  end
 
-%% Generate/load data
+%% Generate
 
 if sim_cfg.debug || ~cfg.parallel
     for j=1:length(sim_cfg.snr_range)
@@ -31,10 +31,8 @@ if sim_cfg.debug || ~cfg.parallel
         end
     end
 else
-    % Control parallel execution explicity
-    sim_cfg.parallel = 'user';
-    sim_cfg.ncores = 10;
-    aet_parallel_init(sim_cfg)
+    % set up parallel execution
+    lumberjack.parfor_setup();
     
     % Parallelize based on which is longer
     if length(sim_cfg.snr_range) > sim_cfg.n_runs
@@ -52,9 +50,6 @@ else
         end
     end
     
-    % End parallel execution
-    sim_cfg.parallel = '';
-    aet_parallel_close(sim_cfg)
 end
 
 end

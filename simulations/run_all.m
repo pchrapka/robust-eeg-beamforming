@@ -1,9 +1,8 @@
 %% run_all
 
 %% Open the parallel pipeline
-cfg = [];
-cfg.ncores = 10;
-aet_parallel_init(cfg);
+% set up parallel execution
+lumberjack.parfor_setup();
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulations
@@ -63,8 +62,5 @@ run_sim_vars_bem_paper_mult17_lag8
 % Calculate SINR for different source configurations
 % PAPER
 metric_analysis_sinr
-
-%% Close the parallel pipeline
-aet_parallel_close([]);
 
 

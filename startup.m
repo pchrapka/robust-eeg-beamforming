@@ -132,7 +132,7 @@ else
     if ~isempty(strfind(comp_name,'Valentina'))
         dep_path = ['/home/phil/projects/' pkg_name];
     else
-        dep_path = ['/home/chrapkpk/Documents/MATLAB/' pkg_name];
+        dep_path = ['/home/chrapkpk/Documents/projects/' pkg_name];
     end
 end
 if exist(dep_path,'dir') ~= 7

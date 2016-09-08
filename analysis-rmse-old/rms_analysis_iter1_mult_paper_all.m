@@ -1,8 +1,7 @@
 %% rms_analysis_iter1_mult_paper_all
 
-cfg_par = [];
-cfg_par.ncores = 10;
-aet_parallel_init(cfg_par);
+% set up parallel execution
+lumberjack.parfor_setup();
 
 %% Set up different rms analysis 
 % Mult source results with 1 iteration
@@ -49,7 +48,3 @@ for j=1:length(source_names)
         rms_analysis_iter1_summary(cfg);
     end
 end
-
-
-%% Close parallel execution
-aet_parallel_close(cfg_par);
