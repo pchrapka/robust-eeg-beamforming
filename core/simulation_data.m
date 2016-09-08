@@ -25,9 +25,11 @@ if ~isfield(sim_cfg,'debug'),   sim_cfg.debug = false;  end
 %% Generate
 
 if sim_cfg.debug || ~cfg.parallel
+    % sequential data simulation
     for j=1:length(sim_cfg.snr_range)
         for i=1:sim_cfg.n_runs
-            simulation_data_inner(sim_cfg, j, i)
+            cur_snr = sim_cfg.snr_range(j);
+            simulation_data_inner(sim_cfg, cur_snr, i)
         end
     end
 else
@@ -36,16 +38,20 @@ else
     
     % Parallelize based on which is longer
     if length(sim_cfg.snr_range) > sim_cfg.n_runs
+        % parallelize snr range
         parfor j=1:length(sim_cfg.snr_range)
             % for j=1:length(sim_cfg.snr_range)
             for i=1:sim_cfg.n_runs
-                simulation_data_inner(sim_cfg, j, i)
+                cur_snr = sim_cfg.snr_range(j);
+                simulation_data_inner(sim_cfg, cur_snr, i)
             end
         end
     else
+        % parallelize iteration range
         parfor i=1:sim_cfg.n_runs
             for j=1:length(sim_cfg.snr_range)
-                simulation_data_inner(sim_cfg, j, i)
+                cur_snr = sim_cfg.snr_range(j);
+                simulation_data_inner(sim_cfg, cur_snr, i)
             end
         end
     end
