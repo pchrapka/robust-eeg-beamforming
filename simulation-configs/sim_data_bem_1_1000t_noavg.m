@@ -1,4 +1,4 @@
-%% sim_data_bem_1_100t_noavg
+%% sim_data_bem_1_1000t_noavg
 
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
@@ -21,11 +21,11 @@ sim_cfg.n_channels = size(gain_temp,1);
 %% Simulation parameters
 
 % Number of trials
-sim_cfg.trials = 100;
+sim_cfg.trials = 1000;
 % Sampling frequency
 sim_cfg.fsample = 250;
 % Number of time samples per trial
-sim_cfg.timepoints = 1000;
+sim_cfg.timepoints = 200;
 % Simulation runs
 sim_cfg.n_runs = 1;
 % SNR range
