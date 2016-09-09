@@ -1,35 +1,81 @@
-% Load the data
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_10/0_1.mat');
-din = load('output/sim_data_bem_1_100t/mult_cort_src_17/0_1.mat');
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_complex_1_dip_pos_freq/0_1.mat');
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2/0_1.mat');
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/0_1.mat');
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/-10_1.mat');
-% din = load('output/sim_data_bem_1_100t/mult_cort_src_sine_2_uncor/-20_1.mat');
 
-% Extract the signal
-signal = din.data.avg_dipole_signal;
-% should be DIMS x LOCS x SAMPLES
+%% ==== ERP SIMULATION ====
 
-% Calculate the norm of the signal
-signal_norm = squeeze(sum(signal.^2,1));
+param_files = {...
+    'src_param_mult_cortical_source_10',...
+    'src_param_mult_cortical_source_17',...
+    'src_param_mult_cortical_source_17_lag4',...
+    'src_param_mult_cortical_source_17_lag8',...
+    'src_param_mult_cortical_source_17_lag12',...
+    'src_param_mult_cortical_source_17_lag16',...
+    'src_param_mult_cortical_source_17_lag20',...
+    'src_param_mult_cortical_source_complex_1_dip_pos_freq',...
+    'src_param_mult_cortical_source_sine_2',...
+    'src_param_mult_cortical_source_sine_2_uncor',...
+    };
 
-% Find the non-zero locations
-[locs, samples] = find(signal_norm > 0);
-
-% Get the unique locations
-locs_unique = unique(locs);
-
-% Extract the actual sources
-sources = signal_norm(locs_unique,:);
-
-figure;
-n_sources = length(locs_unique);
-for i=1:n_sources
-    subplot(n_sources,1,i);
-    plot(sources(i,:));
+for j=1:length(param_files)
+    scripts(k).func = @simulation_data;
+    cfg = struct(...
+        'sim_data',             'sim_data_bem_1_100t',...
+        'sim_src_parameters',   param_files{j},...
+        'snr_range',            0,...
+        ...Allow aet_sim_eeg_avg to parallelize the trials
+        'parallel',             false);
+    scripts(k).vars = {cfg};
+    k = k+1;
 end
 
-maxlags = 0;
-source_cor = xcorr(sources(1,:), sources(2,:), maxlags, 'coeff');
-fprintf('source correlation: %f\n', source_cor);
+%% Data files
+
+source_names = {...
+    'mult_cort_src_10',...
+    'mult_cort_src_17',...
+    'mult_cort_src_17_lag4',...
+    'mult_cort_src_17_lag8',...
+    'mult_cort_src_17_lag12',...
+    'mult_cort_src_17_lag16',...
+    'mult_cort_src_17_lag20',...
+    'mult_cort_src_complex_1_dip_pos_freq',...
+    'mult_cort_src_sine_2',...
+    'mult_cort_src_sine_2_uncor',...
+    };
+
+for j=1:length(source_names)
+    data_files = get_sim_data_files(...
+        'sim','sim_data_bem_1_100t',...
+        'source',source_names{j},...
+        'iterations',1,...
+        'snr',0 ...
+        );
+    
+    % Load the data
+    din = load(data_files{1});
+    
+    % Extract the signal
+    signal = din.data.avg_dipole_signal;
+    % should be DIMS x LOCS x SAMPLES
+    
+    % Calculate the norm of the signal
+    signal_norm = squeeze(sum(signal.^2,1));
+    
+    % Find the non-zero locations
+    [locs, samples] = find(signal_norm > 0);
+    
+    % Get the unique locations
+    locs_unique = unique(locs);
+    
+    % Extract the actual sources
+    sources = signal_norm(locs_unique,:);
+    
+    figure;
+    n_sources = length(locs_unique);
+    for i=1:n_sources
+        subplot(n_sources,1,i);
+        plot(sources(i,:));
+    end
+    
+    maxlags = 0;
+    source_cor = xcorr(sources(1,:), sources(2,:), maxlags, 'coeff');
+    fprintf('source correlation: %f\n', source_cor);
+end
