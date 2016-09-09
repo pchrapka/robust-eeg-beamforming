@@ -20,14 +20,15 @@ p.parse(snr,run_iter);
 % Copy the config
 temp_cfg = sim_cfg;
 
-% Adjust SNR of source 1
+%% Adjust SNR of sources
 temp_cfg.snr.signal = snr;
-% Only adjust interference if there are sources labeled as interference
 if sum(isinterference(temp_cfg.sources)) > 0
+    % Only adjust interference if there are sources labeled as interference
+    % adjust interference source to equal signal source
     temp_cfg.snr.interference = snr;
 end
 
-% set up ouputfile
+%% set up ouputfile
 tmpcfg = [];
 tmpcfg.sim_name = temp_cfg.sim_name;
 tmpcfg.source_name = temp_cfg.source_name;
@@ -35,7 +36,7 @@ tmpcfg.snr = snr;
 tmpcfg.iteration = run_iter;
 save_file = db.save_setup(tmpcfg);
 
-% check if the file exists
+%% check if the file exists
 if exist(save_file,'file') && ~temp_cfg.force
     [~,name,~,~] = util.fileparts(save_file);
     fprintf('File exists: %s\n', name);
@@ -43,9 +44,10 @@ if exist(save_file,'file') && ~temp_cfg.force
     return
 end
 
-% Create the data
+%% Create the data
 data = aet_sim_create_eeg(temp_cfg);
 
+%% Save
 % Add some info
 data.iteration = run_iter;
 data.snr = snr;
