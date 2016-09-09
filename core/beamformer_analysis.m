@@ -96,7 +96,7 @@ switch cfg.cov_type
         if length(cfg.sample_idx) > 1
             error('feature not implemented');
         end
-        R = data.Rtrial;
+        R = data.Rtrial(cfg.sample_idx,:,:);
         
         if ~isfield(data,'avg_trials')
             data.avg_trials = zeros(size(data.trials{1}));
@@ -241,15 +241,13 @@ for i=1:n_scans
             W = [];
             beam_signal_temp = zeros(length(cfg.sample_idx),n_components);
             for j=1:length(cfg.sample_idx)
-                sample_idx = cfg.sample_idx(j);
-                
                 % Calculate the beamformer
-                beam_out = beamformer.inverse(H, squeeze(R(sample_idx,:,:)), args{:});
+                beam_out = beamformer.inverse(H, squeeze(R(j,:,:)), args{:});
                 W(j,:,:) = beam_out.W;
                 out_loc(i) = idx;
                 
                 beam_signal_temp(j,:) = beamformer.output(...
-                    beam_out.W, data_trials(:,sample_idx))';
+                    beam_out.W, data_trials(:,j))';
             end
             beam_signal(i,:,:) = beam_signal_temp;
             out_filter{i} = W;
