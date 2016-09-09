@@ -21,11 +21,20 @@ p.parse(snr,run_iter);
 temp_cfg = sim_cfg;
 
 %% Adjust SNR of sources
-temp_cfg.snr.signal = snr;
-if sum(isinterference(temp_cfg.sources)) > 0
-    % Only adjust interference if there are sources labeled as interference
-    % adjust interference source to equal signal source
-    temp_cfg.snr.interference = snr;
+switch temp_cfg.snr.type
+    case 'on_average'
+        temp_cfg.snr.signal = snr;
+        if sum(isinterference(temp_cfg.sources)) > 0
+            % Only adjust interference if there are sources labeled as interference
+            % adjust interference source to equal signal source
+            temp_cfg.snr.interference = snr;
+        end
+    case 'per_trial'
+        for i=1:length(temp_cfg.sources)
+            temp_cfg.sources{i}.snr = snr;
+        end
+    otherwise
+        error('unknown snr option %s',temp_cfg.snr.type);
 end
 
 %% set up ouputfile
