@@ -6,11 +6,6 @@ sim_cfg.source_name = 'single_cort_src';
 % Specific beamformer parameter
 sim_cfg.n_interfering_sources = 0;
 
-% SNR calculation
-% sim_cfg.snr.type = 'per_trial';
-sim_cfg.snr.type = 'on_average';
-sim_cfg.snr.signal = -10; % in dB
-sim_cfg.snr.interference = 30; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()
@@ -30,5 +25,4 @@ sim_cfg.sources{1}.moment = [1;0;0];
 sim_cfg.sources{1}.source_index = 207;
 
 %% Noise parameters
-sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;

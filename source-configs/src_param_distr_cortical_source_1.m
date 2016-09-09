@@ -5,15 +5,6 @@
 
 sim_cfg.source_name = 'distr_cort_src_1';
 
-% Specific beamformer parameter based on sources
-sim_cfg.snr_range = -40:5:25; % in dB
-
-% SNR calculation
-% sim_cfg.snr.type = 'per_trial';
-sim_cfg.snr.type = 'on_average';
-sim_cfg.snr.signal = -10; % in dB
-% sim_cfg.snr.interference = 8; % in dB
-
 %% Set up sources
 radius = 4/100;
 [distr_idx,distr_loc] = sim_cfg.head.get_vertices(...
@@ -52,7 +43,6 @@ for i=1:length(distr_idx)
 end
 
 %% Noise parameters
-sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;
 
 %% Clear unnecessary variables

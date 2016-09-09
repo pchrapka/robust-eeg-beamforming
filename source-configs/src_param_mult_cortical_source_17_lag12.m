@@ -10,11 +10,6 @@
 
 sim_cfg.source_name = 'mult_cort_src_17_lag12';
 
-% SNR calculation
-% sim_cfg.snr.type = 'per_trial';
-sim_cfg.snr.type = 'on_average';
-sim_cfg.snr.signal = -10; % in dB
-% sim_cfg.snr.interference = 8; % in dB
 
 %% Source 1
 % Source signal params for pr_peak()
@@ -59,5 +54,4 @@ cfg.idx = sim_cfg.sources{2}.source_index;
 sim_cfg.sources{2}.moment = [1 1 0]'/norm([1 1 0]); 
 
 %% Noise parameters
-sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;

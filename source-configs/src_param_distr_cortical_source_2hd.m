@@ -6,11 +6,6 @@
 % sim_cfg.force = true; % ===== forcing another analysis ======
 sim_cfg.source_name = 'distr_cort_src_2hd';
 
-% SNR calculation
-% sim_cfg.snr.type = 'per_trial';
-sim_cfg.snr.type = 'on_average';
-sim_cfg.snr.signal = -10; % in dB
-% sim_cfg.snr.interference = 8; % in dB
 
 %% Set up sources
 center_idx = 5440;
@@ -33,5 +28,4 @@ sim_cfg.sources{1}.jitter = 5;
 
 
 %% Noise parameters
-sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;

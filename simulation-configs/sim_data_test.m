@@ -31,6 +31,10 @@ sim_cfg.n_runs = 2;
 sim_cfg.average_data = true;
 sim_cfg.keep_trials = false;
 
+sim_cfg.snr.type = 'on_average';
+% sim_cfg.snr.signal = 0; %overwritten in simulation_data
+% sim_cfg.snr.interference = 0; %overwritten in simulation_data
+
 %% Options for beamformer types
 % sim_cfg.beamformer_types = {'lcmv_eig'};
 sim_cfg.beamformer_types = {'rmv','lcmv','lcmv_eig','lcmv_reg'};

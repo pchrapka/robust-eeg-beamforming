@@ -7,11 +7,6 @@
 
 sim_cfg.source_name = 'single_cort_src_complex_2_dip';
 
-% SNR calculation
-% sim_cfg.snr.type = 'per_trial';
-sim_cfg.snr.type = 'on_average';
-sim_cfg.snr.signal = -10; % in dB
-% sim_cfg.snr.interference = 8; % in dB
 
 %% Source 1
 sim_cfg.sources{1}.type = 'signal';
@@ -52,5 +47,4 @@ sim_cfg.sources{2}.source_index = 295;
 sim_cfg.sources{2}.moment = [1 1 0]'/norm([1 1 0]); 
 
 %% Noise parameters
-sim_cfg.noise_amp = 0.1;
 sim_cfg.noise_power = 1;
