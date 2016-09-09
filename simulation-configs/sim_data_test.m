@@ -26,8 +26,6 @@ sim_cfg.fsample = 250;
 sim_cfg.timepoints = 1000;
 % Simulation runs
 sim_cfg.n_runs = 2;
-% SNR range
-sim_cfg.snr_range = -10:10:10;
 
 % Option for averaged data
 sim_cfg.average_data = true;
