@@ -134,8 +134,9 @@ for j=1:length(cfg.metrics)
             
             cfg_sinr = [];
             % Extract W from beamformer data
+            idx_w = bf_data_in.source.loc == metric_cfg.location_idx;
             cfg_sinr.W = ...
-                bf_data_in.source.filter{metric_cfg.location_idx};
+                bf_data_in.source.filter{idx_w};
             
             % Extract S, I and N from original data
             if metric_cfg.flip
