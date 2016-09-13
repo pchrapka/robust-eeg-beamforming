@@ -65,6 +65,7 @@ cfg_simvars_setup.loc = 1:15028;
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = '3sphere';
+cfg_simvars_setup.head = [];
 cfg_simvars_setup.head.current = hm_3sphere;
 cfg_simvars_setup.head.actual = hm_bem;
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
