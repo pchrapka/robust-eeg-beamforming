@@ -7,7 +7,7 @@ classdef Test_fix_label < matlab.unittest.TestCase
         function test_1(testCase)
             beamformer = 'rmv_eig_pre_cov_1_epsilon_1-000000e-04_3sphere';
             out = util.fix_label(beamformer);
-            testCase.verifyEqual(out,'RMVB eig pre cov, \epsilon 1.000000e-04');
+            testCase.verifyEqual(out,'RMVB eig pre cov, Q=2, \epsilon = 1.000000e-04');
         end
         
         function test_2(testCase)

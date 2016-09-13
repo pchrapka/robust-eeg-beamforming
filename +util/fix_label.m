@@ -39,6 +39,7 @@ for i=1:length(fields)
         case 'eps'
             if ~isempty(results.eps)
                 temp = strrep(results.epsilon,'-','.');
+                temp = strrep(temp,'e.','e-');
                 out = [out ', \epsilon = ' temp];
             end
     end
