@@ -29,15 +29,27 @@ classdef Test_fix_label < matlab.unittest.TestCase
         end
         
         function test_5(testCase)
-            beamformer = 'lcmv_eig_0_3sphere';
+            beamformer = 'lcmv_eig_filter_0_3sphere';
             out = util.fix_label(beamformer);
-            testCase.verifyEqual(out,'MVB eig, Q=1');
+            testCase.verifyEqual(out,'MVB eig filter, Q=1');
         end
         
         function test_6(testCase)
             beamformer = 'lcmv_reg_eig_3sphere';
             out = util.fix_label(beamformer);
             testCase.verifyEqual(out,'MVB regularized');
+        end
+        
+        function test_7(testCase)
+            beamformer = 'lcmv_eig_cov_0_3sphere';
+            out = util.fix_label(beamformer);
+            testCase.verifyEqual(out,'MVB eig cov, Q=1');
+        end
+        
+        function test_8(testCase)
+            beamformer = 'lcmv_pinv_eig_cov_0_3sphere';
+            out = util.fix_label(beamformer);
+            testCase.verifyEqual(out,'MVB pinv eig cov, Q=1');
         end
     end
 end
