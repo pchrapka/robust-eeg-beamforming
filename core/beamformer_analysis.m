@@ -152,6 +152,7 @@ if isfield(cfg.head, 'current')
     % Need to differentiate between actual and estimated head models in
     % mismatched scenario
     cfg.head.current.load();
+    cfg.head.actual.load();
     hm = cfg.head.current;
 else
     % Get the actual head model
@@ -203,11 +204,7 @@ parfor i=1:n_scans
     
     % Check for anisotropic rmv beamformer
     args = {};
-    if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
-        % Get the head model data
-        cfg.head.actual.load();
-        cfg.head.current.load();
-    
+    if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))    
         % Generate the uncertainty matrix
         A = beamformer.create_uncertainty(...
             cfg.head.actual,...
