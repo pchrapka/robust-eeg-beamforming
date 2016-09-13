@@ -3,7 +3,7 @@ classdef BeamformerRMV < Beamformer
     properties
         epsilon;        % isotropic error uncertainty
         solver;         % optimization solver
-        eigenspace;     % eigenspace method
+        eig_type;       % eigenspace method
         n_interfering_sources; % number of interfereing sources
     end
     

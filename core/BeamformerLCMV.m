@@ -43,8 +43,7 @@ classdef BeamformerLCMV < Beamformer
             %   --------------------------
             %   eigenspace (string, default = 'none')
             %       selects an eigenspace beamformer
-            %       options: 'eig pre cov', 'eig pre leadfield', 'eig
-            %       post', 'none'
+            %       options: 'eig cov', 'eig filter', 'none'
             %
             %       FIXME explain each one
             %   ninterference (integer, default = 0)
@@ -60,7 +59,7 @@ classdef BeamformerLCMV < Beamformer
             addParameter(p,'pinv',false,@islogical);
             addParameter(p,'ninterference',0,@isnumeric);
             eig_options = {...
-                'eig pre cov',...
+                'eig cov',...
                 'eig filter',...
                 'none'...
                 };
@@ -113,7 +112,7 @@ classdef BeamformerLCMV < Beamformer
                     obj.regularization);
             else
                 % vanilla
-                obj.type = type;
+                obj.type = 'lcmv';
                 obj.name = name;
             end
             
