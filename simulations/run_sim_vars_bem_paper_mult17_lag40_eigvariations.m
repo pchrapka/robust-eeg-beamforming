@@ -83,4 +83,5 @@ k = k+1;
 aet_run_scripts( scripts );
 
 %% Computer sin
-metric_analysis_sinr_mult17_lag40_eigvariations
+% metric_analysis_sinr_mult17_lag40_eigvariations
+metric_analysis_sinr_mult17_lag40_eigvariations_mini
