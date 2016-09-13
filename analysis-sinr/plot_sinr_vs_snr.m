@@ -24,7 +24,7 @@ else
 end
 
 % Plot the data
-h = figure('Position',[100 100 600 800]);
+h = figure('Position',[100 100 1000 800]);
 n_plots = size(output.data,2)-1;
 colors = hsv(n_plots);
 markers = {'o', 'x', 's', 'd', '^', 'v', '+', '>', '<'};
