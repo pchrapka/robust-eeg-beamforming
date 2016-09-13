@@ -10,8 +10,12 @@ addParameter(p,'iteration',1,@(x) isvector(x) && length(x) == 1);
 addParameter(p,'snrs',-20:0:20,@isvector);
 addParameter(p,'flip',false,@islogical);
 addParameter(p,'savetag','',@ischar);
+addParameter(p,'force',false,@islogical);
 parse(p,sim,source,beamformers,locations,varargin{:});
 
+cfg = [];
+cfg.force = p.Results.force;
+cfg.save_fig = true;
 cfg.beam_cfgs = p.Results.beamformers;
 
 % Set up simulation info
