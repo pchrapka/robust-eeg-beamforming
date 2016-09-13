@@ -1,6 +1,6 @@
 function out = fix_label(in)
 
-pattern = ['(?<type>rmv_aniso|rmv|lcmv_pinv|lcmv)_*'...
+pattern = ['(?<type>rmv_aniso|rmv|lcmv_inv|lcmv)_*'...
     '(?<eig>eig_pre_cov|eig_post|eig_pre_leadfield|eig_cov|eig_filter)*_*'...
     '(?<int>(?(eig)\d+|))_*'...
     '(?<reg>reg_eig)*_*'...
@@ -17,8 +17,8 @@ for i=1:length(fields)
             switch results.type
                 case 'lcmv'
                     out = 'MVB';
-                case 'lcmv_pinv'
-                    out = 'MVB pinv';
+                case 'lcmv_inv'
+                    out = 'MVB inv';
                 case 'rmv'
                     out = 'RMVB';
                 case 'rmv_aniso'

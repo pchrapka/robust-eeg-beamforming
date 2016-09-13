@@ -56,7 +56,7 @@ classdef BeamformerLCMV < Beamformer
             addParameter(p,'multiplier',0.005,@isnumeric);
             addParameter(p,'regularization','none',...
                 @(x) any(validatestring(x,{'eig','none'})));
-            addParameter(p,'pinv',false,@islogical);
+            addParameter(p,'pinv',true,@islogical);
             addParameter(p,'ninterference',0,@isnumeric);
             eig_options = {...
                 'eig cov',...
@@ -89,9 +89,9 @@ classdef BeamformerLCMV < Beamformer
             end
             
             if obj.pinv
-                name = 'lcmv pinv';
-            else
                 name = 'lcmv';
+            else
+                name = 'lcmv inv';
             end
             
             if ~isequal(obj.eig_type,'none')

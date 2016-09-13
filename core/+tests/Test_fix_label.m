@@ -47,9 +47,9 @@ classdef Test_fix_label < matlab.unittest.TestCase
         end
         
         function test_8(testCase)
-            beamformer = 'lcmv_pinv_eig_cov_0_3sphere';
+            beamformer = 'lcmv_inv_eig_cov_0_3sphere';
             out = util.fix_label(beamformer);
-            testCase.verifyEqual(out,'MVB pinv eig cov, Q=1');
+            testCase.verifyEqual(out,'MVB inv eig cov, Q=1');
         end
     end
 end
