@@ -210,8 +210,8 @@ for i=1:n_scans
     
         % Generate the uncertainty matrix
         A = beamformer.create_uncertainty(...
-            cfg.head.actual.data,...
-            cfg.head.current.data, idx);
+            cfg.head.actual,...
+            cfg.head.current, idx);
         args = {'A',A};
     end
     
