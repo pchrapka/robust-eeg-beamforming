@@ -42,6 +42,7 @@ cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched')
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_bem;
+cfg_simvars_setup.loc = [295,400];
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 
 cfg = struct(...
@@ -60,10 +61,10 @@ cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatche
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = '3sphere';
-cfg_simvars_setup.loc = [295,400];
 cfg_simvars_setup.head = [];
 cfg_simvars_setup.head.current = hm_3sphere;
 cfg_simvars_setup.head.actual = hm_bem;
+cfg_simvars_setup.loc = [295,400];
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
