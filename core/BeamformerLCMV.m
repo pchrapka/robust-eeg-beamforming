@@ -6,6 +6,7 @@ classdef BeamformerLCMV < Beamformer
         lambda;             % scaling for regularization
         regularization;     % regularization method
         multiplier;         % multiplier for regularization method
+        pinv;               % flag for using pinv
     end
     
     methods
@@ -40,8 +41,12 @@ classdef BeamformerLCMV < Beamformer
             %
             %   Eigenspace LCMV Beamformer
             %   --------------------------
-            %   eigenspace (logical, default = false)
-            %       selects eigenspace beamformer
+            %   eigenspace (string, default = 'none')
+            %       selects an eigenspace beamformer
+            %       options: 'eig pre cov', 'eig pre leadfield', 'eig
+            %       post', 'none'
+            %
+            %       FIXME explain each one
             %   ninterference (integer, default = 0)
             %       number of interfering sources
             
@@ -52,31 +57,50 @@ classdef BeamformerLCMV < Beamformer
             addParameter(p,'multiplier',0.005,@isnumeric);
             addParameter(p,'regularization','none',...
                 @(x) any(validatestring(x,{'eig','none'})));
+            addParameter(p,'pinv',false,@islogical);
             addParameter(p,'ninterference',0,@isnumeric);
-            addParameter(p,'eigenspace',false,@islogical);
+            eig_options = {...
+                'eig pre cov',...
+                'eig filter',...
+                'none'...
+                };
+            addParameter(p,'eig_type','none',...
+                @(x) any(validatestring(x,eig_options)));
             addParameter(p,'verbosity',0,@isnumeric);
             p.parse(varargin{:});
             
             % FIXME consider splitting this up into 3 classes, parameters
             % would be more straightforward
+            if ~isequal(p.Results.regularization,'none') && ~isequal(p.Results.eig_type,'none')
+                error('cannot regularize and use eigenspace projection');
+            end
             
             %obj = obj@Beamformer();
+            obj.pinv = p.Results.pinv;
             obj.n_interfering_sources = p.Results.ninterference;
-            obj.eigenspace = p.Results.eigenspace;
+            obj.eig_type = p.Results.eig_type;
             obj.multiplier = p.Results.multiplier;
             obj.regularization = p.Results.regularization;
             obj.verbosity = 0;
             obj.lambda = 0;
             
-            if obj.n_interfering_sources > 0 && ~obj.eigenspace
+            if obj.n_interfering_sources > 0 && isequal(obj.eig_type,'none')
                 error([mfilename ':' mfilename],...
-                    'did you forget ''eigenspace'',true as parameters?');
+                    'did you forget the eig_type parameter?');
             end
             
-            if obj.eigenspace
+            if obj.pinv
+                name = 'lcmv pinv';
+            else
+                name = 'lcmv';
+            end
+            
+            if ~isequal(obj.eig_type,'none')
                 % eig
-                obj.type = 'lcmv_eig';
-                obj.name = sprintf('lcmv eig %d',...
+                obj.type = sprintf('lcmv_eig');
+                obj.name = sprintf('%s %s %d',...
+                    name,...
+                    obj.eig_type,...
                     obj.n_interfering_sources);
                 
                 obj.regularization = 'none';
@@ -84,12 +108,13 @@ classdef BeamformerLCMV < Beamformer
             elseif ~isequal(obj.regularization,'none')
                 % regularized
                 obj.type = 'lcmv_reg';
-                obj.name = sprintf('lcmv reg %s',...
+                obj.name = sprintf('%s reg %s',...
+                    name,...
                     obj.regularization);
             else
                 % vanilla
-                obj.type = 'lcmv';
-                obj.name = 'lcmv';
+                obj.type = type;
+                obj.name = name;
             end
             
         end
@@ -108,58 +133,95 @@ classdef BeamformerLCMV < Beamformer
             % FIXME
             % Start timer
             opt_start = tic;
-
-            switch obj.type
-                case 'lcmv'
-                    % Linearly constrained minimum variance beamformer
-                    
-                    % Set up cfg
-                    cfg_lcmv = [];
-                    cfg_lcmv.H = H;
-                    cfg_lcmv.R = R;
-                    
-                    % Run beamformer
-                    data_out = aet_analysis_lcmv(cfg_lcmv);
-                    
-                case 'lcmv_eig'
-                    % Eigenspace based LCMV beamformer
-                    
-                    % Set up cfg
-                    cfg_lcmv = [];
-                    cfg_lcmv.H = H;
-                    cfg_lcmv.R = R;
-                    cfg_lcmv.n_interfering_sources = ...
-                        obj.n_interfering_sources;
-                    
-                    % Run beamformer
-                    data_out = aet_analysis_lcmv_eig(cfg_lcmv);
-                    
-                case 'lcmv_reg'
-                    % Regularized LCMV beamformer
-                    % aka Diagonal loading
-                    
-                    % Set up lambda
-                    % FIXME change to OOP and param list
-                    lambda_cfg = [];
-                    lambda_cfg.R = R;
-                    lambda_cfg.type = obj.regularization;
-                    lambda_cfg.multiplier = obj.multiplier;
-                    obj.lambda = aet_analysis_beamform_get_lambda(lambda_cfg);
-                    
-                    % New code
-                    % obj = obj.set_lambda(R);
-                    
-                    % Set up cfg
-                    cfg_lcmv = [];
-                    cfg_lcmv.H = H;
-                    cfg_lcmv.R = R + obj.lambda*eye(size(R));
-                    
-                    % Run beamformer
-                    data_out = aet_analysis_lcmv(cfg_lcmv);
-                otherwise
-                    error('unknown beamformer type');
-            end
             
+            data_out = aet_analysis_lcmv_all(H,R,...
+                'pinv',obj.pinv,...
+                'eig_type',obj.eig_type,...
+                'regularization',obj.regularization,...
+                'multiplier',obj.multiplier,...
+                'ninterference',obj.n_interfering_sources);
+
+%             switch obj.type
+%                 case 'lcmv'
+%                     % Linearly constrained minimum variance beamformer
+%                     
+%                     % Set up cfg
+%                     cfg_lcmv = [];
+%                     cfg_lcmv.H = H;
+%                     cfg_lcmv.R = R;
+%                     
+%                     % Run beamformer
+%                     if obj.pinv
+%                         data_out = aet_analysis_lcmv_pinv(cfg_lcmv);
+%                     else
+%                         data_out = aet_analysis_lcmv(cfg_lcmv);
+%                     end
+%                     
+%                 case 'lcmv_eig'
+%                     % Eigenspace based LCMV beamformer
+%                     
+%                     switch obj.eig_type
+%                         case 'eig filter'
+%                             % Set up cfg
+%                             cfg_lcmv = [];
+%                             cfg_lcmv.H = H;
+%                             cfg_lcmv.R = R;
+%                             cfg_lcmv.n_interfering_sources = ...
+%                                 obj.n_interfering_sources;
+%                             
+%                             % Run beamformer
+%                             if obj.pinv
+%                                 error('implement');
+%                             else
+%                                 data_out = aet_analysis_lcmv_eig(cfg_lcmv);
+%                             end
+%                             
+%                         case 'eig pre cov'
+%                             % Set up cfg
+%                             cfg_lcmv = [];
+%                             cfg_lcmv.H = H;
+%                             cfg_lcmv.R = R;
+%                             cfg_lcmv.n_interfering_sources = ...
+%                                 obj.n_interfering_sources;
+%                             
+%                             % Run beamformer
+%                             if obj.pinv
+%                                 error('implement');
+%                             else
+%                                 data_out = aet_analysis_lcmv_eig_cov(cfg_lcmv);
+%                             end
+%                     end
+%                     
+%                 case 'lcmv_reg'
+%                     % Regularized LCMV beamformer
+%                     % aka Diagonal loading
+%                     
+%                     % Set up lambda
+%                     % FIXME change to OOP and param list
+%                     lambda_cfg = [];
+%                     lambda_cfg.R = R;
+%                     lambda_cfg.type = obj.regularization;
+%                     lambda_cfg.multiplier = obj.multiplier;
+%                     obj.lambda = aet_analysis_beamform_get_lambda(lambda_cfg);
+%                     
+%                     % New code
+%                     % obj = obj.set_lambda(R);
+%                     
+%                     % Set up cfg
+%                     cfg_lcmv = [];
+%                     cfg_lcmv.H = H;
+%                     cfg_lcmv.R = R + obj.lambda*eye(size(R));
+%                     
+%                     % Run beamformer
+%                     if obj.pinv
+%                         data_out = aet_analysis_lcmv_pinv(cfg_lcmv);
+%                     else
+%                         data_out = aet_analysis_lcmv(cfg_lcmv);
+%                     end
+%                 otherwise
+%                     error('unknown beamformer type');
+%             end
+%             
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);

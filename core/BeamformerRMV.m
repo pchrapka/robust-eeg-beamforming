@@ -65,24 +65,24 @@ classdef BeamformerRMV < Beamformer
             % set values
             obj.type = 'rmv';
             obj.epsilon = p.Results.epsilon;
-            obj.eigenspace = p.Results.eig_type;
+            obj.eig_type = p.Results.eig_type;
             obj.n_interfering_sources = p.Results.ninterference;
             obj.solver = 'yalmip';
             obj.verbosity = p.Results.verbosity;
             
-            if obj.n_interfering_sources > 0 && isequal(obj.eigenspace,'none')
+            if obj.n_interfering_sources > 0 && isequal(obj.eig_type,'none')
                 error([mfilename ':' mfilename],...
-                    'did you forget the eigenspace parameter?');
+                    'did you forget the eig_type parameter?');
             end
             
             % setup the name
             if p.Results.aniso
                 % setup anisotropic rmv
                 name = 'rmv aniso';
-                if ~isequal(obj.eigenspace,'none')
+                if ~isequal(obj.eig_type,'none')
                     obj.name = sprintf('%s %s %d',...
                         name,...
-                        obj.eigenspace,...
+                        obj.eig_type,...
                         obj.n_interfering_sources);
                 else
                     obj.name = name;
@@ -91,11 +91,11 @@ classdef BeamformerRMV < Beamformer
             else
                 % setup isotropic rmv
                 name = 'rmv';
-                if ~isequal(obj.eigenspace,'none')
+                if ~isequal(obj.eig_type,'none')
                     % eig
                     obj.name = sprintf('%s %s %d epsilon %d',...
                         name,...
-                        obj.eigenspace,...
+                        obj.eig_type,...
                         obj.n_interfering_sources,...
                         obj.epsilon);
                 else
@@ -143,7 +143,7 @@ classdef BeamformerRMV < Beamformer
             cfg_rmv.R = R;
             cfg_rmv.verbosity = obj.verbosity;
             cfg_rmv.solver = obj.solver;
-            cfg_rmv.eigenspace = obj.eigenspace;
+            cfg_rmv.eigenspace = obj.eig_type;
             cfg_rmv.n_interfering_sources = obj.n_interfering_sources;
             
             if obj.epsilon > 0
