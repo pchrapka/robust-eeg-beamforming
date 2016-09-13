@@ -2,7 +2,7 @@ classdef BeamformerLCMV < Beamformer
     
     properties
         n_interfering_sources; % number of interfereing sources
-        eigenspace;         % eigenspace flag
+        eig_type;           % eigenspace type
         lambda;             % scaling for regularization
         regularization;     % regularization method
         multiplier;         % multiplier for regularization method
