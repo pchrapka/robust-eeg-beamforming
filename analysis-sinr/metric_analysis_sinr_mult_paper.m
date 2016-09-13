@@ -5,11 +5,11 @@
 
 source_names = {...
     'mult_cort_src_17',...
+    'mult_cort_src_17_lag40',...
     };
     
 
 snrs = -20:10:20;
-location_idx = 1:501;
 cfg = [];
 % cfg.force = false;
 cfg.force = true;
