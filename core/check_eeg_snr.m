@@ -4,6 +4,7 @@ p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
 addParameter(p,'ntrials',[],@(x) length(x) == 1);
 addParameter(p,'average',false,@islogical);
+addParameter(p,'coveig',false,@islogical);
 parse(p,data,varargin{:});
 
 if ischar(data)
@@ -48,6 +49,19 @@ if isfield(data,'signal')
     for i=1:ntrials
         snr = aet_analysis_snr(data.signal{i},data.noise{i});
         fprintf('snr: %0.2f db for trial %d\n',snr,i);
+    end
+end
+
+if p.Results.coveig
+    if isfield(data,'R')
+        if length(size(data.R)) > 2
+            error('covariance is too big');
+        end
+        [~,D] = eig(data.R);
+        fprintf('covariance eigenvalues:\n');
+        d = diag(D);
+        d = reshape(d,1,length(d));
+        disp(d); 
     end
 end
 
