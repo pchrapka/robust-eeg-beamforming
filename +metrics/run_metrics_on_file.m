@@ -155,6 +155,11 @@ for j=1:length(cfg.metrics)
             % Calculate the metric
             output.metrics(j).output = metrics.sinr(cfg_sinr);
             
+            % Calculate snr from data as well
+            snr_output = metrics.snr(cfg_sinr);
+            output.metrics(j).output.snr = snr_output.snr;
+            output.metrics(j).output.snrdb = snr_output.snrdb;
+            
         case 'rmse'
             
             % Get the beamformer output

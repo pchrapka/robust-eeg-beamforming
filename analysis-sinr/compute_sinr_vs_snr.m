@@ -51,7 +51,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             out = metrics.run_metrics_on_file(cfg);
             
             % Extract the output
-            output.data(i,1) = snr;
+            output.data(i,1) = out.metrics(1).output.snrdb;
             output.data(i,1+m) = out.metrics(1).output.sinrdb;
             
         end

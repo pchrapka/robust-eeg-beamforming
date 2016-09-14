@@ -30,7 +30,7 @@ sim_cfg.timepoints = 200;
 sim_cfg.n_runs = 1;
 
 % Option for averaged data
-sim_cfg.average_data = false;
+sim_cfg.average_data = true;
 sim_cfg.keep_trials = true;
 
 sim_cfg.snr.type = 'per_trial';
