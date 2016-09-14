@@ -22,6 +22,7 @@ sim_cfg.sources{1}.snr = -10; % in dB
 sim_cfg.sources{1}.amp = 2;
 sim_cfg.sources{1}.freq = 10;
 sim_cfg.sources{1}.phase = 2*pi/3;
+sim_cfg.sources{1}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
