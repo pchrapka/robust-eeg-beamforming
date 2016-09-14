@@ -86,4 +86,8 @@ for j=1:length(source_names)
     maxlags = 0;
     source_cor = xcorr(sources(1,:), sources(2,:), maxlags, 'coeff');
     fprintf('source correlation: %f\n', source_cor);
+    
+    B = cov(sources');
+    fprintf('source covariance:\n');
+    disp(B);
 end
