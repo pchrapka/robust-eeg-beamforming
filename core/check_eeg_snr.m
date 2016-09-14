@@ -17,7 +17,11 @@ if ischar(data)
 end
 
 if isempty(p.Results.ntrials)
-    ntrials = length(data.signal);
+    if isfield(data,'signal')
+        ntrials = length(data.signal);
+    else
+        ntrials = 1;
+    end
 else
     ntrials = p.Results.ntrials;
 end
