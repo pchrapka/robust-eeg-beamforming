@@ -57,15 +57,15 @@ if isfield(data,'signal')
 end
 
 if p.Results.coveig
-    if isfield(data,'R')
-        if length(size(data.R)) > 2
-            error('covariance is too big');
-        end
-        [~,D] = eig(data.R);
+    if isfield(data,'Rtime')
+        [~,D] = eig(data.Rtime);
         fprintf('covariance eigenvalues:\n');
         d = diag(D);
         d = reshape(d,1,length(d));
         disp(d); 
+    end
+    if isfield(data,'Rtrial')
+        error('coveig not implemented');
     end
 end
 
