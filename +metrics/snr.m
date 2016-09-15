@@ -14,10 +14,12 @@ function [output] = snr(cfg)
 %   output.snrdb
 %       signal to noise ratio in dB
 
+Rs = cov(cfg.S);
+Rn = cov(cfg.N);
 
 % Calculate the snr
-output.snr = trace(cfg.W' * (cfg.S * cfg.S') * cfg.W)/...
-    trace(cfg.W' * (cfg.N * cfg.N') * cfg.W);
+output.snr = trace(cfg.W' * Rs * cfg.W)/...
+    trace(cfg.W' * Rn * cfg.W);
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power
