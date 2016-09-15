@@ -73,6 +73,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     
                     % Extract the output
                     output.data(i,1) = out.metrics(1).output.snrdb;
+                    output.label_x = 'Input SNR (dB)';
                     
                 otherwise
                     error('unknown metric %s', cfg.metric_x);
@@ -85,6 +86,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.snrdb;
+                    output.label_y = 'Output SNR (dB)';
                     
                 case 'output sinr'
                     % Calculate the metrics
@@ -92,6 +94,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.sinrdb;
+                    output.label_y = 'Output SINR (dB)';
                     
                 case 'output isnr'
                     % Calculate the metrics
@@ -99,6 +102,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.isnrdb;
+                    output.label_y = 'Output ISNR (dB)';
                     
                 otherwise
                     error('unknown metric: %s', cfg.metric_y);

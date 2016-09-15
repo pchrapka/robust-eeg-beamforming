@@ -44,8 +44,8 @@ for i=1:n_plots
     hold on;
 end
 legend(legend_str{:}, 'Location', 'SouthEast');
-ylabel('Output SINR (dB)');
-xlabel('Input SNR (db)');
+ylabel(output.label_y);
+xlabel(output.label_x);
 
 % Save the figure
 if cfg.save_fig
