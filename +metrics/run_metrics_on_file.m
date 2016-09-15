@@ -103,7 +103,7 @@ for j=1:length(cfg.metrics)
         case 'snr'
             cfg_snr = [];
             % Extract W from beamformer data
-            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
+            cfg_snr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S and N from original data
             cfg_snr.S = eeg_data_in.data.avg_signal;
@@ -118,7 +118,7 @@ for j=1:length(cfg.metrics)
         case 'inr'
             cfg_inr = [];
             % Extract W from beamformer data
-            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
+            cfg_inr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S and N from original data
             cfg_inr.I = eeg_data_in.data.avg_interference;
@@ -148,20 +148,20 @@ for j=1:length(cfg.metrics)
             
         case 'isnr'
             
-            cfg_sinr = [];
+            cfg_isnr = [];
             % Extract W from beamformer data
-            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
+            cfg_isnr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S, I and N from original data
-            cfg_sinr.I = eeg_data_in.data.avg_interference;
-            cfg_sinr.S = eeg_data_in.data.avg_signal;
-            cfg_sinr.N = eeg_data_in.data.avg_noise;
+            cfg_isnr.I = eeg_data_in.data.avg_interference;
+            cfg_isnr.S = eeg_data_in.data.avg_signal;
+            cfg_isnr.N = eeg_data_in.data.avg_noise;
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             % Calculate the metric
-            output.metrics(j).output = metrics.isnr(cfg_sinr);
+            output.metrics(j).output = metrics.isnr(cfg_isnr);
             
         case 'inputsnr'
             
