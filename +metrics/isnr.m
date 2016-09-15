@@ -18,8 +18,8 @@ function [output] = isnr(cfg)
 
 
 % Calculate the isnr
-Ri = cov(cfg.I);
-Rsn = cov(cfg.S + cfg.N);
+Ri = cov(cfg.I');
+Rsn = cov(cfg.S' + cfg.N');
 output.sinr = trace(cfg.W' * Ri * cfg.W)/...
     trace(cfg.W' * Rsn * cfg.W);
 

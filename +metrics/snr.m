@@ -14,8 +14,8 @@ function [output] = snr(cfg)
 %   output.snrdb
 %       signal to noise ratio in dB
 
-Rs = cov(cfg.S);
-Rn = cov(cfg.N);
+Rs = cov(cfg.S');
+Rn = cov(cfg.N');
 
 % Calculate the snr
 output.snr = trace(cfg.W' * Rs * cfg.W)/...

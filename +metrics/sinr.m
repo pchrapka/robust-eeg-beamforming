@@ -18,8 +18,8 @@ function [output] = sinr(cfg)
 
 
 % Calculate the sinr
-Rs = cov(cfg.S);
-Rin = cov(cfg.I + cfg.N);
+Rs = cov(cfg.S');
+Rin = cov(cfg.I' + cfg.N');
 output.sinr = trace(cfg.W' * Rs * cfg.W)/...
     trace(cfg.W' * Rin * cfg.W);
 
