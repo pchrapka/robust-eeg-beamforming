@@ -81,7 +81,7 @@ for j=1:length(cfg.metrics)
     metric = metric_cfg.name;
     
     % Set defaults
-    if ~isfield(metric_cfg, 'flip')
+    if isfield(metric_cfg, 'flip')
         error('flip field is deprecated, please use isnr');
     end
             
