@@ -153,7 +153,6 @@ for j=1:length(cfg.metrics)
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).flip = metric_cfg.flip;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             % Calculate the metric
             output.metrics(j).output = metrics.sinr(cfg_sinr);
@@ -180,7 +179,6 @@ for j=1:length(cfg.metrics)
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            %output.metrics(j).flip = metric_cfg.flip;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             % Calculate the metric
             output.metrics(j).output = metrics.isnr(cfg_sinr);
