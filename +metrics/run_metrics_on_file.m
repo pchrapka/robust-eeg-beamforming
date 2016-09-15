@@ -163,9 +163,8 @@ for j=1:length(cfg.metrics)
             output.metrics(j).output = metrics.sinr(cfg_sinr);
             
             % Calculate snr from data as well
-            snr_output = metrics.snr(cfg_sinr);
-            output.metrics(j).output.snr = snr_output.snr;
-            output.metrics(j).output.snrdb = snr_output.snrdb;
+            snrdb_input = aet_analysis_snr(cfg_sinr.S,cfg_sinr.N);
+            output.metrics(j).output.snrdb = snrdb_input;
             
         case 'rmse'
             
