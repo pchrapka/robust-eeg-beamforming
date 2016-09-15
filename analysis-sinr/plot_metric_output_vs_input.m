@@ -54,7 +54,9 @@ if cfg.save_fig
     cfg.file_type = 'img';
     data_file = metrics.filename(cfg);
     % Get the data file dir
-    [cfg_save.out_dir,outfile,~] = fileparts(data_file);
+    [cfg_save.out_dir,~,~] = fileparts(data_file);
+    % get file name from metrics file
+    [~,outfile,~] = fileparts(cfg.data_file);
     
     % Set up the image file name
     cfg_save.file_name = [outfile '_' cfg.save_tag];
