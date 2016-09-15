@@ -103,8 +103,7 @@ for j=1:length(cfg.metrics)
         case 'snr'
             cfg_snr = [];
             % Extract W from beamformer data
-            cfg_snr.W = ...
-                bf_data_in.source.filter{metric_cfg.location_idx};
+            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S and N from original data
             cfg_snr.S = eeg_data_in.data.avg_signal;
@@ -119,8 +118,7 @@ for j=1:length(cfg.metrics)
         case 'inr'
             cfg_inr = [];
             % Extract W from beamformer data
-            cfg_inr.W = ...
-                bf_data_in.source.filter{metric_cfg.location_idx};
+            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S and N from original data
             cfg_inr.I = eeg_data_in.data.avg_interference;
@@ -135,16 +133,7 @@ for j=1:length(cfg.metrics)
         case 'sinr'
             cfg_sinr = [];
             % Extract W from beamformer data
-            idx_w = bf_data_in.source.loc == metric_cfg.location_idx;
-            cfg_sinr.W = ...
-                bf_data_in.source.filter{idx_w};
-            if length(size(cfg_sinr.W)) > 2
-                if size(cfg_sinr.W,1) > 1
-                    error('not implemented for mutliple time points');
-                else
-                    cfg_sinr.W = squeeze(cfg_sinr.W);
-                end
-            end
+            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S, I and N from original data
             cfg_sinr.S = eeg_data_in.data.avg_signal;
@@ -161,16 +150,7 @@ for j=1:length(cfg.metrics)
             
             cfg_sinr = [];
             % Extract W from beamformer data
-            idx_w = bf_data_in.source.loc == metric_cfg.location_idx;
-            cfg_sinr.W = ...
-                bf_data_in.source.filter{idx_w};
-            if length(size(cfg_sinr.W)) > 2
-                if size(cfg_sinr.W,1) > 1
-                    error('not implemented for mutliple time points');
-                else
-                    cfg_sinr.W = squeeze(cfg_sinr.W);
-                end
-            end
+            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
             
             % Extract S, I and N from original data
             cfg_sinr.I = eeg_data_in.data.avg_interference;
@@ -232,4 +212,18 @@ for j=1:length(cfg.metrics)
     
 end
 
+end
+
+function W = get_W(source_data, location)
+% Extract W from beamformer data
+idx_w = source_data.loc == location;
+W = ...
+    source_data.filter{idx_w};
+if length(size(W)) > 2
+    if size(W,1) > 1
+        error('not implemented for mutliple time points');
+    else
+        W = squeeze(W);
+    end
+end
 end
