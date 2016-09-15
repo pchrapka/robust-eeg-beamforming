@@ -79,6 +79,12 @@ for j=1:length(cfg.metrics)
     % If a field is a metric run that metric
     metric_cfg = cfg.metrics(j);
     metric = metric_cfg.name;
+    
+    % Set defaults
+    if ~isfield(metric_cfg, 'flip')
+        error('flip field is deprecated, please use isnr');
+    end
+            
     switch metric
         case 'vdist'
             cfg_vert = [];
@@ -127,10 +133,32 @@ for j=1:length(cfg.metrics)
             output.metrics(j).output = metrics.inr(cfg_inr);
             
         case 'sinr'
-            % Set defaults
-            if ~isfield(metric_cfg, 'flip')
-                metric_cfg.flip = false; 
+            cfg_sinr = [];
+            % Extract W from beamformer data
+            idx_w = bf_data_in.source.loc == metric_cfg.location_idx;
+            cfg_sinr.W = ...
+                bf_data_in.source.filter{idx_w};
+            if length(size(cfg_sinr.W)) > 2
+                if size(cfg_sinr.W,1) > 1
+                    error('not implemented for mutliple time points');
+                else
+                    cfg_sinr.W = squeeze(cfg_sinr.W);
+                end
             end
+            
+            % Extract S, I and N from original data
+            cfg_sinr.S = eeg_data_in.data.avg_signal;
+            cfg_sinr.I = eeg_data_in.data.avg_interference;
+            cfg_sinr.N = eeg_data_in.data.avg_noise;
+            
+            % Save info
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).flip = metric_cfg.flip;
+            output.metrics(j).location_idx = metric_cfg.location_idx;
+            % Calculate the metric
+            output.metrics(j).output = metrics.sinr(cfg_sinr);
+            
+        case 'isnr'
             
             cfg_sinr = [];
             % Extract W from beamformer data
@@ -146,25 +174,38 @@ for j=1:length(cfg.metrics)
             end
             
             % Extract S, I and N from original data
-            if metric_cfg.flip
-                cfg_sinr.S = eeg_data_in.data.avg_interference;
-                cfg_sinr.I = eeg_data_in.data.avg_signal;
-            else
-                cfg_sinr.S = eeg_data_in.data.avg_signal;
-                cfg_sinr.I = eeg_data_in.data.avg_interference;
-            end
+            cfg_sinr.I = eeg_data_in.data.avg_interference;
+            cfg_sinr.S = eeg_data_in.data.avg_signal;
             cfg_sinr.N = eeg_data_in.data.avg_noise;
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).flip = metric_cfg.flip;
+            %output.metrics(j).flip = metric_cfg.flip;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             % Calculate the metric
-            output.metrics(j).output = metrics.sinr(cfg_sinr);
+            output.metrics(j).output = metrics.isnr(cfg_sinr);
+            
+        case 'inputsnr'
             
             % Calculate snr from data as well
-            snrdb_input = aet_analysis_snr(cfg_sinr.S,cfg_sinr.N);
-            output.metrics(j).output.snrdb = snrdb_input;
+            snrdb = aet_analysis_snr(...
+                eeg_data_in.data.avg_signal,...
+                eeg_data_in.data.avg_noise);
+            
+            % Save info
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).output.snrdb = snrdb;
+            
+        case 'inputinr'
+            
+            % Calculate snr from data as well
+            inrdb = aet_analysis_snr(...
+                eeg_data_in.data.avg_interference,...
+                eeg_data_in.data.avg_noise);
+            
+            % Save info
+            output.metrics(j).name = metric_cfg.name;
+            output.metrics(j).output.inrdb = inrdb;
             
         case 'rmse'
             
