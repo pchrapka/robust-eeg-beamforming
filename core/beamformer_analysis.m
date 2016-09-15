@@ -89,7 +89,9 @@ else
 end
 
 %% Load the data
+fprintf('Loading data...');
 data_in = load(cfg.data_file); % loads data
+fprintf('Loaded\n');
 data = data_in.data;
 clear data_in;
 
