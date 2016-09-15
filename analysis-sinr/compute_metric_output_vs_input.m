@@ -79,6 +79,13 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             end
             
             switch cfg.metric_y
+                case 'output snr'
+                    % Calculate the metrics
+                    cfg.metrics.name = 'snr';
+                    out = metrics.run_metrics_on_file(cfg);
+                    
+                    output.data(i,1+m) = out.metrics(1).output.snrdb;
+                    
                 case 'output sinr'
                     % Calculate the metrics
                     cfg.metrics.name = 'sinr';
@@ -94,7 +101,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     output.data(i,1+m) = out.metrics(1).output.isnrdb;
                     
                 otherwise
-                    error('unknown metric %s', cfg.metric_y);
+                    error('unknown metric: %s', cfg.metric_y);
             end
             
         end
