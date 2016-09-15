@@ -137,6 +137,13 @@ for j=1:length(cfg.metrics)
             idx_w = bf_data_in.source.loc == metric_cfg.location_idx;
             cfg_sinr.W = ...
                 bf_data_in.source.filter{idx_w};
+            if length(size(cfg_sinr.W)) > 2
+                if size(cfg_sinr.W,1) > 1
+                    error('not implemented for mutliple time points');
+                else
+                    cfg_sinr.W = squeeze(cfg_sinr.W);
+                end
+            end
             
             % Extract S, I and N from original data
             if metric_cfg.flip
