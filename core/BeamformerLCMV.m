@@ -62,6 +62,7 @@ classdef BeamformerLCMV < Beamformer
                 'eig cov',...
                 'eig leadfield',...
                 'eig filter',...
+                'eig cov leadfield',...
                 'none'...
                 };
             addParameter(p,'eig_type','none',...
@@ -140,88 +141,7 @@ classdef BeamformerLCMV < Beamformer
                 'regularization',obj.regularization,...
                 'multiplier',obj.multiplier,...
                 'ninterference',obj.n_interfering_sources);
-
-%             switch obj.type
-%                 case 'lcmv'
-%                     % Linearly constrained minimum variance beamformer
-%                     
-%                     % Set up cfg
-%                     cfg_lcmv = [];
-%                     cfg_lcmv.H = H;
-%                     cfg_lcmv.R = R;
-%                     
-%                     % Run beamformer
-%                     if obj.pinv
-%                         data_out = aet_analysis_lcmv_pinv(cfg_lcmv);
-%                     else
-%                         data_out = aet_analysis_lcmv(cfg_lcmv);
-%                     end
-%                     
-%                 case 'lcmv_eig'
-%                     % Eigenspace based LCMV beamformer
-%                     
-%                     switch obj.eig_type
-%                         case 'eig filter'
-%                             % Set up cfg
-%                             cfg_lcmv = [];
-%                             cfg_lcmv.H = H;
-%                             cfg_lcmv.R = R;
-%                             cfg_lcmv.n_interfering_sources = ...
-%                                 obj.n_interfering_sources;
-%                             
-%                             % Run beamformer
-%                             if obj.pinv
-%                                 error('implement');
-%                             else
-%                                 data_out = aet_analysis_lcmv_eig(cfg_lcmv);
-%                             end
-%                             
-%                         case 'eig pre cov'
-%                             % Set up cfg
-%                             cfg_lcmv = [];
-%                             cfg_lcmv.H = H;
-%                             cfg_lcmv.R = R;
-%                             cfg_lcmv.n_interfering_sources = ...
-%                                 obj.n_interfering_sources;
-%                             
-%                             % Run beamformer
-%                             if obj.pinv
-%                                 error('implement');
-%                             else
-%                                 data_out = aet_analysis_lcmv_eig_cov(cfg_lcmv);
-%                             end
-%                     end
-%                     
-%                 case 'lcmv_reg'
-%                     % Regularized LCMV beamformer
-%                     % aka Diagonal loading
-%                     
-%                     % Set up lambda
-%                     % FIXME change to OOP and param list
-%                     lambda_cfg = [];
-%                     lambda_cfg.R = R;
-%                     lambda_cfg.type = obj.regularization;
-%                     lambda_cfg.multiplier = obj.multiplier;
-%                     obj.lambda = aet_analysis_beamform_get_lambda(lambda_cfg);
-%                     
-%                     % New code
-%                     % obj = obj.set_lambda(R);
-%                     
-%                     % Set up cfg
-%                     cfg_lcmv = [];
-%                     cfg_lcmv.H = H;
-%                     cfg_lcmv.R = R + obj.lambda*eye(size(R));
-%                     
-%                     % Run beamformer
-%                     if obj.pinv
-%                         data_out = aet_analysis_lcmv_pinv(cfg_lcmv);
-%                     else
-%                         data_out = aet_analysis_lcmv(cfg_lcmv);
-%                     end
-%                 otherwise
-%                     error('unknown beamformer type');
-%             end
-%             
+            
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);
