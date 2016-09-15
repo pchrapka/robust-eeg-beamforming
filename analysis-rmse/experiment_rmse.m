@@ -81,7 +81,7 @@ for j=1:length(source_names)
 %     cfg.metrics.location_idx = 400;
 %     cfg.metrics.flip = true;
 %     
-%     plot_sinr_vs_snr(cfg);
+%     plot_metric_output_vs_input(cfg);
     
     
 end
@@ -148,6 +148,6 @@ for j=1:length(source_names)
 %     cfg.metrics.location_idx = 400;
 %     cfg.metrics.flip = true;
 %     
-%     plot_sinr_vs_snr(cfg);
+%     plot_metric_output_vs_input(cfg);
     
 end

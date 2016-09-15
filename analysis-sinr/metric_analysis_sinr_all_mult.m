@@ -49,26 +49,26 @@ for j=1:length(source_names)
     cfg.save_tag = 'matched';
     
     %% Location: 295
-    % Set up metric
-    cfg.metrics.name = 'sinr';
     cfg.metrics.location_idx = 295;
-    cfg.metrics.flip = false;
     
+    % Set up metric
+    cfg.metric_x = 'input snr';
+    cfg.metric_y = 'sinr';
     % Compute SINR
-    cfg = compute_sinr_vs_snr(cfg);
+    cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
-    plot_sinr_vs_snr(cfg);
+    plot_metric_output_vs_input(cfg);
     
     %% Location: 400
-    % Set up metric
-    cfg.metrics.name = 'sinr';
     cfg.metrics.location_idx = 400;
-    cfg.metrics.flip = true;
     
+    % Set up metric
+    cfg.metric_x = 'input snr';
+    cfg.metric_y = 'isnr';
     % Compute SINR
-    cfg = compute_sinr_vs_snr(cfg);
+    cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
-    plot_sinr_vs_snr(cfg);
+    plot_metric_output_vs_input(cfg);
     
     
 end
@@ -107,25 +107,25 @@ for j=1:length(source_names)
     cfg.save_tag = 'mismatched';
     
     %% Location: 295
-    % Set up metric
-    cfg.metrics.name = 'sinr';
     cfg.metrics.location_idx = 295;
-    cfg.metrics.flip = false;
     
+    % Set up metric
+    cfg.metric_x = 'input snr';
+    cfg.metric_y = 'sinr';
     % Compute SINR
-    cfg = compute_sinr_vs_snr(cfg);
+    cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
-    plot_sinr_vs_snr(cfg);
+    plot_metric_output_vs_input(cfg);
     
     %% Location: 400
-    % Set up metric
-    cfg.metrics.name = 'sinr';
     cfg.metrics.location_idx = 400;
-    cfg.metrics.flip = true;
     
+    % Set up metric
+    cfg.metric_x = 'input snr';
+    cfg.metric_y = 'isnr';
     % Compute SINR
-    cfg = compute_sinr_vs_snr(cfg);
+    cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
-    plot_sinr_vs_snr(cfg);
+    plot_metric_output_vs_input(cfg);
     
 end

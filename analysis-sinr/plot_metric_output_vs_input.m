@@ -1,4 +1,4 @@
-function plot_sinr_vs_snr(cfg)
+function plot_metric_output_vs_input(cfg)
 %
 %   cfg.metrics
 %       struct specifying sinr metric specification
@@ -19,7 +19,7 @@ if exist(cfg.data_file, 'file')
     output = din.output;
 else
     error(['reb:' mfilename],...
-        'SINR data not found %s\nRun compute_sinr_vs_snr and try again\n',...
+        'SINR data not found %s\nRun compute_metric_output_vs_input and try again\n',...
         cfg.data_file);
 end
 
@@ -32,13 +32,18 @@ if n_plots > length(markers)
     nreps = ceil(n_plots/length(markers));
     markers = repmat(markers,1,nreps);
 end
+
+legend_str = cell(size(output.bf_name));
 for i=1:n_plots
+    % get line stype
+    [legend_str{i},line_style] = get_beamformer_plot_style(output.bf_name{i});
+
     % Loop through custom colors and line styles
-    plot(output.data(:,1), output.data(:,1+i), output.line_style{i},...
+    plot(output.data(:,1), output.data(:,1+i), line_style,...
         'color', colors(i,:), 'marker', markers{i});
     hold on;
 end
-legend(output.bf_name{:}, 'Location', 'SouthEast');
+legend(legend_str{:}, 'Location', 'SouthEast');
 ylabel('Output SINR (dB)');
 xlabel('Input SNR (db)');
 
@@ -49,11 +54,10 @@ if cfg.save_fig
     cfg.file_type = 'img';
     data_file = metrics.filename(cfg);
     % Get the data file dir
-    [cfg_save.out_dir,~,~] = fileparts(data_file);
+    [cfg_save.out_dir,outfile,~] = fileparts(data_file);
     
     % Set up the image file name
-    cfg_save.file_name = ['metrics_outputsinr_vs_inputsnr_loc'...
-        num2str(cfg.metrics.location_idx) '_' cfg.save_tag];
+    cfg_save.file_name = [outfile '_' cfg.save_tag];
     fprintf('Saving figure: %s\n', cfg_save.file_name);
     % Set the background to white
     set(gcf, 'Color', 'w');
