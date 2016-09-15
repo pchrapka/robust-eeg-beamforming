@@ -54,10 +54,39 @@ function beamformer_analysis(cfg)
 %       
 
 if ~isfield(cfg,'force'),           cfg.force = false; end
-% if isequal(cfg.data_file,'dummy'),  return; end % Check for a dummy file
-% REMOVE
 if ~isfield(cfg,'cov_type'),        cfg.cov_type = 'time'; end
 if ~isfield(cfg,'sample_idx'),      cfg.sample_idx = 1:100; end % this should cause an error
+
+%% Load the beamformer
+fbeamformer = str2func(cfg.beamformer_config{1});
+beamformer = fbeamformer(cfg.beamformer_config{2:end});
+
+%% Set up the output file name
+% Construct the beamformer tag
+bf_tag = strrep(beamformer.name,'.','-');
+bf_tag = strrep(bf_tag,' ','_');
+
+tmpcfg = [];
+tmpcfg.file_name = cfg.data_file;
+if isfield(cfg, 'tag')
+    % Add the additional tag to the output file name, typically if it's a
+    % different head model
+    tmpcfg.tag = [bf_tag '_' cfg.tag];
+else
+    tmpcfg.tag = bf_tag;
+end
+save_file = db.save_setup(tmpcfg);
+
+%% Check if the analysis already exists
+if exist(save_file,'file') && ~cfg.force
+    [~,name,~,~] = util.fileparts(save_file);
+    fprintf('File exists: %s\n', name);
+    fprintf('Skipping beamformer analysis\n');
+    return
+else
+    fprintf('Analyzing: %s\n',cfg.data_file);
+    fprintf('Running: %s\n',beamformer.name);
+end
 
 %% Load the data
 data_in = load(cfg.data_file); % loads data
@@ -113,37 +142,6 @@ switch cfg.cov_type
         save(cfg.data_file, 'data','-v7.3');
     otherwise
         error('unknown covariance type');
-end
-
-%% Load the beamformer
-fbeamformer = str2func(cfg.beamformer_config{1});
-beamformer = fbeamformer(cfg.beamformer_config{2:end});
-
-%% Set up the output file name
-% Construct the beamformer tag
-bf_tag = strrep(beamformer.name,'.','-');
-bf_tag = strrep(bf_tag,' ','_');
-
-tmpcfg = [];
-tmpcfg.file_name = cfg.data_file;
-if isfield(cfg, 'tag')
-    % Add the additional tag to the output file name, typically if it's a
-    % different head model
-    tmpcfg.tag = [bf_tag '_' cfg.tag];
-else
-    tmpcfg.tag = bf_tag;
-end
-save_file = db.save_setup(tmpcfg);
-
-%% Check if the analysis already exists
-if exist(save_file,'file') && ~cfg.force
-    [~,name,~,~] = util.fileparts(save_file);
-    fprintf('File exists: %s\n', name);
-    fprintf('Skipping beamformer analysis\n');
-    return
-else
-    fprintf('Analyzing: %s\n',cfg.data_file);
-    fprintf('Running: %s\n',beamformer.name);
 end
 
 %% Load the head model
