@@ -55,11 +55,12 @@ if cfg.save_fig
     data_file = metrics.filename(cfg);
     % Get the data file dir
     [cfg_save.out_dir,~,~] = fileparts(data_file);
-    % get file name from metrics file
-    [~,outfile,~] = fileparts(cfg.data_file);
     
     % Set up the image file name
-    cfg_save.file_name = [outfile '_' cfg.save_tag];
+    % get file name from metrics file
+    [~,outfile,~] = fileparts(cfg.data_file);
+    cfg_save.file_name = outfile; % already has the tag
+    
     fprintf('Saving figure: %s\n', cfg_save.file_name);
     % Set the background to white
     set(gcf, 'Color', 'w');
