@@ -46,7 +46,7 @@ for j=1:length(source_names)
     
     % Set up metric
     cfg.metric_x = 'input snr';
-    cfg.metric_y = 'sinr';
+    cfg.metric_y = 'output sinr';
     % Compute SINR
     cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
@@ -57,7 +57,7 @@ for j=1:length(source_names)
     
     % Set up metric
     cfg.metric_x = 'input snr';
-    cfg.metric_y = 'isnr';
+    cfg.metric_y = 'output isnr';
     % Compute SINR
     cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
@@ -104,7 +104,7 @@ for j=1:length(source_names)
     
     % Set up metric
     cfg.metric_x = 'input snr';
-    cfg.metric_y = 'sinr';
+    cfg.metric_y = 'output sinr';
     % Compute SINR
     cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
@@ -115,7 +115,7 @@ for j=1:length(source_names)
     
     % Set up metric
     cfg.metric_x = 'input snr';
-    cfg.metric_y = 'isnr';
+    cfg.metric_y = 'output isnr';
     % Compute SINR
     cfg = compute_metric_output_vs_input(cfg);
     % Plot SINR
