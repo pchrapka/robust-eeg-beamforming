@@ -2,8 +2,8 @@ function check_eeg_svd(data,varargin)
 
 p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
-addParameter(p,'eig',true,@islogical);
 addParameter(p,'neig',5,@(x) isvector(x) && length(x) == 1);
+addParameter(p,'reg',false,@islogical);
 addParameter(p,'sample',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
@@ -30,16 +30,19 @@ if isfield(data,'Rtrial')
     end
 end
 
-if p.Results.eig
-    fprintf('covariance eigenvalues:\n');
-    print_eig(R,p.Results.neig);
+if p.Results.reg
+    % set up lambda
+    cfg = [];
+    cfg.R = R;
+    cfg.type = 'eig';
+    cfg.multiplier = 0.005;
+    lambda = aet_analysis_beamform_get_lambda(cfg);
+    
+    % add to covariance
+    R = R + lambda*eye(size(R));
 end
 
-fprintf('condition number:\n');
-disp(cond(R));
-
-fprintf('rank:\n');
-disp(rank(R));
+print_stats(R,p.Results.neig);
 
 fprintf('\n');
 
@@ -57,17 +60,21 @@ if p.Results.projection
         
         PR = P*R;
         
-        fprintf('covariance eigenvalues:\n');
-        print_eig(PR,p.Results.neig);
-        
-        fprintf('condition number:\n');
-        disp(cond(PR));
-        
-        fprintf('rank:\n');
-        disp(rank(PR));
+        print_stats(PR,p.Results.neig);
     end
 end
 
+end
+
+function pring_stats(R,neig)
+fprintf('eigenvalues:\n');
+print_eig(R,neig);
+
+fprintf('condition number:\n');
+disp(cond(R));
+
+fprintf('rank:\n');
+disp(rank(R));
 end
 
 function print_eig(R,neig)
