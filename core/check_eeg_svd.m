@@ -2,7 +2,8 @@ function check_eeg_svd(data,varargin)
 
 p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
-addParameter(p,'eig',false,@islogical);
+addParameter(p,'eig',true,@islogical);
+addParameter(p,'neig',5,@(x) isvector(x) && length(x) == 1);
 addParameter(p,'sample',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
@@ -34,6 +35,8 @@ if p.Results.eig
     
     fprintf('covariance eigenvalues:\n');
     d = diag(D);
+    d = sortrows(d,-1); % sort from largest to smallest
+    d(p.Results.neig+1:end) = []; % get rid of extras
     d = reshape(d,1,length(d));
     disp(d);
 end
