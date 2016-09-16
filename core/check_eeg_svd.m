@@ -2,6 +2,7 @@ function check_eeg_svd(data,varargin)
 
 p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
+addParameter(p,'eig',false,@islogical);
 addParameter(p,'sample',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
@@ -28,12 +29,14 @@ if isfield(data,'Rtrial')
     end
 end
 
-[~,D] = eig(R);
-
-fprintf('covariance eigenvalues:\n');
-d = diag(D);
-d = reshape(d,1,length(d));
-disp(d);
+if p.Results.eig
+    [~,D] = eig(R);
+    
+    fprintf('covariance eigenvalues:\n');
+    d = diag(D);
+    d = reshape(d,1,length(d));
+    disp(d);
+end
 
 fprintf('condition number:\n');
 disp(cond(R));
