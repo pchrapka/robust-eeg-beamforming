@@ -31,18 +31,15 @@ if isfield(data,'Rtrial')
 end
 
 if p.Results.eig
-    [~,D] = eig(R);
-    
     fprintf('covariance eigenvalues:\n');
-    d = diag(D);
-    d = sortrows(d,-1); % sort from largest to smallest
-    d(p.Results.neig+1:end) = []; % get rid of extras
-    d = reshape(d,1,length(d));
-    disp(d);
+    print_eig(R,p.Results.neig);
 end
 
 fprintf('condition number:\n');
 disp(cond(R));
+
+fprintf('rank:\n');
+disp(rank(R));
 
 fprintf('\n');
 
@@ -60,11 +57,26 @@ if p.Results.projection
         
         PR = P*R;
         
+        fprintf('covariance eigenvalues:\n');
+        print_eig(PR,p.Results.neig);
+        
         fprintf('condition number:\n');
         disp(cond(PR));
+        
+        fprintf('rank:\n');
+        disp(rank(PR));
     end
 end
 
+end
+
+function print_eig(R,neig)
+[~,D] = eig(R);
+d = diag(D);
+d = sortrows(d,-1); % sort from largest to smallest
+d(neig+1:end) = []; % get rid of extras
+d = reshape(d,1,length(d));
+disp(d);
 end
     
 
