@@ -55,7 +55,7 @@ if p.Results.projection
     else
         cfg = [];
         cfg.R = R;
-        cfg.n_interfering_source = p.Results.nint;
+        cfg.n_interfering_sources = p.Results.nint;
         P = aet_analysis_eig_projection(cfg);
         
         PR = P*R;
