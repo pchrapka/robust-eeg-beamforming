@@ -66,7 +66,7 @@ end
 
 end
 
-function pring_stats(R,neig)
+function print_stats(R,neig)
 fprintf('eigenvalues:\n');
 print_eig(R,neig);
 
