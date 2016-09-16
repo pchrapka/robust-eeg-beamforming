@@ -42,10 +42,6 @@ if p.Results.reg
     R = R + lambda*eye(size(R));
 end
 
-print_stats(R,p.Results.neig);
-
-fprintf('\n');
-
 if p.Results.projection
     fprintf('Projection\n');
     fprintf('----------\n');
@@ -62,6 +58,11 @@ if p.Results.projection
         
         print_stats(PR,p.Results.neig);
     end
+else
+    fprintf('Original Covariance\n');
+    fprintf('----------\n');
+    
+    print_stats(R,p.Results.neig);
 end
 
 end
@@ -72,6 +73,9 @@ print_eig(R,neig);
 
 fprintf('condition number:\n');
 disp(cond(R));
+
+fprintf('condition number inverse:\n');
+disp(cond(pinv(R)));
 
 fprintf('rank:\n');
 disp(rank(R));
