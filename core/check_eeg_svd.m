@@ -77,6 +77,11 @@ disp(cond(R));
 fprintf('condition number inverse:\n');
 disp(cond(pinv(R)));
 
+% https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
+fprintf('condition number 2 :\n');
+disp(norm(R)*norm(pinv(R)));
+% not convinced on this one
+
 fprintf('rank:\n');
 disp(rank(R));
 end
