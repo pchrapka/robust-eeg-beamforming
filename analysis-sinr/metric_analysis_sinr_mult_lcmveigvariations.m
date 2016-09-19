@@ -1,0 +1,5 @@
+%% metric_analysis_sinr_mult_lcmveigvariations
+
+metric_analysis_sinr_lcmveigvariations('mult_cort_src_17_lag40')
+metric_analysis_sinr_lcmveigvariations('mult_cort_src_sine_2');
+metric_analysis_sinr_lcmveigvariations('mult_cort_src_sine_2_uncor');
