@@ -72,9 +72,9 @@ classdef BeamformerLCMV < Beamformer
             
             % FIXME consider splitting this up into 3 classes, parameters
             % would be more straightforward
-            if ~isequal(p.Results.regularization,'none') && ~isequal(p.Results.eig_type,'none')
-                error('cannot regularize and use eigenspace projection');
-            end
+%             if ~isequal(p.Results.regularization,'none') && ~isequal(p.Results.eig_type,'none')
+%                 error('cannot regularize and use eigenspace projection');
+%             end
             
             %obj = obj@Beamformer();
             obj.pinv = p.Results.pinv;
@@ -96,7 +96,16 @@ classdef BeamformerLCMV < Beamformer
                 name = 'lcmv inv';
             end
             
-            if ~isequal(obj.eig_type,'none')
+            if ~isequal(obj.eig_type,'none') && ~isequal(obj.regularization,'none')
+                % both eig and regularized
+                obj.type = sprintf('lcmv_eig_reg');
+                obj.name = sprintf('%s %s %d reg %s',...
+                    name,...
+                    obj.eig_type,...
+                    obj.n_interfering_sources,...
+                    obj.regularization);
+            
+            elseif ~isequal(obj.eig_type,'none')
                 % eig
                 obj.type = sprintf('lcmv_eig');
                 obj.name = sprintf('%s %s %d',...
