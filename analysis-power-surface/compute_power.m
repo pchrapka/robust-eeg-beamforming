@@ -57,7 +57,7 @@ cfg.save.file_type = 'metrics';
 if isfield(cfg.save, 'file_tag')
     file_tag = ['_' cfg.save.file_tag];
 else
-    file_tag = [];
+    file_tag = '';
 end
 for i=1:length(cfg.beam_cfgs)
     data = [];
