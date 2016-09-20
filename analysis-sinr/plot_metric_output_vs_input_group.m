@@ -1,18 +1,16 @@
-function plot_metric_output_vs_input_group(sim,source,beamformers,locations,varargin)
+function plot_metric_output_vs_input_group(data_set,beamformers,locations,varargin)
 
 p = inputParser();
-addRequired(p,'sim',@(x) ~isempty(x) && ischar(x));
-addRequired(p,'source',@(x) ~isempty(x) && ischar(x));
+addRequired(p,'data_set',@(x) isclass(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'location',@(x) ~isempty(x) && isvector(x) && length(x) == 1);
 addParameter(p,'matched',true,@islogical);
-addParameter(p,'iteration',1,@(x) isvector(x) && length(x) == 1);
 addParameter(p,'snrs',-20:0:20,@isvector);
 addParameter(p,'metricx','',@(x) ~isempty(x));
 addParameter(p,'metricy','',@(x) ~isempty(x));
 addParameter(p,'savetag','',@ischar);
 addParameter(p,'force',false,@islogical);
-parse(p,sim,source,beamformers,locations,varargin{:});
+parse(p,data_set,beamformers,locations,varargin{:});
 
 cfg = [];
 cfg.force = p.Results.force;
@@ -20,10 +18,7 @@ cfg.save_fig = true;
 cfg.beam_cfgs = p.Results.beamformers;
 
 % Set up simulation info
-cfg.data_set.sim_name = p.Results.sim;
-cfg.data_set.source_name = p.Results.source;
-cfg.data_set.snr = '';
-cfg.data_set.iteration = p.Results.iteration;
+cfg.data_set = p.Results.data_set;
 cfg.snrs = p.Results.snrs;
 
 if p.Results.matched

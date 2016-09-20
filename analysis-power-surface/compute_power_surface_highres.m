@@ -21,10 +21,12 @@ if ~isempty(interference_idx)
 end
 
 % Set up simulation info
-cfg.data_set.sim_name = 'sim_data_bemhd_1_100t';
-cfg.data_set.source_name = source_name;
-cfg.data_set.snr = snr;
-cfg.data_set.iteration = '1';
+cfg.data_set = SimDataSetEEG(...
+    'sim_data_bemhd_1_100t',...
+    source_name,...
+    snr,...
+    'iter',1);
+
 if matched
     hmfactory = HeadModel();
     cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_15028V.mat');

@@ -1,17 +1,15 @@
-function plot_power_surface(sim,source,beamformers,varargin)
+function plot_power_surface(data_set,beamformers,varargin)
 
 p = inputParser();
-addRequired(p,'sim',@(x) ~isempty(x) && ischar(x));
-addRequired(p,'source',@(x) ~isempty(x) && ischar(x));
+addRequired(p,'data_set',@(x) isclass(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
-addParameter(p,'snr',0,@(x) length(x) == 1);
 addParameter(p,'source_idx',[],@(x) x > 1 && length(x) == 1);
 addParameter(p,'int_idx',[],@(x) x > 1 && length(x) == 1);
 addParameter(p,'mode','instant',@(x) any(validatestring(x,{'instant','average'})));
 addParameter(p,'sample_idx',[],@(x) x > 1 && length(x) == 1);
 addParameter(p,'force',false,@islogical);
 
-parse(p,sim,source,beamformers,varargin{:});
+parse(p,data_set,beamformers,varargin{:});
 
 %% Set up the config
 cfg = [];
@@ -24,10 +22,7 @@ if ~isempty(p.Results.int_idx)
 end
 
 % Set up simulation info
-cfg.data_set.sim_name = p.Results.sim;
-cfg.data_set.source_name = p.Results.source;
-cfg.data_set.snr = p.Results.snr;
-cfg.data_set.iteration = 1;
+cfg.data_set = p.Results.data_set;
 
 % TODO get from source data
 % if matched

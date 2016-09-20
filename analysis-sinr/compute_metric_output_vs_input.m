@@ -12,7 +12,7 @@ function [cfg] = compute_metric_output_vs_input(cfg)
 %       metric to compute on y axis
 %       options: 'sinr', 'isnr'
 %   cfg.data_set
-%       data set
+%       SimDataSetEEG object
 %   cfg.beam_cfgs
 %       cell array of beamformer configs
 %   cfg.snrs
@@ -52,13 +52,17 @@ if ~exist(cfg.data_file, 'file') || cfg.force
     % Loop over beamformers
     for m=1:length(cfg.beam_cfgs)
         
+        % save the original data set
+        data_set = cfg.data_set;
+        
         % Loop through snrs
         for i=1:length(cfg.snrs)
             snr = cfg.snrs(i);
             
             % Select beamformer
             cfg.beam_cfg = cfg.beam_cfgs{m};
-            cfg.data_set.snr = snr;
+            cfg.data_set = SimDataSetEEG(...
+                data_set.sim,data_set.source,snr,'iter',1);
             
             switch cfg.metric_x
                 % NOTE this should be common to all data sets

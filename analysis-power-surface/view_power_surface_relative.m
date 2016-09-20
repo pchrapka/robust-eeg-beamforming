@@ -18,17 +18,8 @@ function [outfile] = view_power_surface_relative(cfg)
 %
 %   Data Set
 %   --------
-%   cfg.data_set with the following fields
-%   sim_name    simulation config name
-%   source_name source config name
-%   snr         snr
-%   iteration   simulation iteration
-%
-%     Example:
-%     cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-%     cfg.data_set.source_name = 'mult_cort_src_10';
-%     cfg.data_set.snr = 0;
-%     cfg.data_set.iteration = '1';
+%   cfg.data_set 
+%       SimDataSetEEG object
 %
 %   Output
 %   ------

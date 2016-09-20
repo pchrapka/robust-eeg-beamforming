@@ -15,13 +15,14 @@ signal_types = {...
     'all',...
     };
 
-cfg_data.sim_name = 'sim_data_bem_1_100t';
-% cfg_data.source_name = 'single_cort_src_1';
-% cfg_data.source_config = 'src_param_single_cortical_source_1';
-cfg_data.source_name = 'mult_cort_src_17';
-cfg_data.source_config = 'src_param_mult_cortical_source_17';
-cfg_data.snr = snr;
-cfg_data.iteration = 1;
+% source_name = 'single_cort_src_1';
+source_name = 'mult_cort_src_17';
+
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    source_name,...
+    snr,...
+    'iter',1);
 
 for i=1:length(signal_types)
     % Select the signal component
@@ -31,10 +32,10 @@ for i=1:length(signal_types)
     cfg_study = [];
     cfg_study.subject_name = 'Subject01';
     if mismatch
-        cfg_study.condition_name = [cfg_data.sim_name '_' cfg_data.source_name '_3sphere'...
+        cfg_study.condition_name = [data_set.sim '_' data_set.source '_3sphere'...
             '_power_' signal_type];
     else
-        cfg_study.condition_name = [cfg_data.sim_name '_' cfg_data.source_name...
+        cfg_study.condition_name = [data_set.sim '_' data_set.source...
             '_power_' signal_type];
     end
     % Get the study idx

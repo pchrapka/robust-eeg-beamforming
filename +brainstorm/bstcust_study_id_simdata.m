@@ -4,10 +4,8 @@ function study_idx = bstcust_study_id_simdata(cfg_data)
 %   Example:
 %
 %   cfg_data = [];
-%   cfg_data.sim_name = 'sim_data_bem_1_100t';
-%   cfg_data.source_name = 'mult_cort_src_6';
-%   cfg_data.snr = '0';
-%   cfg_data.iteration = '1';
+%   cfg_data.data_set
+%       SimDataSetEEG object
 %   cfg_data.mismatch = true;
 %   cfg_data.mistmach_tags = {'3sphere'};
 
@@ -28,11 +26,11 @@ end
 subject_name = 'Subject01';
 % Set up the condition name
 if cfg_data.mismatch
-    condition_name = [cfg_data.sim_name '_'...
-        cfg_data.source_name '_' cfg_data.mismatch_tags{1}];
+    condition_name = [cfg_data.data_set.sim '_'...
+        cfg_data.data_set.source '_' cfg_data.mismatch_tags{1}];
 else
-    condition_name = [cfg_data.sim_name '_'...
-        cfg_data.source_name];
+    condition_name = [cfg_data.data_set.sim '_'...
+        cfg_data.data_set.source];
 end
 
 fprintf('Condition name: %s \n',condition_name);
