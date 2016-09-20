@@ -47,7 +47,7 @@ if ~isempty(p.Results.data_set)
     % Method 1
     
     % Get the save directory
-    save_dir = p.Results.data_setget_dir();
+    save_dir = p.Results.data_set.get_dir();
     
     % Check the output directory
     if ~exist(save_dir, 'dir');
@@ -56,7 +56,7 @@ if ~isempty(p.Results.data_set)
     
     % Set up the file name
     save_file = fullfile(save_dir,...
-        [p.Results.data_setget_filename(p.Results.tag) p.Results.ext]);
+        [p.Results.data_set.get_filename(p.Results.tag) p.Results.ext]);
     
 else
     % Method 2
