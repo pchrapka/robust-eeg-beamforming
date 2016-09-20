@@ -33,10 +33,10 @@ function save_file = save_setup(varargin)
 
 p = inputParser();
 addParameter(p,'data_set',[],@(x) isa(x,'SimDataSetEEG'));
-addParameter(p,'tag',[],@ischar);
+addParameter(p,'tag','',@ischar);
 addParameter(p,'ext','.mat',@ischar);
-addParameter(p,'file_name',[],@ischar);
-addParameter(p,'save_name',[],@ischar);
+addParameter(p,'file_name','',@ischar);
+addParameter(p,'save_name','',@ischar);
 parse(p,varargin{:});
 
 if ~isempty(p.Results.data_set) && ~isempty(p.Results.file_name)
