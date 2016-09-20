@@ -32,7 +32,7 @@ function save_file = save_setup(varargin)
 %       file extension
 
 p = inputParser();
-addParameter(p,'data_set',[],@(x) isclass(x,'SimDataSetEEG'));
+addParameter(p,'data_set',[],@(x) isa(x,'SimDataSetEEG'));
 addParameter(p,'tag',[],@ischar);
 addParameter(p,'ext','.mat',@ischar);
 addParameter(p,'file_name',[],@ischar);

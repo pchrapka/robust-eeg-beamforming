@@ -1,7 +1,7 @@
 function plot_metric_output_vs_input_group(data_set,beamformers,locations,varargin)
 
 p = inputParser();
-addRequired(p,'data_set',@(x) isclass(x,'SimDataSetEEG'));
+addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'location',@(x) ~isempty(x) && isvector(x) && length(x) == 1);
 addParameter(p,'matched',true,@islogical);
