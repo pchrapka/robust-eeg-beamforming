@@ -24,7 +24,8 @@ else
 end
 
 % Plot the data
-h = figure('Position',[100 100 1000 800]);
+% h = figure('Position',[100 100 1000 800]);
+h = figure();
 n_plots = size(output.data,2)-1;
 colors = hsv(n_plots);
 markers = {'o', 'x', 's', 'd', '^', 'v', '+', '>', '<'};
@@ -43,7 +44,7 @@ for i=1:n_plots
         'color', colors(i,:), 'marker', markers{i});
     hold on;
 end
-legend(legend_str{:}, 'Location', 'SouthEast');
+legend(legend_str{:}, 'Location', 'Best');
 ylabel(output.label_y);
 xlabel(output.label_x);
 
