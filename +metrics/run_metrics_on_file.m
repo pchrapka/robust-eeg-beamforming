@@ -9,17 +9,8 @@ function [output] = run_metrics_on_file(cfg)
 %       
 %   Data Set
 %   --------
-%   cfg.data_set with the following fields
-%   sim_name    simulation config name
-%   source_name source config name
-%   snr         snr
-%   iteration   simulation iteration
-%
-%     Example:
-%     cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-%     cfg.data_set.source_name = 'mult_cort_src_10';
-%     cfg.data_set.snr = 0;
-%     cfg.data_set.iteration = '1';
+%   cfg.data_set 
+%       SimDataSetEEG object
 %
 %   Metrics
 %   -------
@@ -56,20 +47,18 @@ function [output] = run_metrics_on_file(cfg)
 if isfield(cfg, 'data_set')
     % Save some data
     output.data_set = cfg.data_set;
-    % Load data
-    cfg_data = cfg.data_set;
     
     % Load eeg data
-    eeg_data_file = db.save_setup(cfg_data);
+    eeg_data_file = db.save_setup('data_set',cfg.data_set);
     eeg_data_in = load(eeg_data_file);
 end
 
 if isfield(cfg, 'beam_cfg')
     % Save some data
     output.bf_name = cfg.beam_cfg;
-    cfg_data.tag = cfg.beam_cfg;
+    
     % Load bf data
-    bf_data_file = db.save_setup(cfg_data);
+    bf_data_file = db.save_setup('data_set',cfg.data_set,'tag',cfg.beam_cfg);
     bf_data_in = load(bf_data_file);
 end
 

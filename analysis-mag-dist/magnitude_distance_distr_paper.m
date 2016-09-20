@@ -1,7 +1,13 @@
 %% magnitude_distance_distr_paper
 
 sample_idx = 250*0.452;
-snr = '0';
+snr = 0;
+
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'distr_cort_src_2',...
+	snr,...
+    'iter',1);
 
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
@@ -21,10 +27,7 @@ cfg.beam_cfgs = {...
     }; 
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set = data_set;
 hmfactory = HeadModel();
 cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
@@ -54,10 +57,7 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig_3sphere'};
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
-cfg.snr = snr;
-cfg.iteration = '1';
+cfg.data_set = data_set;
 hmfactory = HeadModel();
 cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 

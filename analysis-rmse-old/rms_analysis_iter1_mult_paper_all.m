@@ -42,9 +42,6 @@ for j=1:length(source_names)
             rms_analysis_iter1_mult_paper(cfg);
         end
         
-        cfg = [];
-        cfg.source_name = source_names{j};
-        cfg.snr = snr;
-        rms_analysis_iter1_summary(cfg);
+        rms_analysis_iter1_summary(source_names{j},snr);
     end
 end

@@ -21,13 +21,7 @@ function [cfg] = compute_rmse_vs_snr(cfg)
 %   cfg.force
 %       flag for forcing recomputation of metrics, default = false
 %   cfg.data_set
-%       struct describing data set
-%   
-%       example:
-%       cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-%       cfg.data_set.source_name = 'mult_cort_src_17';
-%       cfg.data_set.snr = 0;
-%       cfg.data_set.iteration = '1';
+%       SimDataSetEEG object
 %
 %   cfg.save_tag
 %       tag for saving the data
@@ -39,15 +33,13 @@ if ~isfield(cfg, 'force'), cfg.force = false; end
 % Set up the output file name based on data set
 cfg.file_type = 'metrics'; % Set up a new metrics subdir
 data_file = metrics.filename(cfg);
-cfg_out = [];
-cfg_out.file_name = data_file;
-cfg_out.save_name = [filesep...
+
+save_name = [filesep...
     'rmse_vs_inputsnr_' cfg.metrics.component '_loc'...
     num2str(cfg.metrics.location_idx) '_norm_' cfg.metrics.normalize];
-cfg_out.tag = cfg.save_tag;
-cfg_out.ext = '.mat';
 % Generate file name
-cfg.data_file = db.save_setup(cfg_out);
+cfg.data_file = db.save_setup(...
+    'file_name',data_file,'save_name',save_name,'tag',cfg.save_tag);
 
 % Check if the data exists
 if ~exist(cfg.data_file, 'file') || cfg.force
@@ -79,14 +71,13 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             
             %% Calculate normalizing factor for total beamformer output
             % Load the beamformer output data
-            cfg.data_set.tag = cfg.beam_cfg;
-            file_name = db.get_full_file_name(cfg.data_set);
+            tag = cfg.beam_cfg;
+            file_name = cfg.data_set.get_full_filename(tag);
             file_name = strcat(file_name, '.mat');
             dbf = load(file_name);
             
             % Load the original EEG data
-            cfg.data_set.tag = [];
-            file_name = db.get_full_file_name(cfg.data_set);
+            file_name = cfg.data_set.get_full_filename('');
             file_name = strcat(file_name, '.mat');
             din = load(file_name);
 

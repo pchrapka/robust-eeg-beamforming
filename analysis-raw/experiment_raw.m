@@ -2,14 +2,11 @@
 close all;
 force = false;
 
-aet_init();
-
 %% Get the data
 % Set up config to get the data file
 snr = '0';
 
-cfg_data = [];
-cfg_data.beam_cfgs = {...
+beam_cfgs = {...
     ...Matched
     ...'rmv_epsilon_20',...
     ...'lcmv',...
@@ -25,41 +22,39 @@ cfg_data.beam_cfgs = {...
     'rmv_epsilon_200_3sphere',...
     'rmv_aniso_3sphere',...
     };
-cfg_data.sim_name = 'sim_data_bem_1_100t';
-% cfg_data.source_name = 'single_cort_src_1';
-% cfg_data.source_config = 'src_param_single_cortical_source_1';
-cfg_data.source_name = 'mult_cort_src_17';
-cfg_data.source_config = 'src_param_mult_cortical_source_17';
-cfg_data.snr = snr;
-cfg_data.iteration = 1;
 
-bf_data = cell(size(cfg_data.beam_cfgs));
-for i=1:length(cfg_data.beam_cfgs)
-    cfg_data.tag = cfg_data.beam_cfgs{i};
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'mult_cort_src_17',...
+    snr,...
+    'iter',1);
+
+bf_data = cell(size(beam_cfgs));
+for i=1:length(beam_cfgs)
+    tag = beam_cfgs{i};
     
     % Get the file name
-    file_name = db.get_full_file_name(cfg_data);
+    file_name = data_set.get_full_filename(tag);
     % Add extension
     file_name = strcat(file_name, '.mat');
     
     % Load the beamformer data
     din = load(file_name);
-    bf_data{i}.name = cfg_data.beam_cfgs{i};
+    bf_data{i}.name = beam_cfgs{i};
     bf_data{i}.filter = din.source.filter;
 %     bf_data{i}.bf_out = din.source.beamformer_output;
 end
 
 %% Load original data
-cfg_data.tag = [];
-data_file_name = [db.get_full_file_name(cfg_data) '.mat'];
+data_file_name = [data_set.get_full_filename() '.mat'];
 din = load(data_file_name);
 
 %% Calculate beamformer output of individual signal components
 for i=1:length(bf_data)
     
     % Set up file name for beamformer component calculations
-    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
-    file_name = db.get_full_file_name(cfg_data);
+    tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = data_set.get_full_filename(tag);
     if force || ~exist(file_name, 'file')
         fprintf('Calculating beamformer output for %s\n', bf_data{i}.name);
         data = [];
@@ -98,8 +93,8 @@ location_idx = 295;
 component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
-    file_name = db.get_full_file_name(cfg_data);
+    tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = data_set.get_full_filename(tag);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
@@ -124,8 +119,8 @@ location_idx = 295;
 component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
-    file_name = db.get_full_file_name(cfg_data);
+    tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = data_set.get_full_filename(tag);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
@@ -150,8 +145,8 @@ location_idx = 295;
 component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
-    file_name = db.get_full_file_name(cfg_data);
+    tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = data_set.get_full_filename(tag);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;
@@ -176,8 +171,8 @@ location_idx = 295;
 component_idx = 1;
 for i=1:length(bf_data)
     % Load the data
-    cfg_data.tag = [bf_data{i}.name '_bfcomp.mat'];
-    file_name = db.get_full_file_name(cfg_data);
+    tag = [bf_data{i}.name '_bfcomp.mat'];
+    file_name = data_set.get_full_filename(tag);
     din = load(file_name);
     
     legend_str{i} = bf_data{i}.name;

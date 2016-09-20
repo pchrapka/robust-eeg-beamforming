@@ -72,8 +72,8 @@ for i=1:length(cfg.beam_cfgs)
     data = [];
     
     % Get the full data file name
-    cfg.data_set.tag = cfg.beam_cfgs{i};
-    data_file = db.save_setup(cfg.data_set);
+    tag = cfg.beam_cfgs{i};
+    data_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
     
     % Set up output filename
     cfg.save.file_tag = [cfg.beam_cfgs{i} '_power' file_tag];

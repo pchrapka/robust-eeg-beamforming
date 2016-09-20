@@ -1,16 +1,16 @@
 
 
 % Set up config to get the data file
-snr = '0';
+snr = 0;
 
-cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'distr_cort_src_2';
-cfg.snr = snr;
-cfg.iteration = 1;
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'distr_cort_src_2',...
+    snr,...
+    'iter',1);
 
 % Get the file name
-file_name = db.get_full_file_name(cfg);
+file_name = data_set.get_full_filename();
 % Add extension
 file_name = [file_name '.mat'];
 

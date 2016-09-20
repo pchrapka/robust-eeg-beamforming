@@ -35,15 +35,13 @@ n_tags = length(cfg.tags);
 for i=1:n_tags
     
     % Set up cfg to find the beamformer output data
-    tmpcfg2 = [];
-    tmpcfg2.file_name = data_file;
-%     tmpcfg2.tag = [cfg.tags{i} '_mini'];
-    tmpcfg2.tag = cfg.tags{i};
-    fprintf('Working on: %s\n',tmpcfg2.tag);
+    tag = cfg.tags{i};
+    fprintf('Working on: %s\n',tag);
     
     tmpcfg = [];
     % Assign the beamformer output data file name
-    tmpcfg.beamformer_data_file = db.save_setup(tmpcfg2);
+    tmpcfg.beamformer_data_file = db.save_setup(...
+        'file_name',data_file,'tag',tag);
     % Assign the exported source analysis results from Brainstorm
     tmpcfg.source = cfg.source;
     % norm(source.ImageGridAmp)
@@ -52,7 +50,7 @@ for i=1:n_tags
         % Prep the data
         tmpcfg = brainstorm.prep_source_data(tmpcfg);
     catch e
-        fprintf('Couldn''t find %s\n',tmpcfg2.tag);
+        fprintf('Couldn''t find %s\n',tag);
         continue;
     end
     if isfield(tmpcfg.source,'Whitener')

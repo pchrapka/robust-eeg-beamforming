@@ -66,16 +66,13 @@ beamformer = fbeamformer(cfg.beamformer_config{2:end});
 bf_tag = strrep(beamformer.name,'.','-');
 bf_tag = strrep(bf_tag,' ','_');
 
-tmpcfg = [];
-tmpcfg.file_name = cfg.data_file;
+tag = bf_tag;
 if isfield(cfg, 'tag')
     % Add the additional tag to the output file name, typically if it's a
     % different head model
-    tmpcfg.tag = [bf_tag '_' cfg.tag];
-else
-    tmpcfg.tag = bf_tag;
+    tag = [tag '_' cfg.tag];
 end
-save_file = db.save_setup(tmpcfg);
+save_file = db.save_setup('file_name',cfg.data_file,'tag',tag);
 
 %% Check if the analysis already exists
 if exist(save_file,'file') && ~cfg.force

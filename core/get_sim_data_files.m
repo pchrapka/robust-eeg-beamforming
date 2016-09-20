@@ -24,12 +24,12 @@ count = 1;
 out = cell(1,length(p.Results.snr)*length(p.Results.iterations));
 for i=1:length(p.Results.snr)
     for j=1:length(p.Results.iterations)
-        tmpcfg = [];
-        tmpcfg.sim_name = p.Results.sim;
-        tmpcfg.source_name = p.Results.source;
-        tmpcfg.snr = p.Results.snr(i);
-        tmpcfg.iteration = p.Results.iterations(j);
-        out{count} = db.get_full_file_name(tmpcfg);    
+        data_set = SimDataSetEEG(...
+            p.Results.sim,...
+            p.Results.source,...
+            p.Results.snr(i),...
+            'iter',p.Results.iterations(j));
+        out{count} = data_set.get_full_filename();    
         count = count + 1;
     end
 end

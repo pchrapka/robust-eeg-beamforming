@@ -12,17 +12,8 @@ function [rmse, rms_input] = rms_bf_file(cfg)
 %       
 %   Data Set
 %   --------
-%   cfg.sim_name    simulation config name
-%   cfg.source_name source config name
-%   cfg.snr         snr
-%   cfg.iteration   simulation iteration
-%
-%     Example:
-%     cfg.sim_name = 'sim_data_bem_1_100t';
-%     cfg.source_name = 'mult_cort_src_10';
-%     cfg.snr = snr;
-%     cfg.iteration = '1';
-%
+%   cfg.data_set
+%       SimDataSetEEG object
 %
 %   RMS Calculation
 %   ---------------
@@ -38,13 +29,6 @@ function [rmse, rms_input] = rms_bf_file(cfg)
 %   cfg.head    IHeadModel obj, see HeadModel
 %
 
-%% Set up simulation info
-cfg_data = [];
-cfg_data.sim_name = cfg.sim_name;
-cfg_data.source_name = cfg.source_name;
-cfg_data.snr = cfg.snr;
-cfg_data.iteration = cfg.iteration;
-
 %% Load the head model
 
 if isfield(cfg,'head')
@@ -53,9 +37,8 @@ end
 
 %% Calculate rms for the beamformer source file
 % Get the full data file name
-eeg_data_file = db.save_setup(cfg_data);
-cfg_data.tag = cfg.beam_cfg;
-bf_data_file = db.save_setup(cfg_data);
+eeg_data_file = db.save_setup('data_set',cfg.data_set);
+bf_data_file = db.save_setup('data_set',cfg.data_set,'tag',cfg.beam_cfg);
 
 % Load the beamformer data
 bf_data_in = load(bf_data_file);

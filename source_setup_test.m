@@ -34,12 +34,12 @@ if simulate_data
     simulation_data(cfg);
     
     % Get the data file name
-    cfg = [];
-    cfg.sim_name = sim_cfg.sim_name;
-    cfg.source_name = sim_cfg.source_name;
-    cfg.snr = cur_snr;
-    cfg.iteration = 1;
-    data_file = db.save_setup(cfg);
+    data_set = SimDataSetEEG(...
+        sim_cfg.sim_name,...
+        sim_cfg.source_name,...
+        cur_snr,...
+        'iter',1);
+    data_file = db.save_setup('data_set',data_set);
     
     % Load the simulated data
     data_in = load(data_file);

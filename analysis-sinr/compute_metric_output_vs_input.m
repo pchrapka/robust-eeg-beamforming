@@ -35,13 +35,10 @@ outfile = sprintf('metrics_%s_vs_%s_loc%d',...
 % Set up the output file name based on data set
 cfg.file_type = 'metrics'; % Set up a new metrics subdir
 data_file = metrics.filename(cfg);
-cfg_out = [];
-cfg_out.file_name = data_file;
-cfg_out.save_name = [filesep outfile];
-cfg_out.tag = cfg.save_tag;
-cfg_out.ext = '.mat';
+
 % Generate file name
-cfg.data_file = db.save_setup(cfg_out);
+cfg.data_file = db.save_setup(...
+    'file_name',data_file,'save_name',[filesep outfile],'tag',cfg.save_tag);
 
 % Check if the data exists
 if ~exist(cfg.data_file, 'file') || cfg.force

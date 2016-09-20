@@ -8,14 +8,14 @@ function metric_analysis_common_summary(cfg_in, results)
 csv_data = metrics.to_csv(results);
 
 % Select the config
-cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = cfg_in.source_name;
-cfg.snr = '0';
-cfg.iteration = '1';
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    cfg_in.source_name,...
+    0,...
+    'iter',1);
 
 % Get the template data file name
-data_file = db.save_setup(cfg);
+data_file = db.save_setup('data_set',data_set);
 
 % Save the csv data
 cfg_save = [];

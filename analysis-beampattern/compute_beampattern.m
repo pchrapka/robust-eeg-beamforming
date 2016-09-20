@@ -12,18 +12,8 @@ function [cfg] = compute_beampattern(cfg)
 %
 %   Data Set
 %   --------
-%   cfg.data_set with the following fields
-%   sim_name    simulation config name
-%   source_name source config name
-%   snr         snr
-%   iteration   simulation iteration
-%
-%     Example:
-%     cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-%     cfg.data_set.source_name = 'mult_cort_src_10';
-%     cfg.data_set.snr = 0;
-%     cfg.data_set.iteration = '1';
-%
+%   cfg.data_set 
+%       SimDataSetEEG object
 %   cfg.head        
 %       IHeadModel obj, see HeadModel
 %
@@ -92,8 +82,8 @@ for i=1:length(cfg.beam_cfgs)
     data = [];
     
     % Get the full data file name
-    cfg.data_set.tag = [cfg.beam_cfgs{i}]; % No mini tag
-    data_file = db.save_setup(cfg.data_set);
+    tag = [cfg.beam_cfgs{i}]; % No mini tag
+    data_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
     
     % Set up output filename
     cfg.save.file_tag = [cfg.beam_cfgs{i} '_beampattern' file_tag];

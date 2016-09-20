@@ -1,20 +1,22 @@
 close all;
 
 %% Set up config to get the data file
-snr = '0';
+snr = 0;
 
-cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
-% cfg.source_name = 'single_cort_src_complex_1';
-% cfg.source_name = 'mult_cort_src_complex_1';
-% cfg.source_name = 'mult_cort_src_complex_2_pos_exact';
-cfg.source_name = 'distr_cort_src_complex_1';
-% cfg.source_name = 'distr_cort_src_2';
-cfg.snr = snr;
-cfg.iteration = 1;
+% source_name = 'single_cort_src_complex_1';
+% source_name = 'mult_cort_src_complex_1';
+% source_name = 'mult_cort_src_complex_2_pos_exact';
+source_name = 'distr_cort_src_complex_1';
+% source_name = 'distr_cort_src_2';
+
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    source_name,...
+    snr,...
+    'iter',1);
 
 % Get the file name
-file_name = db.get_full_file_name(cfg);
+file_name = data_set.get_full_filename();
 % Add extension
 file_name = strcat(file_name,'.mat');
 
@@ -48,7 +50,7 @@ for j=1:n_comp
     plot(data);
     if j==1
         % Add the title to the first plot
-        title(strrep(cfg.source_name,'_',' '));
+        title(strrep(source_name,'_',' '));
     end
     % Add component labels
     ylabel([component_labels{j} ' comp']);

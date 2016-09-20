@@ -36,10 +36,7 @@ for sample_idx=sample_idxs
 end
 
 %% Summarize the results and place in one csv file
-cfg = [];
-cfg.source_name = 'distr_cort_src_2';
-rms_analysis_iter1_summary(cfg);
+snr = 0;
 
-cfg = [];
-cfg.source_name = 'distr_cort_src_3';
-rms_analysis_iter1_summary(cfg);
+rms_analysis_iter1_summary('distr_cort_src_2',snr);
+rms_analysis_iter1_summary('distr_cort_src_3',snr);

@@ -1,4 +1,3 @@
-aet_init();
 
 %% Options
 % highres_model = 'head_Colin27_bem_vol_30000V.mat';
@@ -34,24 +33,25 @@ interference_idx = 400;
 snr = '0';
 
 %% Calculate the beampattern
-cfg = [];
-% cfg.beam_cfgs = {...
+% beam_cfgs = {...
 %     'rmv_epsilon_150_3sphere',...
 %     ...'lcmv_eig_1_3sphere',...
 %     'lcmv_3sphere',...
 %     };
-cfg.beam_cfgs = {...
+beam_cfgs = {...
     'rmv_epsilon_20',...
     ...'lcmv_eig_1_3sphere',...
     'lcmv',...
     };
-n_data = length(cfg.beam_cfgs);
+n_data = length(beam_cfgs);
 
 % Set up simulation info
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'mult_cort_src_17';
-cfg.snr = snr;
-cfg.iteration = '1';
+
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'mult_cort_src_17',...
+    snr,...
+    'iter',1);
 
 % Extract x coordinates from head model
 x = hm_highres.data.GridLoc(roi_idx,1);
@@ -62,13 +62,9 @@ figure;
 hold on;
 bfname = cell(n_data,1);
 for j=1:n_data
-    cfg_data = [];
-    cfg_data.sim_name = cfg.sim_name;
-    cfg_data.source_name = cfg.source_name;
-    cfg_data.snr = cfg.snr;
-    cfg_data.iteration = cfg.iteration;
-    cfg_data.tag = [cfg.beam_cfgs{j}]; % No mini tag
-    beamformer_file = db.save_setup(cfg_data);
+    
+    tag = [beam_cfgs{j}]; % No mini tag
+    beamformer_file = db.save_setup('data_set',data_set,'tag',tag);
     
     % Load the beamformer output data
     data_in = load(beamformer_file);
@@ -129,9 +125,9 @@ for j=1:n_data
     ylabel('Trace');
     
 %     % Save the beamformer name for the legend
-%     bfname{j} = cfg.beam_cfgs{j};
+%     bfname{j} = beam_cfgs{j};
 end
-legend(cfg.beam_cfgs);
+legend(beam_cfgs);
 
 %% Add the source
 % Load head model used for simulation

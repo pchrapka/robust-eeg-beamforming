@@ -4,9 +4,8 @@
 %
 %   cfg is a struct with the following fields
 %       sim_vars_name   name of the sim_vars config
-%       sim_name        name of simulation data config
-%       source_name     name of the source config
-%       snr             (string) specific snr to import
+%       data_set
+%           SimDataSetEEG object
 %       mismatch        (boolean) specify whether scenario is a mismatch,
 %                       this adds the appropriate suffixes
 %       source_file_tags
@@ -37,21 +36,16 @@ end
 %% ==== SETUP STUDY ====
 cfg.iteration = 1; % add iteration
 
-data_files = get_sim_data_files(...
-    'sim',cfg.sim_name,...
-    'source',cfg.source_name,...
-    'iterations',cfg.iteration,...
-    'snr',cfg.snr ...
-    );
+data_files = cfg.data_set.get_full_filename();
 
 subject_name = 'Subject01';
 % Set up the condition name
 if mismatch
-    condition_name = [cfg.sim_name '_'...
-        cfg.source_name '_' mismatch_tags{1}];
+    condition_name = [cfg.data_set.sim '_'...
+        cfg.data_set.source '_' mismatch_tags{1}];
 else
-    condition_name = [cfg.sim_name '_'...
-        cfg.source_name];
+    condition_name = [cfg.data_set.sim '_'...
+        cfg.data_set.source];
 end
 
 fprintf('Condition name: %s \n',condition_name);
@@ -80,7 +74,7 @@ source = load(template_source_file);
 %% ==== IMPORT EEG DATA TO BRAINSTORM ====
 cfg_db = [];
 cfg_db.data_file = data_files{1};
-cfg_db.data_file_tag = ['snr_' cfg.snr '_' cfg.iteration];
+cfg_db.data_file_tag = ['snr_' cfg.data_set.snr '_' cfg.data_set.iter];
 cfg_db.eeg = eeg;
 cfg_db.study_idx = cfg.study_idx;
 

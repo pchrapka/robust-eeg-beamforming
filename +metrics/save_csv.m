@@ -3,18 +3,9 @@ function save_csv(cfg)
 %   SAVE_CSV(CFG)
 %   
 %   Output file
-%       see db.save_setup
-%
-%   Method 1
-%   cfg.sim_name
-%   cfg.source_name
-%   cfg.snr
-%   cfg.iteration
-%   cfg.tag         (optional)
-%
-%   Method 2
 %   cfg.file_name
 %   cfg.save_name
+%   cfg.tag
 %
 %   Data
 %
@@ -23,9 +14,11 @@ function save_csv(cfg)
 %   cfg.data         rms data from rms.rms_summarize
 
 
-% Set csv file name
-cfg.ext = '.csv';
-file_out =  db.save_setup(cfg);
+file_out =  db.save_setup(...
+    'file_name',cfg.file_name,...
+    'save_name',cfg.save_name,...
+    'tag',cfg.tag,...
+    'ext','.csv');
 
 % Open the file
 file_ID = fopen(file_out,'wt');

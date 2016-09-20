@@ -31,14 +31,13 @@ var_new{n_tags} = ''; % allocate memory
 for i=1:n_tags
     
     % Set up cfg to find the beamformer output data
-    tmpcfg2 = [];
-    tmpcfg2.file_name = data_file;
-    tmpcfg2.tag = cfg.tags{i};
-    fprintf('Working on: %s\n',tmpcfg2.tag);
+    tag = cfg.tags{i};
+    fprintf('Working on: %s\n',tag);
     
     tmpcfg = [];
     % Assign the beamformer output data file name
-    tmpcfg.beamformer_data_file = db.save_setup(tmpcfg2);
+    tmpcfg.beamformer_data_file = db.save_setup(...
+        'file_name',data_file,'tag',tag);
     % Assign the exported source analysis results from Brainstorm
     tmpcfg.source = cfg.source;
     % norm(source.ImageGridAmp)

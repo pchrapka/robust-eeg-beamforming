@@ -16,20 +16,10 @@ function [out] = dipole_error_bf_files(cfg_in)
 %   
 %   Data Set
 %   --------
-%   cfg_in.sim_name    simulation config name
-%   cfg_in.source_name source config name
 %   cfg_in.source_config
 %       file name of the source config
-%   cfg_in.snr         snr
-%   cfg_in.iteration   simulation iteration
-%   cfg_in.tag         (optional)
-%
-%     Example:
-%     cfg_in.sim_name = 'sim_data_bem_1_100t';
-%     cfg_in.source_name = 'mult_cort_src_10';
-%     cfg_in.source_config = 'src_param_mult_cortical_source_10';
-%     cfg_in.snr = '0';
-%     cfg_in.iteration = '1';
+%   cfg_in.data_set
+%       SimDataSetEEG object
 %
 %   Extra Options
 %   -------------
@@ -54,6 +44,7 @@ function [out] = dipole_error_bf_files(cfg_in)
 
 % Set defaults
 if ~isfield(cfg_in, 'verbose'), cfg_in.verbose = 0; end
+if ~isfield(cfg_in, 'tag'),     cfg_in.tag = ''; end
 
 %% Get the beamformer data
 bf_data = cell(size(cfg_in.beam_cfgs));
@@ -61,7 +52,7 @@ for i=1:length(cfg_in.beam_cfgs)
     cfg_in.tag = cfg_in.beam_cfgs{i};
     
     % Get the file name
-    file_name = db.get_full_file_name(cfg_in);
+    file_name = cfg_in.data_set.get_full_filename(cfg_in.tag);
     % Add extension
     file_name = strcat(file_name, '.mat');
     

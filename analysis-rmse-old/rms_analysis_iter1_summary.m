@@ -1,9 +1,9 @@
-function rms_analysis_iter1_summary(cfg_in)
+function rms_analysis_iter1_summary(source_name, snr)
 % Summarizes the RMSE results produced by rms_analysis_iter1_*
 %
-% cfg_in.source_name
+% source_name
 %       name of source config
-% cfg_in.snr
+% snr
 %       snr value
 
 
@@ -14,7 +14,7 @@ function rms_analysis_iter1_summary(cfg_in)
 % cfg_template.snr = '0';
 % cfg_template.iteration = '1';
 % cfg_template.tag = 'rms';
-% cfgs.source_name = cfg_in.source_name;
+% cfgs.source_name = source_name;
 
 %% Set up configs
 % k = 1;
@@ -34,18 +34,17 @@ function rms_analysis_iter1_summary(cfg_in)
 data = {};
 
 % Select the config
-cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = '';
-cfg.snr = cfg_in.snr;
-cfg.iteration = '1';
-cfg.tag = 'rms';
-cfg.source_name = cfg_in.source_name;
 
-fprintf('\n%s %s\n', cfg.source_name, cfg.tag);
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    source_name,...
+    snr,...
+    'iter',1);
+
+fprintf('\n%s rms\n', source_name);
 
 % Get the template data file name
-data_file = db.save_setup(cfg);
+data_file = db.save_setup('data_set',data_set,'tag','rms');
 [file_path,name,ext,~] = util.fileparts(data_file);
 
 % Get all the matching files in the directory
@@ -70,7 +69,9 @@ for j=1:length(data_files)
 end
 
 % Output the results to a csv file
+cfg = [];
+cfg.data_set = data_set;
 cfg.rms_col_labels = col_labels;
 cfg.rms_out = data;
-cfg.tag = [cfg.tag '_summary'];
+cfg.tag = '_summary';
 rms.rms_summarize_csv(cfg);

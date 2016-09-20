@@ -3,27 +3,21 @@ function [mag_dist_data] = magnitude_distance_bf_file(cfg)
 %multiple data sets
 %   MAGNITUDE_DISTANCE_BF_FILE(CFG)
 %
-%   cfg.sample_idx  sample position at which to calculate the dispersion
-%   cfg.beam_cfgs   cell array of beamformer cfg file tags to process
-%   cfg.sim_name    simulation config name
-%   cfg.source_name source config name
-%   cfg.snr         snr
-%   cfg.iteration   simulation iteration
-%   cfg.head        IHeadModel obj, see HeadModel
-
-%% Set up simulation info
-cfg_data = [];
-cfg_data.sim_name = cfg.sim_name;
-cfg_data.source_name = cfg.source_name;
-cfg_data.snr = cfg.snr;
-cfg_data.iteration = cfg.iteration;
+%   cfg.sample_idx  
+%       sample position at which to calculate the dispersion
+%   cfg.beam_cfgs   
+%       cell array of beamformer cfg file tags to process
+%   cfg.data_set
+%       SimDataSetEEG object
+%   cfg.head        
+%       IHeadModel obj, see HeadModel
 
 %% Calculate dispersion for all desired beamformer configs
 for i=1:length(cfg.beam_cfgs)
     
     % Get the full data file name
-    cfg_data.tag = [cfg.beam_cfgs{i} '_mini'];
-    data_file = db.save_setup(cfg_data);
+    tag = [cfg.beam_cfgs{i} '_mini'];
+    data_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
     
     % Load the data
     data_in = load(data_file);
@@ -60,14 +54,13 @@ end
 legend(mag_dist_data.name);
 
 %% Save the data
-% Set up output file cfg
-cfg_out = cfg_data;
+% Set up output file
 if isempty(strfind(cfg.beam_cfgs{1}, '3sphere'))
-    cfg_out.tag = 'mag_dist';
+    tag = 'mag_dist';
 else
-    cfg_out.tag = 'mag_dist_3sphere';
+    tag = 'mag_dist_3sphere';
 end
-save_file = db.save_setup(cfg_out);
+save_file = db.save_setup('data_set',data_set,'tag',tag);
 save(save_file, 'mag_dist_data');
 
 end

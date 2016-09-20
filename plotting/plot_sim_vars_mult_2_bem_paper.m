@@ -8,7 +8,7 @@ brainstorm.bstcust_start();
 % Manually delete the existing study
 
 %% Common Parameters
-snr = '0';
+snr = 0;
 mismatch = true;
 % import = true;
 import = false;
@@ -16,9 +16,12 @@ import = false;
 %% Setup the config for mult_bem_paper
 cfg = [];
 cfg.sim_vars_name = 'sim_vars_mult_src_paper_';
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_name = 'mult_cort_src_17';
-cfg.snr = snr;
+cfg.data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'mult_cort_src_17',...
+	snr,...
+    'iter',1);
+
 cfg.mismatch = mismatch;
 if mismatch
     cfg.source_file_tags = {...

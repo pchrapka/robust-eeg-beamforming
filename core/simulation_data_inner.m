@@ -38,12 +38,13 @@ switch temp_cfg.snr.type
 end
 
 %% set up ouputfile
-tmpcfg = [];
-tmpcfg.sim_name = temp_cfg.sim_name;
-tmpcfg.source_name = temp_cfg.source_name;
-tmpcfg.snr = snr;
-tmpcfg.iteration = run_iter;
-save_file = db.save_setup(tmpcfg);
+data_set = SimDataSetEEG(...
+    temp_cfg.sim_name,...
+    temp_cfg.source_name,...
+    snr,...
+	'iter', run_iter);
+    
+save_file = db.save_setup('data_set',data_set);
 
 %% check if the file exists
 if exist(save_file,'file') && ~temp_cfg.force

@@ -21,24 +21,23 @@ function [cfg] = beamform_components(cfg)
 if ~isfield(cfg, 'force'), cfg.force = false; end
 
 % Set up file name for beamformer component calculations
-cfg.data_set.tag = [cfg.beam_cfg '_bfcomp.mat'];
-cfg.data_file = db.get_full_file_name(cfg.data_set);
+tag = [cfg.beam_cfg '_bfcomp.mat'];
+cfg.data_file = cfg.data_set.get_full_filename(tag);
 
 % Only compute the components if the file doesn't exist or explicitly force
 if ~exist(cfg.data_file, 'file') || cfg.force
     fprintf('computing bf components %s\n', cfg.data_file);
     
     %% Load the original data
-    cfg.data_set.tag = [];
-    file_name = db.get_full_file_name(cfg.data_set);
+    file_name = cfg.data_set.get_full_filename('');
     file_name = strcat(file_name, '.mat');
     din = load(file_name);
     
     %% Load the beamformer output data
     
     % Set up the beamformer data file name
-    cfg.data_set.tag = cfg.beam_cfg;
-    file_name = db.get_full_file_name(cfg.data_set);
+    tag = cfg.beam_cfg;
+    file_name = cfg.data_set.get_full_filename('');
     file_name = strcat(file_name, '.mat');
     dbf = load(file_name);
     

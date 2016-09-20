@@ -6,6 +6,12 @@ voxel_idx = 295;
 interference_idx = 400;
 snr = '0';
 
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'mult_cort_src_17',...
+    snr,...
+    'iter',1);
+
 %% ==== MATCHED LEADFIELD ====
 %% Set up the config
 cfg = [];
@@ -25,10 +31,7 @@ cfg.beam_cfgs = {...
     }; 
 
 % Set up simulation info
-cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-cfg.data_set.source_name = 'mult_cort_src_17';
-cfg.data_set.snr = snr;
-cfg.data_set.iteration = '1';
+cfg.data_set = data_set;
 hmfactory = HeadModel();
 cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
@@ -71,10 +74,7 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig_3sphere'};
 
 % Set up simulation info
-cfg.data_set.sim_name = 'sim_data_bem_1_100t';
-cfg.data_set.source_name = 'mult_cort_src_17';
-cfg.data_set.snr = snr;
-cfg.data_set.iteration = '1';
+cfg.data_set = data_set;
 hmfactory = HeadModel();
 cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 

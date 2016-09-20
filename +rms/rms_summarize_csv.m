@@ -5,12 +5,9 @@ function rms_summarize_csv(cfg)
 %   Output file
 %       see db.save_setup
 %
-%   cfg.sim_name
-%   cfg.source_name
-%   cfg.snr
-%   cfg.iteration
+%   Method 1
+%   cfg.data_set
 %   cfg.tag         (optional)
-%   cfg.ext         (not required) set to .csv
 %
 %   Data
 %
@@ -19,8 +16,11 @@ function rms_summarize_csv(cfg)
 
 
 % Set csv file name
-cfg.ext = '.csv';
-file_out =  db.save_setup(cfg);
+tag = 'rms';
+if isfield(cfg,'tag')
+    tag = [tag cfg.tag];
+end
+file_out =  db.save_setup('data_set',data_set,'ext','.csv','tag',tag);
 
 % Open the file
 file_ID = fopen(file_out,'wt');

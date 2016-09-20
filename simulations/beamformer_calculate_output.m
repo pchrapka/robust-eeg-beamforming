@@ -39,17 +39,15 @@ fbeamformer = str2func(cfg.beamformer_config{1});
 beamformer = fbeamformer(cfg.beamformer_config{2:end});
 
 %% Set up the output file name
-tmpcfg = [];
-tmpcfg.file_name = cfg.data_file;
 % Construct the tag
 name_temp = strrep(beamformer.name,'.','-');
-tmpcfg.tag = strrep(name_temp,' ','_');
+tag = strrep(name_temp,' ','_');
 % Add the additional tag to the output file name, typically if it's a
 % different head model
 if isfield(cfg, 'tag')
-    tmpcfg.tag = [tmpcfg.tag '_' cfg.tag];
+    tag = [tag '_' cfg.tag];
 end
-save_file = db.save_setup(tmpcfg);
+save_file = db.save_setup('file_name',cfg.data_file,'tag',tag);
 
 %% Load the analysis
 if exist(save_file,'file') && ~cfg.force
@@ -118,9 +116,7 @@ save(save_file, 'source');
 source = [];
 source.beamformer_output = out.beamformer_output;
 % Create a new file name
-cfg.file_name = save_file;
-cfg.tag = 'mini';
-save_file = db.save_setup(cfg);
+save_file = db.save_setup('file_name',save_file,'tag','mini');
 save(save_file, 'source');
 
 % Revert

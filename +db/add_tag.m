@@ -1,15 +1,15 @@
-function out = add_tag(cfg)
+function out = add_tag(file_name, tag)
 %ADD_TAG returns the file name with a tag
-%   ADD_TAG(CFG)
+%   ADD_TAG(file_name, tag)
 %   
-%   cfg
-%       file_name
-%       tag         (optional)
+%   file_name
+%   tag
 
-if isfield(cfg,'tag') && ~isequal(cfg.tag,'')
-    out = [cfg.file_name '_' cfg.tag];
-else
-    out = [cfg.file_name];
-end
+p = inputParser();
+addRequired(p,'file_name',@(x) ~isempty(x) && ischar(x));
+addRequired(p,'tag',@(x) ~isempty(x) && ischar(x));
+parse(p,file_name,tag);
+
+out = [p.Results.file_name '_' p.Results.tag];
 
 end

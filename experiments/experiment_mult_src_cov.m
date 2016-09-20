@@ -1,26 +1,28 @@
 close all;
 
 %% Set up config to get the data file
-snr = '0';
+snr = 0;
 
-cfg = [];
-cfg.sim_name = 'sim_data_bem_1_100t';
-cfg.source_names = {...
+source_names = {...
     'mult_cort_src_10',...
     ...'mult_cort_src_14',...
     'mult_cort_src_15',...
     'mult_cort_src_16',...
     'mult_cort_src_17'};
-cfg.snr = snr;
-cfg.iteration = 1;
 
 %% Load the data
-data = cell(size(cfg.source_names));
-for i=1:length(cfg.source_names)
+data = cell(size(source_names));
+for i=1:length(source_names)
     % Get the file name
-    cfg.source_name = cfg.source_names{i};
-    source_name = strrep(cfg.source_name,'_',' ');
-    file_name = db.get_full_file_name(cfg);
+    source_name = strrep(source_names{i},'_',' ');
+    
+    data_set = SimDataSetEEG(...
+        'sim_data_bem_1_100t',...
+        source_names{i},...
+        snr,...
+        'iter',1);
+
+    file_name = data_set.get_full_filename();
     % Add extension
     file_name = strcat(file_name,'.mat');
     
