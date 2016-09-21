@@ -21,28 +21,16 @@ if ~isempty(p.Results.int_idx)
     cfg.interference_idx = p.Results.int_idx;
 end
 
-% Set up simulation info
 cfg.data_set = p.Results.data_set;
-
-% TODO get from source data
-% if matched
-%     hmfactory = HeadModel();
-%     cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_15028V.mat');
-% else
-%     hmfactory = HeadModel();
-%     cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_15028V.mat');
-% end
-
 cfg.beam_cfgs = p.Results.beamformers;
 
 %% Compute the beamformer output power
-cfg = compute_power(cfg);
+outputfiles = compute_power(cfg);
 
 %% Plot the surface
 cfgview = [];
-cfgview.datafiles = cfg.outputfile;
+cfgview.datafiles = outputfiles;
 cfgview.data_set = cfg.data_set;
-cfgview.head = cfg.head; % TODO get from data file
 switch p.Results.mode
     case 'instant'
         cfgview.sample = p.Results.sample_idx;

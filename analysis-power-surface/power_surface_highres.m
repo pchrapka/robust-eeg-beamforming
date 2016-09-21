@@ -22,7 +22,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);
@@ -34,7 +33,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);
@@ -56,7 +54,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 %% Plot data
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);
@@ -69,7 +66,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 %% Plot data
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);
@@ -91,7 +87,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 %% Plot data
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);
@@ -104,7 +99,6 @@ cfg = compute_power_surface_highres(source_name, matched, snr);
 %% Plot data
 cfgview = [];
 cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
 cfgview.sample = sample;
 cfgview.data_set = cfg.data_set;
 view_power_surface_relative(cfgview);

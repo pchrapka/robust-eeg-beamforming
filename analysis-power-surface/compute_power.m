@@ -1,4 +1,4 @@
-function [cfg] = compute_power(cfg)
+function [outputfile] = compute_power(cfg)
 %COMPUTE_POWER computes the output power for beamformers
 %
 %   Beamformer Options
@@ -27,8 +27,8 @@ function [cfg] = compute_power(cfg)
 %
 %   Output
 %   ------
-%   cfg.outputfile
-%       (cell array) file names of beamformer output power data
+%   outputfile (cell array)
+%       file names of beamformer output power data
 %
 %   Data
 %   ----
@@ -59,6 +59,10 @@ if isfield(cfg.save, 'file_tag')
 else
     file_tag = '';
 end
+% allocate mem
+outputfile = cell(length(cfg.beam_cfgs),1);
+
+% loop over beamformer configs
 for i=1:length(cfg.beam_cfgs)
     data = [];
     
@@ -68,7 +72,7 @@ for i=1:length(cfg.beam_cfgs)
     
     % Set up output filename
     cfg.save.file_tag = [cfg.beam_cfgs{i} '_power' file_tag];
-    cfg.outputfile{i} = metrics.filename(cfg.save);
+    outputfile{i} = metrics.filename(cfg.save);
     
     % Skip the computation if the file exists
     if exist(cfg.outputfile{i}, 'file') && ~cfg.force
@@ -96,7 +100,7 @@ for i=1:length(cfg.beam_cfgs)
     
     % Save output data
     fprintf('Saving %s\n', cfg.outputfile{i});
-    save(cfg.outputfile{i}, 'data');
+    save(outputfile{i}, 'data');
 end
 
 end

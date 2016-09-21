@@ -6,10 +6,8 @@ function [outfile] = view_power_surface_relative(cfg)
 %
 %   Data Options
 %   ------------
-%   cfg.head        
-%       IHeadModel obj, see HeadModel
-%   cfg.datafiles
-%       array of file names, output from COMPUTE_POWER
+%   cfg.datafiles (cell array)
+%       file names, output from COMPUTE_POWER
 %
 %   View Options
 %   ------------
@@ -32,11 +30,12 @@ function [outfile] = view_power_surface_relative(cfg)
 scale = 'relative';
 
 cfgplt = [];
-cfgplt.head = cfg.head;
+
 cfgplt.options.scale = scale;
 if isfield(cfg,'sample')
     cfgplt.options.sample = cfg.sample;
 end
+
 outfile = cell(length(cfg.datafiles),1);
 for i=1:length(cfg.datafiles)
     % Set up plot options

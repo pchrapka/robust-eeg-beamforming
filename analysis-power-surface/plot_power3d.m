@@ -6,8 +6,6 @@ function plot_power3d(cfg)
 %   cfg.file
 %       filename of beamformer output data, as computed by COMPUTE_BEAMPATTERN
 %       FIXME look up function
-%   cfg.head        
-%       IHeadModel obj, see HeadModel
 %
 %   cfg.options
 %   cfg.options.sample
@@ -26,20 +24,33 @@ if ~isfield(cfg, 'options'),        cfg.options = [];               end
 if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
 if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
 
-%% Load the head model
-cfg.head.load();
-
-%% Load the tesselated data
-bstdir = brainstorm.bstcust_getdir('db');
-fprintf('Loading surface file:\n\t%s\n', cfg.head.data.SurfaceFile);
-tess = load(fullfile(bstdir,...
-    'Protocol-Phil-BEM','anat',cfg.head.data.SurfaceFile));
-% FIXME Move surface file to head models dir
-fprintf('**** FIXME move to head-models project and change in head models file\n');
-
 %% Load the data
 din = load(cfg.file);
 power_data = din.data.power(:,cfg.options.sample);
+
+%% Load the head model
+% load beamformer data
+dinbf = load(din.bf_file);
+
+% get head model config
+if isfield(dinbf.head_cfg,'actual')
+    head_cfg = dinbf.head_cfg.actual;
+else
+    head_cfg = dinbf.head_cfg;
+end
+
+% load head model
+hmfactory = HeadModel();
+hm = hmfactory.createHeadModel(head_cfg.type,head_cfg.file);
+hm.load();
+
+%% Load the tesselated data
+bstdir = brainstorm.bstcust_getdir('db');
+fprintf('Loading surface file:\n\t%s\n', hm.data.SurfaceFile);
+tess = load(fullfile(bstdir,...
+    'Protocol-Phil-BEM','anat',hm.data.SurfaceFile));
+% FIXME Move surface file to head models dir
+fprintf('**** FIXME move to head-models project and change in head models file\n');
 
 %% Data options
 % Data limit
