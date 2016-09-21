@@ -21,7 +21,7 @@ run_sim_vars_bem_mult17_lag40_locs2_paper
 % -----------------------------------
 % Running time: at least 3 time longer than low res
 
-% run_sim_vars_bemhd_mult17hd % ol  d - too correlated
+% run_sim_vars_bemhd_mult17hd % old - too correlated
 run_sim_vars_bemhd_mult17hd_lag40_paper
 run_sim_vars_bemhd_single1hd_paper
 run_sim_vars_bemhd_distr2hd_paper
