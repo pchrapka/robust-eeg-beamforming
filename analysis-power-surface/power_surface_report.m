@@ -16,7 +16,7 @@
 % 3. Open the report in emacs and press C-c C-e l o to publish a pdf
 
 %% Generate data
-% run_sim_vars_bemhd_paper_mult17hd
+% run_sim_vars_bemhd_mult17hd
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SNR = 0

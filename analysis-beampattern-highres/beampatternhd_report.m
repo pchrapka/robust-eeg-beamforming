@@ -1,7 +1,7 @@
 %% beampattern_report
 
 %% Generate data
-% run_sim_vars_bemhd_paper_mult17hd
+% run_sim_vars_bemhd_mult17hd
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SNR = 0

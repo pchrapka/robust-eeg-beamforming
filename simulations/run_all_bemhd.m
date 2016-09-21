@@ -9,4 +9,4 @@ lumberjack.parfor_setup();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % This will take a while
-run_sim_vars_bemhd_paper_mult17hd
+run_sim_vars_bemhd_mult17hd

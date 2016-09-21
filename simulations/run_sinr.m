@@ -3,10 +3,10 @@
 
 %% data and beamformers
 
-run_sim_vars_bem_paper_mult17_lag40
-run_sim_vars_bem_paper_mult_sine
-run_sim_vars_bem_paper_mult_sine_uncor
-% run_sim_vars_bem_paper_covtrial_mult17
+run_sim_vars_bem_mult17_lag40
+run_sim_vars_bem_mult_sine
+run_sim_vars_bem_mult_sine_uncor
+% run_sim_vars_bem_mult17_covtrial
 
 %% sinr metrics
 

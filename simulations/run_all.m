@@ -23,26 +23,26 @@ lumberjack.parfor_setup();
 %% Paper simulations
 % PAPER
 run_sim_vars_single_bem_paper
-run_sim_vars_bem_paper_mult10
+run_sim_vars_bem_mult10
 % run_sim_vars_distr_bem_paper
-run_sim_vars_bem_paper_mult17
-run_sim_vars_bem_paper_mult17_lag8
+run_sim_vars_bem_mult17
+run_sim_vars_bem_mult17_lag8
 
 %% Mult src spacing
 % run_sim_vars_single_test
 % run_sim_vars_mult_time_spacing
-% run_sim_vars_bem_paper_mult_lags
+% run_sim_vars_bem_mult_lags
 
 %% Sacrifice with RMVB
 % run_sim_vars_single_bem_paper_2
 
 %% Sinusoidal sources
-% run_sim_vars_bem_paper_mult_sine
-% run_sim_vars_bem_paper_mult_sine_uncor
+% run_sim_vars_bem_mult_sine
+% run_sim_vars_bem_mult_sine_uncor
 
 %% Complex ERP sources
 % run_sim_vars_single_bem_paper_complex
-% run_sim_vars_bem_paper_mult_complex
+% run_sim_vars_bem_mult_complex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis

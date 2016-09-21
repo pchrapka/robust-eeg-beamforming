@@ -1,4 +1,5 @@
-%% run_sim_vars.m -- Script for running different analysis variations 
+%% run_sim_vars_bem_mult17_lag40_locs2.m
+% Same run_sim_vars_mult_bem_paper except with more temporal spacing
 
 clear all;
 close all;
@@ -17,7 +18,7 @@ hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_mult_cortical_source_sine_2_uncor',...
+    'sim_src_parameters',   'src_param_mult_cortical_source_17_lag40',...
     'snr_range',            -20:5:20,...
     ...Allow aet_sim_eeg_avg to parallelize the trials
     'parallel',             false);
@@ -27,14 +28,11 @@ k = k+1;
 %% Parameter sweep
 force = false;
 
-% Data files
 data_files = get_sim_data_files(...
     'sim','sim_data_bem_1_100t',...
-    'source','mult_cort_src_sine_2_uncor',...
+    'source','mult_cort_src_17_lag40',...
     'iterations',1,...
     'snr',-20:5:20 ...
-    ...'snr',-10:10:0 ...
-    ...'snr',0 ...
     );
 
 %% ==== MATCHED LEADFIELD ====
@@ -43,9 +41,11 @@ scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
+cfg_simvars_setup.tag = 'locs2';
 cfg_simvars_setup.head = hm_bem;
 cfg_simvars_setup.loc = [295,400];
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
+
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
     'analysis_run_func',    @beamformer_analysis,...
@@ -61,7 +61,7 @@ scripts(k).func = @sim_vars.run;
 cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
-cfg_simvars_setup.tag = '3sphere';
+cfg_simvars_setup.tag = 'locs2_3sphere';
 cfg_simvars_setup.head = [];
 cfg_simvars_setup.head.current = hm_3sphere;
 cfg_simvars_setup.head.actual = hm_bem;
@@ -78,3 +78,7 @@ k = k+1;
 
 %% Run the scripts
 aet_run_scripts( scripts );
+
+
+%% Compute sinr vs snr
+% metric_analysis_sinr_mult17_lag40

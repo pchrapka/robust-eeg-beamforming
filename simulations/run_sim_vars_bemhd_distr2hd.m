@@ -1,4 +1,6 @@
-%% run_sim_vars_bemhd_paper_single1hd
+%% run_sim_vars_bemhd_distr2hd
+% Same as run_sim_vars_distr_bem_paper except with a higher resolution head
+% model
 
 clear all;
 close all;
@@ -17,7 +19,7 @@ hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_bemhd_1_100t',...
-    'sim_src_parameters',   'src_param_single_cortical_source_1hd',...
+    'sim_src_parameters',   'src_param_distr_cortical_source_2hd',...
     'snr_range',            -20:10:0,...
     ...Allow aet_sim_eeg_avg to parallelize the trials
     'parallel',             false);
@@ -30,7 +32,7 @@ force = false;
 % Data files
 data_files = get_sim_data_files(...
     'sim','sim_data_bemhd_1_100t',...
-    'source','single_cort_src_1hd',...
+    'source','distr_cort_src_2hd',...
     'iterations',1,...
     ...'snr',-20:10:0 ...
     ...'snr',-10:10:0 ...
@@ -40,7 +42,7 @@ data_files = get_sim_data_files(...
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_single_src_paper_matched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_distr_src_paper_matched');
 cfg_simvars_setup.loc = 1:15028;
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
@@ -58,7 +60,7 @@ k = k+1;
 %% ==== MISMATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_single_src_paper_mismatched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_distr_src_paper_mismatched');
 cfg_simvars_setup.loc = 1:15028;
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
