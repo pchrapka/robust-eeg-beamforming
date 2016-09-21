@@ -42,7 +42,7 @@ data_files = get_sim_data_files(...
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_matched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.time_idx = time_idx;
@@ -60,7 +60,7 @@ k = k+1;
 %% ==== MISMATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_mismatched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.time_idx = time_idx;

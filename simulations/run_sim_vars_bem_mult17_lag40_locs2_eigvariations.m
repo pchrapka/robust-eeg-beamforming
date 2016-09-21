@@ -62,7 +62,7 @@ data_files = get_sim_data_files(...
 %% ==== MISMATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_eig_variations_mismatched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_rmvb_eig_variations_mismatched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = 'locs2_3sphere';

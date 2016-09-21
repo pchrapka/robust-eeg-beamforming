@@ -61,7 +61,7 @@ for j=1:length(source_names)
         );
    
     scripts(k).func = @sim_vars.run;
-        cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
+        cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_matched');
     cfg_simvars_setup.data_file = data_files;
     cfg_simvars_setup.force = force;
     cfg_simvars_setup.head = hm_bem;
@@ -89,7 +89,7 @@ for j=1:length(source_names)
         );
     
     scripts(k).func = @sim_vars.run;
-        cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
+        cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_mismatched');
     cfg_simvars_setup.data_file = data_files;
     cfg_simvars_setup.force = force;
     cfg_simvars_setup.tag = '3sphere';

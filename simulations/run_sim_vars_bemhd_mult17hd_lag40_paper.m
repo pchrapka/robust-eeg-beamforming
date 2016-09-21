@@ -1,4 +1,4 @@
-%% run_sim_vars_bemhd_mult17hd_lag40.m
+%% run_sim_vars_bemhd_mult17hd_lag40_paper.m
 % Same as run_sim_vars_mult_bem_paper except with a higher resolution head
 % model
 
@@ -42,7 +42,7 @@ data_files = get_sim_data_files(...
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_beampattern_matched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
 cfg_simvars_setup.loc = 1:15028;%5440;
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
@@ -60,7 +60,7 @@ k = k+1;
 %% ==== MISMATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_beampattern_mismatched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
 cfg_simvars_setup.loc = 1:15028;%5440;
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;

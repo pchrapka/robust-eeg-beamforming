@@ -15,16 +15,16 @@ lumberjack.parfor_setup();
 % run_sim_vars_bem_single
 % run_sim_vars_bem_distr
 % run_sim_vars_bem_mult17 % old - too correlated
-run_sim_vars_bem_mult17_lag40_locs2
+run_sim_vars_bem_mult17_lag40_locs2_paper
 
 % HD for beampatterns and power plots
 % -----------------------------------
 % Running time: at least 3 time longer than low res
 
 % run_sim_vars_bemhd_mult17hd % ol  d - too correlated
-run_sim_vars_bemhd_mult17hd_lag40
-run_sim_vars_bemhd_single1hd
-run_sim_vars_bemhd_distr2hd
+run_sim_vars_bemhd_mult17hd_lag40_paper
+run_sim_vars_bemhd_single1hd_paper
+run_sim_vars_bemhd_distr2hd_paper
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
@@ -41,7 +41,8 @@ metric_analysis_sinr_mult17_lag40
 % power_surface_lowres
 
 % high res
-power_surface_highres
+power_surface_mult17hd_lag40
+% power_surface_highres % REMOVE old
 
 % beampattern
 % beampattern_report

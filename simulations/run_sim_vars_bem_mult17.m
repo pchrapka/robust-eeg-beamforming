@@ -38,13 +38,13 @@ data_files = get_sim_data_files(...
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_matched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_bem;
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 
-% [bf_config,loc,~] = get_beamformer_config_set('sim_vars_mult_src_paper_matched');
+% [bf_config,loc,~] = get_beamformer_config_set('sim_vars_mult_src_extended_matched');
 % cfg_simvars = get_beamformer_analysis_config(...
 %     'data_file',data_files,...
 %     'beamformer',bf_config,...
@@ -55,7 +55,7 @@ cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 % cfg_simvars = get_beamformer_analysis_config(...
 %     'data_file',data_files,...
 %     'beamformer',bf_config,...
-%     ...'beamformer_set','sim_vars_mult_src_paper_matched',...
+%     ...'beamformer_set','sim_vars_mult_src_extended_matched',...
 %     'scenario','matched',... this would select the head model and default scanning locations
 %     ... options: matched-lowres, mismatched-lowres, matched-highres,
 %     mismatched-highres
@@ -74,7 +74,7 @@ k = k+1;
 %% ==== MISMATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_extended_mismatched');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.tag = '3sphere';
