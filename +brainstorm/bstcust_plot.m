@@ -6,7 +6,7 @@ function bstcust_plot(study_idx, snr, time, save_image)
 %   save        (optional, boolean) flag to save figures
 
 if nargin < 2
-    snr = '0';
+    snr = 0;
     time = 0;
     save_image = false;
 elseif nargin < 3

@@ -3,7 +3,7 @@ close all;
 
 %% Get the data
 % Set up config to get the data file
-snr = '0';
+snr = 0;
 
 cfg_data = [];
 beam_cfgs = {...

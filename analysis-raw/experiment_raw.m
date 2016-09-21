@@ -4,7 +4,7 @@ force = false;
 
 %% Get the data
 % Set up config to get the data file
-snr = '0';
+snr = 0;
 
 beam_cfgs = {...
     ...Matched

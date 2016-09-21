@@ -30,7 +30,7 @@ axis equal
 %% Options for beampattern
 voxel_idx = 295;
 interference_idx = 400;
-snr = '0';
+snr = 0;
 
 %% Calculate the beampattern
 % beam_cfgs = {...

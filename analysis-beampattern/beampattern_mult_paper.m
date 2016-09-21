@@ -4,7 +4,7 @@
 %% ==== FIRST SOURCE ==== %%
 voxel_idx = 295;
 interference_idx = 400;
-snr = '0';
+snr = 0;
 
 data_set = SimDataSetEEG(...
     'sim_data_bem_1_100t',...

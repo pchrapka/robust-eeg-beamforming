@@ -3,7 +3,7 @@ function experiment_power(mismatch, force)
 
 %% Get the data
 % Set up config to get the data file
-snr = '0';
+snr = 0;
 
 if ~mismatch
     beam_cfgs = {...
