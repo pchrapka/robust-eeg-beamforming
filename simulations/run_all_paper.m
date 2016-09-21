@@ -11,13 +11,17 @@ lumberjack.parfor_setup();
 % mismatched scenarios and RMVB included)
 
 % Low res simulations for Output SINR vs Input SNR
-run_sim_vars_single_bem_paper
-run_sim_vars_distr_bem_paper
+% ------------------------------------------------
+% run_sim_vars_bem_single
+% run_sim_vars_bem_distr
 % run_sim_vars_bem_mult17 % old - too correlated
 run_sim_vars_bem_mult17_lag40_locs2
 
 % HD for beampatterns and power plots
-% run_sim_vars_bemhd_mult17hd % old - too correlated
+% -----------------------------------
+% Running time: at least 3 time longer than low res
+
+% run_sim_vars_bemhd_mult17hd % ol  d - too correlated
 run_sim_vars_bemhd_mult17hd_lag40
 run_sim_vars_bemhd_single1hd
 run_sim_vars_bemhd_distr2hd
