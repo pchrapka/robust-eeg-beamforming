@@ -1,31 +1,8 @@
-function cfg = compute_power_surface_highres(source_name, matched, snr)
-%COMPUTE_POWER_SURFACE_HIGHRES computes beamformer output power for
-%high-resolution results
-%   COMPUTE_POWER_SURFACE_HIGHRES computes beamformer output power for
-%   high-resolution results
+function cfg = get_power_surface_config(type,source_name, matched, snr)
+%GET_POWER_SURFACE_CONFIG returns a config for compute_power
+%   GET_POWER_SURFACE_CONFIG returns a config for compute_power
 
-%% ==== FIRST SOURCE ==== %%
-voxel_idx = 5440;
-interference_idx = [];
-if ~isempty(strfind(source_name,'mult'))
-    interference_idx = 13841;
-end
-
-%% Set up the config
 cfg = [];
-cfg.force = false;
-% Sample index for beampattern calculation
-cfg.voxel_idx = voxel_idx;
-if ~isempty(interference_idx)
-    cfg.interference_idx = interference_idx;
-end
-
-% Set up simulation info
-cfg.data_set = SimDataSetEEG(...
-    'sim_data_bemhd_1_100t',...
-    source_name,...
-    snr,...
-    'iter',1);
 
 %% Set up beamformer configs
 if matched
@@ -80,7 +57,39 @@ else
     end
 end
 
-%% Compute the beamformer output power
-cfg.outputfile = compute_power(cfg);
+
+switch type
+    case 'highres'
+        
+        %% ==== FIRST SOURCE ==== %%
+        voxel_idx = 5440;
+        interference_idx = [];
+        if ~isempty(strfind(source_name,'mult'))
+            interference_idx = 13841;
+        end
+
+    case 'lowres'
+        voxel_idx = 295;
+        interference_idx = [];
+        if ~isempty(strfind(source_name,'mult'))
+            interference_idx = 400;
+        end
+        
+    otherwise
+        error('unknown power surface config type %s',type);
+end
+
+args = {'force',false,'source_idx',voxel_idx};
+if ~isempty(interference_idx)
+    args = [args {'int_idx',interference_idx}];
+end
+cfg.args = args;
+
+% Set up simulation info
+cfg.data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    source_name,...
+    snr,...
+    'iter',1);
 
 end

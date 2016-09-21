@@ -18,24 +18,18 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+%% Plot data
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+%% Plot data
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Single1HD
@@ -49,26 +43,18 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Distr2HD
@@ -82,23 +68,15 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_highres(source_name, matched, snr);
+cfg = get_power_surface_config('highres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});

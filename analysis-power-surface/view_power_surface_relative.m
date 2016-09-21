@@ -1,23 +1,24 @@
-function [outfile] = view_power_surface_relative(cfg)
+function [outfile] = view_power_surface_relative(data_set,datafiles,varargin)
 %VIEW_POWER_SURFACE_RELATIVE beamformer output power view
 %   VIEW_POWER_SURFACE_RELATIVE sets up a view with the beamformer output
 %   power plotted on the cortex surface, marked source locations and saves
 %   the plot.
 %
-%   Data Options
-%   ------------
-%   cfg.datafiles (cell array)
+%   Input
+%   -----
+%   data_set (SimDataSetEEG object)
+%       original data set 
+%   datafiles (cell array)
 %       file names, output from COMPUTE_POWER
 %
-%   View Options
-%   ------------
-%   cfg.sample
-%       (optional) sample idx to plot
-%
-%   Data Set
-%   --------
-%   cfg.data_set 
-%       SimDataSetEEG object
+%   Parameters
+%   ----------
+%   sample (integer, default = [])
+%       sample idx to plot
+%   source_idx 
+%       center voxel of beampattern
+%   int_idx
+%       (optional) index of interfering source
 %
 %   Output
 %   ------
@@ -26,20 +27,28 @@ function [outfile] = view_power_surface_relative(cfg)
 %
 %   See also COMPUTE_POWER
 
+p = inputParser();
+addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
+addRequired(p,'datafiles',@iscell);
+addParameter(p,'sample',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
+addParameter(p,'source_idx',[],@(x) x > 1 && length(x) == 1);
+addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
+parse(p,data_set,datafiles,varargin{:});
+
 %% Power map 3D - relative scale
-scale = 'relative';
-
 cfgplt = [];
-
-cfgplt.options.scale = scale;
-if isfield(cfg,'sample')
-    cfgplt.options.sample = cfg.sample;
+cfgplt.options.scale = 'relative';
+if ~isempty(p.Results.sample)
+    cfgplt.options.sample = p.Results.sample;
 end
 
-outfile = cell(length(cfg.datafiles),1);
-for i=1:length(cfg.datafiles)
+cfg = [];
+cfg.data_set = data_set;
+
+outfile = cell(length(datafiles),1);
+for i=1:length(datafiles)
     % Set up plot options
-    cfgplt.file = cfg.datafiles{i};
+    cfgplt.file = datafiles{i};
     
     % Set up plot save options
     cfg.plot_func = 'plot_power3d';
@@ -60,7 +69,8 @@ for i=1:length(cfg.datafiles)
     plot_power3d(cfgplt);
     
     % Plot source markers
-    plot_sources3d(cfgplt);
+    plot_sources3d(cfgplt.head,...
+        'source_idx',p.Results.source_idx,'int_idx',p.Results.int_idx);
     
     % Save the plot
     cfg.plot_func = 'plot_power3d';

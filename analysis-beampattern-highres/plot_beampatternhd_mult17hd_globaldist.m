@@ -37,7 +37,7 @@ for i=1:length(cfg.outputfile)
     plot_beampattern3d(cfgplt);
     
     % Plot source markers
-    plot_sources3d(cfgplt);
+    plot_sources3d(cfgplt.head,'file',cfgplt.file);
     
     % Save the plot
     cfg.plot_func = 'plot_beampattern3d';

@@ -18,26 +18,18 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+%% Plot data
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+%% Plot data
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Single1
@@ -51,28 +43,18 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Distr2
@@ -86,25 +68,15 @@ sample = time*250 + 1;
 %% Compute beamformer output power - matched
 
 matched = true;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
-cfg = compute_power_surface_lowres(source_name, matched, snr);
+cfg = get_power_surface_config('lowres',source_name, matched, snr);
 
 %% Plot data
-cfgview = [];
-cfgview.datafiles = cfg.outputfile;
-cfgview.head = cfg.head;
-cfgview.sample = sample;
-cfgview.data_set = cfg.data_set;
-view_power_surface_relative(cfgview);
+plot_power_surface(cfg.data_set, cfg.beam_cfgs, 'sample', sample, cfg.args{:});

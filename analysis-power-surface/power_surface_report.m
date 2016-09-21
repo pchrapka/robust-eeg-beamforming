@@ -26,13 +26,17 @@
 
 matched = true;
 snr = 0;
-cfgmatched = compute_power_surface_mult17hd(matched, snr);
+cfgmatched = get_power_surface_config('highres','mult_cort_src_17hd', matched, snr);
+% Compute the beamformer output power
+cfgmatched.outputfile = compute_power(cfgmatched.data_set, cfgmatched.beam_cfgs);
 
 %% Compute beamformer output power - mismatched
 
 matched = false;
 snr = 0;
-cfgmismatched = compute_power_surface_mult17hd(matched, snr);
+cfgmismatched = get_power_surface_config('highres','mult_cort_src_17hd', matched, snr);
+% Compute the beamformer output power
+cfgmismatched.outputfile = compute_power(cfgmismatched.data_set, cfgmismatched.beam_cfgs);
 
 %% Set up report
 analysisdir = 'analysis-power-surface';
@@ -46,19 +50,17 @@ sample = time*250 + 1;
 samples = 120:140;
 for i=1:length(samples)
     
-    cfgview = [];
-    cfgview.datafiles = cfgmatched.outputfile;
-    cfgview.head = cfgmatched.head;
-    cfgview.sample = samples(i);
-    cfgview.data_set = cfgmatched.data_set;
-    outfile_matched = view_power_surface_relative(cfgview);
+    outfile_matched = view_power_surface_relative(...
+        cfgmatched.data_set,...
+        cfgmatched.outputfile,...
+        'sample',samples(i),...
+        cfgmatched.args{:});
     
-    cfgview = [];
-    cfgview.datafiles = cfgmismatched.outputfile;
-    cfgview.head = cfgmismatched.head;
-    cfgview.sample = samples(i);
-    cfgview.data_set = cfgmismatched.data_set;
-    outfile_mismatched = view_power_surface_relative(cfgview);
+    outfile_mismatched = view_power_surface_relative(...
+        cfgmismatched.data_set,...
+        cfgmismatched.outputfile,...
+        'sample',samples(i),...
+        cfgmismatched.args{:});
     
     % Add heading
     report_add_heading(report, ['Sample ' num2str(samples(i))], 1);

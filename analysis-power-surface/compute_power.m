@@ -1,34 +1,27 @@
-function [outputfile] = compute_power(cfg)
+function [outputfile] = compute_power(data_set,beamformers,varargin)
 %COMPUTE_POWER computes the output power for beamformers
 %
-%   Beamformer Options
-%   -------------------
-%   cfg.beam_cfgs   
-%       cell array of beamformer cfg file tags to process
-%   cfg.voxel_idx   
+%   Input
+%   -----
+%   data_set (SimDataSetEEG object)
+%       original data set 
+%   beamformers (cell array)
+%       beamformer cfg file tags to process
+%
+%   Parameters
+%   ----------
+%   source_idx 
 %       center voxel of beampattern
-%   cfg.interference_idx
+%   int_idx
 %       (optional) index of interfering source
-%
-%   Data Set
-%   --------
-%   cfg.data_set 
-%       SimDataSetEEG object
-%
-%   Outputfile Options
-%   ------------------
-%   cfg.save
-%       options for saving the output file, the file name has the following
-%       form [data set name]_[beamformer name]_power.mat, i.e.
-%       0_1_lcmv_power.mat
-%   cfg.save.file_tag
-%       tag attached to output file name, i.e.
-%       '0_1_lcmv_power_matched.mat'
+%   cfg.mode
 %
 %   Output
 %   ------
 %   outputfile (cell array)
-%       file names of beamformer output power data
+%       file names of beamformer output power data, the file name has the
+%       following form [data set name]_[beamformer name]_power.mat, i.e.
+%       0_1_lcmv_power.mat
 %
 %   Data
 %   ----
@@ -39,43 +32,48 @@ function [outputfile] = compute_power(cfg)
 %       beamformer data filename
 %   power
 %       power calculated based on configuration
-%   options
-%       power options
-%   options.voxel_idx
-%   options.interference_dist
 
-%% Defaults
-if ~isfield(cfg, 'force'),  cfg.force = false; end
+p = inputParser();
+addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
+addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
+addParameter(p,'mode','instant',@(x) any(validatestring(x,{'instant','average'})));
+addParameter(p,'force',false,@islogical);
+
+parse(p,data_set,beamformers,varargin{:});
 
 %% Options
 
 % Save options
-cfg.save.data_set = cfg.data_set;
-cfg.save.file_type = 'metrics';
+cfg_save = [];
+cfg_save.data_set = data_set;
+cfg_save.file_type = 'metrics';
+
+switch p.Results.mode
+    case 'instant'
+        mode = 'components';
+    case 'average'
+        mode = 'components_samples';
+end
 
 %% Calculate power for all desired beamformer configs
-if isfield(cfg.save, 'file_tag')
-    file_tag = ['_' cfg.save.file_tag];
-else
-    file_tag = '';
-end
+
 % allocate mem
-outputfile = cell(length(cfg.beam_cfgs),1);
+outputfile = cell(length(beamformers),1);
 
 % loop over beamformer configs
-for i=1:length(cfg.beam_cfgs)
+for i=1:length(beamformers)
     data = [];
     
     % Get the full data file name
-    tag = cfg.beam_cfgs{i};
-    data_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
+    tag = beamformers{i};
+    data_file = db.save_setup('data_set',data_set,'tag',tag);
     
     % Set up output filename
-    cfg.save.file_tag = [cfg.beam_cfgs{i} '_power' file_tag];
-    outputfile{i} = metrics.filename(cfg.save);
+    cfg_save.file_tag = [beamformers{i} '_power'];
+    outputfile{i} = metrics.filename(cfg_save);
     
     % Skip the computation if the file exists
-    if exist(cfg.outputfile{i}, 'file') && ~cfg.force
+    if exist(outputfile{i}, 'file') && ~p.Results.force
         fprintf('Skipping %s\n', cfg.outputfile{i});
         fprintf('\tAlready exists\n');
         continue;
@@ -85,21 +83,15 @@ for i=1:length(cfg.beam_cfgs)
     din = load(data_file);
     
     % Calculate the power at each location
-    cfg_pow = [];
-    cfg_pow.data = din.source.beamformer_output;
-    output = metrics.power(cfg_pow);
+    output = metrics.power_source(din.source.beamformer_output,'mode',mode);
     data.power = output.power;
     
     % Copy data
-    data.name = cfg.beam_cfgs{i};
+    data.name = beamformers{i};
     data.bf_file = data_file;
-    data.options.voxel_idx = cfg.voxel_idx;
-    if isfield(cfg,'interference_idx')
-        data.options.interference_idx = cfg.interference_idx;
-    end
     
     % Save output data
-    fprintf('Saving %s\n', cfg.outputfile{i});
+    fprintf('Saving %s\n', outputfile{i});
     save(outputfile{i}, 'data');
 end
 
