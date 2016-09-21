@@ -1,13 +1,13 @@
-function plot_beampattern3d_diff(cfg)
+function plot_beampattern3d_diff(hm,datafile,cfg)
 %PLOT_BEAMPATTERN3D_DIFF plots difference in beampattern data on cortex
 %   PLOT_BEAMPATTERN3D_DIFF plots difference in beampattern data on the cortex
 %
-%   cfg.filea
-%       filename of beampattern data A
-%   cfg.fileb
-%       filename of beampattern data B
-%   cfg.head        
+%   hm       
 %       IHeadModel obj, see HeadModel
+%   datafile
+%       filename of beampattern data A
+%   cfg.diff_file
+%       filename of beampattern data B
 %   cfg.options
 %   cfg.options.scale
 %       colormap scale, standard options:
@@ -21,17 +21,17 @@ function plot_beampattern3d_diff(cfg)
 %   See also COMPUTE_BEAMPATTERN
 
 %% Load the head model
-cfg.head.load();
+hm.load();
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');
-fprintf('Loading surface file:\n\t%s\n', cfg.head.data.SurfaceFile);
+fprintf('Loading surface file:\n\t%s\n', hm.data.SurfaceFile);
 tess = load(fullfile(bstdir,...
-    'Protocol-Phil-BEM','anat',cfg.head.data.SurfaceFile));
+    'Protocol-Phil-BEM','anat',hm.data.SurfaceFile));
 
 %% Load the data
-dina = load(cfg.filea);
-dinb = load(cfg.fileb);
+dina = load(datafile);
+dinb = load(cfg.diff_file);
 
 %% Take the difference
 beampattern_data = dina.data.beampattern - dinb.data.beampattern;

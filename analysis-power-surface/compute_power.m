@@ -30,6 +30,8 @@ function [outputfile] = compute_power(data_set,beamformers,varargin)
 %       beamformer name
 %   bf_file
 %       beamformer data filename
+%   data_set
+%       original data set object
 %   power
 %       power calculated based on configuration
 
@@ -89,6 +91,7 @@ for i=1:length(beamformers)
     % Copy data
     data.name = beamformers{i};
     data.bf_file = data_file;
+    data.data_set = cfg.data_set;
     
     % Save output data
     fprintf('Saving %s\n', outputfile{i});

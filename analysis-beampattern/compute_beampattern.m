@@ -14,8 +14,6 @@ function [cfg] = compute_beampattern(cfg)
 %   --------
 %   cfg.data_set 
 %       SimDataSetEEG object
-%   cfg.head        
-%       IHeadModel obj, see HeadModel
 %
 %   Outputfile Options
 %   ------------------
@@ -57,20 +55,6 @@ if ~isfield(cfg, 'force'),  cfg.force = false; end
 cfg.save.data_set = cfg.data_set;
 cfg.save.file_type = 'metrics';
 
-%% Load the head model
-cfg.head.load();
-
-%% Calculate distance between interfering source and source of interest
-if isfield(cfg,'interference_idx')
-    cfg_dist = [];
-    cfg_dist.head = cfg.head;
-    cfg_dist.vertex_idx = cfg.voxel_idx;
-    cfg_dist.voi_idx = cfg.interference_idx;
-    interference_dist = distance_from_vertex(cfg_dist);
-%     y = ylim();
-%     x = [dist dist];
-%     line(x,y,'color','black');
-end
 
 %% Calculate beampattern for all desired beamformer configs
 if isfield(cfg.save, 'file_tag')
@@ -78,15 +62,24 @@ if isfield(cfg.save, 'file_tag')
 else
     file_tag = '';
 end
+
+hm = [];
+
 for i=1:length(cfg.beam_cfgs)
     data = [];
     
     % Get the full data file name
     tag = [cfg.beam_cfgs{i}]; % No mini tag
-    data_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
+    bf_file = db.save_setup('data_set',cfg.data_set,'tag',tag);
+    
+    % Load the head model
+    hm_new = load_hm_from_beamformer_file(bf_file, 'hm_cached', hm.file);
+    if ~isempty(hm_new)
+        hm = hm_new;
+    end
     
     % Set up output filename
-    cfg.save.file_tag = [cfg.beam_cfgs{i} '_beampattern' file_tag];
+    cfg.save.file_tag = sprintf('%s_beampattern%s',cfg.beam_cfgs{i},file_tag);
     cfg.outputfile{i} = metrics.filename(cfg.save);
     
     % Skip the computation if the file exists
@@ -99,16 +92,29 @@ for i=1:length(cfg.beam_cfgs)
     % Set up cfg for beampattern
     cfg_bp = [];
     cfg_bp.voxel_idx = cfg.voxel_idx;
-    cfg_bp.beamformer_file = data_file;
+    cfg_bp.beamformer_file = bf_file;
     cfg_bp.distances = true;
-    cfg_bp.head = cfg.head;
+    cfg_bp.head = hm;
     
     % Calculate the beampattern
     [data.beampattern, data.distances] = beampattern(cfg_bp);
     
+    % Calculate distance between interfering source and source of interest
+    if isfield(cfg,'interference_idx')
+        cfg_dist = [];
+        cfg_dist.head = hm;
+        cfg_dist.vertex_idx = cfg.voxel_idx;
+        cfg_dist.voi_idx = cfg.interference_idx;
+        interference_dist = distance_from_vertex(cfg_dist);
+        %     y = ylim();
+        %     x = [dist dist];
+        %     line(x,y,'color','black');
+    end
+    
     % Copy data
+    data.data_set = cfg.data_set;
     data.name = cfg.beam_cfgs{i};
-    data.bf_file = data_file;
+    data.bf_file = bf_file;
     data.options.voxel_idx = cfg.voxel_idx;
     if exist('interference_dist','var')
         data.options.interference_idx = cfg.interference_idx;

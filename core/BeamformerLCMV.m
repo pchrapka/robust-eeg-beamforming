@@ -140,7 +140,6 @@ classdef BeamformerLCMV < Beamformer
             %       W           weight matrix [channels x 3]
             %       H           leadfield matrix [channels x 3]
             
-            % FIXME
             % Start timer
             opt_start = tic;
             
@@ -164,13 +163,5 @@ classdef BeamformerLCMV < Beamformer
 
 
     end
-    
-%     methods (Access = protected)
-%         function obj = set_lambda(obj, R)
-%             % FIXME 
-%             % aet_analysis_beamform_get_lambda
-%             % obj.lambda = ;
-%         end
-%     end
     
 end

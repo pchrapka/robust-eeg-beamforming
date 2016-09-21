@@ -1,12 +1,12 @@
-function plot_beampattern3d(cfg)
+function plot_beampattern3d(hm,datafile,cfg)
 %PLOT_BEAMPATTERN3D plots beampattern data overlayed on cortex surface
 %   PLOT_BEAMPATTERN3D plots beampattern data overlayed on the cortex
 %   surface
 %
-%   cfg.file
-%       filename of beampattern data, as computed by COMPUTE_BEAMPATTERN
-%   cfg.head        
+%   hm        
 %       IHeadModel obj, see HeadModel
+%   datafile
+%       filename of beampattern data, as computed by COMPUTE_BEAMPATTERN
 %
 %   cfg.options
 %   cfg.options.scale
@@ -28,18 +28,18 @@ if ~isfield(cfg, 'options'),        cfg.options = [];               end
 if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
 
 %% Load the head model
-cfg.head.load();
+hm.load();
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');
-fprintf('Loading surface file:\n\t%s\n', cfg.head.data.SurfaceFile);
+fprintf('Loading surface file:\n\t%s\n', hm.data.SurfaceFile);
 tess = load(fullfile(bstdir,...
-    'Protocol-Phil-BEM','anat',cfg.head.data.SurfaceFile));
+    'Protocol-Phil-BEM','anat',hm.data.SurfaceFile));
 % FIXME Move surface file to head models dir
 fprintf('**** FIXME move to head-models project and change in head models file');
 
 %% Load the data
-din = load(cfg.file);
+din = load(datafile);
 beampattern_data = din.data.beampattern;
 
 %% Data options

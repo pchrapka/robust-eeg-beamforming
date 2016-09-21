@@ -1,11 +1,11 @@
-function plot_beampattern_diff(cfg)
+function plot_beampattern_diff(datafile,cfg)
 %PLOT_BEAMPATTERN_DIFF plots difference in 1D beampattern data
 %   PLOT_BEAMPATTERN_DIFF plots difference in beampattern data against the
 %   distance between each vertex and the vertex of interest
 %
-%   cfg.filea
+%   datafile
 %       filename of beampattern data A
-%   cfg.fileb
+%   cfg.diff_file
 %       filename of beampattern data B
 %   cfg.db
 %       (optional, default = true) convert data to db
@@ -29,8 +29,8 @@ if ~isfield(cfg, 'db'),         cfg.db = true;          end
 if ~isfield(cfg, 'scale'),      cfg.scale = 'relative'; end
 
 % Load the data
-dina = load(cfg.filea);
-dinb = load(cfg.fileb);
+dina = load(datafile);
+dinb = load(cfg.diff_file);
 
 % Check if the distances match
 if ~isequal(dina.data.distances, dinb.data.distances)

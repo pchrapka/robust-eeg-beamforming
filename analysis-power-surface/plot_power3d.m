@@ -1,11 +1,12 @@
-function plot_power3d(cfg)
+function plot_power3d(hm,datafile,cfg)
 %PLOT_POWER3D plots beamformerer output power data overlayed on cortex surface
 %   PLOT_POWER3D plots beamformer output power data overlayed on the cortex
 %   surface
 %
-%   cfg.file
+%   hm
+%       IHeadModel object, see HeadModel
+%   datafile
 %       filename of beamformer output data, as computed by COMPUTE_BEAMPATTERN
-%       FIXME look up function
 %
 %   cfg.options
 %   cfg.options.sample
@@ -25,24 +26,8 @@ if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
 if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
 
 %% Load the data
-din = load(cfg.file);
+din = load(datafile);
 power_data = din.data.power(:,cfg.options.sample);
-
-%% Load the head model
-% load beamformer data
-dinbf = load(din.bf_file);
-
-% get head model config
-if isfield(dinbf.head_cfg,'actual')
-    head_cfg = dinbf.head_cfg.actual;
-else
-    head_cfg = dinbf.head_cfg;
-end
-
-% load head model
-hmfactory = HeadModel();
-hm = hmfactory.createHeadModel(head_cfg.type,head_cfg.file);
-hm.load();
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');

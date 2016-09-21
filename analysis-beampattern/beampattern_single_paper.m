@@ -27,16 +27,17 @@ cfg.data_set = SimDataSetEEG(...
     snr,...
     'iter',1);
 
-hmfactory = HeadModel();
-cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
-
 %% Plot the beampattern
 cfg = compute_beampattern(cfg);
+
+vobj = ViewSources(cfg.outputfile);
 cfgplt = [];
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt)
-cfgplt.head = cfg.head;
-plot_beampattern3d(cfgplt);
+cfgplt.db = false;
+cfgplt.normalize = false;
+vobj.plot('beampattern',cfgplt);
+
+cfgplt = [];
+vobj.plot('beampattern3d',cfgplt);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -66,13 +67,15 @@ cfg.data_set = SimDataSetEEG(...
     'single_cort_src_1',...
     snr,...
     'iter',1);
-hmfactory = HeadModel();
-cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 
 %% Plot the beampattern
 cfg = compute_beampattern(cfg);
+
+vobj = ViewSources(cfg.outputfile);
 cfgplt = [];
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt);
-cfgplt.head = cfg.head;
-plot_beampattern3d(cfgplt);
+cfgplt.db = false;
+cfgplt.normalize = false;
+vobj.plot('beampattern',cfgplt);
+
+cfgplt = [];
+vobj.plot('beampattern3d',cfgplt);

@@ -32,23 +32,20 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.data_set = data_set;
-hmfactory = HeadModel();
-cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_bem_500V.mat');
 
 %% Compute the beampattern
 cfg = compute_beampattern(cfg);
 
 %% Plot the beampattern
+
+vobj = ViewSources(cfg.outputfile);
 cfgplt = [];
 cfgplt.db = false;
 cfgplt.normalize = false;
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt);
+vobj.plot('beampattern',cfgplt);
 
 cfgplt = [];
-cfgplt.files = cfg.outputfile;
-cfgplt.head = cfg.head;
-plot_beampattern3d(cfgplt);
+vobj.plot('beampattern3d',cfgplt);
 
 %% ==== MISMATCHED LEADFIELD ====
 %% Set up the config
@@ -75,21 +72,17 @@ cfg.beam_cfgs = {...
 
 % Set up simulation info
 cfg.data_set = data_set;
-hmfactory = HeadModel();
-cfg.head = hmfactory.createHeadModel('brainstorm', 'head_Default1_3sphere_500V.mat');
 
 %% Compute the beampattern
 cfg = compute_beampattern(cfg);
 
 %% Plot the beampattern
+vobj = ViewSources(cfg.outputfile);
 cfgplt = [];
 cfgplt.db = false;
 cfgplt.normalize = false;
-cfgplt.files = cfg.outputfile;
-plot_beampattern(cfgplt);
+vobj.plot('beampattern',cfgplt);
 
 cfgplt = [];
-cfgplt.files = cfg.outputfile;
-cfgplt.head = cfg.head;
-plot_beampattern3d(cfgplt);
+vobj.plot('beampattern3d',cfgplt);
 % title(['Mult src index ' num2str(voxel_idx) ' mismatched']);

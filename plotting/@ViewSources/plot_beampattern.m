@@ -1,9 +1,9 @@
-function plot_beampattern(cfg)
+function plot_beampattern(datafile,cfg)
 %PLOT_BEAMPATTERN plots 1D beampattern data
 %   PLOT_BEAMPATTERN plots beampattern data against the distance
 %   between each vertex and the vertex of interest
 %
-%   cfg.file
+%   datafile
 %       filename of beampattern data, as computed by COMPUTE_BEAMPATTERN
 %   cfg.db
 %       (optional, default = true) convert data to db
@@ -30,7 +30,7 @@ if ~isfield(cfg, 'db'),         cfg.db = true;          end
 if ~isfield(cfg, 'scale'),      cfg.scale = 'relative'; end
 
 % Load the data
-din = load(cfg.file);
+din = load(datafile);
 distances = din.data.distances;
 beampattern_data = din.data.beampattern;
 
