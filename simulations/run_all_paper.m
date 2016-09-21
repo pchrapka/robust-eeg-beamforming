@@ -32,7 +32,7 @@ run_sim_vars_bemhd_distr2hd_paper
 
 %% SINR
 % Calculate SINR for mult source configuration
-metric_analysis_sinr_mult17_lag40
+metric_analysis_sinr_mult17_lag40_paper
 
 %% Power plots at t=t1
 
