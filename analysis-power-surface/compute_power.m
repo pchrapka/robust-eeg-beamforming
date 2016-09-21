@@ -69,7 +69,7 @@ for i=1:length(beamformers)
     data_file = db.save_setup('data_set',data_set,'tag',tag);
     
     % Set up output filename
-    cfg_save.file_tag = [beamformers{i} '_power'];
+    cfg_save.file_tag = sprintf('%s_power_%s',beamformers{i},p.Results.mode);
     outputfile{i} = metrics.filename(cfg_save);
     
     % Skip the computation if the file exists
