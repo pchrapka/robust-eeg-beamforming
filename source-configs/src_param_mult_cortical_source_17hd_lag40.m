@@ -1,14 +1,16 @@
-%% Source parameter file
+%% src_param_mult_cortical_source_17hd_lag40
 % Multiple cortical sources
 % Different source locations, waveforms do not overlap
 % Dipoles are not both normal to the cortex
 %
 % Goal:
-% Explore the effect of changing the lag between mult_cort_src_17
+% Used to generate beampattern on a high resolution head model. Source
+% vertices are the same as mult_cort_src_17, which results in a different
+% index.
 
 % sim_cfg.force = true;
 
-sim_cfg.source_name = 'mult_cort_src_17_lag40';
+sim_cfg.source_name = 'mult_cort_src_17hd_lag40';
 
 
 %% Source 1
@@ -23,7 +25,7 @@ sim_cfg.sources{1}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
-sim_cfg.sources{1}.source_index = 295;
+sim_cfg.sources{1}.source_index = 5440;
 
 % Source dipole params
 % Get a normal dipole orientation
@@ -44,7 +46,7 @@ sim_cfg.sources{2}.jitter = 5;
 
 % Source head model params
 % Index of brain source voxel
-sim_cfg.sources{2}.source_index = 400;
+sim_cfg.sources{2}.source_index = 13841;
 
 % Source dipole params
 % Get a normal dipole orientation

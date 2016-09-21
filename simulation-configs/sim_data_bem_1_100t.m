@@ -1,4 +1,4 @@
-%% Parameter file
+%% sim_data_bem_1_100t
 sim_cfg.sim_name = mfilename; % Get current file name
 % optional field for extra naming flexibility
 % FIXME Instead of this consider adding an output file field to the
