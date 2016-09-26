@@ -42,7 +42,8 @@ parse(p,datafiles,varargin{:});
 
 % get the data limit
 scale = p.Unmatched.scale;
-if ~isequal(scale, 'absolute') && ~isequal(scale, 'relative')
+if ~isequal(scale, 'absolute') && ~isequal(scale, 'relative')...
+        && ~isequal(scale, 'relative-dist')
     data_limit = get_beampattern_data_limit(datafiles, scale);
 else
     data_limit = [];
