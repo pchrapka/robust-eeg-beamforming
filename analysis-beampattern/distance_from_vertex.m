@@ -12,7 +12,7 @@ function dist = distance_from_vertex(cfg)
 [~,r_center] = cfg.head.get_vertices('type','index','idx',cfg.vertex_idx);
 
 % Get the coordinates of the vertices of interest 
-[~,r] = cfg.head.get_vertices('type','index','idx',cfg.void_idx);
+[~,r] = cfg.head.get_vertices('type','index','idx',cfg.voi_idx);
 
 d_vec = r - repmat(r_center, size(r,1), 1);
 d_vec = d_vec.^2;

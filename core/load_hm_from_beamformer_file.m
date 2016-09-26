@@ -17,10 +17,10 @@ hm = [];
 dinbf = load(bf_file);
 
 % get head model config
-if isfield(dinbf.head_cfg,'actual')
-    head_cfg = dinbf.head_cfg.actual;
+if isfield(dinbf.source.head_cfg,'actual')
+    head_cfg = dinbf.source.head_cfg.actual;
 else
-    head_cfg = dinbf.head_cfg;
+    head_cfg = dinbf.source.head_cfg;
 end
 
 if ~isempty(p.Results.cached)

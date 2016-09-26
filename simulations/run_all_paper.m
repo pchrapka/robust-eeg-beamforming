@@ -45,7 +45,8 @@ metric_analysis_sinr_mult17_lag40_paper
 % power_surface_highres % REMOVE old
 
 % beampattern
-% beampattern_report
+% beampatternhd_report
+% beampattern_mult17hd_lag40
 
 
 
