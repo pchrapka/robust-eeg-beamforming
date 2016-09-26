@@ -62,6 +62,19 @@ outputfile = cell(length(beamformers),1);
 for i=1:length(beamformers)
     data = [];
     
+    % Set up output filename
+    cfg_save.file_tag = sprintf('%s_beampattern',beamformers{i});
+    outputfile{i} = metrics.filename(cfg_save);
+    
+    % Skip the computation if the file exists
+    if exist(outputfile{i}, 'file') && ~p.Results.force
+        print_msg_filename(outputfile{i},'Skipping');
+        fprintf('\tAlready exists\n');
+        continue;
+    else
+        print_msg_filename(outputfile{i},'Working on');
+    end
+    
     % Get the full data file name
     bf_file = db.save_setup('data_set',data_set,'tag',beamformers{i});
     
@@ -75,19 +88,6 @@ for i=1:length(beamformers)
         if ~isempty(hm_new)
             hm = hm_new;
         end
-    end
-    
-    % Set up output filename
-    cfg_save.file_tag = sprintf('%s_beampattern',beamformers{i});
-    outputfile{i} = metrics.filename(cfg_save);
-    
-    % Skip the computation if the file exists
-    if exist(outputfile{i}, 'file') && ~p.Results.force
-        print_msg_filename(outputfile{i},'Skipping');
-        fprintf('\tAlready exists\n');
-        continue;
-    else
-        print_msg_filename(outputfile{i},'Working on');
     end
     
     % Set up cfg for beampattern
