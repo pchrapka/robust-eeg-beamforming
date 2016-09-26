@@ -302,7 +302,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
     end
     
     % Save output data
-    fprintf('Saving %s\n', cfg.data_file);
+    print_save(cfg.data_file);
     save(cfg.data_file, 'output');
     
 end

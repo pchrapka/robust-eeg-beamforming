@@ -78,7 +78,8 @@ for i=1:length(beamformers)
     
     % Skip the computation if the file exists
     if exist(outputfile{i}, 'file') && ~p.Results.force
-        fprintf('Skipping %s\n', outputfile{i});
+        [filepath,filename,fileext] = fileparts(outputfile{i});
+        fprintf('Skipping %s%s\n\tin%s\n',filename,fileext,filepath);
         fprintf('\tAlready exists\n');
         continue;
     end
@@ -96,7 +97,7 @@ for i=1:length(beamformers)
     data.data_set = p.Results.data_set;
     
     % Save output data
-    fprintf('Saving %s\n', outputfile{i});
+    print_save(outputfile{i});
     save(outputfile{i}, 'data');
 end
 

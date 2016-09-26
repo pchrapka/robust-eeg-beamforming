@@ -11,8 +11,7 @@ function save(cfg, data)
 %       tag for saving files, default = 'metrics'
 
 save_file = metrics.filename(cfg);
-[~,name,~,~] = util.fileparts(save_file);
-fprintf('Saving as: %s\n', name);
+print_save(save_file);
 save(save_file, 'data');
 
 end

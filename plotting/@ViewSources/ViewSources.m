@@ -119,7 +119,7 @@ classdef ViewSources < handle
             
             % Set up the file name
             outfile = obj.get_plot_filename();
-            fprintf('Saving %s\n', outfile);
+            print_save(outfile);
             
             % Save the plot
             switch (obj.plot_last)

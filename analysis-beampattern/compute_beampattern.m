@@ -122,7 +122,7 @@ for i=1:length(cfg.beam_cfgs)
     end
     
     % Save output data
-    fprintf('Saving %s\n', cfg.outputfile{i});
+    print_save(cfg.outputfile{i});
     save(cfg.outputfile{i}, 'data');
 end
 
