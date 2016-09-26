@@ -8,6 +8,15 @@ classdef ViewSources < handle
         data_set;
     end
     
+    methods (Static,Access = protected)
+        % plot routines
+        plot_beampattern3d(headmodel, datafile, cfg);
+        plot_beampattern3d_diff(headmodel, datafile, cfg);
+        plot_beampattern(datafile, cfg);
+        plot_beampattern_diff(datafile, cfg);
+        plot_power3d(headmodel, datafile,cfg);
+    end
+    
     methods
         function obj = ViewSources(datafile)
             %VIEWSOURCES creates ViewSources object

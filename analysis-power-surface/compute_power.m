@@ -73,6 +73,8 @@ for i=1:length(beamformers)
     % Set up output filename
     cfg_save.file_tag = sprintf('%s_power_%s',beamformers{i},p.Results.mode);
     outputfile{i} = metrics.filename(cfg_save);
+    % NOTE TO FUTURE SELF if power average is required for a subset of
+    % data, that should be reflected in the file name
     
     % Skip the computation if the file exists
     if exist(outputfile{i}, 'file') && ~p.Results.force
