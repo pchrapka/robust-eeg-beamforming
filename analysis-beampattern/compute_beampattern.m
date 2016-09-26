@@ -1,4 +1,4 @@
-function [outpufile] = compute_beampattern(data_set,beamformers,source_idx,varargin)
+function [outputfile] = compute_beampattern(data_set,beamformers,source_idx,varargin)
 %COMPUTER_BEAMPATTERN computes the beampattern for a particular beamformer
 %
 %   Input

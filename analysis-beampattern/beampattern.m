@@ -26,10 +26,14 @@ end
 % Get index of voxel location in the data array
 W = data_in.source.filter{data_in.source.loc == cfg.voxel_idx};
 
-progbar = ProgressBar(n_locs,'Computing beampattern');
+% copy vars for parfor
 hm = cfg.head;
 distances_flag = cfg.distances;
 voxel_idx = cfg.voxel_idx;
+
+% set up progress bar
+progbar = ProgressBar(n_locs);
+
 parfor loc=1:n_locs
     % update progress bar
     progbar.progress();
