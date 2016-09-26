@@ -37,6 +37,7 @@ classdef ProgressBar < handle
         fname
         width
         verbose
+        t
     end
     
     methods
@@ -61,6 +62,8 @@ classdef ProgressBar < handle
             fclose(f);
 
             if obj.verbose; disp(['  0%[>', repmat(' ', 1, obj.width), ']']); end;
+            
+            obj.t = datenum(clock);
         end
         
         function percent = progress(obj)
@@ -76,10 +79,24 @@ classdef ProgressBar < handle
             progress = fscanf(f, '%d');
             fclose(f);
             percent = (length(progress)-1)/progress(1)*100;
-
+            
             if obj.verbose
+                iter_cur = length(progress)-1;
+                
+                % compute time info
+                ttn = datenum(clock)-obj.t;
+                tt  = datevec(ttn);
+                dtt = ttn/iter_cur;
+                ttleft = datevec(dtt*(progress(1)-iter_cur));
+                tstr = sprintf(' time: %02d:%02d:%02d, left: %02d:%02d:%02d',...
+                    tt(4),tt(5),round(tt(6)),ttleft(4),ttleft(5),round(ttleft(6)));
+                tstrlen = length(tstr);
+            
                 perc = sprintf('%3.0f%%', percent); % 4 characters wide, percentage
-                disp([repmat(char(8), 1, (obj.width+9)), char(10), perc, '[', repmat('=', 1, round(percent*obj.width/100)), '>', repmat(' ', 1, obj.width - round(percent*obj.width/100)), ']']);
+                disp([repmat(char(8), 1, (obj.width+tstrlen+9)), char(10), perc,...
+                    '[', repmat('=', 1, round(percent*obj.width/100)), '>',...
+                    repmat(' ', 1, obj.width - round(percent*obj.width/100)), ']',...
+                    tstr]);
             end           
         end
         
@@ -88,7 +105,8 @@ classdef ProgressBar < handle
             percent = 100;
 
             if obj.verbose
-                disp([repmat(char(8), 1, (obj.width+9)), char(10), '100%[', repmat('=', 1, obj.width+1), ']']);
+                disp([repmat(char(8), 1, (obj.width+9)), char(10),...
+                    '100%[', repmat('=', 1, obj.width+1), ']']);
             end
         end
     end

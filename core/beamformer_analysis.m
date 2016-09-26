@@ -191,13 +191,19 @@ data_trials = data.avg_trials(:,cfg.sample_idx);
 % allocate mem
 beam_signal = zeros(n_scans, length(cfg.sample_idx), n_components);
 
+% set up progress bar
+progbar = ProgressBar(n_scans);
+
 %% Scan locations
 parfor i=1:n_scans
 % for i=1:n_scans
+
+    % update progress bar
+    progbar.progress();
     
     idx = scan_locs(i);
-    fprintf('%s snr %d iter %d loc %d %d/%d\n',...
-        beamformer.name, out_snr, out_iteration, idx, i, n_scans);
+%     fprintf('%s snr %d iter %d loc %d %d/%d\n',...
+%         beamformer.name, out_snr, out_iteration, idx, i, n_scans);
     
     % Check for anisotropic rmv beamformer
     args = {};
