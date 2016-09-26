@@ -100,7 +100,11 @@ classdef ProgressBar < handle
             percent = 100;
 
             if obj.verbose
-                [tstr,tstrlen] = obj.get_time(progress);
+                ttn = datenum(clock)-obj.t;
+                tt  = datevec(ttn);
+                tstr = sprintf(' time: %02d:%02d:%02d, left: 00:00:00',...
+                    tt(4),tt(5),round(tt(6)));
+                tstrlen = length(tstr);
                 
                 disp([repmat(char(8), 1, (obj.width+tstrlen+9)), char(10),...
                     '100%[', repmat('=', 1, obj.width+1), ']',...
