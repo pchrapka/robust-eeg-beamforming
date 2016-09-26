@@ -62,7 +62,7 @@ classdef ProgressBar < handle
             fclose(f);
 
             if obj.verbose
-                [tstr,~] = obj.get_time(1);
+                tstr = sprintf(' time: 00:00:00, left: 00:00:00');
                 disp(['  0%[>', repmat(' ', 1, obj.width), ']', tstr]); 
             end
             
