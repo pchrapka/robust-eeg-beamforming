@@ -82,7 +82,7 @@ for k=1:length(params)
     
     for j=1:length(scales)
         args = get_view_beampattern_args('default','beampattern3d',scales{j});
-        view_beampattern(outputfiles,'source_idx',source_idx,args{:});
+        view_beampattern(outputfiles,'source_idx',source_idx,'int_idx',int_idx,args{:});
     end
     
     % plot_beampatternhd_mult17hd_relative(cfg);
