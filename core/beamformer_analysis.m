@@ -280,12 +280,15 @@ out.beamformer_config = cfg.beamformer_config;
 if isfield(cfg.head,'current')
     out.head_cfg.current.type = cfg.head.current.type;
     out.head_cfg.current.file = cfg.head.current.file;
+    cfg.head.current.unload();
     
     out.head_cfg.actual.type = cfg.head.actual.type;
     out.head_cfg.actual.file = cfg.head.actual.file;
+    cfg.head.actual.unload();
 else
     out.head_cfg.type = cfg.head.type;
     out.head_cfg.file = cfg.head.file;
+    cfg.head.unload();
 end
 
 % rearrange the output
