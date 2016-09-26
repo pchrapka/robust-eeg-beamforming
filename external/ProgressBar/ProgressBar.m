@@ -61,7 +61,10 @@ classdef ProgressBar < handle
             fprintf(f, '%d\n', N); % Save N at the top of progress.txt
             fclose(f);
 
-            if obj.verbose; disp(['  0%[>', repmat(' ', 1, obj.width), ']']); end;
+            if obj.verbose
+                [tstr,~] = obj.get_time(1);
+                disp(['  0%[>', repmat(' ', 1, obj.width), ']', tstr]); 
+            end
             
             obj.t = datenum(clock);
         end
@@ -81,16 +84,8 @@ classdef ProgressBar < handle
             percent = (length(progress)-1)/progress(1)*100;
             
             if obj.verbose
-                iter_cur = length(progress)-1;
                 
-                % compute time info
-                ttn = datenum(clock)-obj.t;
-                tt  = datevec(ttn);
-                dtt = ttn/iter_cur;
-                ttleft = datevec(dtt*(progress(1)-iter_cur));
-                tstr = sprintf(' time: %02d:%02d:%02d, left: %02d:%02d:%02d',...
-                    tt(4),tt(5),round(tt(6)),ttleft(4),ttleft(5),round(ttleft(6)));
-                tstrlen = length(tstr);
+                [tstr,tstrlen] = obj.get_time(progress);
             
                 perc = sprintf('%3.0f%%', percent); % 4 characters wide, percentage
                 disp([repmat(char(8), 1, (obj.width+tstrlen+9)), char(10), perc,...
@@ -105,9 +100,27 @@ classdef ProgressBar < handle
             percent = 100;
 
             if obj.verbose
-                disp([repmat(char(8), 1, (obj.width+9)), char(10),...
-                    '100%[', repmat('=', 1, obj.width+1), ']']);
+                [tstr,tstrlen] = obj.get_time(progress);
+                
+                disp([repmat(char(8), 1, (obj.width+tstrlen+9)), char(10),...
+                    '100%[', repmat('=', 1, obj.width+1), ']',...
+                    tstr]);
             end
+        end
+    end
+    
+    methods (Access = protected)
+        function [tstr,tstrlen] = get_time(obj,progress)
+            iter_cur = length(progress)-1;
+            
+            % compute time info
+            ttn = datenum(clock)-obj.t;
+            tt  = datevec(ttn);
+            dtt = ttn/iter_cur;
+            ttleft = datevec(dtt*(progress(1)-iter_cur));
+            tstr = sprintf(' time: %02d:%02d:%02d, left: %02d:%02d:%02d',...
+                tt(4),tt(5),round(tt(6)),ttleft(4),ttleft(5),round(ttleft(6)));
+            tstrlen = length(tstr);
         end
     end
 end
