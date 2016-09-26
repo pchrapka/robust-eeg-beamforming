@@ -76,7 +76,12 @@ for k=1:length(params)
         };
     
     for j=1:length(scales)
-        args = get_view_beampattern_args('default',scales{j});
+        args = get_view_beampattern_args('default','beampattern',scales{j});
+        view_beampattern(outputfiles,'source_idx',source_idx,args{:});
+    end
+    
+    for j=1:length(scales)
+        args = get_view_beampattern_args('default','beampattern3d',scales{j});
         view_beampattern(outputfiles,'source_idx',source_idx,args{:});
     end
     
