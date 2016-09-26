@@ -71,7 +71,7 @@ for i=1:length(beamformers)
         hm = load_hm_from_beamformer_file(bf_file);
     else
         % check if we should load the new head model
-        hm_new = load_hm_from_beamformer_file(bf_file, 'hm_cached', hm.file);
+        hm_new = load_hm_from_beamformer_file(bf_file, 'cached', hm.file);
         if ~isempty(hm_new)
             hm = hm_new;
         end
