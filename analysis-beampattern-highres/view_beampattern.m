@@ -75,9 +75,11 @@ for i=1:length(datafiles)
     % Plot the data
     vobj.plot(p.Results.type,cfgplt);
     
-    % Plot source markers
-    vobj.show_sources('source_idx',p.Results.source_idx,...
-        'int_idx',p.Results.int_idx);
+    if isequal(p.Results.type,'beampattern3d')
+        % Plot source markers
+        vobj.show_sources('source_idx',p.Results.source_idx,...
+            'int_idx',p.Results.int_idx);
+    end
     
     vobj.save();
     
