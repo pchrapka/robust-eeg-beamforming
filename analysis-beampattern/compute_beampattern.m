@@ -66,9 +66,15 @@ for i=1:length(beamformers)
     bf_file = db.save_setup('data_set',data_set,'tag',beamformers{i});
     
     % Load the head model
-    hm_new = load_hm_from_beamformer_file(bf_file, 'hm_cached', hm.file);
-    if ~isempty(hm_new)
-        hm = hm_new;
+    if isempty(hm)
+        % load head model
+        hm = load_hm_from_beamformer_file(bf_file);
+    else
+        % check if we should load the new head model
+        hm_new = load_hm_from_beamformer_file(bf_file, 'hm_cached', hm.file);
+        if ~isempty(hm_new)
+            hm = hm_new;
+        end
     end
     
     % Set up output filename
