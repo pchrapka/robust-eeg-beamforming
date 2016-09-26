@@ -2,15 +2,15 @@
 
 CURDIR=$(pwd)
 
-# Upload robust-eeg-beamforming-paper
-./upload.sh
+# Update robust-eeg-beamforming-paper
+git pull
 
-# Upload head-models
+# Update head-models
 cd ../head-models
-./upload.sh
+git pull
 
-# Upload advanced eeg toolbox
+# Update advanced eeg toolbox
 cd ../advanced-eeg-toolbox
-./upload.sh
+git pull
 
 cd $CURDIR
