@@ -325,6 +325,7 @@ addpath(fullfile(project_dir, 'simulation-configs'));
 addpath(fullfile(project_dir, 'simulations'));
 addpath(fullfile(project_dir, 'source-configs'));
 addpath(fullfile(project_dir, 'external', 'other'));
+addpath(fullfile(project_dir, 'external', 'progressBar'));
 
 
 %% Display message

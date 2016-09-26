@@ -25,7 +25,12 @@ end
 
 % Get index of voxel location in the data array
 W = data_in.source.filter{data_in.source.loc == cfg.voxel_idx};
+
+progbar = progressBar(n_locs,'Computing beampattern');
 for loc=1:n_locs
+    % update progress bar
+    progbar(loc);
+    
     % Extract the leadfield at each index
     H = cfg.head.get_leadfield(loc);
     
