@@ -1,13 +1,16 @@
 classdef BeamformerLCMV < Beamformer
     
-    properties
+    properties (SetAccess = protected)
         n_interfering_sources; % number of interfereing sources
         eig_type;           % eigenspace type
         lambda;             % scaling for regularization
         regularization;     % regularization method
         multiplier;         % multiplier for regularization method
         pinv;               % flag for using pinv
+        
+        P;  % projection matrix
     end
+    
     
     methods
         function obj = BeamformerLCMV(varargin)
@@ -159,6 +162,50 @@ classdef BeamformerLCMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
+        end
+        
+        function data = output(obj, W, signal )
+            %OUTPUT compute beamformer output
+            %   OUTPUT(obj, W, signal) compute beamformer output
+            %
+            %   Input
+            %   -----
+            %   signal (matrix)
+            %       signal matrix [channels timepoints]
+            %   W (matrix)
+            %       spatial filter, [channels components], output of
+            %       inverse()
+            %
+            %   Output
+            %   ------
+            %   data            
+            %       dipole moment over time [components timepoints]
+            
+            switch obj.eig_type
+                case 'none'
+                    data = W'*signal;
+                otherwise
+                    % project the signal data first
+                    data = W'*obj.P*signal;
+            end
+            
+        end
+        
+        function obj = set_P(obj,R)
+            %SET_P sets the projection matrix
+            
+            % FIXME need a better way of doing this, should get it out of
+            % the inverse step
+            % How could I reload it afterwards??
+            
+            if ~isequal(obj.eig_type,'none')
+                tmpcfg = [];
+                tmpcfg.R = R;
+                tmpcfg.n_interfering_sources = obj.n_interfering_sources;
+                obj.P = aet_analysis_eig_projection(tmpcfg);
+            else
+                error('projection matrix does not apply for this beamformer');
+            end
         end
 
 

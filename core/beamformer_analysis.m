@@ -218,13 +218,8 @@ parfor i=1:n_scans
             beam_out = beamformer.inverse(H, R, args{:});
             
             out_filter{i} = beam_out.W;
-            %     out_leadfield{i} = beam_out.H;
             out_loc(i) = idx;
             
-            % Calculate the beamformer output for each component
-            %     tmpcfg =[];
-            %     tmpcfg.W = beam_out.W;
-            %     tmpcfg.type = beamformer.type;
             beam_signal(i,:,:) = beamformer.output(...
                 beam_out.W, data_trials)';
         case 'trial'
@@ -247,25 +242,6 @@ parfor i=1:n_scans
             out_filter{i} = W;
     end
     
-%     % Save the output of the beamformer
-%     if isfield(cfg, 'time_idx')
-%         % Save only one time index
-%         for j=1:n_components
-%             % Save only one time index
-%             out_beamformer_output(j,i,1) = ...
-%                 beam_signal(j, cfg.time_idx);
-%         end
-%         out_beamformer_output_type = ...
-%             ['time index: ' num2str(cfg.time_idx)];
-%     else
-%         % Save all of the beamformer output
-%         for j=1:n_components
-%             out_beamformer_output(j,i,:) = ...
-%                 beam_signal(j,:);
-%         end
-%         out_beamformer_output_type = ...
-%             ['time index: 1:' size(beam_signal,2)];
-%     end
 end
 fprintf('\n');
 
@@ -275,6 +251,7 @@ out.data_file = cfg.data_file;
 out.snr = data.snr;
 out.iteration = data.iteration;
 out.beamformer_config = cfg.beamformer_config;
+out.sample_idx = cfg.sample_idx;
 
 % save the head model config, but not data
 if isfield(cfg.head,'current')
@@ -292,45 +269,14 @@ else
 end
 
 % rearrange the output
-% out.beamformer_output = zeros(n_components, n_vertices, n_time);
-% beam_signal = zeros(n_scans, length(cfg.sample_idx), n_components);
 out.beamformer_output = permute(beam_signal, [3 1 2]); % [components vertices time]
-% for i=1:n_scans
-%     % Save all of the beamformer output
-%     for j=1:n_components
-%         if isfield(cfg,'sample_idx')
-%             out.beamformer_output(j,i,cfg.sample_idx) = ...
-%                 beam_signal{i}(j,cfg.sample_idx);
-%         else
-%             out.beamformer_output(j,i,:) = ...
-%                 beam_signal{i}(j,:);
-%         end
-%     end
-%     out.beamformer_output_type = ...
-%         ['time index: 1:' size(beam_signal,2)];
-% end
 
 out.filter = out_filter;
-% out.leadfield = out_leadfield;
 out.loc = out_loc;
-% out.beamformer_output = out_beamformer_output;
-% out.beamformer_output_type = out_beamformer_output_type;
 
 %% Save beamformer output
 source = out;
 save(save_file, 'source','-v7.3');
 
-%% Save beamformer output mini 
-% % Save just the beamformer_output
-% source = [];
-% source.beamformer_output = out.beamformer_output;
-% % Create a new file name
-% cfg.file_name = save_file;
-% cfg.tag = 'mini';
-% save_file = db.save_setup(cfg);
-% save(save_file, 'source');
-
-% Revert
-% path(cur_path);
 
 end
