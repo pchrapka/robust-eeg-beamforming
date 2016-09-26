@@ -23,8 +23,8 @@ run_sim_vars_bem_mult17_lag40_locs2_paper
 
 % run_sim_vars_bemhd_mult17hd % old - too correlated
 run_sim_vars_bemhd_mult17hd_lag40_paper
-run_sim_vars_bemhd_single1hd_paper
-run_sim_vars_bemhd_distr2hd_paper
+% run_sim_vars_bemhd_single1hd_paper
+% run_sim_vars_bemhd_distr2hd_paper
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
@@ -41,7 +41,7 @@ metric_analysis_sinr_mult17_lag40_paper
 % power_surface_lowres
 
 % high res
-power_surface_mult17hd_lag40
+% power_surface_mult17hd_lag40
 % power_surface_highres % REMOVE old
 
 % beampattern

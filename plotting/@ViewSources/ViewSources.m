@@ -47,6 +47,7 @@ classdef ViewSources < handle
             end
             
             obj.plot_last = type;
+            obj.plot_last_cfg = cfg;
         end
         
         function show_sources(obj,varargin)
@@ -71,7 +72,7 @@ classdef ViewSources < handle
                 din = load(obj.file);
                 
                 % copy the data set info
-                obj.data_set = din.data_set;
+                obj.data_set = din.data.data_set;
             end
             
         end
@@ -87,13 +88,13 @@ classdef ViewSources < handle
                 
                 % Load the head model
                 % load beamformer data
-                dinbf = load(din.bf_file);
+                dinbf = load(din.data.bf_file);
                 
                 % get head model config
-                if isfield(dinbf.head_cfg,'actual')
-                    head_cfg = dinbf.head_cfg.actual;
+                if isfield(dinbf.source.head_cfg,'actual')
+                    head_cfg = dinbf.source.head_cfg.actual;
                 else
-                    head_cfg = dinbf.head_cfg;
+                    head_cfg = dinbf.source.head_cfg;
                 end
                 
                 % load head model
@@ -153,18 +154,23 @@ classdef ViewSources < handle
             [imgdir,~,~] = fileparts(temp);
             
             % Set up the file name
-            switch(obj.plot_last)
+            switch obj.plot_last
                 case 'beampattern'
-                    [~,name,~] = fileparts(obj.plot_last_cfg.file);
+                    [~,name,~] = fileparts(obj.file);
                     imgfile = [name '_' obj.plot_last_cfg.scale];
                     
                 case 'beampattern3d'
-                    [~,name,~] = fileparts(obj.plot_last_cfg.file);
+                    [~,name,~] = fileparts(obj.file);
                     imgfile = [name '3d_' obj.plot_last_cfg.options.scale];
                     
                 case 'power3d'
-                    [~,name,~] = fileparts(obj.plot_last_cfg.file);
-                    imgfile = [name '3d_s' num2str(obj.plot_last_cfg.options.sample)];
+                    [~,name,~] = fileparts(obj.file);
+                    if isfield(obj.plot_last_cfg.options,'sample')
+                        imgfile = sprintf('%s3d_s%d',...
+                            name, obj.plot_last_cfg.options.sample);
+                    else
+                        imgfile = sprintf('%s3d_sall',name);
+                    end
                     
                 otherwise
                     error(['reb:' mfilename],...
@@ -173,8 +179,8 @@ classdef ViewSources < handle
             end
             
             % Save the plot
-            switch (cfg.plot_func)
-                case {'plot_beampattern3d','plot_power3d'}
+            switch obj.plot_last
+                case {'beampattern3d','power3d'}
                     outfile = fullfile(imgdir,[imgfile '.png']);
                     
                 otherwise

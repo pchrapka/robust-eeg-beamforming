@@ -21,6 +21,7 @@ function plot_power_surface(data_set,beamformers,varargin)
 %
 
 p = inputParser();
+addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addParameter(p,'source_idx',[],@(x) x > 1 && length(x) == 1);
 addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));

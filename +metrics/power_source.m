@@ -17,7 +17,7 @@ function [output] = power_source(data,varargin)
 %       power at each location and sample
 
 p = inputParser();
-addRequired(p,'data',@ismatrix);
+addRequired(p,'data',@(x) length(size(x)) == 3 );
 options_mode = {'components','components_samples'};
 addParameter(p,'mode','components',@(x) any(validatestring(x,options_mode)));
 parse(p,data,varargin{:});
