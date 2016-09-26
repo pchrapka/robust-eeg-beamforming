@@ -8,6 +8,11 @@ output/*
 **/auto/*
 *.tex
 *.pdf
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.aux
 *eps-converted-to.pdf
 bst_current_figs.mat
 anatomy/*
