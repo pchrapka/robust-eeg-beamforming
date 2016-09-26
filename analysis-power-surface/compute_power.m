@@ -81,6 +81,8 @@ for i=1:length(beamformers)
         print_msg_filename(outputfile{i},'Skipping');
         fprintf('\tAlready exists\n');
         continue;
+    else
+        print_msg_filename(outputfile{i},'Working on');
     end
     
     % Load data file
