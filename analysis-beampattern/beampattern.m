@@ -26,28 +26,32 @@ end
 % Get index of voxel location in the data array
 W = data_in.source.filter{data_in.source.loc == cfg.voxel_idx};
 
-progbar = progressBar(n_locs,'Computing beampattern');
-for loc=1:n_locs
+progbar = ProgressBar(n_locs,'Computing beampattern');
+hm = cfg.head;
+distances_flag = cfg.distances;
+voxel_idx = cfg.voxel_idx;
+parfor loc=1:n_locs
     % update progress bar
-    progbar(loc);
+    progbar.progress();
     
     % Extract the leadfield at each index
-    H = cfg.head.get_leadfield(loc);
+    H = hm.get_leadfield(loc);
     
     % Calculate the frobenius norm of the gain matrix
     beampattern(loc,1) = norm(W'*H, 'fro');
     beamtrace(loc,1) = trace(W'*H);
     
-    if cfg.distances
+    if distances_flag
         % Calculate the distance of the current vertex from the voxel of
         % interest
         cfg_dist = [];
-        cfg_dist.head = cfg.head;
-        cfg_dist.vertex_idx = cfg.voxel_idx;
+        cfg_dist.head = hm;
+        cfg_dist.vertex_idx = voxel_idx;
         cfg_dist.voi_idx = loc;
         distances(loc,1) = distance_from_vertex(cfg_dist);
     end
 end
+progbar.stop();
 
 % Output the distances, if needed
 if cfg.distances
