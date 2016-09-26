@@ -9,4 +9,4 @@ tmpcfg.R = R;
 tmpcfg.n_interfering_sources = 3;
 P = aet_analysis_eig_projection(tmpcfg);
 
-check_pinv(P*R)
+check_pinv(P*R,3+1)

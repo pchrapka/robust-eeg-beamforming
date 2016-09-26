@@ -3,14 +3,18 @@
 voxel_idx = 295;
 snr = 0;
 
+% Set up simulation info
+data_set = SimDataSetEEG(...
+    'sim_data_bem_1_100t',...
+    'single_cort_src_1',...
+    snr,...
+    'iter',1);
+
+
 %% ==== MATCHED LEADFIELD ====
-%% Set up the config
-cfg = [];
-% Sample index for beampattern calculation
-cfg.voxel_idx = voxel_idx;
 
 % Set up beamformer data sets to process
-cfg.beam_cfgs = {...
+beam_cfgs = {...
     'rmv_epsilon_20',...
     ...'rmv_epsilon_50',...
     ...'rmv_eig_post_0_epsilon_20',...
@@ -20,33 +24,24 @@ cfg.beam_cfgs = {...
     'lcmv_reg_eig'...
     }; 
 
-% Set up simulation info
-cfg.data_set = SimDataSetEEG(...
-    'sim_data_bem_1_100t',...
-    'single_cort_src_1',...
-    snr,...
-    'iter',1);
-
 %% Plot the beampattern
-cfg = compute_beampattern(cfg);
+outputfiles = compute_beampattern(data_set,beam_cfgs,voxel_idx);
 
-vobj = ViewSources(cfg.outputfile);
-cfgplt = [];
-cfgplt.db = false;
-cfgplt.normalize = false;
-vobj.plot('beampattern',cfgplt);
-
-cfgplt = [];
-vobj.plot('beampattern3d',cfgplt);
+for i=1:length(outputfiles)
+    vobj = ViewSources(outputfiles{i});
+    cfgplt = [];
+    cfgplt.db = false;
+    cfgplt.normalize = false;
+    vobj.plot('beampattern',cfgplt);
+    
+    cfgplt = [];
+    vobj.plot('beampattern3d',cfgplt);
+end
 
 %% ==== MISMATCHED LEADFIELD ====
-%% Set up the config
-cfg = [];
-% Sample index for beampattern calculation
-cfg.voxel_idx = voxel_idx;
 
 % Set up beamformer data sets to process
-cfg.beam_cfgs = {...
+beam_cfgs = {...
     ...'rmv_epsilon_50_3sphere',...
     ...'rmv_epsilon_100_3sphere',...
     'rmv_epsilon_150_3sphere',...
@@ -61,21 +56,16 @@ cfg.beam_cfgs = {...
     'lcmv_eig_0_3sphere',...
     'lcmv_reg_eig_3sphere'};
 
-% Set up simulation info
-cfg.data_set = SimDataSetEEG(...
-    'sim_data_bem_1_100t',...
-    'single_cort_src_1',...
-    snr,...
-    'iter',1);
-
 %% Plot the beampattern
-cfg = compute_beampattern(cfg);
+outputfiles = compute_beampattern(data_set,beam_cfgs,voxel_idx);
 
-vobj = ViewSources(cfg.outputfile);
-cfgplt = [];
-cfgplt.db = false;
-cfgplt.normalize = false;
-vobj.plot('beampattern',cfgplt);
-
-cfgplt = [];
-vobj.plot('beampattern3d',cfgplt);
+for i=1:length(outputfiles)
+    vobj = ViewSources(outputfiles{i});
+    cfgplt = [];
+    cfgplt.db = false;
+    cfgplt.normalize = false;
+    vobj.plot('beampattern',cfgplt);
+    
+    cfgplt = [];
+    vobj.plot('beampattern3d',cfgplt);
+end

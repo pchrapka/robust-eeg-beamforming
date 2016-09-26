@@ -1,24 +1,6 @@
-function cfg = compute_beampatternhd_mult17hd(matched, snr)
+function cfg = get_beampattern_config(type, matched, snr)
 
-%% ==== FIRST SOURCE ==== %%
-voxel_idx = 5440;
-interference_idx = 13841;
-
-%% Set up the config
 cfg = [];
-cfg.force = true;
-% Sample index for beampattern calculation
-cfg.voxel_idx = voxel_idx;
-if ~isempty(interference_idx)
-    cfg.interference_idx = interference_idx;
-end
-
-% Set up simulation info
-cfg.data_set = SimDataSetEEG(...
-    'sim_data_bemhd_1_100t',...
-    'mult_cort_src_17hd',...
-    snr,...
-    'iter',1);
 
 %% Set up beamformer configs
 if matched
@@ -48,7 +30,29 @@ else
         'lcmv_reg_eig_3sphere'};
 end
 
-%% Compute the beampattern
-cfg = compute_beampattern(cfg);
+switch type
+    case 'highres'
+        voxel_idx = 5440;
+        interference_idx = 13841;
+        source_name = 'mult_cort_src_17hd';
+        sim_name = 'sim_data_bemhd_1_100t';
+    otherwise
+        error('unknown beampattern config type %s',type);
+end
+
+cfg.source_idx = voxel_idx;
+
+args = {};
+if ~isempty(interference_idx)
+    args = [args {'int_idx',interference_idx}];
+end
+cfg.args = args;
+
+% Set up simulation info
+cfg.data_set = SimDataSetEEG(...
+    sim_name,...
+    source_name,...
+    snr,...
+    'iter',1);
 
 end

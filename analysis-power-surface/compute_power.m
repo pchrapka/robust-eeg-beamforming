@@ -78,8 +78,7 @@ for i=1:length(beamformers)
     
     % Skip the computation if the file exists
     if exist(outputfile{i}, 'file') && ~p.Results.force
-        [filepath,filename,fileext] = fileparts(outputfile{i});
-        fprintf('Skipping %s%s\n\tin%s\n',filename,fileext,filepath);
+        print_msg_filename(outputfile{i},'Skipping');
         fprintf('\tAlready exists\n');
         continue;
     end
