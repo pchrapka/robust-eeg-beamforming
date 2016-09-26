@@ -81,8 +81,6 @@ for i=1:length(datafiles)
             'int_idx',p.Results.int_idx);
     end
     
-    vobj.save();
-    
     % Save the plot
     if p.Results.save
         % Set up plot save options
