@@ -173,6 +173,9 @@ classdef BeamformerRMV < Beamformer
             % Run beamformer
             data_out = aet_analysis_rmv(cfg_rmv);
             
+            % save output to object
+            obj.P = data_out.P;
+            
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);
@@ -182,9 +185,6 @@ classdef BeamformerRMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
-            
-            % save to object
-            obj.P = data.P;
         end
         
         function data = output(obj, W, signal )

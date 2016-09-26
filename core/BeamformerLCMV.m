@@ -154,6 +154,9 @@ classdef BeamformerLCMV < Beamformer
                 'multiplier',obj.multiplier,...
                 'ninterference',obj.n_interfering_sources);
             
+            % save output to object
+            obj.P = data_out.P;
+            
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);
@@ -163,9 +166,6 @@ classdef BeamformerLCMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
-            
-            % save output to object
-            obj.P = data.P;
         end
         
         function data = output(obj, W, signal )
