@@ -5,6 +5,8 @@ classdef BeamformerRMV < Beamformer
         solver;         % optimization solver
         eig_type;       % eigenspace method
         n_interfering_sources; % number of interfereing sources
+        
+        P;  % projection matrix
     end
     
     methods
@@ -179,6 +181,23 @@ classdef BeamformerRMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
+        end
+        
+        function obj = set_P(obj,R)
+            %SET_P sets the projection matrix
+            
+            % FIXME need a better way of doing this, should get it out of
+            % the inverse step
+            % How could I reload it afterwards??
+            
+            if ~isequal(obj.eig_type,'none')
+                tmpcfg = [];
+                tmpcfg.R = R;
+                tmpcfg.n_interfering_sources = obj.n_interfering_sources;
+                obj.P = aet_analysis_eig_projection(tmpcfg);
+            else
+                error('projection matrix does not apply for this beamformer');
+            end
         end
     end
     
