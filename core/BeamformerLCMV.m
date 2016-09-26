@@ -87,6 +87,7 @@ classdef BeamformerLCMV < Beamformer
             obj.regularization = p.Results.regularization;
             obj.verbosity = 0;
             obj.lambda = 0;
+            obj.P = [];
             
             if obj.n_interfering_sources > 0 && isequal(obj.eig_type,'none')
                 error([mfilename ':' mfilename],...
@@ -162,6 +163,9 @@ classdef BeamformerLCMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
+            
+            % save output to object
+            obj.P = data.P;
         end
         
         function data = output(obj, W, signal )
@@ -185,6 +189,9 @@ classdef BeamformerLCMV < Beamformer
                 case 'none'
                     data = W'*signal;
                 otherwise
+                    if isempty(obj.P)
+                        error('missing the projection matrix');
+                    end
                     % project the signal data first
                     data = W'*obj.P*signal;
             end

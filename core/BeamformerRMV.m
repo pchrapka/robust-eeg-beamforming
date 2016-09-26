@@ -71,6 +71,7 @@ classdef BeamformerRMV < Beamformer
             obj.n_interfering_sources = p.Results.ninterference;
             obj.solver = 'yalmip';
             obj.verbosity = p.Results.verbosity;
+            obj.P = [];
             
             if obj.n_interfering_sources > 0 && isequal(obj.eig_type,'none')
                 error([mfilename ':' mfilename],...
@@ -181,6 +182,39 @@ classdef BeamformerRMV < Beamformer
             % Save parameters
             data.W = data_out.W;
             data.H = H;
+            
+            % save to object
+            obj.P = data.P;
+        end
+        
+        function data = output(obj, W, signal )
+            %OUTPUT compute beamformer output
+            %   OUTPUT(obj, W, signal) compute beamformer output
+            %
+            %   Input
+            %   -----
+            %   signal (matrix)
+            %       signal matrix [channels timepoints]
+            %   W (matrix)
+            %       spatial filter, [channels components], output of
+            %       inverse()
+            %
+            %   Output
+            %   ------
+            %   data            
+            %       dipole moment over time [components timepoints]
+            
+            switch obj.eig_type
+                case 'none'
+                    data = W'*signal;
+                otherwise
+                    if isempty(obj.P)
+                        error('missing the projection matrix');
+                    end
+                    % project the signal data first
+                    data = W'*obj.P*signal;
+            end
+            
         end
         
         function obj = set_P(obj,R)
