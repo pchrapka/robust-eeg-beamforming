@@ -40,17 +40,17 @@ classdef ViewSources < handle
             switch type
                 case 'beampattern3d'
                     obj.load_headmodel();
-                    plot_beampattern3d(obj.hm, obj.file, cfg);
+                    ViewSources.plot_beampattern3d(obj.hm, obj.file, cfg);
                 case 'beampattern3d_diff'
                     obj.load_headmodel();
-                    plot_beampattern3d_diff(obj.hm, obj.file, cfg);
+                    ViewSources.plot_beampattern3d_diff(obj.hm, obj.file, cfg);
                 case 'beampattern'
-                    plot_beampattern(obj.file, cfg);
+                    ViewSources.plot_beampattern(obj.file, cfg);
                 case 'beampattern_diff'
-                    plot_beampattern_diff(obj.file, cfg);
+                    ViewSources.plot_beampattern_diff(obj.file, cfg);
                 case 'power3d'
                     obj.load_headmodel();
-                    plot_power3d(obj.hm, obj.file,cfg);
+                    ViewSources.plot_power3d(obj.hm, obj.file,cfg);
                 otherwise
                     error('unknown plot type: %s',type);
             end
