@@ -154,9 +154,6 @@ classdef BeamformerLCMV < Beamformer
                 'multiplier',obj.multiplier,...
                 'ninterference',obj.n_interfering_sources);
             
-            % save output to object
-            obj.P = data_out.P;
-            
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);
@@ -164,11 +161,12 @@ classdef BeamformerLCMV < Beamformer
             %data.loc = cfg.loc; % REMOVE?
             
             % Save parameters
+            data.P = data_out.P;
             data.W = data_out.W;
             data.H = H;
         end
         
-        function data = output(obj, W, signal )
+        function data = output(obj, W, signal, varargin )
             %OUTPUT compute beamformer output
             %   OUTPUT(obj, W, signal) compute beamformer output
             %
@@ -180,26 +178,35 @@ classdef BeamformerLCMV < Beamformer
             %       spatial filter, [channels components], output of
             %       inverse()
             %
+            %   Parameters
+            %   ----------
+            %   P (matrix)
+            %       projection matrix [channels channels]
+            %
             %   Output
             %   ------
             %   data            
             %       dipole moment over time [components timepoints]
             
+            p = inputParser();
+            addParameter(p,'P',[],@ismatrix);
+            parse(p,varargin{:});
+            
             switch obj.eig_type
                 case 'none'
                     data = W'*signal;
                 otherwise
-                    if isempty(obj.P)
+                    if isempty(p.Results.P)
                         error('missing the projection matrix');
                     end
                     % project the signal data first
-                    data = W'*obj.P*signal;
+                    data = W'*p.Results.P*signal;
             end
             
         end
         
-        function obj = set_P(obj,R)
-            %SET_P sets the projection matrix
+        function P = get_P(obj,R)
+            %GET_P gets the projection matrix
             
             % FIXME need a better way of doing this, should get it out of
             % the inverse step
@@ -209,7 +216,7 @@ classdef BeamformerLCMV < Beamformer
                 tmpcfg = [];
                 tmpcfg.R = R;
                 tmpcfg.n_interfering_sources = obj.n_interfering_sources;
-                obj.P = aet_analysis_eig_projection(tmpcfg);
+                P = aet_analysis_eig_projection(tmpcfg);
             else
                 error('projection matrix does not apply for this beamformer');
             end

@@ -221,7 +221,7 @@ parfor i=1:n_scans
             out_loc(i) = idx;
             
             beam_signal(i,:,:) = beamformer.output(...
-                beam_out.W, data_trials)';
+                beam_out.W, data_trials, 'P', beam_out.P)';
         case 'trial'
             if length(cfg.sample_idx) > 1
                 warning('untested feature');
@@ -236,7 +236,7 @@ parfor i=1:n_scans
                 out_loc(i) = idx;
                 
                 beam_signal_temp(j,:) = beamformer.output(...
-                    beam_out.W, data_trials(:,j))';
+                    beam_out.W, data_trials(:,j), 'P', beam_out.P)';
             end
             beam_signal(i,:,:) = beam_signal_temp;
             out_filter{i} = W;

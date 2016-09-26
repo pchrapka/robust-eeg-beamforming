@@ -56,7 +56,7 @@ for i=1:length(beamformers);
     
     % compute the projection matrix
     if ~isequal(beamformer.eig_type,'none')
-        beamformer = beamformer.set_P(R);
+        P = beamformer.get_P(R);
     end
     
     %parfor j=1:nscans
@@ -68,13 +68,13 @@ for i=1:length(beamformers);
         switch cov_type
             case 'time'
                 beam_signal(j,:,:) = beamformer.output(...
-                    W, data_trials)';
+                    W, data_trials, 'P', P)';
             case 'trial'
                 beam_signal_temp = zeros(length(sample_idx),ncomponents);
                 for k=1:length(sample_idx)
                     
                     beam_signal_temp(k,:) = beamformer.output(...
-                        W, data_trials(:,k))';
+                        W, data_trials(:,k), 'P', P)';
                 end
                 beam_signal(j,:,:) = beam_signal_temp;
         end
