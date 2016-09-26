@@ -44,6 +44,8 @@ parse(p,datafiles,varargin{:});
 scale = p.Unmatched.scale;
 if ~isequal(scale, 'absolute') && ~isequal(scale, 'relative')
     data_limit = get_beampattern_data_limit(datafiles, scale);
+else
+    data_limit = [];
 end
 
 % Set up plot config
@@ -51,9 +53,14 @@ cfgplt = [];
 switch p.Results.type
     case 'beampattern'
         cfgplt = p.Unmatched;
+        if ~isempty(data_limit)
+            cfgplt.data_limit = data_limit;
+        end
     case 'beampattern3d'
         cfgplt.options = p.Unmatched;
-        cfgplt.options.data_limit = data_limit;
+        if ~isempty(data_limit)
+            cfgplt.options.data_limit = data_limit;
+        end
     otherwise
         error('unknown beampattern type: %s', p.Results.type);
 end
