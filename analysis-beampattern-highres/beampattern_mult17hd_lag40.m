@@ -41,7 +41,7 @@ params(k).matched = false;
 params(k).snr = snr;
 k = k+1;
 
-for k=1:length(params)
+for i=1:length(params)
     
     source_idx = 5440;
     int_idx = 13841;
@@ -50,18 +50,18 @@ for k=1:length(params)
     data_set = SimDataSetEEG(...
         'sim_data_bemhd_1_100t',...
         'mult_cort_src_17hd_lag40',...
-        params(k).snr,...
+        params(i).snr,...
         'iter',1);
     
     %% Compute beampatterns
     
     %matched = true;
-    %cfg = get_beampattern_config('highres',params(k).matched, snr);
+    %cfg = get_beampattern_config('highres',params(i).matched, snr);
     
     % Compute the beampattern
     outputfiles = compute_beampattern(...
         data_set,...
-        params(k).beam_cfgs,...
+        params(i).beam_cfgs,...
         source_idx,...
         'int_idx',int_idx);
     
@@ -91,16 +91,20 @@ for k=1:length(params)
     % plot_beampatternhd_mult17hd_global(cfg);
     % plot_beampatternhd_mult17hd_globaldist(cfg);
     
-    params(k).outputfiles = outputfiles;
+    params(i).outputfiles = outputfiles;
     
 end
 
 %% Plot data - matched, mismatched
 
-outputfiles = [params(1).outputfiles params(2).outputfiles];
-args = get_view_beampattern_args('default','mmabsolute-dist');
-view_beampattern(outputfiles,'source_idx',cfg_mismatched.source_idx,args{:});
-% plot_beampatternhd_mult17hd_matched_vs_mismatched(cfg);
+outputfiles = [params(1).outputfiles; params(2).outputfiles];
+args = get_view_beampattern_args('default','beampattern','mmabsolute-dist');
+view_beampattern(outputfiles,'source_idx',source_idx,...
+    'int_idx',int_idx,args{:});
+% plot_beampatternhd_mult17hd_matched_vs_mismatched
+args = get_view_beampattern_args('default','beampattern3d','mmabsolute-dist');
+view_beampattern(outputfiles,'source_idx',source_idx,...
+    'int_idx',int_idx,args{:});
 
 %% Plot beampattern diff - matched
 % cfg = [];
