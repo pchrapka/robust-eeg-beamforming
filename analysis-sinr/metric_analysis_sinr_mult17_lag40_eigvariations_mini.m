@@ -1,8 +1,12 @@
 %% metric_analysis_sinr_mult17_lag40_eigvariations_mini
 
-force = true;
+%% Data
+% To generate data run the following script:
+
+% run_sim_vars_bem_mult17_lag40_locs2_eigvariations
 
 %% Compute sinr
+force = true;
 params = [];
 k = 1;
 
