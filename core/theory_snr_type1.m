@@ -4,7 +4,7 @@ p = inputParser();
 addRequired(p,'sim',@ischar);
 addRequired(p,'source',@ischar);
 addRequired(p,'BeamformerVertex',@isnumeric);
-cov_options = {'theory','data'};
+cov_options = {'theory','data','theory-signal'};
 addParameter(p,'CovType','theory',@(x) any(validatestring(x,cov_options)));
 addParameter(p,'snr',[],@isnumeric);
 addParameter(p,'VarNoise',1,@isnumeric);
@@ -31,7 +31,6 @@ else
     
     f = H*eta;
     
-    flag_snr_factor = true;
     switch p.Results.CovType
         case 'theory'
             var_signal = p.Results.VarSignal;
@@ -40,13 +39,21 @@ else
             nchannels = size(f,1);
             R = var_signal*(f*f') + var_noise*eye(nchannels);
             cov_signals = 'signal+noise';
+            
+            power_signal = var_signal*norm(f)^2;
+            power_noise = var_noise*nchannels;
+            snr_data = power_signal/power_noise;
         case 'theory-signal'
             var_signal = p.Results.VarSignal;
             var_noise = p.Results.VarNoise;
             
             R = var_signal*(f*f');
-            flag_snr_factor = false;
             cov_signals = 'signal';
+            
+            nchannels = size(f,1);
+            power_signal = var_signal*norm(f)^2;
+            power_noise = var_noise*nchannels;
+            snr_data = power_signal/power_noise;
         case 'data'
             data_set = SimDataSetEEG(sim,cfg.source_name,p.Results.snr,'iter',1);
             data_file = data_set.get_full_filename();
@@ -56,7 +63,6 @@ else
             data_signal_power = trace(cov(din.data.avg_signal'));
             data_noise_power = trace(cov(din.data.avg_noise'));
             snr_data = data_signal_power/data_noise_power;
-            fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
             
             nchannels = size(din.data.avg_signal,1);
             % compute source and noise variance
@@ -74,6 +80,7 @@ else
         otherwise
             error('unknown covariance type');
     end
+    fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
     fprintf('Signal variance:\n\t%g\n',var_signal);
     fprintf('Noise variance:\n\t%g\n',var_noise);
     
@@ -86,7 +93,7 @@ else
     % get leadfield at beamforming vertex
     L = cfg.head.get_leadfield(p.Results.BeamformerVertex);
     
-    % TODO double check output
+    % 
     [Z,D] = eig_sorted(L'*pinv(R)*L);
     
     % approximate version
@@ -95,19 +102,23 @@ else
     l2_inv = norm(L*Z(:,2))^(-2);
     l3_inv = norm(L*Z(:,3))^(-2);
     
-    snr_approx = var_noise*(l1_inv + l2_inv + l3_inv/(1-omega))/...
-        (l1_inv + l2_inv + l3_inv*(1-(2*omega-omega^2))/(1-omega)^2);
     switch cov_signals
         case 'signal+noise'
+            snr_approx = (l1_inv + l2_inv + l3_inv/(1-omega))/...
+                (l1_inv + l2_inv + l3_inv*(1-(2*omega-omega^2))/(1-omega)^2);
             snr0_approx = snr_approx - 1; % Z_0 in Sekihara
         case 'signal'
+            if rank(R) == 1
+                snr_approx = (l1_inv/(1-omega) + l2_inv + l3_inv)/...
+                    (l1_inv*(1-(2*omega-omega^2))/(1-omega)^2 + l2_inv + l3_inv);
+            else
+                error('check l_inv''s');
+            end
             snr0_approx = snr_approx; % Z_0 in Sekihara
     end
     
     fprintf('Output SNR approx:\n\t%0.2f, %0.2f dB\n',snr0_approx,db(snr0_approx,'power'));
-    if flag_snr_factor
-        fprintf('SNR factor:\n\t%f\n',snr0_approx/alpha);
-    end
+    fprintf('SNR factor:\n\t%f\n',snr0_approx/alpha);
     
     % exact version
     num = zeros(3,1);
@@ -119,7 +130,7 @@ else
         end
         l_norm = norm(L*Z(:,i))^2;
         
-        num(i) = var_noise*(l_norm * (1-omega*cos_term))^(-1);
+        num(i) = (l_norm * (1-omega*cos_term))^(-1);
         
         temp_num = 1-(2*omega-omega^2)*cos_term;
         temp_den = l_norm * (1-omega*cos_term)^2;
@@ -138,9 +149,7 @@ else
     end
     
     fprintf('Output SNR exact:\n\t%0.2f, %0.2f dB\n',snr0_exact,db(snr0_exact,'power'));
-    if flag_snr_factor
-        fprintf('SNR factor:\n\t%f\n',snr0_exact/alpha);
-    end
+    fprintf('SNR factor:\n\t%f\n',snr0_exact/alpha);
     
     if p.Results.verbosity > 0
         fprintf('diff z3 and eta:\n\t%f\n',norm(Z(:,3)-eta));
