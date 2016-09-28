@@ -1,13 +1,16 @@
-function theory_snr_type1(sim,source,snr,vertex)
+function theory_snr_type1(sim,source,vertex,varargin)
 
 p = inputParser();
 addRequired(p,'sim',@ischar);
 addRequired(p,'source',@ischar);
-addRequired(p,'snr',@isnumeric);
 addRequired(p,'BeamformerVertex',@isnumeric);
-% addParameter(p,'VarNoise',1,@isnumeric);
-% addParameter(p,'VarSignal',1,@isnumeric);
-parse(p,sim,source,snr,vertex);
+cov_options = {'theory','data'};
+addParameter(p,'CovType','theory',@(x) any(validatestring(x,cov_options)));
+addParameter(p,'snr',[],@isnumeric);
+addParameter(p,'VarNoise',1,@isnumeric);
+addParameter(p,'VarSignal',1,@isnumeric);
+addParameter(p,'verbosity',0,@(x) x >= 0 && x < 2);
+parse(p,sim,source,snr,vertex,varargin{:});
 
 warning('on','all');
 
@@ -28,25 +31,34 @@ else
     
     f = H*eta;
     
-    data_set = SimDataSetEEG(sim,cfg.source_name,snr,'iter',1);
-    data_file = data_set.get_full_filename();
-    din = load(data_file);
-    
-    % compute power
-    data_signal_power = trace(cov(din.data.avg_signal'));
-    data_noise_power = trace(cov(din.data.avg_noise'));
-    snr_data = data_signal_power/data_noise_power;
-    fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
-    
-    nchannels = size(din.data.avg_signal,1);
-    % compute source and noise variance
-    var_noise = data_noise_power/nchannels;
-    var_signal = data_signal_power/(norm(f)^2);
-    power_avg_signal = var_signal*norm(f)^2/nchannels;
-    if power_avg_signal < 2*var_noise
-        warning('average source power is really close to the noise power');
-        fprintf('average signal power:\n\t%f\n',power_avg_signal);
-        fprintf('average noise power:\n\t%f\n',var_noise);
+    if isequal(p.Results.CovType,'theory')
+        var_signal = p.Results.VarSignal;
+        var_noise = p.Results.VarNoise;
+        
+        R = var_signal*norm(f)^2;
+    else
+        data_set = SimDataSetEEG(sim,cfg.source_name,snr,'iter',1);
+        data_file = data_set.get_full_filename();
+        din = load(data_file);
+        
+        % compute power
+        data_signal_power = trace(cov(din.data.avg_signal'));
+        data_noise_power = trace(cov(din.data.avg_noise'));
+        snr_data = data_signal_power/data_noise_power;
+        fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
+        
+        nchannels = size(din.data.avg_signal,1);
+        % compute source and noise variance
+        var_noise = data_noise_power/nchannels;
+        var_signal = data_signal_power/(norm(f)^2);
+        power_avg_signal = var_signal*norm(f)^2/nchannels;
+        if power_avg_signal < 2*var_noise
+            warning('average source power is really close to the noise power');
+            fprintf('average signal power:\n\t%f\n',power_avg_signal);
+            fprintf('average noise power:\n\t%f\n',var_noise);
+        end
+        
+        R = din.data.Rtime;
     end
     
     alpha = var_signal/var_noise*norm(f)^2;
@@ -57,14 +69,6 @@ else
     
     % get leadfield at beamforming vertex
     L = cfg.head.get_leadfield(p.Results.BeamformerVertex);
-    %cov_type = 'data';
-    cov_type = 'theoretical';
-    switch cov_type
-        case 'data'
-            R = din.data.Rtime;
-        case 'theoretical'
-            R = var_signal*norm(f)^2;
-    end
     
     % TODO double check output
     [Z,D] = eig_sorted(L'*pinv(R)*L);
@@ -86,7 +90,9 @@ else
     den = zeros(3,1);
     for i=1:3
         cos_term = gen_cosine(Z(:,i),eta,L'*L)^2;
-        fprintf('\tCos term %d: %g\n',i,cos_term);
+        if p.Results.verbosity > 0
+            fprintf('\tCos term %d: %g\n',i,cos_term);
+        end
         l_norm = norm(L*Z(:,i))^2;
         
         num(i) = var_noise*(l_norm * (1-omega*cos_term))^(-1);
@@ -94,19 +100,25 @@ else
         temp_num = 1-(2*omega-omega^2)*cos_term;
         temp_den = l_norm * (1-omega*cos_term)^2;
         den(i) = temp_num/temp_den;
-        fprintf('\tNum: %g\n',num(i));
-        fprintf('\tDen: %g\n',den(i));
+        if p.Results.verbosity > 0
+            fprintf('\tNum: %g\n',num(i));
+            fprintf('\tDen: %g\n',den(i));
+        end
     end
     snr_exact = sum(num)/sum(den);
     
     fprintf('Output SNR exact:\n\t%0.2f, %0.2f dB\n',snr_exact,db(snr_exact,'power'));
     fprintf('SNR factor:\n\t%f\n',(snr_exact-1)/alpha);
     
-    fprintf('diff z3 and eta:\n\t%f\n',norm(Z(:,3)-eta));
+    if p.Results.verbosity > 0
+        fprintf('diff z3 and eta:\n\t%f\n',norm(Z(:,3)-eta));
+    end
     
-    fprintf('Orthogonality of Z''s and eta\n');
-    for i=1:3
-        fprintf('\t%d: %f\n',i,Z(:,i)'*eta);
+    if p.Results.verbosity > 0
+        fprintf('Orthogonality of Z''s and eta\n');
+        for i=1:3
+            fprintf('\t%d: %f\n',i,Z(:,i)'*eta);
+        end
     end
 end
 
