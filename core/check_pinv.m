@@ -6,9 +6,9 @@ function check_pinv(A,ncomps)
 %       expected components
 
 pinv_tol = max(size(A)) * norm(A) * eps(class(A));
-d = svd(A);
+d = svd(pinv(A));
 
-evalues = d >= pinv_tol;
+evalues = abs(d) >= pinv_tol;
 nevalues = sum(evalues);
 
 if ~isequal(nevalues,ncomps)
