@@ -16,8 +16,11 @@ switch snr
         var_signal = 0.000143219;
         var_noise = 0.0190328;
     case 0
-        var_signal = 1.42451e-05;
-        var_noise = 0.0189432;
+        %var_signal = 1.42451e-05;
+        %var_noise = 0.0189432;
+        %new version
+        var_signal = 5.56672e-08;
+        var_noise = 0.0189264;
     otherwise
         var_signal = 0.0005;
         var_noise = 1;
