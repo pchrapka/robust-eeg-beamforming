@@ -175,6 +175,27 @@ else
     fprintf('Output SNR exact:\n\t%0.2f, %0.2f dB\n',snr0_exact,db(snr0_exact,'power'));
     fprintf('SNR factor:\n\t%f\n',snr0_exact/alpha);
     
+    if isequal(p.Results.CovType,'data')
+        Rinv = pinv(R);
+        W = Rinv*L*pinv(L'*Rinv*L);
+        %bf_file = db.save_setup(data_set,'lcmv');
+        %if exist(bf_file,'file')
+        %    dinbf = load(bf_file);
+
+        output_signal = W'*cov(din.data.avg_signal')*W;
+        output_noise = W'*cov(din.data.avg_noise')*W;
+        snr_data_output = output_signal/output_noise;
+        fprintf('Data Output SNR Ratio:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        
+        output_signal = W'*din.data.avg_signal;
+        output_noise = W'*din.data.avg_noise;
+        snr_data_output = (output_signal*output_signal')/(output_noise*output_noise');
+        fprintf('Data Output SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        %end
+    end
+    
     if p.Results.verbosity > 0
         fprintf('diff z3 and eta:\n\t%f\n',norm(Z(:,3)-eta));
     end
