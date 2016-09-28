@@ -8,9 +8,9 @@ cov_options = {'theory','data'};
 addParameter(p,'CovType','theory',@(x) any(validatestring(x,cov_options)));
 addParameter(p,'snr',[],@isnumeric);
 addParameter(p,'VarNoise',1,@isnumeric);
-addParameter(p,'VarSignal',1,@isnumeric);
+addParameter(p,'VarSignal',0,@isnumeric);
 addParameter(p,'verbosity',0,@(x) x >= 0 && x < 2);
-parse(p,sim,source,snr,vertex,varargin{:});
+parse(p,sim,source,vertex,varargin{:});
 
 warning('on','all');
 
@@ -35,9 +35,10 @@ else
         var_signal = p.Results.VarSignal;
         var_noise = p.Results.VarNoise;
         
-        R = var_signal*norm(f)^2;
+        nchannels = size(f,1);
+        R = var_signal*(f*f') + var_noise*eye(nchannels);
     else
-        data_set = SimDataSetEEG(sim,cfg.source_name,snr,'iter',1);
+        data_set = SimDataSetEEG(sim,cfg.source_name,p.Results.snr,'iter',1);
         data_file = data_set.get_full_filename();
         din = load(data_file);
         
@@ -60,6 +61,8 @@ else
         
         R = din.data.Rtime;
     end
+    fprintf('Signal variance:\n\t%g\n',var_signal);
+    fprintf('Noise variance:\n\t%g\n',var_noise);
     
     alpha = var_signal/var_noise*norm(f)^2;
     % source to noise ratio
