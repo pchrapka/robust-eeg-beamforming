@@ -18,18 +18,32 @@ function [output] = run_metrics_on_file(cfg)
 %       struct array of metrics to run, each element has a 'name' field and
 %       additional fields required for that metric
 %
-%   SNR
-%   name = 'snr'
+%   SNR - Input
+%   name = 'snr-input'
+%
+%   INR - Input
+%   name = 'inr-input'
+%
+%   SNR - Beamformer Output
+%   name = 'snr-beamformer-output'
 %   location_idx
 %       location index for SNR calculation
 %
-%   INR
-%   name = 'inr'
+%   INR - Beamformer Output
+%   name = 'inr-beamformer-output'
 %   location_idx
 %       location index for INR calculation
 %
-%   SINR
-%   name = 'sinr'
+%   SINR - Beamformer Output
+%   name = 'sinr-beamformer-output'
+%   location_idx
+%       location index for SINR calculation
+%   flip (boolean, default = false)
+%       switches signal and interference signals, allows SINR calculation
+%       from perspective of the interference signal
+%
+%   ISNR - Beamformer Output
+%   name = 'isnr-beamformer-output'
 %   location_idx
 %       location index for SINR calculation
 %   flip (boolean, default = false)
@@ -89,90 +103,72 @@ for j=1:length(cfg.metrics)
             % Calculate the metric
             output.metrics(j).output = metrics.vertex_distances(cfg_vert);
             
-        case 'snr'
-            cfg_snr = [];
-            % Extract W from beamformer data
-            cfg_snr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
-            
-            % Extract S and N from original data
-            cfg_snr.S = eeg_data_in.data.avg_signal;
-            cfg_snr.N = eeg_data_in.data.avg_noise;
-            
+        case 'snr-beamformer-output'            
             % Save info
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).location_idx = metric_cfg.location_idx;
+            
             % Calculate the metric
-            output.metrics(j).output = metrics.snr(cfg_snr);
+            output.metrics(j).output = metrics.snr_beamformer_output(...
+                eeg_data_in.data.avg_signal,...
+            	eeg_data_in.data.avg_noise,...
+                get_W(bf_data_in.source, metric_cfg.location_idx));
             
-        case 'inr'
-            cfg_inr = [];
-            % Extract W from beamformer data
-            cfg_inr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
+        case 'inr-beamformer-output'
             
-            % Extract S and N from original data
-            cfg_inr.I = eeg_data_in.data.avg_interference;
-            cfg_inr.N = eeg_data_in.data.avg_noise;
+            % Calculate the metric
+            result = metrics.snr_beamformer_output(...
+                eeg_data_in.data.avg_interference,...
+            	eeg_data_in.data.avg_noise,...
+                get_W(bf_data_in.source, metric_cfg.location_idx));
             
+            output.metrics(j).output.inr = result.snr;
+            output.metrics(j).output.inrdb = result.snrdb;
+            
+        case 'sinr-beamformer-output'
             % Save info
             output.metrics(j).name = metric_cfg.name;
             output.metrics(j).location_idx = metric_cfg.location_idx;
+            
             % Calculate the metric
-            output.metrics(j).output = metrics.inr(cfg_inr);
+            output.metrics(j).output = metrics.sinr_beamformer_output(...
+                eeg_data_in.data.avg_signal,...
+                eeg_data_in.data.avg_interference,...
+                eeg_data_in.data.avg_noise,...
+                get_W(bf_data_in.source, metric_cfg.location_idx));
             
-        case 'sinr'
-            cfg_sinr = [];
-            % Extract W from beamformer data
-            cfg_sinr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
+        case 'isnr-beamformer-output'
             
-            % Extract S, I and N from original data
-            cfg_sinr.S = eeg_data_in.data.avg_signal;
-            cfg_sinr.I = eeg_data_in.data.avg_interference;
-            cfg_sinr.N = eeg_data_in.data.avg_noise;
+            % Calculate the metric
+            result = metrics.sinr_beamformer_output(...
+                eeg_data_in.data.avg_interference,...
+                eeg_data_in.data.avg_signal,...
+                eeg_data_in.data.avg_noise,...
+                get_W(bf_data_in.source, metric_cfg.location_idx));
+            
+            output.metrics(j).output.isnr = result.sinr;
+            output.metrics(j).output.isnrdb = result.sinrdb;
+            
+        case 'snr-input'
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).location_idx = metric_cfg.location_idx;
-            % Calculate the metric
-            output.metrics(j).output = metrics.sinr(cfg_sinr);
-            
-        case 'isnr'
-            
-            cfg_isnr = [];
-            % Extract W from beamformer data
-            cfg_isnr.W = get_W(bf_data_in.source, metric_cfg.location_idx);
-            
-            % Extract S, I and N from original data
-            cfg_isnr.I = eeg_data_in.data.avg_interference;
-            cfg_isnr.S = eeg_data_in.data.avg_signal;
-            cfg_isnr.N = eeg_data_in.data.avg_noise;
-            
-            % Save info
-            output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).location_idx = metric_cfg.location_idx;
-            % Calculate the metric
-            output.metrics(j).output = metrics.isnr(cfg_isnr);
-            
-        case 'inputsnr'
-            
-            % Calculate snr from data as well
-            snrdb = aet_analysis_snr(...
+            % Calculate snr from data
+            output.metrics(j).output = metrics.snr_input(...
                 eeg_data_in.data.avg_signal,...
                 eeg_data_in.data.avg_noise);
             
-            % Save info
-            output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).output.snrdb = snrdb;
-            
-        case 'inputinr'
+        case 'inr-input'
             
             % Calculate snr from data as well
-            inrdb = aet_analysis_snr(...
+            output = metrics.snr_input(...
                 eeg_data_in.data.avg_interference,...
                 eeg_data_in.data.avg_noise);
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).output.inrdb = inrdb;
+            output.metrics(j).output.inr = output.snr;
+            output.metrics(j).output.inrdb = output.snrdb;
             
         case 'rmse'
             
@@ -196,7 +192,7 @@ for j=1:length(cfg.metrics)
             
         otherwise
             error('metrics:run_metrics_on_files',...
-                ['unrecognized metric: ' metric]);
+                'unrecognized metric: %s', metric);
     end
     
 end

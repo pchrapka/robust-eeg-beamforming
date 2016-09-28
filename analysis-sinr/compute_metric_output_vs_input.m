@@ -69,7 +69,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                 case 'input snr'
                     
                     % Calculate the metrics
-                    cfg.metrics.name = 'inputsnr';
+                    cfg.metrics.name = 'snr-input';
                     out = metrics.run_metrics_on_file(cfg);
                     
                     % Extract the output
@@ -83,7 +83,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             switch cfg.metric_y
                 case 'output snr'
                     % Calculate the metrics
-                    cfg.metrics.name = 'snr';
+                    cfg.metrics.name = 'snr-beamformer-output';
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.snrdb;
@@ -91,7 +91,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     
                 case 'output sinr'
                     % Calculate the metrics
-                    cfg.metrics.name = 'sinr';
+                    cfg.metrics.name = 'sinr-beamformer-output';
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.sinrdb;
@@ -99,7 +99,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     
                 case 'output isnr'
                     % Calculate the metrics
-                    cfg.metrics.name = 'isnr';
+                    cfg.metrics.name = 'isnr-beamformer-output';
                     out = metrics.run_metrics_on_file(cfg);
                     
                     output.data(i,1+m) = out.metrics(1).output.isnrdb;

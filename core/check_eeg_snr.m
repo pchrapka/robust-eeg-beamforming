@@ -45,13 +45,15 @@ end
 
 % compute snr
 if isfield(data,'avg_signal')
-    snr = aet_analysis_snr(data.avg_signal, data.avg_noise);
+    output = metrics.snr_input(data.avg_signal, data.avg_noise);
+    snr = output.snr;
     fprintf('snr: %0.2f db from average\n',snr);
 end
 
 if isfield(data,'signal')
     for i=1:ntrials
-        snr = aet_analysis_snr(data.signal{i},data.noise{i});
+        output = metrics.snr_input(data.signal{i},data.noise{i});
+        snr = output.snr;
         fprintf('snr: %0.2f db for trial %d\n',snr,i);
     end
 end

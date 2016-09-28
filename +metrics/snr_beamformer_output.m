@@ -1,10 +1,13 @@
-function [output] = snr(cfg)
-%SNR calculates the SNR of the signal
-%   cfg.S
+function [output] = beamformer_output_snr(S,N,W)
+%BEAMFORMER_OUTPUT_SNR calculates the SNR of the beamformer output signal
+%
+%   Input
+%   -----
+%   S
 %       signal matrix [channels samples]
-%   cfg.N
+%   N
 %       noise matrix [channels samples]
-%   cfg.W
+%   W
 %       spatial filter [channels components]
 %
 %   Output
@@ -14,12 +17,18 @@ function [output] = snr(cfg)
 %   output.snrdb
 %       signal to noise ratio in dB
 
-Rs = cov(cfg.S');
-Rn = cov(cfg.N');
+p = inputParser();
+addRequired(p,'S',@metrics.validate_signal_matrix);
+addRequired(p,'N',@metrics.validate_signal_matrix);
+addRequired(p,'W',@ismatrix);
+parse(p,S,N,W);
+
+Rs = cov(S');
+Rn = cov(N');
 
 nchannels = size(Rs,1);
-num = trace(cfg.W' * Rs * cfg.W);
-den = trace(cfg.W' * Rn * cfg.W)/nchannels;
+num = trace(W' * Rs * W);
+den = trace(W' * Rn * W)/nchannels;
 
 % Calculate the snr
 output.snr = num/den;
