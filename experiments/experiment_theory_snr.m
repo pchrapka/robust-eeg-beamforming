@@ -8,7 +8,9 @@
 var_signal = 0.005;
 var_noise = 1;
 
-snr = 0;
+% snr = 0;
+% snr = 5;
+snr = 10;
 vertex = 205;
 
 theory_snr_type1(...
