@@ -173,7 +173,8 @@ else
                     fprintf('\tDen: %g\n',den(i));
                 end
             end
-            snr_exact = sum(num)/sum(den);
+            beta = (var_signal/(var_noise^2))*(1+alpha^2/(1+alpha)^2-2*alpha/(1+alpha));
+            snr_exact = beta*sum(num)/sum(den);
             
             snr0_exact = snr_exact; % Z_0 in Sekihara
     end
