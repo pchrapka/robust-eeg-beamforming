@@ -25,12 +25,10 @@ parse(p,S,I,N,W);
 
 % Calculate the sinr
 Rs = cov(S');
-Ri = cov(I');
-Rn = cov(N');
+Rin = cov(I' + N');
 
-nchannels = size(Rs,1);
 num = trace(W' * Rs * W);
-den = trace(W' * Ri * W) + trace(W' * Rn * W)/nchannels;
+den = trace(W' * Rin * W);
 
 % Calculate the sinr
 output.sinr = num/den;

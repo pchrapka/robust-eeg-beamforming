@@ -28,7 +28,7 @@ Rn = cov(N');
 
 nchannels = size(Rs,1);
 num = trace(W' * Rs * W);
-den = trace(W' * Rn * W)/nchannels;
+den = trace(W' * Rn * W);
 
 % Calculate the snr
 output.snr = num/den;
