@@ -108,7 +108,9 @@ else
         case 'signal+noise'
             snr_approx = (l1_inv + l2_inv + l3_inv/(1-omega))/...
                 (l1_inv + l2_inv + l3_inv*(1-(2*omega-omega^2))/(1-omega)^2);
-            snr0_approx = snr_approx - 1; % Z_0 in Sekihara
+            % Z = Z_0 + 1 
+            % Z_0 in Sekihara
+            snr0_approx = snr_approx - 1;
         case 'signal'
             if rank(R) == 1
                 snr_approx = (l1_inv/(1-omega) + l2_inv + l3_inv)/...
@@ -116,7 +118,9 @@ else
             else
                 error('check l_inv''s');
             end
-            snr0_approx = snr_approx; % Z_0 in Sekihara
+            % Z = Z_0
+            % Z_0 in Sekihara
+            snr0_approx = snr_approx;
     end
     
     fprintf('Output SNR approx:\n\t%0.2f, %0.2f dB\n',snr0_approx,db(snr0_approx,'power'));
