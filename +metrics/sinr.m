@@ -19,9 +19,15 @@ function [output] = sinr(cfg)
 
 % Calculate the sinr
 Rs = cov(cfg.S');
-Rin = cov(cfg.I' + cfg.N');
-output.sinr = trace(cfg.W' * Rs * cfg.W)/...
-    trace(cfg.W' * Rin * cfg.W);
+Ri = cov(cfg.I');
+Rn = cov(cfg.N');
+
+nchannels = size(Rs,1);
+num = trace(cfg.W' * Rs * cfg.W);
+den = trace(cfg.W' * Ri * cfg.W) + trace(cfg.W' * Rn * cfg.W)/nchannels;
+
+% Calculate the sinr
+output.sinr = num/den;
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power

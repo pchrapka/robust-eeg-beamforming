@@ -17,9 +17,12 @@ function [output] = snr(cfg)
 Rs = cov(cfg.S');
 Rn = cov(cfg.N');
 
+nchannels = size(Rs,1);
+num = trace(cfg.W' * Rs * cfg.W);
+den = trace(cfg.W' * Rn * cfg.W)/nchannels;
+
 % Calculate the snr
-output.snr = trace(cfg.W' * Rs * cfg.W)/...
-    trace(cfg.W' * Rn * cfg.W);
+output.snr = num/den;
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power

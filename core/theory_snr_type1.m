@@ -30,19 +30,20 @@ else
     eta = cfg.sources{1}.moment;
     
     f = H*eta;
+    nchannels = size(f,1);
     
     switch p.Results.CovType
         case 'theory'
             var_signal = p.Results.VarSignal;
             var_noise = p.Results.VarNoise;
             
-            nchannels = size(f,1);
             R = var_signal*(f*f') + var_noise*eye(nchannels);
             cov_signals = 'signal+noise';
             
             power_signal = var_signal*norm(f)^2;
             power_noise = var_noise*nchannels;
             snr_data = power_signal/power_noise;
+            snr_data2 = power_signal/var_noise;
         case 'theory-signal'
             var_signal = p.Results.VarSignal;
             var_noise = p.Results.VarNoise;
@@ -50,10 +51,10 @@ else
             R = var_signal*(f*f');
             cov_signals = 'signal';
             
-            nchannels = size(f,1);
             power_signal = var_signal*norm(f)^2;
             power_noise = var_noise*nchannels;
             snr_data = power_signal/power_noise;
+            snr_data2 = power_signal/var_noise;
         case 'data'
             data_set = SimDataSetEEG(sim,cfg.source_name,p.Results.snr,'iter',1);
             data_file = data_set.get_full_filename();
@@ -63,8 +64,8 @@ else
             data_signal_power = trace(cov(din.data.avg_signal'));
             data_noise_power = trace(cov(din.data.avg_noise'));
             snr_data = data_signal_power/data_noise_power;
+            snr_data2 = data_signal_power/(data_noise_power/nchannels);
             
-            nchannels = size(din.data.avg_signal,1);
             % compute source and noise variance
             var_noise = data_noise_power/nchannels;
             var_signal = data_signal_power/(norm(f)^2);
@@ -81,10 +82,11 @@ else
             error('unknown covariance type');
     end
     fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
+    fprintf('Input SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',snr_data2,db(snr_data2,'power'));
     fprintf('Signal variance:\n\t%g\n',var_signal);
     fprintf('Noise variance:\n\t%g\n',var_noise);
     
-    alpha = var_signal/var_noise*norm(f)^2;
+    alpha = (var_signal/var_noise)*norm(f)^2;
     % source to noise ratio
     fprintf('Input Source to Noise Ratio:\n\t%0.2f, %0.2f dB\n',alpha,db(alpha,'power'));
     
@@ -178,22 +180,26 @@ else
     if isequal(p.Results.CovType,'data')
         Rinv = pinv(R);
         W = Rinv*L*pinv(L'*Rinv*L);
-        %bf_file = db.save_setup(data_set,'lcmv');
-        %if exist(bf_file,'file')
-        %    dinbf = load(bf_file);
+        
+        output_signal_power = trace(W'*cov(din.data.avg_trials')*W);
+        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/nchannels;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output Trials 2 Noise Ratio:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
 
-        output_signal = W'*cov(din.data.avg_signal')*W;
-        output_noise = W'*cov(din.data.avg_noise')*W;
-        snr_data_output = output_signal/output_noise;
-        fprintf('Data Output SNR Ratio:\n\t%0.2f, %0.2f dB\n',...
+        output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
+        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/nchannels;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR Ratio 1:\n\t%0.2f, %0.2f dB\n',...
             snr_data_output,db(snr_data_output,'power'));
         
         output_signal = W'*din.data.avg_signal;
+        output_signal_power = trace(output_signal*output_signal');
         output_noise = W'*din.data.avg_noise;
-        snr_data_output = (output_signal*output_signal')/(output_noise*output_noise');
+        output_noise_power = trace(output_noise*output_noise')/nchannels;
+        snr_data_output = output_signal_power/output_noise_power;
         fprintf('Data Output SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',...
             snr_data_output,db(snr_data_output,'power'));
-        %end
     end
     
     if p.Results.verbosity > 0
