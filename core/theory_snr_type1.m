@@ -31,35 +31,48 @@ else
     
     f = H*eta;
     
-    if isequal(p.Results.CovType,'theory')
-        var_signal = p.Results.VarSignal;
-        var_noise = p.Results.VarNoise;
-        
-        nchannels = size(f,1);
-        R = var_signal*(f*f') + var_noise*eye(nchannels);
-    else
-        data_set = SimDataSetEEG(sim,cfg.source_name,p.Results.snr,'iter',1);
-        data_file = data_set.get_full_filename();
-        din = load(data_file);
-        
-        % compute power
-        data_signal_power = trace(cov(din.data.avg_signal'));
-        data_noise_power = trace(cov(din.data.avg_noise'));
-        snr_data = data_signal_power/data_noise_power;
-        fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
-        
-        nchannels = size(din.data.avg_signal,1);
-        % compute source and noise variance
-        var_noise = data_noise_power/nchannels;
-        var_signal = data_signal_power/(norm(f)^2);
-        power_avg_signal = var_signal*norm(f)^2/nchannels;
-        if power_avg_signal < 2*var_noise
-            warning('average source power is really close to the noise power');
-            fprintf('average signal power:\n\t%f\n',power_avg_signal);
-            fprintf('average noise power:\n\t%f\n',var_noise);
-        end
-        
-        R = din.data.Rtime;
+    flag_snr_factor = true;
+    switch p.Results.CovType
+        case 'theory'
+            var_signal = p.Results.VarSignal;
+            var_noise = p.Results.VarNoise;
+            
+            nchannels = size(f,1);
+            R = var_signal*(f*f') + var_noise*eye(nchannels);
+            cov_signals = 'signal+noise';
+        case 'theory-signal'
+            var_signal = p.Results.VarSignal;
+            var_noise = p.Results.VarNoise;
+            
+            R = var_signal*(f*f');
+            flag_snr_factor = false;
+            cov_signals = 'signal';
+        case 'data'
+            data_set = SimDataSetEEG(sim,cfg.source_name,p.Results.snr,'iter',1);
+            data_file = data_set.get_full_filename();
+            din = load(data_file);
+            
+            % compute power
+            data_signal_power = trace(cov(din.data.avg_signal'));
+            data_noise_power = trace(cov(din.data.avg_noise'));
+            snr_data = data_signal_power/data_noise_power;
+            fprintf('Input SNR Ratio:\n\t%0.2f, %0.2f dB\n',snr_data,db(snr_data,'power'));
+            
+            nchannels = size(din.data.avg_signal,1);
+            % compute source and noise variance
+            var_noise = data_noise_power/nchannels;
+            var_signal = data_signal_power/(norm(f)^2);
+            power_avg_signal = var_signal*norm(f)^2/nchannels;
+            if power_avg_signal < 2*var_noise
+                warning('average source power is really close to the noise power');
+                fprintf('average signal power:\n\t%f\n',power_avg_signal);
+                fprintf('average noise power:\n\t%f\n',var_noise);
+            end
+            
+            R = din.data.Rtime;
+            cov_signals = 'signal+noise';
+        otherwise
+            error('unknown covariance type');
     end
     fprintf('Signal variance:\n\t%g\n',var_signal);
     fprintf('Noise variance:\n\t%g\n',var_noise);
@@ -84,9 +97,17 @@ else
     
     snr_approx = var_noise*(l1_inv + l2_inv + l3_inv/(1-omega))/...
         (l1_inv + l2_inv + l3_inv*(1-(2*omega-omega^2))/(1-omega)^2);
+    switch cov_signals
+        case 'signal+noise'
+            snr0_approx = snr_approx - 1; % Z_0 in Sekihara
+        case 'signal'
+            snr0_approx = snr_approx; % Z_0 in Sekihara
+    end
     
-    fprintf('Output SNR approx:\n\t%0.2f, %0.2f dB\n',snr_approx,db(snr_approx,'power'));
-    fprintf('SNR factor:\n\t%f\n',(snr_approx-1)/alpha);
+    fprintf('Output SNR approx:\n\t%0.2f, %0.2f dB\n',snr0_approx,db(snr0_approx,'power'));
+    if flag_snr_factor
+        fprintf('SNR factor:\n\t%f\n',snr0_approx/alpha);
+    end
     
     % exact version
     num = zeros(3,1);
@@ -109,9 +130,17 @@ else
         end
     end
     snr_exact = sum(num)/sum(den);
+    switch cov_signals
+        case 'signal+noise'
+            snr0_exact = snr_exact - 1; % Z_0 in Sekihara
+        case 'signal'
+            snr0_exact = snr_exact; % Z_0 in Sekihara
+    end
     
-    fprintf('Output SNR exact:\n\t%0.2f, %0.2f dB\n',snr_exact,db(snr_exact,'power'));
-    fprintf('SNR factor:\n\t%f\n',(snr_exact-1)/alpha);
+    fprintf('Output SNR exact:\n\t%0.2f, %0.2f dB\n',snr0_exact,db(snr0_exact,'power'));
+    if flag_snr_factor
+        fprintf('SNR factor:\n\t%f\n',snr0_exact/alpha);
+    end
     
     if p.Results.verbosity > 0
         fprintf('diff z3 and eta:\n\t%f\n',norm(Z(:,3)-eta));
