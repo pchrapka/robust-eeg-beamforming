@@ -121,30 +121,54 @@ else
     fprintf('SNR factor:\n\t%f\n',snr0_approx/alpha);
     
     % exact version
-    num = zeros(3,1);
-    den = zeros(3,1);
-    for i=1:3
-        cos_term = gen_cosine(Z(:,i),eta,L'*L)^2;
-        if p.Results.verbosity > 0
-            fprintf('\tCos term %d: %g\n',i,cos_term);
-        end
-        l_norm = norm(L*Z(:,i))^2;
-        
-        num(i) = (l_norm * (1-omega*cos_term))^(-1);
-        
-        temp_num = 1-(2*omega-omega^2)*cos_term;
-        temp_den = l_norm * (1-omega*cos_term)^2;
-        den(i) = temp_num/temp_den;
-        if p.Results.verbosity > 0
-            fprintf('\tNum: %g\n',num(i));
-            fprintf('\tDen: %g\n',den(i));
-        end
-    end
-    snr_exact = sum(num)/sum(den);
     switch cov_signals
         case 'signal+noise'
+            num = zeros(3,1);
+            den = zeros(3,1);
+            for i=1:3
+                cos_term = gen_cosine(Z(:,i),eta,L'*L)^2;
+                if p.Results.verbosity > 0
+                    fprintf('\tCos term %d: %g\n',i,cos_term);
+                end
+                l_norm = norm(L*Z(:,i))^2;
+                
+                num(i) = (l_norm * (1-omega*cos_term))^(-1);
+                
+                temp_num = 1-(2*omega-omega^2)*cos_term;
+                temp_den = l_norm * (1-omega*cos_term)^2;
+                den(i) = temp_num/temp_den;
+                if p.Results.verbosity > 0
+                    fprintf('\tNum: %g\n',num(i));
+                    fprintf('\tDen: %g\n',den(i));
+                end
+            end
+            snr_exact = sum(num)/sum(den);
+            
             snr0_exact = snr_exact - 1; % Z_0 in Sekihara
         case 'signal'
+            num = zeros(3,1);
+            den = zeros(3,1);
+            for i=1:3
+                cos_term = gen_cosine(Z(:,i),eta,L'*L)^2;
+                if p.Results.verbosity > 0
+                    fprintf('\tCos term %d: %g\n',i,cos_term);
+                end
+                l_norm = norm(L*Z(:,i))^2;
+                
+                temp_num = var_noise * norm(f)^2*cos_term;
+                temp_den = l_norm * (1-omega*cos_term);
+                num(i) = temp_num/temp_den;
+                
+                temp_num = 1-(2*omega-omega^2)*cos_term;
+                temp_den = l_norm * (1-omega*cos_term)^2;
+                den(i) = temp_num/temp_den;
+                if p.Results.verbosity > 0
+                    fprintf('\tNum: %g\n',num(i));
+                    fprintf('\tDen: %g\n',den(i));
+                end
+            end
+            snr_exact = sum(num)/sum(den);
+            
             snr0_exact = snr_exact; % Z_0 in Sekihara
     end
     
