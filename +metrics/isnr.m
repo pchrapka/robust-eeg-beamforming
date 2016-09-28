@@ -16,12 +16,16 @@ function [output] = isnr(cfg)
 %   output.isnrdb
 %       interference to signal + noise ratio in dB
 
+Rs = cov(cfg.S');
+Ri = cov(cfg.I');
+Rn = cov(cfg.N');
+
+nchannels = size(Rs,1);
+num = trace(cfg.W' * Ri * cfg.W);
+den = trace(cfg.W' * Rs * cfg.W) + trace(cfg.W' * Rn * cfg.W)/nchannels;
 
 % Calculate the isnr
-Ri = cov(cfg.I');
-Rsn = cov(cfg.S' + cfg.N');
-output.isnr = trace(cfg.W' * Ri * cfg.W)/...
-    trace(cfg.W' * Rsn * cfg.W);
+output.isnr = num/den;
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power

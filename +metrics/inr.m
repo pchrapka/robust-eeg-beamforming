@@ -14,10 +14,15 @@ function [output] = inr(cfg)
 %   output.inrdb
 %       interference to noise ratio in dB
 
+Ri = cov(cfg.I');
+Rn = cov(cfg.N');
 
-% Calculate the snr
-output.inr = trace(cfg.W' * (cfg.I * cfg.I') * cfg.W)/...
-    trace(cfg.W' * (cfg.N * cfg.N') * cfg.W);
+nchannels = size(Rs,1);
+num = trace(cfg.W' * Ri * cfg.W);
+den = trace(cfg.W' * Rn * cfg.W)/nchannels;
+
+% Calculate the inr
+output.inr = num/den;
 
 % Convert snr to dB
 % Only 10 because I think the SNR above is power
