@@ -181,8 +181,6 @@ n_vertices = length(cfg.loc);
 n_scans = length(cfg.loc);
 
 % Copy data for the parfor
-out_snr = data.snr;
-out_iteration = data.iteration;
 scan_locs = cfg.loc;
 
 % select sample points based on the sample_idx parameter
@@ -205,8 +203,10 @@ parfor i=1:n_scans
 %     fprintf('%s snr %d iter %d loc %d %d/%d\n',...
 %         beamformer.name, out_snr, out_iteration, idx, i, n_scans);
     
-    % Check for anisotropic rmv beamformer
+    % set up args for inverse
     args = {};
+    
+    % Check for anisotropic rmv beamformer
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))    
         % Generate the uncertainty matrix
         A = beamformer.create_uncertainty(...
