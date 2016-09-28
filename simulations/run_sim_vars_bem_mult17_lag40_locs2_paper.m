@@ -81,4 +81,4 @@ aet_run_scripts( scripts );
 
 
 %% Compute sinr vs snr
-% metric_analysis_sinr_mult17_lag40
+% metric_analysis_sinr_mult17_lag40_paper
