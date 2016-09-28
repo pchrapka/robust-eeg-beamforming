@@ -6,15 +6,18 @@
 % NOTE source power levels are before multiplication of leadfield
 source_name = 'src_param_single_cortical_source_sine_2';
 
-snr = 0;
+% snr = 0;
 % snr = 5;
-% snr = 10;
+snr = 10;
 vertex = 295;
 
 switch snr
     case 10
-        var_signal = 0.000143219;
-        var_noise = 0.0190328;
+        %var_signal = 0.000143219;
+        %var_noise = 0.0190328;
+        %new
+        var_signal = 5.51052e-07;
+        var_noise = 0.0187427;
     case 0
         %var_signal = 1.42451e-05;
         %var_noise = 0.0189432;

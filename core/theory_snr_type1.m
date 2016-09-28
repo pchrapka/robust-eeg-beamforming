@@ -186,25 +186,30 @@ else
         Rinv = pinv(R);
         W = Rinv*L*pinv(L'*Rinv*L);
         
-        output_signal_power = trace(W'*cov(din.data.avg_trials')*W);
-        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/nchannels;
-        snr_data_output = output_signal_power/output_noise_power;
-        fprintf('Data Output Trials 2 Noise Ratio:\n\t%0.2f, %0.2f dB\n',...
-            snr_data_output,db(snr_data_output,'power'));
-
-        output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
-        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/nchannels;
-        snr_data_output = output_signal_power/output_noise_power;
-        fprintf('Data Output SNR Ratio 1:\n\t%0.2f, %0.2f dB\n',...
-            snr_data_output,db(snr_data_output,'power'));
-        
-        output_signal = W'*din.data.avg_signal;
-        output_signal_power = trace(output_signal*output_signal');
-        output_noise = W'*din.data.avg_noise;
-        output_noise_power = trace(output_noise*output_noise')/nchannels;
-        snr_data_output = output_signal_power/output_noise_power;
-        fprintf('Data Output SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',...
-            snr_data_output,db(snr_data_output,'power'));
+        channel_norms = [1,nchannels];
+        nchannel_norms = length(channel_norms);
+        for i=1:nchannel_norms
+            channel_norm = channel_norms(i);
+            output_signal_power = trace(W'*cov(din.data.avg_trials')*W);
+            output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
+            snr_data_output = output_signal_power/output_noise_power;
+            fprintf('Data Output Trials 2 Noise Ratio:\n\t%0.2f, %0.2f dB\n',...
+                snr_data_output,db(snr_data_output,'power'));
+            
+            output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
+            output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
+            snr_data_output = output_signal_power/output_noise_power;
+            fprintf('Data Output SNR Ratio 1:\n\t%0.2f, %0.2f dB\n',...
+                snr_data_output,db(snr_data_output,'power'));
+            
+            output_signal = W'*din.data.avg_signal;
+            output_signal_power = trace(output_signal*output_signal');
+            output_noise = W'*din.data.avg_noise;
+            output_noise_power = trace(output_noise*output_noise')/channel_norm;
+            snr_data_output = output_signal_power/output_noise_power;
+            fprintf('Data Output SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',...
+                snr_data_output,db(snr_data_output,'power'));
+        end
     end
     
     if p.Results.verbosity > 0
