@@ -209,6 +209,15 @@ else
             snr_data_output = output_signal_power/output_noise_power;
             fprintf('Data Output SNR Ratio 2:\n\t%0.2f, %0.2f dB\n',...
                 snr_data_output,db(snr_data_output,'power'));
+            
+            % optimal direction is smallest evector of L'*Rinv*L
+            eta_opt = Z(:,3);
+            w_opt = W*eta_opt;
+            output_signal_power = trace(w_opt'*cov(din.data.avg_signal')*w_opt);
+            output_noise_power = trace(w_opt'*cov(din.data.avg_noise')*w_opt)/channel_norm;
+            snr_data_output = output_signal_power/output_noise_power;
+            fprintf('Data Output SNR Ratio Type 2:\n\t%0.2f, %0.2f dB\n',...
+                snr_data_output,db(snr_data_output,'power'));
         end
     end
     
