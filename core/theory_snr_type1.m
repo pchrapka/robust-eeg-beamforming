@@ -200,60 +200,70 @@ else
         fprintf('noise power\n');
         Rn_data = cov(din.data.avg_noise');
         Rn_theory = var_noise*eye(nchannels);
+        Rn_data_diag = diag(diag(Rn_data));
         fprintf('\tdata: %g, size: %g\n', trace(Rn_data),norm(Rn_data,'fro'));
         fprintf('\ttheory: %g, size: %g\n', trace(Rn_theory),norm(Rn_theory,'fro'));
+        Rs = cov(din.data.avg_signal');
+        %R = Rs + Rn_theory;
+        %R = Rs + Rn_data_diag;
+        %R = Rs + Rn_data;
         Rinv = pinv(R);
         W = Rinv*L*pinv(L'*Rinv*L);
         
-        channel_norms = [1,nchannels];
-        nchannel_norms = length(channel_norms);
-        for i=1:nchannel_norms
-            channel_norm = channel_norms(i);
-            output_signal_power = trace(W'*cov(din.data.avg_trials')*W);
-            output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
-            snr_data_output = output_signal_power/output_noise_power;
-            fprintf('Data Output Trials 2 Noise Ratio:\n\t%0.2f, %0.2f dB\n',...
-                snr_data_output,db(snr_data_output,'power'));
-            fprintf('Output Power - signal: %g noise %g\n',...
-                output_signal_power,output_noise_power);
-            
-            output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
-            output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
-            snr_data_output = output_signal_power/output_noise_power;
-            fprintf('Data Output SNR 1:\n\t%0.2f, %0.2f dB\n',...
-                snr_data_output,db(snr_data_output,'power'));
-            fprintf('Output Power - signal: %g noise %g\n',...
-                output_signal_power,output_noise_power);
-            
-            output_signal = W'*din.data.avg_signal;
-            output_signal_power = trace(output_signal*output_signal');
-            output_noise = W'*din.data.avg_noise;
-            output_noise_power = trace(output_noise*output_noise')/channel_norm;
-            snr_data_output = output_signal_power/output_noise_power;
-            fprintf('Data Output SNR 2:\n\t%0.2f, %0.2f dB\n',...
-                snr_data_output,db(snr_data_output,'power'));
-            fprintf('Output Power - signal: %g noise %g\n',...
-                output_signal_power,output_noise_power);
-            
-            % optimal direction is smallest evector of L'*Rinv*L
-            eta_opt = Z(:,3);
-            w_opt = W*eta_opt;
-            output_signal_power = w_opt'*cov(din.data.avg_signal')*w_opt;
-            output_noise_power = w_opt'*cov(din.data.avg_noise')*w_opt/channel_norm;
-            snr_data_output = output_signal_power/output_noise_power;
-            fprintf('Data Output SNR Type 2:\n\t%0.2f, %0.2f dB\n',...
-                snr_data_output,db(snr_data_output,'power'));
-            fprintf('Output Power - signal: %g noise %g\n',...
-                output_signal_power,output_noise_power);
-            
-            output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
-            output_noise_power = trace(W'*Rn_theory*W)/channel_norm;
-            snr_data_output = output_signal_power/output_noise_power;
-            fprintf('Data Output SNR white noise:\n\t%0.2f, %0.2f dB\n',...
-                snr_data_output,db(snr_data_output,'power'));
-            fprintf('Output Power - signal: %g noise %g\n',...
-                output_signal_power,output_noise_power);
-        end
+        channel_norm = 1;
+        
+        output_signal_power = trace(W'*cov(din.data.avg_trials')*W);
+        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output Trials 2 Noise Ratio:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
+        
+        output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
+        output_noise_power = trace(W'*cov(din.data.avg_noise')*W)/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR 1:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
+        
+        output_signal = W'*din.data.avg_signal;
+        output_signal_power = trace(output_signal*output_signal');
+        output_noise = W'*din.data.avg_noise;
+        output_noise_power = trace(output_noise*output_noise')/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR 2:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
+        
+        % optimal direction is smallest evector of L'*Rinv*L
+        eta_opt = Z(:,3);
+        w_opt = W*eta_opt;
+        output_signal_power = w_opt'*cov(din.data.avg_signal')*w_opt;
+        output_noise_power = w_opt'*cov(din.data.avg_noise')*w_opt/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR Type 2:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
+        
+        output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
+        output_noise_power = trace(W'*Rn_theory*W)/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR white noise:\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
+        
+        output_signal_power = trace(W'*cov(din.data.avg_signal')*W);
+        output_noise_power = trace(W'*diag(diag(Rn_data))*W)/channel_norm;
+        snr_data_output = output_signal_power/output_noise_power;
+        fprintf('Data Output SNR data diag\n\t%0.2f, %0.2f dB\n',...
+            snr_data_output,db(snr_data_output,'power'));
+        fprintf('Output Power - signal: %g noise %g\n',...
+            output_signal_power,output_noise_power);
     end
     
     if p.Results.verbosity > 0
