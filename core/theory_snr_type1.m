@@ -197,7 +197,23 @@ else
                 output_signal_power,output_noise_power);
     
     if isequal(p.Results.CovType,'data')
-        fprintf('noise power\n');
+        fprintf('Noise + signal covariance\n');
+        signal_power = mean(din.data.avg_signal.^2,2);
+        idx = signal_power == max(signal_power);
+        Rsn = zeros(1,nchannels);
+        for i=1:nchannels
+            signal_noise = [din.data.avg_signal(idx,:); din.data.avg_noise(i,:)];
+            sigma_temp = sqrt(var(signal_noise,0,2));
+            nsamples = size(signal_noise,2);
+            signal_noise = signal_noise./repmat(sigma_temp,1,nsamples);
+            Rsn_temp = cov(signal_noise');
+            Rsn(i) = Rsn_temp(1,2);
+        end
+        
+        disp(Rsn);
+        
+        
+        fprintf('Noise covariance power\n');
         Rn_data = cov(din.data.avg_noise');
         Rn_theory = var_noise*eye(nchannels);
         Rn_data_diag = diag(diag(Rn_data));
@@ -225,11 +241,27 @@ else
         params(k).name = 'Rs + data noise';
         k = k+1;
         params(k).R = R;
-        params(k).Rn = Rn;
+        params(k).Rn = Rn_data;
         params(k).name = 'data R';
         k = k+1;
+        params(k).R = cov(din.data.avg_trials');
+        params(k).Rn = Rn_data;
+        params(k).name = 'data R 2';
+        k = k+1;
+        %figure;
+        %imagesc(R - (Rs+Rn_data));
         
+        %figure;
+        %imagesc(pinv(R) - pinv(Rs+Rn_data));
+        
+        %clim = [0 max(max(max(R)),max(max(Rs+Rn_data)))];
+        
+        figure;
         for i=1:length(params)
+            subplot(1,length(params),i);
+            imagesc(pinv(params(i).R));%,clim);
+            title(sprintf('R = %s\n', params(i).name));
+            
             fprintf('R = %s\n', params(i).name);
             Rinv = pinv(params(i).R);
             W = Rinv*L*pinv(L'*Rinv*L);
