@@ -193,8 +193,8 @@ beam_signal = zeros(n_scans, length(cfg.sample_idx), n_components);
 progbar = ProgressBar(n_scans);
 
 %% Scan locations
-% parfor i=1:n_scans
-for i=1:n_scans
+parfor i=1:n_scans
+% for i=1:n_scans
 
     % update progress bar
     progbar.progress();
