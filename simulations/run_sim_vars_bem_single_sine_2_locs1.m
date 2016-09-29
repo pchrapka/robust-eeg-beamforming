@@ -4,6 +4,12 @@ clear all;
 close all;
 clc;
 
+% source_file = 'src_param_single_cortical_source_sine_2';
+% source_name = 'single_cort_src_sine_2';
+
+source_file = 'src_param_single_cortical_source_sine_2_noise_white';
+source_name = 'single_cort_src_sine_2_noise_white';
+
 k = 1;
 
 %% set up head models
@@ -17,7 +23,7 @@ hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 scripts(k).func = @simulation_data;
 cfg = struct(...
     'sim_data',             'sim_data_bem_1_100t',...
-    'sim_src_parameters',   'src_param_single_cortical_source_sine_2',...
+    'sim_src_parameters',   source_file,...
     'snr_range',            -10:5:30,...
     ...Allow aet_sim_eeg_avg to parallelize the trials
     'parallel',             false);
@@ -29,7 +35,7 @@ force = false;
 
 data_files = get_sim_data_files(...
     'sim','sim_data_bem_1_100t',...
-    'source','single_cort_src_sine_2',...
+    'source',source_name,...
     'iterations',1,...
     'snr',-10:5:30 ...
     );
@@ -80,4 +86,4 @@ aet_run_scripts( scripts );
 
 
 %% Compute sinr vs snr
-% metric_analysis_sinr_single_sine_2
+% metric_analysis_sinr_single_sine_2(source_name);

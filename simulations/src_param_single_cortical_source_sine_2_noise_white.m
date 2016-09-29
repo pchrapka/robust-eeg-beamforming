@@ -1,8 +1,8 @@
-%% src_param_single_cortical_source_sine_2
+%% src_param_single_cortical_source_sine_2_noise_white
 
 % sim_cfg.force = true;
 
-sim_cfg.source_name = 'single_cort_src_sine_2';
+sim_cfg.source_name = 'single_cort_src_sine_2_noise_white';
 
 
 %% Source 1
@@ -28,4 +28,4 @@ sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)';
 
 %% Noise parameters
 sim_cfg.noise_power = 1;
-sim_cfg.noise_type = 'eeg';
+sim_cfg.noise_type = 'white';
