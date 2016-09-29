@@ -4,9 +4,19 @@ clear all;
 close all;
 clc;
 
+% sim_file = 'sim_data_bem_1_100t';
 % source_file = 'src_param_single_cortical_source_sine_2';
 % source_name = 'single_cort_src_sine_2';
 
+% sim_file = 'sim_data_bem_1_100t';
+% source_file = 'src_param_single_cortical_source_sine_2_noise_white';
+% source_name = 'single_cort_src_sine_2_noise_white';
+
+sim_file = 'sim_data_bem_1_500t';
+source_file = 'src_param_single_cortical_source_sine_2_noise_white';
+source_name = 'single_cort_src_sine_2_noise_white';
+
+sim_file = 'sim_data_bem_1_100t_5000s';
 source_file = 'src_param_single_cortical_source_sine_2_noise_white';
 source_name = 'single_cort_src_sine_2_noise_white';
 
@@ -60,30 +70,30 @@ cfg = struct(...
 scripts(k).vars = {cfg};
 k = k+1;
 
-%% ==== MISMATCHED LEADFIELD ====
-
-scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_single_src_paper_mismatched');
-cfg_simvars_setup.data_file = data_files;
-cfg_simvars_setup.force = force;
-cfg_simvars_setup.tag = 'locs1_3sphere';
-cfg_simvars_setup.head = [];
-cfg_simvars_setup.head.current = hm_3sphere;
-cfg_simvars_setup.head.actual = hm_bem;
-cfg_simvars_setup.loc = [295];
-cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
-cfg = struct(...
-    'sim_vars',             cfg_simvars,...
-    'analysis_run_func',    @beamformer_analysis,...
-    ...Allow parallel execution of the scans
-    'parallel',             false,...
-    'debug',                false);
-scripts(k).vars = {cfg};
-k = k+1;
+% %% ==== MISMATCHED LEADFIELD ====
+% 
+% scripts(k).func = @sim_vars.run;
+% cfg_simvars_setup = get_beamformer_config_set('sim_vars_single_src_paper_mismatched');
+% cfg_simvars_setup.data_file = data_files;
+% cfg_simvars_setup.force = force;
+% cfg_simvars_setup.tag = 'locs1_3sphere';
+% cfg_simvars_setup.head = [];
+% cfg_simvars_setup.head.current = hm_3sphere;
+% cfg_simvars_setup.head.actual = hm_bem;
+% cfg_simvars_setup.loc = [295];
+% cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
+% cfg = struct(...
+%     'sim_vars',             cfg_simvars,...
+%     'analysis_run_func',    @beamformer_analysis,...
+%     ...Allow parallel execution of the scans
+%     'parallel',             false,...
+%     'debug',                false);
+% scripts(k).vars = {cfg};
+% k = k+1;
 
 %% Run the scripts
 aet_run_scripts( scripts );
 
 
 %% Compute sinr vs snr
-% metric_analysis_sinr_single_sine_2(source_name);
+% metric_analysis_sinr_single_sine_2(sim_file,source_name);

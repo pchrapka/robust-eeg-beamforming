@@ -1,4 +1,4 @@
-function metric_analysis_sinr_single_sine_2(source_name)
+function metric_analysis_sinr_single_sine_2(sim_file,source_name)
 
 %% Data
 % To generate data run the following script:
@@ -7,6 +7,6 @@ function metric_analysis_sinr_single_sine_2(source_name)
 
 %% Compute sinr
 
-plot_sinr_single_config_paper(source_name);
+plot_sinr_single_config_paper(sim_file,source_name);
 
 end
