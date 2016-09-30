@@ -15,7 +15,17 @@ lumberjack.parfor_setup();
 % run_sim_vars_bem_single
 % run_sim_vars_bem_distr
 % run_sim_vars_bem_mult17 % old - too correlated
-run_sim_vars_bem_mult17_lag40_locs2_paper
+
+sim_file = 'sim_data_bem_1_100t';
+% sim_file = 'sim_data_bem_1_100t_5000s';
+source_file = 'src_param_mult_cortical_source_17_lag40';
+source_name = 'mult_cort_src_17_lag40';
+
+run_sim_vars_bem_mult_paper_locs2(...
+    sim_file,source_file,source_name,'matched','both');
+% Compute sinr vs snr
+plot_sinr_mult_config_paper(...
+    sim_file,source_name,'matched','both');
 
 % HD for beampatterns and power plots
 % -----------------------------------
@@ -29,10 +39,6 @@ run_sim_vars_bemhd_mult17hd_lag40_paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Analysis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% SINR
-% Calculate SINR for mult source configuration
-metric_analysis_sinr_mult17_lag40_paper
 
 %% Power plots at t=t1
 
