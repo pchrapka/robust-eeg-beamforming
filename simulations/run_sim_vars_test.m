@@ -1,4 +1,4 @@
-%% run_sim_vars_test.m -- Script for running different analysis variations 
+%% run_sim_vars_test
 
 clear all;
 close all;

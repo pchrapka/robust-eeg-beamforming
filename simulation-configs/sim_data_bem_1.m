@@ -1,3 +1,5 @@
+%% sim_data_bem_1
+
 %% Parameter file
 sim_cfg.sim_name = mfilename; % Get current file name
 % optional field for extra naming flexibility

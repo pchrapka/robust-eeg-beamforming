@@ -1,4 +1,5 @@
-%% run_sim_vars_rmv_aniso_test.m -- Script for running different analysis variations 
+%% run_sim_vars_bem_single_rmv_aniso_test
+% Script for running different analysis variations 
 
 clear all;
 close all;

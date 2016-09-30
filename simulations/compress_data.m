@@ -1,3 +1,5 @@
+%% compress_data
+
 % Switch to the data directory
 sim_dir = 'single_cort_src_1';
 % sim_dir = 'mult_cort_src_6';

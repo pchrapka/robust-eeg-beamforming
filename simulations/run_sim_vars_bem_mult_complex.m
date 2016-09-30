@@ -1,4 +1,4 @@
-%% run_sim_vars.m -- Script for running different analysis variations 
+%% run_sim_vars_bem_mult_complex
 
 clear all;
 close all;

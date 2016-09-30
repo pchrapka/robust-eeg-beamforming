@@ -1,4 +1,4 @@
-%% run_sim_vars.m -- Script for running different analysis variations 
+%% run_sim_vars_bem_mult_rms_2
 % Same as run_sim_vars_mult_bem_paper_rms except with more temporal spacing
 % between sources
 

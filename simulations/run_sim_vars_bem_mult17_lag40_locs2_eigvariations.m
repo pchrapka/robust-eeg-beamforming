@@ -1,4 +1,4 @@
-%% run_sim_vars_bem_mult17_lag40_eigvariations.m
+%% run_sim_vars_bem_mult17_lag40_locs2_eigvariations.m
 %
 %   Summary:
 %   - uncorrelated ERPs, temporally non-overlapping

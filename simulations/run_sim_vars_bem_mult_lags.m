@@ -1,4 +1,4 @@
-%% run_sim_vars_mult_bem_paper_lags.m
+%% run_sim_vars_bem_mult_lags
 % Same run_sim_vars_mult_bem_paper except with more temporal spacing
 
 clear all;

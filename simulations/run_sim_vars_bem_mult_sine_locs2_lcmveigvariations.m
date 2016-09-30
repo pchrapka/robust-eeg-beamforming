@@ -1,4 +1,4 @@
-%% run_sim_vars_bem_mult_sine_lcmveigvariations
+%% run_sim_vars_bem_mult_sine_locs2_lcmveigvariations
 
 clear all;
 close all;

@@ -1,4 +1,4 @@
-%% run_sim_vars_bem_mult17_lag40_lcmveigvariations
+%% run_sim_vars_bem_mult17_lag40_locs2_lcmveigvariations
 % Same run_sim_vars_mult_bem_paper except with more temporal spacing
 
 clear all;

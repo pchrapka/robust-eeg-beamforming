@@ -16,15 +16,15 @@ lumberjack.parfor_setup();
 % run_sim_vars_distr
 
 %% Run all BEM simulations
-% run_sim_vars_single_bem
-% run_sim_vars_mult_bem
-% run_sim_vars_distr_bem
+% run_sim_vars_bem_single
+% run_sim_vars_bem_mult
+% run_sim_vars_bem_distr
 
 %% Paper simulations
 % PAPER
-run_sim_vars_single_bem_paper
+run_sim_vars_bem_single_paper
 run_sim_vars_bem_mult10
-% run_sim_vars_distr_bem_paper
+% run_sim_vars_bem_distr_paper
 run_sim_vars_bem_mult17
 run_sim_vars_bem_mult17_lag8
 
@@ -34,14 +34,14 @@ run_sim_vars_bem_mult17_lag8
 % run_sim_vars_bem_mult_lags
 
 %% Sacrifice with RMVB
-% run_sim_vars_single_bem_paper_2
+% run_sim_vars_bem_single_paper_2
 
 %% Sinusoidal sources
 % run_sim_vars_bem_mult_sine
 % run_sim_vars_bem_mult_sine_uncor
 
 %% Complex ERP sources
-% run_sim_vars_single_bem_paper_complex
+% run_sim_vars_bem_single_paper_complex
 % run_sim_vars_bem_mult_complex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

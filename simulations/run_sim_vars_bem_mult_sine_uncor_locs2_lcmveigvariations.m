@@ -1,4 +1,4 @@
-%% run_sim_vars_bem_mult_sine_uncor_lcmveigvariations
+%% run_sim_vars_bem_mult_sine_uncor_locs2_lcmveigvariations
 
 clear all;
 close all;
