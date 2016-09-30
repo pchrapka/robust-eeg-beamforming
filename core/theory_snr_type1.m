@@ -286,6 +286,7 @@ else
             %title(sprintf('%s\n', params(i).name));
             
             fprintf('%s\n', params(i).name);
+            fprintf('cond: %g\n',cond(params(i).R));
             Rinv = pinv(params(i).R);
             W = Rinv*L*pinv(L'*Rinv*L);
             
