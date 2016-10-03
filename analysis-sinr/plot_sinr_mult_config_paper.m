@@ -6,11 +6,6 @@ addRequired(p,'source_name',@ischar);
 addParameter(p,'matched','both',@(x) any(validatestring(x,{'matched','mismatched','both'})));
 parse(p,sim_file,source_name,varargin{:});
 
-%% Data
-% To generate data run the following script:
-
-% run_sim_vars_bem_mult17_lag40_locs2_paper
-
 %% Compute sinr
 force = true;
 params = [];
@@ -61,8 +56,8 @@ end
 %% Plots
 for i=1:length(params)
     data_set = SimDataSetEEG(...
-        'sim_data_bem_1_100t',...
-        'mult_cort_src_17_lag40',...
+        sim_file,...
+        source_name,...
         0,...
         'iter',1);
     

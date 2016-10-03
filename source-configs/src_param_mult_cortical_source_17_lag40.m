@@ -55,3 +55,4 @@ sim_cfg.sources{2}.moment = [1 1 0]'/norm([1 1 0]);
 
 %% Noise parameters
 sim_cfg.noise_power = 1;
+sim_cfg.noise_type = 'eeg';

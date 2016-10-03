@@ -41,9 +41,6 @@ for i=1:length(params)
         params(i).sim_file,params(i).source_file,params(i).source_name,'matched',option_matched);
     
     % Compute sinr vs snr
-    metric_analysis_sinr_single_sine_2(...
-        params(i).sim_file,params(i).source_name);
-    
     plot_sinr_single_config_paper(...
         params(i).sim_file,params(i).source_name,'matched',option_matched);
 end
