@@ -1,9 +1,12 @@
-%% beampattern_mult17hd_lag40
+function plot_beampattern_multhd_config_paper(sim_file,source_name,varargin)
 
-%% Generate data
-% run_sim_vars_bemhd_mult17hd
 
-snr = 0;
+p = inputParser();
+addRequired(p,'sim_file',@ischar);
+addRequired(p,'source_name',@ischar);
+addParameter(p,'matched','both',@(x) any(validatestring(x,{'matched','mismatched','both'})));
+addParameter(p,'snr',0,@isnumeric);
+parse(p,sim_file,source_name,varargin{:});
 
 %% Set up beamformer configs
 params = [];
@@ -19,7 +22,6 @@ params(k).beam_cfgs = {...
     'lcmv_reg_eig'...
     };
 params(k).matched = true;
-params(k).snr = snr;
 k = k+1;
 
 %% ==== MISMATCHED LEADFIELD ====
@@ -38,7 +40,6 @@ params(k).beam_cfgs = {...
     'lcmv_reg_eig_3sphere',...
     };
 params(k).matched = false;
-params(k).snr = snr;
 k = k+1;
 
 for i=1:length(params)
@@ -48,15 +49,12 @@ for i=1:length(params)
     
     % Set up simulation info
     data_set = SimDataSetEEG(...
-        'sim_data_bemhd_1_100t',...
-        'mult_cort_src_17hd_lag40',...
-        params(i).snr,...
+        p.Results.sim_file,...
+        p.Results.source_file,...
+        p.Results.snr,...
         'iter',1);
     
     %% Compute beampatterns
-    
-    %matched = true;
-    %cfg = get_beampattern_config('highres',params(i).matched, snr);
     
     % Compute the beampattern
     outputfiles = compute_beampattern(...
@@ -85,36 +83,9 @@ for i=1:length(params)
         view_beampattern(outputfiles,'source_idx',source_idx,'int_idx',int_idx,args{:});
     end
     
-    % plot_beampatternhd_mult17hd_relative(cfg);
-    % % plot_beampatternhd_mult17hd_relativedist(cfg);
-    % % plot_beampatternhd_mult17hd_mad(cfg);
-    % plot_beampatternhd_mult17hd_global(cfg);
-    % plot_beampatternhd_mult17hd_globaldist(cfg);
-    
     params(i).outputfiles = outputfiles;
     
 end
 
-%% Plot data - matched, mismatched
-
-outputfiles = [params(1).outputfiles; params(2).outputfiles];
-args = get_view_beampattern_args('default','beampattern','mmabsolute-dist');
-view_beampattern(outputfiles,'source_idx',source_idx,...
-    'int_idx',int_idx,args{:});
-% plot_beampatternhd_mult17hd_matched_vs_mismatched
-args = get_view_beampattern_args('default','beampattern3d','mmabsolute-dist');
-view_beampattern(outputfiles,'source_idx',source_idx,...
-    'int_idx',int_idx,args{:});
-
-%% Plot beampattern diff - matched
-% cfg = [];
-% cfg.beamcfga = 'rmv_epsilon_20';
-% cfg.beamcfgb = 'lcmv';
-% plot_beampatternhd_diff_mult17hd(cfg);
-%
-% cfg = [];
-% cfg.beamcfga = 'rmv_epsilon_30';
-% cfg.beamcfgb = 'rmv_epsilon_20';
-% plot_beampatternhd_diff_mult17hd(cfg);
-% close all
+end
 

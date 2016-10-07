@@ -85,12 +85,6 @@ for k=1:length(params)
         view_beampattern(outputfiles,'source_idx',source_idx,args{:});
     end
     
-    % plot_beampatternhd_mult17hd_relative(cfg);
-    % % plot_beampatternhd_mult17hd_relativedist(cfg);
-    % % plot_beampatternhd_mult17hd_mad(cfg);
-    % plot_beampatternhd_mult17hd_global(cfg);
-    % plot_beampatternhd_mult17hd_globaldist(cfg);
-    
     params(k).outputfiles = outputfiles;
     
 end
@@ -100,7 +94,6 @@ end
 outputfiles = [params(1).outputfiles params(2).outputfiles];
 args = get_view_beampattern_args('default','mmabsolute-dist');
 view_beampattern(outputfiles,'source_idx',cfg_mismatched.source_idx,args{:});
-% plot_beampatternhd_mult17hd_matched_vs_mismatched(cfg);
 
 %% Plot beampattern diff - matched
 % cfg = [];
