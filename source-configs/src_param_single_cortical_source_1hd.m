@@ -29,3 +29,4 @@ sim_cfg.sources{1}.moment = aet_sim_dipole_orientation(cfg)';
 
 %% Noise parameters
 sim_cfg.noise_power = 1;
+sim_cfg.noise_type = 'eeg';
