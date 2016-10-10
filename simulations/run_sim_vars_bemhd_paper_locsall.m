@@ -72,7 +72,7 @@ if isequal(p.Results.matched,'both') || isequal(p.Results.matched,'matched')
     cfg_simvars_setup = get_beamformer_config_set(config_matched);
     cfg_simvars_setup.data_file = data_files;
     cfg_simvars_setup.force = force;
-    cfg_simvars_setup.tag = '';
+    cfg_simvars_setup.tag = [];
     cfg_simvars_setup.head = hm_bem;
     cfg_simvars_setup.loc = 1:15028;
     cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);

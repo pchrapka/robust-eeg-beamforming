@@ -67,7 +67,7 @@ bf_tag = strrep(beamformer.name,'.','-');
 bf_tag = strrep(bf_tag,' ','_');
 
 tag = bf_tag;
-if isfield(cfg, 'tag')
+if isfield(cfg, 'tag') && ~isempty(cfg.tag)
     % Add the additional tag to the output file name, typically if it's a
     % different head model
     tag = [tag '_' cfg.tag];
