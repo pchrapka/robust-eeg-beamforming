@@ -14,7 +14,8 @@ function [outputfile] = compute_power(data_set,beamformers,varargin)
 %       center voxel of beampattern
 %   int_idx
 %       (optional) index of interfering source
-%   cfg.mode
+%   mode (string, default = instant)
+%       mode for computing power
 %
 %   Output
 %   ------
@@ -38,7 +39,7 @@ function [outputfile] = compute_power(data_set,beamformers,varargin)
 p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
-addParameter(p,'mode','instant',@(x) any(validatestring(x,{'instant','average'})));
+%addParameter(p,'mode','instant',@(x) any(validatestring(x,{'instant','average'})));
 addParameter(p,'force',false,@islogical);
 
 parse(p,data_set,beamformers,varargin{:});
@@ -50,11 +51,12 @@ cfg_save = [];
 cfg_save.data_set = data_set;
 cfg_save.file_type = 'metrics';
 
+% REMOVE always use instant
 switch p.Results.mode
     case 'instant'
         mode = 'components';
-    case 'average'
-        mode = 'components_samples';
+    %case 'average'
+    %    mode = 'components_samples';
 end
 
 %% Calculate power for all desired beamformer configs

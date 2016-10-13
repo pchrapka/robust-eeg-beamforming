@@ -1,4 +1,4 @@
-function [outfile] = view_power_surface_relative(datafiles,varargin)
+function [outfile] = view_power_surface_relative(datafiles,samples,varargin)
 %VIEW_POWER_SURFACE_RELATIVE beamformer output power view
 %   VIEW_POWER_SURFACE_RELATIVE sets up a view with the beamformer output
 %   power plotted on the cortex surface, marked source locations and saves
@@ -8,11 +8,11 @@ function [outfile] = view_power_surface_relative(datafiles,varargin)
 %   -----
 %   datafiles (cell array)
 %       file names, output from COMPUTE_POWER
+%   samples (integer or vector)
+%       sample indices to plot
 %
 %   Parameters
 %   ----------
-%   sample (integer, default = [])
-%       sample idx to plot
 %   source_idx 
 %       center voxel of beampattern
 %   int_idx
@@ -29,11 +29,11 @@ function [outfile] = view_power_surface_relative(datafiles,varargin)
 
 p = inputParser();
 addRequired(p,'datafiles',@iscell);
-addParameter(p,'sample',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
+addRequired(p,'samples',@(x) ~isempty(x) && length(x) >= 1);
 addParameter(p,'source_idx',[],@(x) x > 1 && length(x) == 1);
 addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
-parse(p,datafiles,varargin{:});
+parse(p,datafiles,samples,varargin{:});
 
 %% Power map 3D - relative scale
 outfile = cell(length(datafiles),1);
@@ -44,8 +44,8 @@ for i=1:length(datafiles)
     % Plot the data
     cfgplt = [];
     cfgplt.options.scale = 'relative';
-    if ~isempty(p.Results.sample)
-        cfgplt.options.sample = p.Results.sample;
+    if ~isempty(p.Results.samples)
+        cfgplt.options.samples = p.Results.samples;
     end
     vobj.plot('power3d',cfgplt);
     

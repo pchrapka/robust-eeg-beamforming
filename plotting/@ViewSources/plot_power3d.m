@@ -9,8 +9,9 @@ function plot_power3d(hm,datafile,cfg)
 %       filename of beamformer output data, as computed by COMPUTE_BEAMPATTERN
 %
 %   cfg.options
-%   cfg.options.sample
-%       sample idx to plot, default=1
+%   cfg.options.samples
+%       sample indices to plot, default=1
+%       if a vector is specified the average power is plotted
 %   cfg.options.scale
 %       colormap scale, standard options:
 %       absolute        0   - MAX
@@ -23,11 +24,14 @@ function plot_power3d(hm,datafile,cfg)
 %% Set defaults
 if ~isfield(cfg, 'options'),        cfg.options = [];               end
 if ~isfield(cfg.options, 'scale'),  cfg.options.scale = 'relative'; end
-if ~isfield(cfg.options, 'sample'), cfg.options.sample = 1;         end
+if ~isfield(cfg.options, 'samples'), cfg.options.samples = 1;         end
 
 %% Load the data
 din = load(datafile);
-power_data = din.data.power(:,cfg.options.sample);
+power_data = din.data.power(:,cfg.options.samples);
+if size(power_data,2) > 1
+    power_data = mean(power_data,2);
+end
 
 %% Load the tesselated data
 bstdir = brainstorm.bstcust_getdir('db');

@@ -174,11 +174,18 @@ classdef ViewSources < handle
                     
                 case 'power3d'
                     [~,name,~] = fileparts(obj.file);
-                    if isfield(obj.plot_last_cfg.options,'sample')
-                        imgfile = sprintf('%s3d_s%d',...
-                            name, obj.plot_last_cfg.options.sample);
+                    if isfield(obj.plot_last_cfg.options,'samples')
+                        if length(obj.plot_last_cfg.options.samples) > 1
+                            idx_start = min(obj.plot_last_cfg.options.samples);
+                            idx_end = max(obj.plot_last_cfg.options.samples);
+                            imgfile = sprintf('%s3d_s%ds%d',...
+                                name, idx_start, idx_end);
+                        else
+                            imgfile = sprintf('%s3d_s%d',...
+                                name, obj.plot_last_cfg.options.samples);
+                        end
                     else
-                        imgfile = sprintf('%s3d_sall',name);
+                        error('missing samples field');
                     end
                     
                 otherwise
