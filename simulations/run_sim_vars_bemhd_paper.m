@@ -37,15 +37,14 @@ switch p.Results.config
         error('unknown beamformer config set');
 end
 
-switch p.Results.locs
-    case 'all'
-        locs = 1:15028;
-        tag_matched = [];
-        tag_mismatched = '3sphere';
-    otherwise
-        locs = p.Results.locs;
-        tag_matched = sprintf('locs%d',length(p.Results.locs));
-        tag_mismatched = sprintf('locs%d_3sphere',length(p.Results.locs));
+if isequal(p.Results.locs,'all')  
+    locs = 1:15028;
+    tag_matched = [];
+    tag_mismatched = '3sphere';
+else
+    locs = p.Results.locs;
+    tag_matched = sprintf('locs%d',length(p.Results.locs));
+    tag_mismatched = sprintf('locs%d_3sphere',length(p.Results.locs));
 end
 
 k = 1;

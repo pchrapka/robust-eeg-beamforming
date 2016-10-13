@@ -39,13 +39,13 @@ plot_sinr_mult_config_paper(...
     'matched','both');
 
 %% HD 2 sources
-% beampattern and power surface plots
+% beampattern and sinr
 
 sim_file = 'sim_data_bemhd_1_100t_5000s';
 source_file = 'src_param_mult_cortical_source_17hd_lag40';
 source_name = 'mult_cort_src_17hd_lag40';
 
-% beampattern - only 2 locs
+% beampattern and sinr requires only 2 locs
 run_sim_vars_bemhd_paper(...
     sim_file, source_file, source_name,...
     'config','mult-paper',...
