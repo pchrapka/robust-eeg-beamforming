@@ -41,12 +41,15 @@ for i=1:n_plots
 
     % Loop through custom colors and line styles
     plot(output.data(:,1), output.data(:,1+i), line_style,...
-        'color', colors(i,:), 'marker', markers{i});
+        'color', colors(i,:), 'marker', markers{i},...
+        'linewidth',2);
     hold on;
 end
 legend(legend_str{:}, 'Location', 'Best');
 ylabel(output.label_y);
 xlabel(output.label_x);
+ylim([min(output.data(:,1)) max(output.data(:,1))]);
+set(gca,'fontsize',11);
 
 % Save the figure
 if cfg.save_fig
