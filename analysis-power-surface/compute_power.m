@@ -74,7 +74,7 @@ for i=1:length(beamformers)
     data_file = db.save_setup('data_set',data_set,'tag',tag);
     
     % Set up output filename
-    cfg_save.file_tag = sprintf('%s_power_%s',beamformers{i},p.Results.mode);
+    cfg_save.file_tag = sprintf('%s_power_instant',beamformers{i});
     outputfile{i} = metrics.filename(cfg_save);
     % NOTE TO FUTURE SELF if power average is required for a subset of
     % data, that should be reflected in the file name
