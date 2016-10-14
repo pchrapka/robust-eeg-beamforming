@@ -46,10 +46,9 @@ for i=1:n_plots
     hold on;
 end
 legend(legend_str{:}, 'Location', 'Best');
-ylabel(output.label_y);
-xlabel(output.label_x);
-ylim([min(output.data(:,1)) max(output.data(:,1))]);
-set(gca,'fontsize',11);
+ylabel(output.label_y,'FontSize',12);
+xlabel(output.label_x,'FontSize',12);
+xlim([min(output.data(:,1)) max(output.data(:,1))]);
 
 % Save the figure
 if cfg.save_fig
