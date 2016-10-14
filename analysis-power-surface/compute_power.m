@@ -52,12 +52,13 @@ cfg_save.data_set = data_set;
 cfg_save.file_type = 'metrics';
 
 % REMOVE always use instant
-switch p.Results.mode
-    case 'instant'
-        mode = 'components';
-    %case 'average'
-    %    mode = 'components_samples';
-end
+mode = 'components';
+% switch p.Results.mode
+%     case 'instant'
+%         mode = 'components';
+%     case 'average'
+%        mode = 'components_samples';
+% end
 
 %% Calculate power for all desired beamformer configs
 
