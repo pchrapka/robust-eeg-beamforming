@@ -39,7 +39,6 @@ function [outputfile] = compute_power(data_set,beamformers,varargin)
 p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
-%addParameter(p,'mode','instant',@(x) any(validatestring(x,{'instant','average'})));
 addParameter(p,'force',false,@islogical);
 
 parse(p,data_set,beamformers,varargin{:});
@@ -51,14 +50,8 @@ cfg_save = [];
 cfg_save.data_set = data_set;
 cfg_save.file_type = 'metrics';
 
-% REMOVE always use instant
+% always use instant
 mode = 'components';
-% switch p.Results.mode
-%     case 'instant'
-%         mode = 'components';
-%     case 'average'
-%        mode = 'components_samples';
-% end
 
 %% Calculate power for all desired beamformer configs
 
@@ -76,8 +69,6 @@ for i=1:length(beamformers)
     % Set up output filename
     cfg_save.file_tag = sprintf('%s_power_instant',beamformers{i});
     outputfile{i} = metrics.filename(cfg_save);
-    % NOTE TO FUTURE SELF if power average is required for a subset of
-    % data, that should be reflected in the file name
     
     % Skip the computation if the file exists
     if exist(outputfile{i}, 'file') && ~p.Results.force
