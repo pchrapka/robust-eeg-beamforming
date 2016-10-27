@@ -40,7 +40,7 @@ sim_cfg.sources{2}.type = 'interference';
 sim_cfg.sources{2}.signal_type = 'colored-noise';
 sim_cfg.sources{2}.amp = 2;
 sim_cfg.sources{2}.amp_var = 0.1;
-sim_cfg.sources{2}.lpf = lpf_filter();
+sim_cfg.sources{2}.lpf = @lpf_filter;
 
 % Source head model params
 % Index of brain source voxel
