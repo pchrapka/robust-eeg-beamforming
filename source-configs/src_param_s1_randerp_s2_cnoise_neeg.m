@@ -18,6 +18,7 @@ sim_cfg.sources{1}.type = 'signal';
 sim_cfg.sources{1}.signal_type = 'erp-random-amplitude';
 sim_cfg.sources{1}.snr = -10; % in dB
 sim_cfg.sources{1}.amp = 2;
+sim_cfg.sources{1}.amp_var = 0.1;
 sim_cfg.sources{1}.freq = 10;
 sim_cfg.sources{1}.pos = 120;
 sim_cfg.sources{1}.jitter = 5;
