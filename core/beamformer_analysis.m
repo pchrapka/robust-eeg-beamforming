@@ -127,7 +127,6 @@ switch cfg.cov_type
         % select covariance for a specific cov_samples
         R = data.Rtrial(cfg.cov_samples,:,:);
         R = mean(R,1); % [1 channels channels]
-        error('check this');
         R = squeeze(R);
         
         if ~isfield(data,'avg_trials')
