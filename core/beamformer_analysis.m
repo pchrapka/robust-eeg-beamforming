@@ -30,7 +30,7 @@ function beamformer_analysis(cfg)
 %           the time-wise covariance is computed over all time samples of
 %           the average trial. the trial-wise covariance is computed over
 %           all trials at each sample.
-%       sample_idx (optional, default = full sample range)
+%       cov_samples (optional, default = full sample range)
 %           indices of signal samples to use
 %
 %           when cov_type = 'trial', the beamformer filters are computed
@@ -55,7 +55,7 @@ function beamformer_analysis(cfg)
 
 if ~isfield(cfg,'force'),           cfg.force = false; end
 if ~isfield(cfg,'cov_type'),        cfg.cov_type = 'time'; end
-if ~isfield(cfg,'sample_idx'),      cfg.sample_idx = 1:100; end % this should cause an error
+if ~isfield(cfg,'cov_samples'),      cfg.cov_samples = 1:100; end % this should cause an error
 
 %% Load the beamformer
 fbeamformer = str2func(cfg.beamformer_config{1});
@@ -112,19 +112,23 @@ switch cfg.cov_type
         
         % copy covariance
         R = data.Rtime;
-        cfg.sample_idx = 1:size(data.avg_trials,2);
+        cfg.cov_samples = 1:size(data.avg_trials,2);
         
     case 'trial'
+        if isempty(cfg.cov_samples)
+            error('cov samples is required');
+        end
+        
         % compute trial-wise covariance if it doesn't exist
         if ~isfield(data,'Rtrial')
             data.Rtrial = aet_analysis_cov(data.trials);
         end
         
-        % select covariance for a specific sample_idx
-        if length(cfg.sample_idx) > 1
-            error('feature not implemented');
-        end
-        R = data.Rtrial(cfg.sample_idx,:,:);
+        % select covariance for a specific cov_samples
+        R = data.Rtrial(cfg.cov_samples,:,:);
+        R = mean(R,1); % [1 channels channels]
+        error('check this');
+        R = squeeze(R);
         
         if ~isfield(data,'avg_trials')
             data.avg_trials = zeros(size(data.trials{1}));
@@ -132,9 +136,6 @@ switch cfg.cov_type
                 data.avg_trials = data.avg_trials + data.trials{i};
             end
             data.avg_trials = data.avg_trials/length(data.trials);
-            
-            % TODO data.R will be [nsamples, nchannels, nchannels]
-            % seems like a time idx option
         end
     
         % Calculate it once and save it to the data file
@@ -183,11 +184,11 @@ n_scans = length(cfg.loc);
 % Copy data for the parfor
 scan_locs = cfg.loc;
 
-% select sample points based on the sample_idx parameter
-data_trials = data.avg_trials(:,cfg.sample_idx);
+% select sample points based on the cov_samples parameter
+data_trials = data.avg_trials(:,cfg.cov_samples);
 
 % allocate mem
-beam_signal = zeros(n_scans, length(cfg.sample_idx), n_components);
+beam_signal = zeros(n_scans, length(cfg.cov_samples), n_components);
 
 % set up progress bar
 progbar = ProgressBar(n_scans);
@@ -218,35 +219,14 @@ parfor i=1:n_scans
     % get the leafield matrix from the head model
     H = hm.get_leadfield(idx);
     
-    switch cfg.cov_type
-        case 'time'
-            % Calculate the beamformer
-            beam_out = beamformer.inverse(H, R, args{:});
-            
-            out_filter{i} = beam_out.W;
-            out_loc(i) = idx;
-            
-            beam_signal(i,:,:) = beamformer.output(...
-                beam_out.W, data_trials, 'P', beam_out.P)';
-        case 'trial'
-            if length(cfg.sample_idx) > 1
-                warning('untested feature');
-            end
-            
-            W = [];
-            beam_signal_temp = zeros(length(cfg.sample_idx),n_components);
-            for j=1:length(cfg.sample_idx)
-                % Calculate the beamformer
-                beam_out = beamformer.inverse(H, squeeze(R(j,:,:)), args{:});
-                W(j,:,:) = beam_out.W;
-                out_loc(i) = idx;
-                
-                beam_signal_temp(j,:) = beamformer.output(...
-                    beam_out.W, data_trials(:,j), 'P', beam_out.P)';
-            end
-            beam_signal(i,:,:) = beam_signal_temp;
-            out_filter{i} = W;
-    end
+    % Calculate the beamformer
+    beam_out = beamformer.inverse(H, R, args{:});
+    
+    out_filter{i} = beam_out.W;
+    out_loc(i) = idx;
+    
+    beam_signal(i,:,:) = beamformer.output(...
+        beam_out.W, data_trials, 'P', beam_out.P)';
     
 end
 fprintf('\n');
@@ -257,7 +237,7 @@ out.data_file = cfg.data_file;
 out.snr = data.snr;
 out.iteration = data.iteration;
 out.beamformer_config = cfg.beamformer_config;
-out.sample_idx = cfg.sample_idx;
+out.cov_samples = cfg.cov_samples;
 
 % save the head model config, but not data
 if isfield(cfg.head,'current')

@@ -16,6 +16,8 @@ addRequired(p,'source_file',@ischar);
 addRequired(p,'source_name',@ischar);
 addParameter(p,'matched','both',@(x) any(validatestring(x,{'matched','mismatched','both'})));
 addParameter(p,'snrs',-10:5:30,@isvector);
+addParameter(p,'cov_type','time',@(x) any(validatestring(x,{'time','trial'})));
+addParameter(p,'cov_samples',[],@isvector);
 parse(p,sim_file,source_file,source_name,varargin{:});
 
 k = 1;
@@ -58,6 +60,8 @@ if isequal(p.Results.matched,'both') || isequal(p.Results.matched,'matched')
     cfg_simvars_setup.tag = 'locs2';
     cfg_simvars_setup.head = hm_bem;
     cfg_simvars_setup.loc = [295,400];
+    cfg_simvars_setup.cov_type = p.Results.cov_type;
+    cfg_simvars_setup.cov_samples = p.Results.cov_samples;
     cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
     
     cfg = struct(...
@@ -82,6 +86,8 @@ if isequal(p.Results.matched,'both') || isequal(p.Results.matched,'mismatched')
     cfg_simvars_setup.head.current = hm_3sphere;
     cfg_simvars_setup.head.actual = hm_bem;
     cfg_simvars_setup.loc = [295,400];
+    cfg_simvars_setup.cov_type = p.Results.cov_type;
+    cfg_simvars_setup.cov_samples = p.Results.cov_samples;
     cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
     cfg = struct(...
         'sim_vars',             cfg_simvars,...

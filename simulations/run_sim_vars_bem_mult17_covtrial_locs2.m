@@ -49,7 +49,7 @@ cfg_simvars_setup.tag = 'locs2';
 cfg_simvars_setup.head = hm_bem;
 cfg_simvars_setup.loc = [295,400];
 cfg_simvars_setup.cov_type = 'trial';
-cfg_simvars_setup.sample_idx = 120;
+cfg_simvars_setup.cov_samples = 120;
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 
 cfg = struct(...
@@ -73,7 +73,7 @@ cfg_simvars_setup.head.current = hm_3sphere;
 cfg_simvars_setup.head.actual = hm_bem;
 cfg_simvars_setup.loc = [295,400];
 cfg_simvars_setup.cov_type = 'trial';
-cfg_simvars_setup.sample_idx = 120;
+cfg_simvars_setup.cov_samples = 120;
 cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
 cfg = struct(...
     'sim_vars',             cfg_simvars,...
