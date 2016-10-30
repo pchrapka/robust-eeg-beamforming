@@ -27,14 +27,23 @@ function beamformer_analysis(cfg)
 %
 %       cov_type (string, default = time)
 %           selects which covariance to use, options: time, trial
+%
+%           time
 %           the time-wise covariance is computed over all time samples of
-%           the average trial. the trial-wise covariance is computed over
-%           all trials at each sample.
+%           the average trial
+%
+%           trial
+%           the trial-wise covariance is computed over all trials at each
+%           sample. the covariance is then taken over the samples specified
+%           in cov_samples
+%
 %       cov_samples (optional, default = full sample range)
-%           indices of signal samples to use
+%           indices of signal samples to use to compute sample covariance
 %
 %           when cov_type = 'trial', the beamformer filters are computed
 %           using a sample specific covariance
+%       data_samples (optional, default = full sample range)
+%           indices of signal samples to use for beamformer output
 %
 %       loc
 %           (default = all vertices)
@@ -93,6 +102,15 @@ data = data_in.data;
 clear data_in;
 
 %% Calculate the covariance
+
+if ~isfield(cfg,'data_samples') || isempty(cfg.data_samples)
+    if isfield(data,'avg_trials')
+        cfg.data_samples = 1:size(data.avg_trials,2);
+    elseif isfield(data,'trials')
+        cfg.data_samples = 1:size(data.trials{1},2);
+    end
+end
+
 switch cfg.cov_type
     case 'time'
         if isfield(data,'R')
@@ -183,11 +201,11 @@ n_scans = length(cfg.loc);
 % Copy data for the parfor
 scan_locs = cfg.loc;
 
-% select sample points based on the cov_samples parameter
-data_trials = data.avg_trials(:,cfg.cov_samples);
+% select sample points based on the data_samples parameter
+data_trials = data.avg_trials(:,cfg.data_samples);
 
 % allocate mem
-beam_signal = zeros(n_scans, length(cfg.cov_samples), n_components);
+beam_signal = zeros(n_scans, length(cfg.data_samples), n_components);
 
 % set up progress bar
 progbar = ProgressBar(n_scans);
@@ -237,6 +255,7 @@ out.snr = data.snr;
 out.iteration = data.iteration;
 out.beamformer_config = cfg.beamformer_config;
 out.cov_samples = cfg.cov_samples;
+out.data_samples = cfg.data_samples;
 
 % save the head model config, but not data
 if isfield(cfg.head,'current')
