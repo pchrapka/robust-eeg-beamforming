@@ -4,7 +4,7 @@ if ~ismatrix(A)
     result = false;
 elseif (size(A,1) > size(A,2))
     % matrix should be channels x samples
-    error('samples > channels');
+    error('samples should be > channels');
 else
     result = true;
 end

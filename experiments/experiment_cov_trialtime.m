@@ -1,5 +1,7 @@
 %% experiment_cov_trialtime
 
+lumberjack.parfor_setup();
+
 sim_file = 'sim_data_bem_1_1000t_noavg';
 source_file = 'src_param_s1_randerp_s2_cnoise_neeg';
 source_name = 's1_randerp_s2_cnoise_neeg';
