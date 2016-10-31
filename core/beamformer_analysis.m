@@ -210,16 +210,7 @@ n_scans = length(cfg.loc);
 scan_locs = cfg.loc;
 
 % select sample points based on the data_samples parameter
-switch cfg.cov_type
-    case 'time'
-        data_trials = data.avg_trials(:,cfg.data_samples);
-    case 'trial'
-        data_trials = cell(length(data.trials));
-        for i=1:length(data.trials)
-            temp_data = data.trials{i};
-            data_trials{i} = temp_data(:,cfg.data_samples);
-        end
-end
+data_trials = data.avg_trials(:,cfg.data_samples);
 
 % allocate mem
 beam_signal = zeros(n_scans, length(cfg.data_samples), n_components);
@@ -259,18 +250,8 @@ parfor i=1:n_scans
     out_filter{i} = beam_out.W;
     out_loc(i) = idx;
     
-    switch cfg.cov_type
-        case 'time'
-            beam_signal(i,:,:) = beamformer.output(...
-                beam_out.W, data_trials, 'P', beam_out.P)';
-        case 'trial'
-            beam_signal_temp = zeros(length(data_trials),length(cfg.data_samples),n_components);
-            for j=1:length(data_trials)
-                beam_signal_temp(j,:,:) = beamformer.output(...
-                    beam_out.W, data_trials{j}, 'P', beam_out.P)';
-            end
-            beam_signal(i,:,:) = squeeze(mean(beam_signal_temp,1));
-    end
+    beam_signal(i,:,:) = beamformer.output(...
+        beam_out.W, data_trials, 'P', beam_out.P)';
     
 end
 fprintf('\n');
