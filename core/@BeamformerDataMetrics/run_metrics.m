@@ -51,11 +51,17 @@ output.metrics{length(metrics),1}.name = '';
 % Loop through metric configs
 for j=1:length(metrics)
     
-    % if we're forcing a recomputation
-    if ~p.Results.force
-        % check if metrics already exist
-        [flag,idx] = obj.exist_metric(metrics{j});
+    % check if metrics already exist
+    [flag,idx] = obj.exist_metric(metrics{j});
+    
+    if p.Results.force
         if flag
+            % if we're forcing a redo, remove the old one
+            obj.remove_metric(idx);
+        end
+    else
+        if flag
+            % if we've already computed it for the same params, just return
             print_msg_filename(obj.bfdata_file,sprintf('Found %s for',metrics{j}.name));
             output.metrics{j} = obj.metricsdata{idx};
             continue;

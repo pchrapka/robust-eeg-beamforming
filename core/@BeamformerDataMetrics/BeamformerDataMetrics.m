@@ -99,6 +99,7 @@ classdef BeamformerDataMetrics < handle
             if obj.metricsdata_loaded && obj.metricsdata_modified
                 metrics = obj.metricsdata;
                 save(obj.metrics, 'metrics');
+                obj.metricsdata_modified = false;
             end
         end
         
@@ -109,16 +110,22 @@ classdef BeamformerDataMetrics < handle
             
             nmetrics = length(obj.metricsdata);
             for i=1:nmetrics
+                % check for the metric name
                 if isequal(obj.metricsdata{i}.name,metric_config.name)
+                    % found a matching name
                     flag_exist = true;
                     metric_idx = i;
+                    
                     fields = fieldnames(metric_config);
                     nfields = length(fields);
+                    
+                    % check if all the config fields are the same
                     for j=1:nfields
                         field = fields{j};
+                        
                         % check if the field exists
                         if isfield(obj.metricsdata{i},field)
-                            % check if the data is the same
+                            % check if the config is the same
                             if ~isequal(obj.metricsdata{i}.(field),metric_config.(field))
                                 % do something
                                 flag_exist = false;
@@ -142,6 +149,13 @@ classdef BeamformerDataMetrics < handle
             
             nmetrics = length(obj.metricsdata);
             obj.metricsdata{nmetrics+1} = output;
+            obj.metricsdata_modified = true;
+        end
+        
+        function remove_metric(obj, idx)
+            %REMOVE_METRIC removes a metric
+            
+            obj.metricsdata{idx} = [];
             obj.metricsdata_modified = true;
         end
         
