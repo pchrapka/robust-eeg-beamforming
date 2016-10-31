@@ -51,18 +51,18 @@ output.metrics{length(metrics),1}.name = '';
 % Loop through metric configs
 for j=1:length(metrics)
     
-    print_msg_filename(obj.bfdata_file,sprintf('Working on %s for',metrics{j}.name));
-    
     % if we're forcing a recomputation
     if ~p.Results.force
         % check if metrics already exist
         [flag,idx] = obj.exist_metric(metrics{j});
         if flag
+            print_msg_filename(obj.bfdata_file,sprintf('Found %s for',metrics{j}.name));
             output.metrics{j} = obj.metricsdata{idx};
             continue;
         end
     end
     
+    print_msg_filename(obj.bfdata_file,sprintf('Working on %s for',metrics{j}.name));
     obj.load_data('eegdata');
     obj.load_data('bfdata');
     
