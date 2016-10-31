@@ -83,6 +83,8 @@ for j=1:length(cfg.metrics)
     metric_cfg = cfg.metrics(j);
     metric = metric_cfg.name;
     
+    print_msg_filename(bf_data_file,sprintf('Working on %s for',metric));
+    
     % Set defaults
     if isfield(metric_cfg, 'flip')
         error('flip field is deprecated, please use isnr');
