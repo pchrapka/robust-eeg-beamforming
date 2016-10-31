@@ -46,15 +46,15 @@ end
 % compute snr
 if isfield(data,'avg_signal')
     output = metrics.snr_input(data.avg_signal, data.avg_noise);
-    snr = output.snr;
-    fprintf('snr: %0.2f db from average\n',snr);
+    snr = output.snrdb;
+    fprintf('snr: %0.4f db from average\n',snr);
 end
 
 if isfield(data,'signal')
     for i=1:ntrials
         output = metrics.snr_input(data.signal{i},data.noise{i});
-        snr = output.snr;
-        fprintf('snr: %0.2f db for trial %d\n',snr,i);
+        snr = output.snrdb;
+        fprintf('snr: %0.4f db for trial %d\n',snr,i);
     end
 end
 
