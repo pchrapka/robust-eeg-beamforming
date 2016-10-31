@@ -84,6 +84,27 @@ for i=1:length(params)
         0,...
         'iter',1);
     
+    % compute metrics all at once
+    for j=1:length(params(i).beamformer_configs)
+        for k=1:length(p.Results.snrs)
+            metrics = [];
+            metrics{1}.name = 'snr-input';
+            metrics{2}.name = 'sinr-beamformer-output';
+            metrics{2}.location_idx = 295;
+            metrics{3}.name = 'snr-beamformer-output';
+            metrics{3}.location_idx = 295;
+            metrics{4}.name = 'isnr-beamformer-output';
+            metrics{4}.location_idx = 400;
+            temp_dataset = SimDataSetEEG(...
+                sim_file,...
+                source_name,...
+                p.Results.snrs(k),...
+                'iter',1);
+            bdm = BeamformerDataMetrics(temp_dataset,params(i).beamformer_configs{j});
+            bdm.run_metrics(metrics);
+        end
+    end
+    
     % signal location, oSINR vs iSNR
     plot_metric_output_vs_input_group(...
         data_set,...
