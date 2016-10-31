@@ -111,6 +111,7 @@ if ~isfield(cfg,'data_samples') || isempty(cfg.data_samples)
     end
 end
 
+save_to_file = false;
 switch cfg.cov_type
     case 'time'
         if isfield(data,'R')
