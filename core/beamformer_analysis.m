@@ -117,20 +117,23 @@ switch cfg.cov_type
             % remove old field
             data.Rtime = data.R;
             data = rmfield(data,'R');
-            save(cfg.data_file, 'data','-v7.3');
+            save_to_file = true;
         end
         
         % compute time-wise covariance if it doesn't exist
         if ~isfield(data,'Rtime')
             data.Rtime = aet_analysis_cov(data.avg_trials);
-            
-            % calculate it once and save it to the data file
-            save(cfg.data_file, 'data','-v7.3');
+            save_to_file = true;
         end
         
         % copy covariance
         R = data.Rtime;
         cfg.cov_samples = 1:size(data.avg_trials,2);
+        
+        if save_to_file
+            % calculate it once and save it to the data file
+            save(cfg.data_file, 'data','-v7.3');
+        end
         
     case 'trial'
         if isempty(cfg.cov_samples)
@@ -140,6 +143,7 @@ switch cfg.cov_type
         % compute trial-wise covariance if it doesn't exist
         if ~isfield(data,'Rtrial')
             data.Rtrial = aet_analysis_cov(data.trials);
+            save_to_file = true;
         end
         
         % select covariance for a specific cov_samples
@@ -153,10 +157,13 @@ switch cfg.cov_type
                 data.avg_trials = data.avg_trials + data.trials{i};
             end
             data.avg_trials = data.avg_trials/length(data.trials);
+            save_to_file = true;
         end
     
-        % Calculate it once and save it to the data file
-        save(cfg.data_file, 'data','-v7.3');
+        if save_to_file
+            % Calculate it once and save it to the data file
+            save(cfg.data_file, 'data','-v7.3');
+        end
     otherwise
         error('unknown covariance type');
 end
@@ -256,7 +263,7 @@ parfor i=1:n_scans
             beam_signal(i,:,:) = beamformer.output(...
                 beam_out.W, data_trials, 'P', beam_out.P)';
         case 'trial'
-            beam_signal_temp = zeros(length(data_trials),size(data_trials{1},1),size(data_trials{1},2));
+            beam_signal_temp = zeros(length(data_trials),length(cfg.data_samples),n_components);
             for j=1:length(data_trials)
                 beam_signal_temp(j,:,:) = beamformer.output(...
                     beam_out.W, data_trials{j}, 'P', beam_out.P)';
