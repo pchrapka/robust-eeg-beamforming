@@ -2,19 +2,21 @@ classdef BeamformerDataMetrics < handle
     %UNTITLED3 Summary of this class goes here
     %   Detailed explanation goes here
     
-    properties
+    properties (SetAccess = protected)
         % data names
         dataset;
         beamformer;
         metrics;
         
+        % data file names
+        bfdata_file = '';
+        eegdata_file = '';
+        
         % actual data
         eegdata = [];
         bfdata = [];
-        metricsdata = [];
-    end
-    
-    properties (SetAccess = protected)
+        metricsdata = {};
+
         eegdata_loaded = false;
         bfdata_loaded = false;
         metricsdata_loaded = false;
@@ -25,12 +27,15 @@ classdef BeamformerDataMetrics < handle
         function obj = BeamformerDataMetrics(dataset,beamformer,varargin)
             p = inputParser();
             addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
-            addRequired(p,'beamformer',@(x) ~isempty(x) && iscell(x));
+            addRequired(p,'beamformer',@(x) ~isempty(x) && ischar(x));
             parse(p,dataset,beamformer,varargin{:});
             
-            obj.dataset = p.Results.dataset;
+            obj.dataset = p.Results.data_set;
             obj.beamformer = p.Results.beamformer;
             obj.metrics = obj.get_filename();
+            
+            obj.eegdata_file = db.save_setup('data_set',obj.dataset);
+            obj.bfdata_file = db.save_setup('data_set',obj.dataset,'tag',obj.beamformer);
             
         end
         
@@ -42,7 +47,7 @@ classdef BeamformerDataMetrics < handle
             
             % get the data file dir
             [out_dir,name,ext] = fileparts(outputfile);
-            out_dir = fullfle(out_dir,'metrics');
+            out_dir = fullfile(out_dir,'metrics');
             
             % create the dir
             if ~exist(out_dir, 'dir')
@@ -64,15 +69,14 @@ classdef BeamformerDataMetrics < handle
                 case 'eegdata'
                     if ~obj.eegdata_loaded
                         % Load eeg data
-                        eeg_data_file = db.save_setup('data_set',obj.dataset);
-                        obj.eegdata = load(eeg_data_file);
+                        temp = load(obj.eegdata_file);
+                        obj.eegdata = temp.data;
                         obj.eegdata_loaded = true;
                     end
                 case 'bfdata'
                     if ~obj.bfdata_loaded
                         % Load bf data
-                        bf_data_file = db.save_setup('data_set',cfg.data_set,'tag',cfg.beam_cfg);
-                        obj.bfdata = load(bf_data_file);
+                        obj.bfdata = load(obj.bfdata_file);
                         obj.bfdata_loaded = true;
                     end
                 case 'metricsdata'
@@ -82,7 +86,7 @@ classdef BeamformerDataMetrics < handle
                             temp = load(obj.metrics);
                             obj.metricsdata = temp.metrics;
                         else
-                            obj.metricsdata = [];
+                            obj.metricsdata = {};
                         end
                         obj.metricsdata_loaded = true;
                     end
@@ -105,7 +109,7 @@ classdef BeamformerDataMetrics < handle
             
             nmetrics = length(obj.metricsdata);
             for i=1:nmetrics
-                if isequal(obj.metricsdata(i).name,metric_config.name)
+                if isequal(obj.metricsdata{i}.name,metric_config.name)
                     flag_exist = true;
                     metric_idx = i;
                     fields = fieldnames(metric_config);
@@ -113,9 +117,9 @@ classdef BeamformerDataMetrics < handle
                     for j=1:nfields
                         field = fields{j};
                         % check if the field exists
-                        if isfield(obj.metricsdata(i),field)
+                        if isfield(obj.metricsdata{i},field)
                             % check if the data is the same
-                            if ~isequal(obj.metricsdata(i).(field),metric_config.(field))
+                            if ~isequal(obj.metricsdata{i}.(field),metric_config.(field))
                                 % do something
                                 flag_exist = false;
                                 break;
@@ -137,7 +141,7 @@ classdef BeamformerDataMetrics < handle
             %ADD_METRIC adds a metric
             
             nmetrics = length(obj.metricsdata);
-            obj.metricsdata(nmetrics+1) = output;
+            obj.metricsdata{nmetrics+1} = output;
             obj.metricsdata_modified = true;
         end
         
@@ -172,6 +176,9 @@ classdef BeamformerDataMetrics < handle
         [output] = snr_beamformer_output(S,N,W);
         [output] = sinr_beamformer_output(S,I,N,W);
         [output] = snr_input(S,N);
+        
+        % Validation
+        [result] = validate_signal_matrix(A)
     end
     
 end

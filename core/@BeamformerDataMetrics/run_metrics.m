@@ -46,19 +46,19 @@ obj.load_data('metricsdata');
 
 output.data_set = obj.dataset;
 output.bf_name = obj.beamformer;
-output.metrics(length(metrics)).name = '';
+output.metrics{length(metrics),1}.name = '';
 
 % Loop through metric configs
 for j=1:length(metrics)
     
-    print_msg_filename(bf_data_file,sprintf('Working on %s for',metrics(j).name));
+    print_msg_filename(obj.bfdata_file,sprintf('Working on %s for',metrics{j}.name));
     
     % if we're forcing a recomputation
     if ~p.Results.force
         % check if metrics already exist
-        [flag,idx] = obj.exist_metric(metrics(j));
+        [flag,idx] = obj.exist_metric(metrics{j});
         if flag
-            output.metrics(j) = obj.metricsdata(idx);
+            output.metrics{j} = obj.metricsdata{idx};
             continue;
         end
     end
@@ -67,19 +67,19 @@ for j=1:length(metrics)
     obj.load_data('bfdata');
     
     % convert metric params
-    metrics_cpy = rmfield(metrics(j),'name');
+    metrics_cpy = rmfield(metrics{j},'name');
     metric_params = lumberjack.struct2namevalue(metrics_cpy);
     
     % create fhandle for metric function
-    metric_func_name = strrep(metrics(j).name,'-','_');
+    metric_func_name = strrep(metrics{j}.name,'-','_');
     metric_func = str2func(sprintf('@metric_%s',metric_func_name));
     
     % computer metric
     result = metric_func(obj,metric_params{:});
-    result.name = metrics(j).name;
+    result.name = metrics{j}.name;
     
     obj.add_metric(result);
-    output.metrics(j) = result;
+    output.metrics{j} = result;
     
 %         case 'rmse'
 %             

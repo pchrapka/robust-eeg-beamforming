@@ -65,10 +65,10 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg_metrics.beam_cfg = cfg.beam_cfgs{m};
             cfg_metrics.data_set = SimDataSetEEG(...
                 data_set.sim,data_set.source,snr,'iter',1);
-            cfg_metrics.metrics(1).name = cfg.metric_x;
-            cfg_metrics.metrics(1).location_idx = cfg.metrics.location_idx;
-            cfg_metrics.metrics(2).name = cfg.metric_y;
-            cfg_metrics.metrics(2).location_idx = cfg.metrics.location_idx;
+            cfg_metrics.metrics{1}.name = cfg.metric_x;
+            %cfg_metrics.metrics(1).location_idx = cfg.metrics.location_idx;
+            cfg_metrics.metrics{2}.name = cfg.metric_y;
+            cfg_metrics.metrics{2}.location_idx = cfg.metrics.location_idx;
             % Calculate the metrics
             %out = metrics.run_metrics_on_file(cfg_metrics);
             bdm = BeamformerDataMetrics(cfg_metrics.data_set,cfg_metrics.beam_cfg);
@@ -77,7 +77,7 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             % Extract the x axis metric
             switch cfg.metric_x
                 case 'snr-input'
-                    output.data(i,1) = out.metrics(1).output.snrdb;
+                    output.data(i,1) = out.metrics{1}.snrdb;
                     output.label_x = 'Input SNR (dB)';
                     
                 otherwise
@@ -87,15 +87,15 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             % Extract the y axis metric
             switch cfg.metric_y
                 case 'snr-beamformer-output'
-                    output.data(i,1+m) = out.metrics(2).output.snrdb;
+                    output.data(i,1+m) = out.metrics{2}.snrdb;
                     output.label_y = 'Output SNR (dB)';
                     
                 case 'sinr-beamformer-output'
-                    output.data(i,1+m) = out.metrics(2).output.sinrdb;
+                    output.data(i,1+m) = out.metrics{2}.sinrdb;
                     output.label_y = 'Output SINR (dB)';
                     
                 case 'isnr-beamformer-output'
-                    output.data(i,1+m) = out.metrics(2).output.isnrdb;
+                    output.data(i,1+m) = out.metrics{2}.isnrdb;
                     output.label_y = 'Output ISNR (dB)';
                     
                 otherwise
