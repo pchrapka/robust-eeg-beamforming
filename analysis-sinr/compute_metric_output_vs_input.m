@@ -59,17 +59,17 @@ if ~exist(cfg.data_file, 'file') || cfg.force
         for i=1:length(cfg.snrs)
             snr = cfg.snrs(i);
             
-            % Select beamformer
-            cfg.beam_cfg = cfg.beam_cfgs{m};
-            cfg.data_set = SimDataSetEEG(...
-                data_set.sim,data_set.source,snr,'iter',1);
-            
-            % Calculate the metrics
+            % Set up metrics config
             cfg_metrics = [];
-            cfg_metrics(1).name = cfg.metric_x;
-            cfg_metrics(1).location_idx = cfg.metrics.location_idx;
-            cfg_metrics(2).name = cfg.metric_y;
-            cfg_metrics(2).location_idx = cfg.metrics.location_idx;
+            % Select beamformer
+            cfg_metrics.beam_cfg = cfg.beam_cfgs{m};
+            cfg_metrics.data_set = SimDataSetEEG(...
+                data_set.sim,data_set.source,snr,'iter',1);
+            cfg_metrics.metrics(1).name = cfg.metric_x;
+            cfg_metrics.metrics(1).location_idx = cfg.metrics.location_idx;
+            cfg_metrics.metrics(2).name = cfg.metric_y;
+            cfg_metrics.metrics(2).location_idx = cfg.metrics.location_idx;
+            % Calculate the metrics
             out = metrics.run_metrics_on_file(cfg_metrics);
             
             % Extract the x axis metric
