@@ -9,6 +9,23 @@ classdef SimDataSetEEG
     
     methods
         function obj = SimDataSetEEG(sim,source,snr,varargin)
+            %SimDataSetEEG creates a SimDataSetEEG object
+            %   SimDataSetEEG(sim,source,snr,...)
+            %
+            %   Input
+            %   -----
+            %   sim (string)
+            %       sim name
+            %   source (string)
+            %       source name
+            %   snr (integer)
+            %       snr value
+            %
+            %   Parameters
+            %   ----------
+            %   iter (integer)
+            %       iteration number
+            
             p = inputParser();
             addRequired(p,'sim',@(x) ~isempty(x) && ischar(x));
             addRequired(p,'source',@(x) ~isempty(x) && ischar(x));
