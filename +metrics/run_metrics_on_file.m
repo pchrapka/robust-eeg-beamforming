@@ -38,17 +38,11 @@ function [output] = run_metrics_on_file(cfg)
 %   name = 'sinr-beamformer-output'
 %   location_idx
 %       location index for SINR calculation
-%   flip (boolean, default = false)
-%       switches signal and interference signals, allows SINR calculation
-%       from perspective of the interference signal
 %
 %   ISNR - Beamformer Output
 %   name = 'isnr-beamformer-output'
 %   location_idx
 %       location index for SINR calculation
-%   flip (boolean, default = false)
-%       switches signal and interference signals, allows SINR calculation
-%       from perspective of the interference signal
 %
 %   RMSE
 %   name = 'rmse'

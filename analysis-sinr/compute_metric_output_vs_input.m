@@ -64,15 +64,17 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg.data_set = SimDataSetEEG(...
                 data_set.sim,data_set.source,snr,'iter',1);
             
+            % Calculate the metrics
+            cfg_metrics = [];
+            cfg_metrics(1).name = cfg.metric_x;
+            cfg_metrics(1).location_idx = cfg.metrics.location_idx;
+            cfg_metrics(2).name = cfg.metric_y;
+            cfg_metrics(2).location_idx = cfg.metrics.location_idx;
+            out = metrics.run_metrics_on_file(cfg_metrics);
+            
+            % Extract the x axis metric
             switch cfg.metric_x
-                % NOTE this should be common to all data sets
-                case 'input snr'
-                    
-                    % Calculate the metrics
-                    cfg.metrics.name = 'snr-input';
-                    out = metrics.run_metrics_on_file(cfg);
-                    
-                    % Extract the output
+                case 'snr-input'
                     output.data(i,1) = out.metrics(1).output.snrdb;
                     output.label_x = 'Input SNR (dB)';
                     
@@ -80,29 +82,18 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     error('unknown metric %s', cfg.metric_x);
             end
             
+            % Extract the y axis metric
             switch cfg.metric_y
-                case 'output snr'
-                    % Calculate the metrics
-                    cfg.metrics.name = 'snr-beamformer-output';
-                    out = metrics.run_metrics_on_file(cfg);
-                    
-                    output.data(i,1+m) = out.metrics(1).output.snrdb;
+                case 'snr-beamformer-output'
+                    output.data(i,1+m) = out.metrics(2).output.snrdb;
                     output.label_y = 'Output SNR (dB)';
                     
-                case 'output sinr'
-                    % Calculate the metrics
-                    cfg.metrics.name = 'sinr-beamformer-output';
-                    out = metrics.run_metrics_on_file(cfg);
-                    
-                    output.data(i,1+m) = out.metrics(1).output.sinrdb;
+                case 'sinr-beamformer-output'
+                    output.data(i,1+m) = out.metrics(2).output.sinrdb;
                     output.label_y = 'Output SINR (dB)';
                     
-                case 'output isnr'
-                    % Calculate the metrics
-                    cfg.metrics.name = 'isnr-beamformer-output';
-                    out = metrics.run_metrics_on_file(cfg);
-                    
-                    output.data(i,1+m) = out.metrics(1).output.isnrdb;
+                case 'isnr-beamformer-output'
+                    output.data(i,1+m) = out.metrics(2).output.isnrdb;
                     output.label_y = 'Output ISNR (dB)';
                     
                 otherwise
