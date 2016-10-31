@@ -70,7 +70,9 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg_metrics.metrics(2).name = cfg.metric_y;
             cfg_metrics.metrics(2).location_idx = cfg.metrics.location_idx;
             % Calculate the metrics
-            out = metrics.run_metrics_on_file(cfg_metrics);
+            %out = metrics.run_metrics_on_file(cfg_metrics);
+            bdm = BeamfomrerDataMetrics(cfg_metrics.data_set,cfg_metrics.beam_cfg);
+            out = bdm.run_metrics(cfg_metrics.metrics);
             
             % Extract the x axis metric
             switch cfg.metric_x

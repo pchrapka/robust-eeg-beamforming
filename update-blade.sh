@@ -13,4 +13,7 @@ git pull
 cd ../advanced-eeg-toolbox
 git pull
 
+cd ../lumberjack
+git pull
+
 cd $CURDIR

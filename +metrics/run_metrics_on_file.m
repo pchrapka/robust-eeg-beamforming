@@ -157,14 +157,14 @@ for j=1:length(cfg.metrics)
         case 'inr-input'
             
             % Calculate snr from data as well
-            output = metrics.snr_input(...
+            result = metrics.snr_input(...
                 eeg_data_in.data.avg_interference,...
                 eeg_data_in.data.avg_noise);
             
             % Save info
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).output.inr = output.snr;
-            output.metrics(j).output.inrdb = output.snrdb;
+            output.metrics(j).output.inr = result.snr;
+            output.metrics(j).output.inrdb = result.snrdb;
             
         case 'rmse'
             
@@ -180,7 +180,6 @@ for j=1:length(cfg.metrics)
             
             % Calculate the metric
             output.metrics(j).name = metric_cfg.name;
-            output.metrics(j).flip = metric_cfg.flip;
             output.metrics(j).location_idx = metric_cfg.location_idx;
             output.metrics(j).sample_idx = metric_cfg.sample_idx;
             output.metrics(j).output = metrics.rmse(cfg_rmse);
