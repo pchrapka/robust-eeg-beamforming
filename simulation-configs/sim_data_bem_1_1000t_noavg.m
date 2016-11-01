@@ -33,7 +33,7 @@ sim_cfg.n_runs = 1;
 sim_cfg.average_data = true;
 sim_cfg.keep_trials = true;
 
-sim_cfg.snr.type = 'per_trial';
+sim_cfg.snr.type = 'on_average';
 % sim_cfg.snr.signal = 0; %overwritten in simulation_data
 % sim_cfg.snr.interference = 0; %overwritten in simulation_data
 
