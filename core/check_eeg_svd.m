@@ -7,7 +7,8 @@ addParameter(p,'reg',false,@islogical);
 addParameter(p,'samples',[],@isvector);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
-addParameter(p,'SignalComponents',{'none'},@(x) any(validatestring(x,{'signal','interference','none'})));
+addParameter(p,'SignalComponents',{'none'},...
+    @(x) all(cellfun(@(y) any(validatestring(y,{'signal','interference','none'})), x)));
 parse(p,data,varargin{:});
 
 if ischar(data)
