@@ -4,9 +4,10 @@ p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
 addParameter(p,'neig',5,@(x) isvector(x) && length(x) == 1);
 addParameter(p,'reg',false,@islogical);
-addParameter(p,'sample',[],@(x) isvector(x) && length(x) == 1);
+addParameter(p,'samples',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
+addParameter(p,'SignalComponents',{'none'},@(x) any(validatestring(x,{'signal','interference','none'})));
 parse(p,data,varargin{:});
 
 if ischar(data)
@@ -23,10 +24,12 @@ if isfield(data,'Rtime')
 end
 
 if isfield(data,'Rtrial')
-    if isempty(p.Results.sample)
+    if isempty(p.Results.samples)
         error('sample parameter is required');
     else
-        R = squeeze(data.Rtrial(p.Results.sample,:,:));
+        R = data.Rtrial(p.Results.samples,:,:);
+        R = mean(R,1); % [1 channels channels]
+        R = squeeze(R);
     end
 end
 
@@ -64,6 +67,17 @@ else
     
     print_stats(R,p.Results.neig);
 end
+
+for i=1:length(p.Results.SignalComponents)
+    sigcomp = p.Results.SignalComponents{i};
+    if ~isequal(sigcomp,'none')
+        Rsigcomp = aet_analysis_cov(data.(sigcomp));
+        
+        fprintf('Covariance of %s\n',sigcomp);
+        fprintf('---------------------\n');
+        
+        print_stats(Rsigcomp,p.Results.neig);
+    end
 
 end
 
