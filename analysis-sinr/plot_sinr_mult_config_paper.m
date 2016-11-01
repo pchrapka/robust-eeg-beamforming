@@ -128,7 +128,7 @@ for i=1:length(params)
         for k=1:length(p.Results.snrs)
             if p.Results.onaverage
                 metrics_avg.average = true;
-                metrics_avg.trial_idx = [];
+                metrics_avg.trial_idx = 0;
             else
                 metrics_avg.average = false;
                 metrics_avg.trial_idx = 1;

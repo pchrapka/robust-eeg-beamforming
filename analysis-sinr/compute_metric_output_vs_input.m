@@ -26,7 +26,7 @@ function [cfg] = compute_metric_output_vs_input(cfg)
 
 if ~isfield(cfg, 'force'), cfg.force = false; end
 if ~isfield(cfg.metrics, 'average'), cfg.metrics.average = true; end
-if ~isfield(cfg.metrics, 'trial_idx'), cfg.metrics.trial_idx = []; end
+if ~isfield(cfg.metrics, 'trial_idx'), cfg.metrics.trial_idx = 0; end
 
 % set up output file name
 if cfg.metrics.average

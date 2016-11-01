@@ -36,7 +36,7 @@ cfg.metrics.location_idx = p.Results.location;
 
 if p.Results.onaverage
     cfg.metrics.average = true;
-    cfg.metrics.trial_idx = [];
+    cfg.metrics.trial_idx = 0;
 else
     cfg.metrics.average = false;
     cfg.metrics.trial_idx = 1;
