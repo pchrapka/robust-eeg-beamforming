@@ -4,7 +4,7 @@ p = inputParser();
 addRequired(p,'data',@(x) isstruct(x) || ischar(x));
 addParameter(p,'neig',5,@(x) isvector(x) && length(x) == 1);
 addParameter(p,'reg',false,@islogical);
-addParameter(p,'samples',[],@(x) isvector(x) && length(x) == 1);
+addParameter(p,'samples',[],@isvector);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'SignalComponents',{'none'},@(x) any(validatestring(x,{'signal','interference','none'})));
