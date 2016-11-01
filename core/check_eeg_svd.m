@@ -8,7 +8,7 @@ addParameter(p,'samples',[],@isvector);
 addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'SignalComponents',{'none'},...
-    @(x) all(cellfun(@(y) any(validatestring(y,{'signal','interference','none'})), x)));
+    @(x) all(cellfun(@(y) any(validatestring(y,{'signal','interference','noise','none'})), x)));
 parse(p,data,varargin{:});
 
 if ischar(data)
@@ -73,11 +73,14 @@ for i=1:length(p.Results.SignalComponents)
     sigcomp = p.Results.SignalComponents{i};
     if ~isequal(sigcomp,'none')
         Rsigcomp = aet_analysis_cov(data.(sigcomp));
+        R = Rsigcomp(p.Results.samples,:,:);
+        R = mean(R,1); % [1 channels channels]
+        R = squeeze(R);
         
         fprintf('Covariance of %s\n',sigcomp);
         fprintf('---------------------\n');
         
-        print_stats(Rsigcomp,p.Results.neig);
+        print_stats(R,p.Results.neig);
     end
 
 end
