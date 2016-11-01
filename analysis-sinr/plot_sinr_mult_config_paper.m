@@ -88,7 +88,7 @@ for i=1:length(p.Results.hmconfigs)
                 'lcmv_eig_cov_1_locs2_3sphere',...
                 'lcmv_reg_eig_locs2_3sphere',...
                 };
-            params(k).tag = '-paper';
+            params(k).tag = '-paper-perturbed';
             params(k).matched = false;
             k = k+1;
             
@@ -107,7 +107,7 @@ for i=1:length(p.Results.hmconfigs)
                 ...'lcmv_eig_filter_1_locs2_3sphere',... temp
                 'lcmv_reg_eig_locs2_3sphere',...
                 };
-            params(k).tag = '-paper-eig';
+            params(k).tag = '-paper-perturbed-eig';
             params(k).matched = false;
             k = k+1;
         otherwise
