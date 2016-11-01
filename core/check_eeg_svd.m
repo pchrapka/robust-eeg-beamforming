@@ -80,6 +80,7 @@ for i=1:length(p.Results.SignalComponents)
     end
 
 end
+end
 
 function print_stats(R,neig)
 fprintf('eigenvalues:\n');
