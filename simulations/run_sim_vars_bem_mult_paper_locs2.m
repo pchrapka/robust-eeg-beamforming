@@ -15,7 +15,7 @@ addRequired(p,'sim_file',@ischar);
 addRequired(p,'source_file',@ischar);
 addRequired(p,'source_name',@ischar);
 addParameter(p,'hmconfigs',{'matched','mismatched'},...
-    @(y) all(cellfun(@(x) any(validatestring(y,{'matched','mismatched','mismatched_perturbed'})), x)));
+    @(y) all(cellfun(@(x) any(validatestring(x,{'matched','mismatched','mismatched_perturbed'})), y)));
 addParameter(p,'snrs',-10:5:30,@isvector);
 addParameter(p,'cov_type','time',@(x) any(validatestring(x,{'time','trial'})));
 addParameter(p,'cov_samples',[],@isvector);
