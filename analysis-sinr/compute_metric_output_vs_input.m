@@ -25,12 +25,22 @@ function [cfg] = compute_metric_output_vs_input(cfg)
 %       tag for saving the data
 
 if ~isfield(cfg, 'force'), cfg.force = false; end
+if ~isfield(cfg.metrics, 'average'), cfg.metrics.average = true; end
+if ~isfield(cfg.metrics, 'trial_idx'), cfg.metrics.trial_idx = []; end
 
 % set up output file name
-outfile = sprintf('metrics_%s_vs_%s_loc%d',...
-    strrep(cfg.metric_y,' ',''),...
-    strrep(cfg.metric_x,' ',''),...
-    cfg.metrics.location_idx);
+if cfg.metrics.average
+    outfile = sprintf('metrics_%s_vs_%s_loc%d_avg',...
+        strrep(cfg.metric_y,' ',''),...
+        strrep(cfg.metric_x,' ',''),...
+        cfg.metrics.location_idx);
+else
+    outfile = sprintf('metrics_%s_vs_%s_loc%d_trial%d',...
+        strrep(cfg.metric_y,' ',''),...
+        strrep(cfg.metric_x,' ',''),...
+        cfg.metrics.location_idx,...
+        cfg.metrics.trial_idx);
+end
 
 % Set up the output file name based on data set
 cfg.file_type = 'metrics'; % Set up a new metrics subdir
@@ -66,9 +76,11 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg_metrics.data_set = SimDataSetEEG(...
                 data_set.sim,data_set.source,snr,'iter',1);
             cfg_metrics.metrics{1}.name = cfg.metric_x;
-            %cfg_metrics.metrics(1).location_idx = cfg.metrics.location_idx;
+            cfg_metrics.metrics(1).average = cfg.metrics.average;
+            cfg_metrics.metrics(1).trial_idx = cfg.metrics.trial_idx;
             cfg_metrics.metrics{2}.name = cfg.metric_y;
             cfg_metrics.metrics{2}.location_idx = cfg.metrics.location_idx;
+            cfg_metrics.metrics(2).trial_idx = cfg.metrics.trial_idx;
             % Calculate the metrics
             %out = metrics.run_metrics_on_file(cfg_metrics);
             bdm = BeamformerDataMetrics(cfg_metrics.data_set,cfg_metrics.beam_cfg);

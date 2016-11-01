@@ -8,6 +8,7 @@ addParameter(p,'matched',true,@islogical);
 addParameter(p,'snrs',-20:0:20,@isvector);
 addParameter(p,'metricx','',@(x) ~isempty(x));
 addParameter(p,'metricy','',@(x) ~isempty(x));
+addParameter(p,'onaverage',true,@islogical);
 addParameter(p,'savetag','',@ischar);
 addParameter(p,'force',false,@islogical);
 parse(p,data_set,beamformers,locations,varargin{:});
@@ -32,6 +33,14 @@ cfg.save_tag = [cfg.save_tag p.Results.savetag];
 cfg.metric_x = p.Results.metricx;
 cfg.metric_y = p.Results.metricy;
 cfg.metrics.location_idx = p.Results.location;
+
+if p.Results.onaverage
+    cfg.metrics.average = true;
+    cfg.metrics.trial_idx = [];
+else
+    cfg.metrics.average = false;
+    cfg.metrics.trial_idx = 1;
+end
 
 % Compute SINR
 cfg = compute_metric_output_vs_input(cfg);
