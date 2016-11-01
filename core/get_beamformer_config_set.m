@@ -272,6 +272,16 @@ switch name
             {'BeamformerLCMV','eig_type','eig filter','ninterference',1},... temp
             {'BeamformerLCMV','regularization','eig'}};    
         
+    case 'sim_vars_mult_src_paper_mismatched_perturbed'
+        
+        % Beamformer configs
+        out.beamformer_config = {...
+            {'BeamformerRMV','aniso',true},...
+            {'BeamformerRMV','aniso',true,'eig_type','eig pre cov','ninterference',0},...
+            {'BeamformerRMV','aniso',true,'eig_type','eig pre cov','ninterference',1},...
+            {'BeamformerRMV','aniso',true,'eig_type','eig post','ninterference',1},...temp
+            };
+        
     case 'sim_vars_mult_src_extended_matched'
         
         % Beamformer configs
