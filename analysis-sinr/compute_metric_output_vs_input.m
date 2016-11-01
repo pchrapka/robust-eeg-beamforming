@@ -76,11 +76,11 @@ if ~exist(cfg.data_file, 'file') || cfg.force
             cfg_metrics.data_set = SimDataSetEEG(...
                 data_set.sim,data_set.source,snr,'iter',1);
             cfg_metrics.metrics{1}.name = cfg.metric_x;
-            cfg_metrics.metrics(1).average = cfg.metrics.average;
-            cfg_metrics.metrics(1).trial_idx = cfg.metrics.trial_idx;
+            cfg_metrics.metrics{1}.average = cfg.metrics.average;
+            cfg_metrics.metrics{1}.trial_idx = cfg.metrics.trial_idx;
             cfg_metrics.metrics{2}.name = cfg.metric_y;
             cfg_metrics.metrics{2}.location_idx = cfg.metrics.location_idx;
-            cfg_metrics.metrics(2).trial_idx = cfg.metrics.trial_idx;
+            cfg_metrics.metrics{2}.trial_idx = cfg.metrics.trial_idx;
             % Calculate the metrics
             %out = metrics.run_metrics_on_file(cfg_metrics);
             bdm = BeamformerDataMetrics(cfg_metrics.data_set,cfg_metrics.beam_cfg);
