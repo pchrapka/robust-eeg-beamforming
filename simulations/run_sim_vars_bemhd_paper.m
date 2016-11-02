@@ -23,7 +23,7 @@ addParameter(p,'matched','both',@(x) any(validatestring(x,{'matched','mismatched
 addParameter(p,'snrs',-10:5:30,@isvector);
 addParameter(p,'config','',@ischar);
 addParameter(p,'hmconfigs',{'matched','mismatched'},...
-    @(y) all(cellfun(@(x) any(validatestring(y,{'matched','mismatched','mismatched_perturbed'})), x)));
+    @(y) all(cellfun(@(x) any(validatestring(x,{'matched','mismatched','mismatched_perturbed'})), y)));
 addParameter(p,'locs','all',@(x) ischar(x) || isvector(x));
 parse(p,sim_file,source_file,source_name,varargin{:});
 
