@@ -2,6 +2,12 @@
 
 lumberjack.parfor_setup();
 
+%% scenario 1
+%   Description
+%   -----------
+%   Scenario where the covariance is computed across trials and samples and
+%   not from the ensemble average. The SNR is adjusted on the average
+
 sim_file = 'sim_data_bem_1_1000t_noavg';
 source_file = 'src_param_s1_randerp_s2_cnoise_neeg';
 source_name = 's1_randerp_s2_cnoise_neeg';
@@ -30,7 +36,7 @@ plot_sinr_mult_config_paper(...
 %   Description
 %   -----------
 %   Scenario where the covariance is computed across trials and samples and
-%   not from the ensemble average.
+%   not from the ensemble average. The SNR is adjusted for each trial.
 %
 %   Issue:
 %   The eigenspace MVB performs poorly in scenario 1 regardless of whether
