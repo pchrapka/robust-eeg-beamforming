@@ -18,6 +18,7 @@ else
     
     results = [];
     results(length(p.Results.trial_idx),1).snr = 0;
+    results(length(p.Results.trial_idx),1).snrdb = 0;
     W = obj.get_W(p.Results.location_idx);
     for i=1:length(p.Results.trial_idx)
         idx = p.Results.trial_idx(i);
