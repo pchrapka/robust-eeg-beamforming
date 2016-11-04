@@ -4,7 +4,8 @@
 % set up parallel execution
 lumberjack.parfor_setup();
 
-%% Low res simulations for Output SINR vs Input SNR
+%% Low res simulations for Output SINR vs Input SNR - mult src 17
+% Spatial correlation of 0.5
 
 % 5000 samples
 sim_file = 'sim_data_bem_1_100t_5000s';
@@ -26,6 +27,41 @@ plot_sinr_mult_config_paper(...
 sim_file = 'sim_data_bem_1_100t';
 source_file = 'src_param_mult_cortical_source_17_lag40';
 source_name = 'mult_cort_src_17_lag40';
+
+run_sim_vars_bem_mult_paper_locs2(...
+    sim_file, source_file, source_name,...
+    'snrs',-10:5:30,...
+    'hmconfigs',{'matched','mismatched','mismatched_perturbed'});
+
+% plots
+plot_sinr_mult_config_paper(...
+    sim_file, source_name,...
+    'snrs',-10:5:30,...
+    'hmconfigs',{'matched','mismatched','mismatched_perturbed'});
+
+%% Low res simulations for Output SINR vs Input SNR - mult src 18
+% Spatial correlation of 0
+
+% 5000 samples
+sim_file = 'sim_data_bem_1_100t_5000s';
+source_file = 'src_param_mult_cortical_source_18_lag40';
+source_name = 'mult_cort_src_18_lag40';
+
+run_sim_vars_bem_mult_paper_locs2(...
+    sim_file, source_file, source_name,...
+    'snrs',-10:5:30,...
+    'hmconfigs',{'matched','mismatched','mismatched_perturbed'});
+
+% plots
+plot_sinr_mult_config_paper(...
+    sim_file, source_name,...
+    'snrs',-10:5:30,...
+    'hmconfigs',{'matched','mismatched','mismatched_perturbed'});
+
+% 1000 samples
+sim_file = 'sim_data_bem_1_100t';
+source_file = 'src_param_mult_cortical_source_18_lag40';
+source_name = 'mult_cort_src_18_lag40';
 
 run_sim_vars_bem_mult_paper_locs2(...
     sim_file, source_file, source_name,...
