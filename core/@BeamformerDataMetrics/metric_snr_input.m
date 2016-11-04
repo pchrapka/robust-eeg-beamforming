@@ -2,7 +2,7 @@ function [output] = metric_snr_input(obj,varargin)
 
 p = inputParser();
 addParameter(p,'average',true,@islogical);
-addParameter(p,'trial_idx',[],@ (x) isvector(x) && length(x) == 1);
+addParameter(p,'trial_idx',[],@ (x) isvector(x));
 parse(p,varargin{:});
 
 if p.Results.average

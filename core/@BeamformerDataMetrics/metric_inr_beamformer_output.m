@@ -3,7 +3,7 @@ function [output] = metric_inr_beamformer_output(obj,varargin)
 p = inputParser();
 addParameter(p,'location_idx',[],@(x) ~isempty(x) && length(x) == 1);
 addParameter(p,'average',true,@islogical);
-addParameter(p,'trial_idx',[],@ (x) isvector(x) && length(x) == 1);
+addParameter(p,'trial_idx',[],@ (x) isvector(x));
 parse(p,varargin{:});
 
 if p.Results.average
