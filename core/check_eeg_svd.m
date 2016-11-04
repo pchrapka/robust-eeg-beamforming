@@ -9,19 +9,31 @@ addParameter(p,'projection',false,@islogical);
 addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'SignalComponents',{'none'},...
     @(x) all(cellfun(@(y) any(validatestring(y,{'signal','interference','noise','none'})), x)));
+addParameter(p,'R_type','none',@(x) any(validatestring(x,{'Rtrial','Rtime'})));
 parse(p,data,varargin{:});
 
+datafile = '';
 if ischar(data)
     % data file name
     
     % load data
     din = load(data);
+    datafile = data;
     
     data = din.data;
 end
 
 if isfield(data,'Rtime')
     R = data.Rtime;
+end
+
+if ~isfield(data,'Rtrial')
+    if isequal(p.Results.R_type,'Rtrial')
+        data.Rtrial = aet_analysis_cov(data.trials);
+        if ~isempty(datafile)
+            save(datafile, 'data','-v7.3');
+        end
+    end
 end
 
 if isfield(data,'Rtrial')
