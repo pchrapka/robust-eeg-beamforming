@@ -93,8 +93,12 @@ plot_sinr_mult_config_paper(...
 %   continuous or maybe be it's random
 
 sim_file = 'sim_data_bem_1_1000t_200s_keeptrials_snrpertrial';
-source_file = 'src_param_mult_cortical_source_17_lag40';
-source_name = 'mult_cort_src_17_lag40';
+% source_file = 'src_param_mult_cortical_source_17_lag40';
+% source_name = 'mult_cort_src_17_lag40';
+
+% spatially uncorrelated
+source_file = 'src_param_mult_cortical_source_18_lag40';
+source_name = 'mult_cort_src_18_lag40';
 
 run_sim_vars_bem_mult_paper_locs2(...
     sim_file, source_file, source_name,...
