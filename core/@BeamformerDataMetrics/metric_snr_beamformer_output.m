@@ -15,10 +15,21 @@ else
     if isempty(p.Results.trial_idx)
         error('trial_idx is required');
     end
-    output = BeamformerDataMetrics.snr_beamformer_output(...
-        obj.eegdata.signal{p.Results.trial_idx},...
-        obj.eegdata.noise{p.Results.trial_idx},...
-        obj.get_W(p.Results.location_idx));
+    
+    results = [];
+    results(length(p.Results.trial_idx),1).snr = 0;
+    W = obj.get_W(p.Results.location_idx);
+    for i=1:length(p.Results.trial_idx)
+        idx = p.Results.trial_idx(i);
+        results(i) = BeamformerDataMetrics.snr_beamformer_output(...
+            obj.eegdata.signal{idx},...
+            obj.eegdata.noise{idx},...
+            W);
+    end
+    
+    output = [];
+    output.snr = mean([results.snr]);
+    output.snrdb = mean([results.snrdb]);
 end
 
 output.location_idx = p.Results.location_idx;

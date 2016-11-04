@@ -9,13 +9,27 @@ if p.Results.average
     result = BeamformerDataMetrics.snr_input(...
         obj.eegdata.avg_interference,...
         obj.eegdata.avg_noise);
+    
+    output.inr = result.snr;
+    output.inrdb = result.snrdb;
 else
     if isempty(p.Results.trial_idx)
         error('trial_idx is required');
     end
-    result = BeamformerDataMetrics.snr_input(...
-        obj.eegdata.interference{p.Results.trial_idx},...
-        obj.eegdata.noise{p.Results.trial_idx});
+    
+    results = [];
+    results(length(p.Results.trial_idx),1).snr = 0;
+    W = obj.get_W(p.Results.location_idx);
+    for i=1:length(p.Results.trial_idx)
+        idx = p.Results.trial_idx(i);
+        results(i) = BeamformerDataMetrics.snr_input(...
+            obj.eegdata.interference{idx},...
+            obj.eegdata.noise{idx});
+    end
+    
+    result = [];
+    result.snr = mean([results.snr]);
+    result.snrdb = mean([results.snrdb]);
 end
 
 output.inr = result.snr;
