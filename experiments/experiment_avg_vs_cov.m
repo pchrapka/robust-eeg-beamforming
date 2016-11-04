@@ -32,21 +32,22 @@ b_power = mean(b.^2)
 %% compare covariance eigenvalues
 % data set 1: ensemble average data with SNR 10 dB
 % data set 2: single trial data with SNR 10 dB
+dataset = {};
 
 fprintf('\nmult17lag40 ensemble\n');
 sim_file = 'sim_data_bem_1_100t_5000s';
-source_file = 'src_param_mult_cortical_source_17_lag40';
+source_file = 'mult_cort_src_17_lag40';
 dataset{1} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
-check_eeg_svd(dataset{1},'neig',10);
+check_eeg_svd(dataset{1}.get_full_filename(),'neig',10);
 
 fprintf('\nmult17lag40 single\n');
 sim_file = 'sim_data_bem_1_1000t_200s_keeptrials_snrpertrial';
-source_file = 'src_param_mult_cortical_source_17_lag40';
+source_file = 'mult_cort_src_17_lag40';
 dataset{2} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
-check_eeg_svd(dataset{1},'neig',10,'samples',1:200);
+check_eeg_svd(dataset{2}.get_full_filename(),'neig',10,'samples',1:200);
 
 fprintf('\nmult18lag40 single\n');
 sim_file = 'sim_data_bem_1_1000t_200s_keeptrials_snrpertrial';
-source_file = 'src_param_mult_cortical_source_18_lag40';
-dataset{2} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
-check_eeg_svd(dataset{1},'neig',10,'samples',1:200);
+source_file = 'mult_cort_src_18_lag40';
+dataset{3} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
+check_eeg_svd(dataset{3}.get_full_filename(),'neig',10,'samples',1:200);
