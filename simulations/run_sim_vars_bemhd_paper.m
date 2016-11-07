@@ -54,12 +54,7 @@ k = 1;
 %% set up head models
 hmfactory = HeadModel();
 hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_15028V.mat');
-if p.Results.hm_perturb
-    hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V_perturb0.10.mat');
-    tag_mismatched = [tag_mismatched '_perturb0.10'];
-else
-    hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
-end
+hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
 
 %% Set up scripts to run
 
