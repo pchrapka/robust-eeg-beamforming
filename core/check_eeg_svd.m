@@ -10,6 +10,7 @@ addParameter(p,'nint',[],@(x) isvector(x) && length(x) == 1);
 addParameter(p,'SignalComponents',{'none'},...
     @(x) all(cellfun(@(y) any(validatestring(y,{'signal','interference','noise','none'})), x)));
 addParameter(p,'R_type','none',@(x) any(validatestring(x,{'Rtrial','Rtime'})));
+addParameter(p,'PlotCov',false,@islogical);
 parse(p,data,varargin{:});
 
 datafile = '';
@@ -73,12 +74,24 @@ if p.Results.projection
         PR = P*R;
         
         print_stats(PR,p.Results.neig);
+        
+        if p.Results.PlotCov
+            figure;
+            imagesc(PR);
+            title('Projected Covariance');
+        end
     end
 else
     fprintf('Original Covariance\n');
     fprintf('----------\n');
     
     print_stats(R,p.Results.neig);
+    
+    if p.Results.PlotCov
+        figure;
+        imagesc(PR);
+        title('Trial Covariance');
+    end
 end
 
 for i=1:length(p.Results.SignalComponents)
@@ -93,6 +106,12 @@ for i=1:length(p.Results.SignalComponents)
         fprintf('---------------------\n');
         
         print_stats(R,p.Results.neig);
+        
+        if p.Results.PlotCov
+            figure;
+            imagesc(R);
+            title(sprintf('%s Covariance',sigcomp));
+        end
     end
 
 end
