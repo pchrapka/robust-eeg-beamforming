@@ -11,10 +11,13 @@ parse(p,sim_file,source_name,varargin{:});
 %% Compute power
 force = false;
 params = [];
-k = 1;
 
 for i=1:length(p.Results.PlotGroups)
-    params(i) = get_plot_group(p.Results.PlotGroups{i}, p.Results.datatag);
+    if isempty(params)
+        params = get_plot_group(p.Results.PlotGroups{i}, p.Results.datatag);
+    else
+        params(i) = get_plot_group(p.Results.PlotGroups{i}, p.Results.datatag);
+    end
 end
 
 %% Set vars
