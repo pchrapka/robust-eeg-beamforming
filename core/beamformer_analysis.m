@@ -56,15 +56,11 @@ function beamformer_analysis(cfg)
 %
 %       Output options
 %       --------------
-%       time_idx (optional)
-%           selects only one time index of the beamformer output when
-%           saving the beamformer output, saves a considerable amount of
-%           space
 %       
 
 if ~isfield(cfg,'force'),           cfg.force = false; end
 if ~isfield(cfg,'cov_type'),        cfg.cov_type = 'time'; end
-if ~isfield(cfg,'cov_samples'),      cfg.cov_samples = 1:100; end % this should cause an error
+if ~isfield(cfg,'cov_samples'),     cfg.cov_samples = []; end
 
 %% Load the beamformer
 fbeamformer = str2func(cfg.beamformer_config{1});

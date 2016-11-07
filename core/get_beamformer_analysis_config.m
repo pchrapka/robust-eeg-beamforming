@@ -48,34 +48,37 @@ else
 end
 k = k+1;
 
-% fields with single options
-% NOTE limitation in naming convention
-fields_single = {...
-    'head',...
-    'loc',...
-    'tag',...
-    'time_idx',...
-    'cov_type',...
-    'sample_idx',...
-    'force',...
-    };
-
-for i=1:length(fields_single)
-    field = fields_single{i};
-    if isfield(cfg,field)
-        params(k).name = field;
-        
-        data = cfg.(field);
-        if iscell(data)
-            if length(data) > 1
-                error('too many permutations');
+% Fields with single options
+% Copy data if there's only one option
+fields_cfg = fieldnames(cfg);
+for j=1:length(fields_cfg)
+    field_cfg = fields_cfg{j};
+    switch field_cfg
+        case {'data_file','beamformer_config'}
+            % do nothing
+        case {'head',...
+                'loc',...
+                'tag',...
+                'cov_type',...
+                'cov_samples',...
+                'data_samples',...
+                'force'}
+            
+            params(k).name = field_cfg;
+            
+            data = cfg.(field_cfg);
+            if iscell(data)
+                if length(data) > 1
+                    error('too many permutations');
+                else
+                    params(k).values = data;
+                end
             else
-                params(k).values = data;
+                params(k).values = {data};
             end
-        else
-            params(k).values = {data};
-        end
-        k = k+1;
+            k = k+1;
+        otherwise
+            error('unknown field for beamformer_analysis');
     end
 end
 
