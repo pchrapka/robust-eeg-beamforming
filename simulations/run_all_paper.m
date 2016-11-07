@@ -4,7 +4,7 @@
 % set up parallel execution
 lumberjack.parfor_setup();
 
-%% Low res simulations for Output SINR vs Input SNR - mult src 17
+%% Low res simulations for Output SINR vs Input SNR
 % Spatial correlation of 0.5
 
 k=1;
