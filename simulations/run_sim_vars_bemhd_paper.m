@@ -25,6 +25,9 @@ addParameter(p,'config','',@ischar);
 addParameter(p,'hmconfigs',{'matched','mismatched'},...
     @(y) all(cellfun(@(x) any(validatestring(x,{'matched','mismatched','mismatched_perturbed'})), y)));
 addParameter(p,'locs','all',@(x) ischar(x) || isvector(x));
+addParameter(p,'cov_type','time',@(x) any(validatestring(x,{'time','trial'})));
+addParameter(p,'cov_samples',[],@isvector);
+addParameter(p,'perturb','none',@(x) any(validatestring(x,{'none','perturb0.10'})));
 parse(p,sim_file,source_file,source_name,varargin{:});
 
 % set the beamformer configs
@@ -39,24 +42,51 @@ switch p.Results.config
         error('unknown beamformer config set');
 end
 
-if isequal(p.Results.locs,'all')  
+if isequal(p.Results.locs,'all')
     locs = 1:15028;
-    tag_matched = [];
-    tag_mismatched = '3sphere';
 else
     locs = p.Results.locs;
-    tag_matched = sprintf('locs%d',length(p.Results.locs));
-    tag_mismatched = sprintf('locs%d_3sphere',length(p.Results.locs));
 end
 
-k = 1;
+%% set up tag
+
+if isequal(p.Results.locs,'all')
+    tag_base = 'locsall';
+else
+    tag_base = sprintf('locs%d',length(p.Results.locs));
+end
+
+switch p.Results.cov_type
+    case 'time'
+        tag_params = sprintf('%s_cov%s',tag_base,p.Results.cov_type);
+    case 'trial'
+        tag_params = sprintf('%s_cov%s_s%d-%d',tag_base,p.Results.cov_type,...
+            p.Results.cov_samples(1),p.Results.cov_samples(2));
+end
+
+tag_matched = tag_params;
+
+switch p.Results.perturb
+    case 'none'
+        tag_mismatched = [tag_params '_3sphere'];
+    case 'perturb0.10'
+        tag_mismatched = [tag_params '_' p.Results.perturb '_3sphere'];
+end
 
 %% set up head models
 hmfactory = HeadModel();
 hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_15028V.mat');
 hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
+switch p.Results.perturb
+    case 'none'
+        hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
+    case 'perturb0.10'
+        hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V_perturb0.10.mat');
+end
 
 %% Set up scripts to run
+k = 1;
+scripts = [];
 
 % Simulate ERP data
 scripts(k).func = @simulation_data;
@@ -102,7 +132,6 @@ for i=1:length(p.Results.hmconfigs)
             scripts(k).vars = {cfg};
             k = k+1;
             
-            
         case 'mismatched'
             % ==== MISMATCHED LEADFIELD ====
             
@@ -115,33 +144,6 @@ for i=1:length(p.Results.hmconfigs)
             cfg_simvars_setup.head.current = hm_3sphere;
             cfg_simvars_setup.head.actual = hm_bem;
             cfg_simvars_setup.loc = locs;
-            cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
-            cfg = struct(...
-                'sim_vars',             cfg_simvars,...
-                'analysis_run_func',    @beamformer_analysis,...
-                ...Allow parallel execution of the scans
-                'parallel',             false,...
-                'debug',                false);
-            scripts(k).vars = {cfg};
-            k = k+1;
-            
-        case 'mismatched_perturbed'
-            hm_bem_perturb = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V_perturb0.10.mat');
-            tag_mismatched2 = [tag_mismatched '_perturb0.10'];
-            % ==== MISMATCHED LEADFIELD ====
-            % ==== PERTURBED HEAD MODEL ====
-            
-            scripts(k).func = @sim_vars.run;
-            cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched_perturbed');
-            cfg_simvars_setup.data_file = data_files;
-            cfg_simvars_setup.force = force;
-            cfg_simvars_setup.tag = tag_mismatched2;
-            cfg_simvars_setup.head = [];
-            cfg_simvars_setup.head.current = hm_3sphere;
-            cfg_simvars_setup.head.actual = hm_bem_perturb;
-            cfg_simvars_setup.loc = [295,400];
-            cfg_simvars_setup.cov_type = p.Results.cov_type;
-            cfg_simvars_setup.cov_samples = p.Results.cov_samples;
             cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
             cfg = struct(...
                 'sim_vars',             cfg_simvars,...
