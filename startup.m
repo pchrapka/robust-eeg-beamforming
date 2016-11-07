@@ -339,4 +339,4 @@ else
         'run install_deps.sh (tested on linux). And rerun startup.m']);
 end
 
-%clear all;
+clear all;
