@@ -157,16 +157,17 @@ switch cfg.cov_type
         
         % compute trial-wise covariance if it doesn't exist
         if ~isfield(data,'Rtrial')
-            data.Rtrial = aet_analysis_cov(data.trials);
+            Rtrial = aet_analysis_cov(data.trials);
             %save_to_file = false;
             % don't save to file, it's faster to re-compute than to reload
             % and takes up a lot of disk space
         end
         
         % select covariance for a specific cov_samples
-        R = data.Rtrial(cfg.cov_samples,:,:);
+        R = Rtrial(cfg.cov_samples,:,:);
         R = mean(R,1); % [1 channels channels]
         R = squeeze(R);
+        clear Rtrial
         
     otherwise
         error('unknown covariance type');
