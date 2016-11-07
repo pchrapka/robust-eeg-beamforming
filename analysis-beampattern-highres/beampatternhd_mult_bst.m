@@ -2,7 +2,7 @@
 %% NOTE Use beampattern_report instead
 
 %% Options
-sim_name = 'sim_data_bemhd_1_100t';
+sim_name = 'sim_data_bemhd_1_100t_1000s';
 voxel_idx = 5440;
 % voxel_idx = 13841;
 

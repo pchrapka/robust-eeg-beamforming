@@ -82,6 +82,6 @@ shift $((OPTIND-1))
 #echo "${INCLUDES[@]}"
 #echo "${EXCLUDES[@]}"
 
-rsync -rvz --progress "${INCLUDES[@]}" "${EXCLUDES[@]}" chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t/
+rsync -rvz --progress "${INCLUDES[@]}" "${EXCLUDES[@]}" chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t_1000s/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_1_100t_1000s/
 
 #rsync -rvz --include='*1-100.mat' chrapkpk@blade16:Documents/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/ ~/projects/robust-eeg-beamforming-paper/output/sim_data_bem_100_100t/

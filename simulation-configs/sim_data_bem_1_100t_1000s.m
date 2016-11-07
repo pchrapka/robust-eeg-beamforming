@@ -1,10 +1,4 @@
-%% sim_data_bemhd_1_100t
-% Options:
-% high resolution head model
-% 1 iteration 
-% 100 trials
-
-%% Parameter file
+%% sim_data_bem_1_100t_1000s
 sim_cfg.sim_name = mfilename; % Get current file name
 % optional field for extra naming flexibility
 % FIXME Instead of this consider adding an output file field to the
@@ -16,7 +10,7 @@ sim_cfg.parallel = 'user';
 
 %% Head model
 hmfactory = HeadModel();
-sim_cfg.head = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
+sim_cfg.head = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
 
 % Figure out number of channels
 gain_temp = sim_cfg.head.get_leadfield(1);

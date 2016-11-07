@@ -1,7 +1,7 @@
 
 
 %% Options
-sim_name = 'sim_data_bem_1_100t';
+sim_name = 'sim_data_bem_1_100t_1000s';
 
 %% Visualize the beampattern
 source_name = 'single_cort_src_1';

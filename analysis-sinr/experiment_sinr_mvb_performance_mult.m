@@ -8,7 +8,7 @@ params = [];
 k = 1;
 
 
-params(k).sim_file = 'sim_data_bem_1_100t';
+params(k).sim_file = 'sim_data_bem_1_100t_1000s';
 params(k).source_file = 'src_param_mult_cortical_source_17_lag40';
 params(k).source_name = 'mult_cort_src_17_lag40';
 k = k+1;

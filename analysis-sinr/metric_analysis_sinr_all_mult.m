@@ -41,7 +41,7 @@ for j=1:length(source_names)
     cfg.beam_cfgs = beam_cfgs_matched;
     
     % Set up simulation info
-    cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+    cfg.data_set.sim_name = 'sim_data_bem_1_100t_1000s';
     cfg.data_set.source_name = source_names{j};
     cfg.data_set.snr = '';
     cfg.data_set.iteration = '1';
@@ -99,7 +99,7 @@ for j=1:length(source_names)
     cfg.beam_cfgs = beam_cfgs_mismatched;
     
     % Set up simulation info
-    cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+    cfg.data_set.sim_name = 'sim_data_bem_1_100t_1000s';
     cfg.data_set.source_name = source_names{j};
     cfg.data_set.snr = '';
     cfg.data_set.iteration = '1';

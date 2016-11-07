@@ -5,7 +5,7 @@ function [cfg] = beamform_components(cfg)
 %       struct describing data set
 %   
 %       example:
-%       cfg.data_set.sim_name = 'sim_data_bem_1_100t';
+%       cfg.data_set.sim_name = 'sim_data_bem_1_100t_1000s';
 %       cfg.data_set.source_name = 'mult_cort_src_17';
 %       cfg.data_set.snr = 0;
 %       cfg.data_set.iteration = '1';

@@ -14,7 +14,7 @@ classdef rms_calc_input_signal_test < TestCase
 
         function test_single_src_1(self)
             cfg = [];
-            cfg.sim_name = 'sim_data_bem_1_100t';
+            cfg.sim_name = 'sim_data_bem_1_100t_1000s';
             cfg.source_name = 'single_cort_src_1';
             input_signal = rms.rms_calc_input_signal(cfg);
             % Check if we have 1 source in the output
@@ -27,7 +27,7 @@ classdef rms_calc_input_signal_test < TestCase
         
         function test_mult_src_10(self)
             cfg = [];
-            cfg.sim_name = 'sim_data_bem_1_100t';
+            cfg.sim_name = 'sim_data_bem_1_100t_1000s';
             cfg.source_name = 'mult_cort_src_10';
             input_signal = rms.rms_calc_input_signal(cfg);
             % Check if we have 2 sources in the output
@@ -40,7 +40,7 @@ classdef rms_calc_input_signal_test < TestCase
         
         function test_distr_src_2(self)
             cfg = [];
-            cfg.sim_name = 'sim_data_bem_1_100t';
+            cfg.sim_name = 'sim_data_bem_1_100t_1000s';
             cfg.source_name = 'distr_cort_src_2';
             input_signal = rms.rms_calc_input_signal(cfg);
             % Check if we have 33 sources in the output

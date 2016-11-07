@@ -19,7 +19,7 @@ beam_cfgs = {...
     'rmv_epsilon_150_3sphere',...
     'rmv_aniso_3sphere'};
 
-sim_name = 'sim_data_bem_1_100t';
+sim_name = 'sim_data_bem_1_100t_1000s';
 % source_name = 'single_cort_src_1';
 % source_config = 'src_param_single_cortical_source_1';
 source_name = 'mult_cort_src_17';

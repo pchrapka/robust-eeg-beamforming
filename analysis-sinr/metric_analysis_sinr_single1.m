@@ -7,4 +7,4 @@
 
 %% Compute sinr
 
-plot_sinr_single_config_paper('sim_data_bem_1_100t','single_cort_src_1');
+plot_sinr_single_config_paper('sim_data_bem_1_100t_1000s','single_cort_src_1');

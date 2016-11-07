@@ -6,7 +6,7 @@ function plot_beampatternhd_diff_mult17hd(cfg)
 %       filename of beampattern data B
 
 data_set = SimDataSetEEG(...
-    'sim_data_bemhd_1_100t','mult_cort_src_17hd',0,'iter',1);
+    'sim_data_bemhd_1_100t_1000s','mult_cort_src_17hd',0,'iter',1);
 
 cfgsave = [];
 cfgsave.data_set = data_set;

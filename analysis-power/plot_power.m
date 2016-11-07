@@ -6,7 +6,7 @@ save_images = false;
 
 %% ==== mult_cort_src_17 ====
 
-sim_name = 'sim_data_bem_1_100t';
+sim_name = 'sim_data_bem_1_100t_1000s';
 source_name = 'mult_cort_src_17';
 snr = '0';
 % mismatch = true;
