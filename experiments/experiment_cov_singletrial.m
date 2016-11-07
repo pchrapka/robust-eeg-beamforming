@@ -12,7 +12,6 @@
 %   I would expect them to be the same. But that's not the case.
 
 snr_step = 10;
-warning('on','all');
 
 sim_file = 'sim_data_bem_1_1t_5000s_keeptrials_snrpertrial';
 source_file = 'src_param_mult_cortical_source_17_lag40';

@@ -3,7 +3,6 @@
 %% Open the parallel pipeline
 % set up parallel execution
 lumberjack.parfor_setup();
-warning('on','all');
 
 %% Low res simulations for Output SINR vs Input SNR
 % Spatial correlation of 0.5

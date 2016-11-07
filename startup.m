@@ -340,3 +340,4 @@ else
 end
 
 clear all;
+warning('on','all');
