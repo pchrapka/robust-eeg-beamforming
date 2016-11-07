@@ -230,8 +230,6 @@ parfor i=1:n_scans
     progbar.progress();
     
     idx = scan_locs(i);
-%     fprintf('%s snr %d iter %d loc %d %d/%d\n',...
-%         beamformer.name, out_snr, out_iteration, idx, i, n_scans);
     
     % set up args for inverse
     args = {};
