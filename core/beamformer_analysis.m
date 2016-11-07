@@ -141,17 +141,6 @@ switch cfg.cov_type
             error('cov samples is required');
         end
         
-        % compute trial-wise covariance if it doesn't exist
-        if ~isfield(data,'Rtrial')
-            data.Rtrial = aet_analysis_cov(data.trials);
-            save_to_file = true;
-        end
-        
-        % select covariance for a specific cov_samples
-        R = data.Rtrial(cfg.cov_samples,:,:);
-        R = mean(R,1); % [1 channels channels]
-        R = squeeze(R);
-        
         if ~isfield(data,'avg_trials')
             data.avg_trials = zeros(size(data.trials{1}));
             for i=1:length(data.trials)
@@ -165,6 +154,20 @@ switch cfg.cov_type
             % Calculate it once and save it to the data file
             save(cfg.data_file, 'data','-v7.3');
         end
+        
+        % compute trial-wise covariance if it doesn't exist
+        if ~isfield(data,'Rtrial')
+            data.Rtrial = aet_analysis_cov(data.trials);
+            %save_to_file = false;
+            % don't save to file, it's faster to re-compute than to reload
+            % and takes up a lot of disk space
+        end
+        
+        % select covariance for a specific cov_samples
+        R = data.Rtrial(cfg.cov_samples,:,:);
+        R = mean(R,1); % [1 channels channels]
+        R = squeeze(R);
+        
     otherwise
         error('unknown covariance type');
 end
