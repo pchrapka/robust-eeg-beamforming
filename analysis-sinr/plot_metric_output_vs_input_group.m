@@ -4,7 +4,7 @@ p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'location',@(x) ~isempty(x) && isvector(x) && length(x) == 1);
-addRequired(p,'datatag','',@ischar);
+addRequired(p,'datatag',@ischar);
 addParameter(p,'matched',true,@islogical);
 addParameter(p,'snrs',-20:0:20,@isvector);
 addParameter(p,'metricx','',@(x) ~isempty(x));
