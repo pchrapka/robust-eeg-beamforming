@@ -32,7 +32,7 @@ switch p.Results.cov_type
         tag_params = sprintf('%s_cov%s',tag_base,p.Results.cov_type);
     case 'trial'
         tag_params = sprintf('%s_cov%s_s%d-%d',tag_base,p.Results.cov_type,...
-            p.Results.cov_samples(1),p.Results.cov_samples(2));
+            p.Results.cov_samples(1),p.Results.cov_samples(end));
 end
 
 tag_matched = tag_params;
