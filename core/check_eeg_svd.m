@@ -76,9 +76,7 @@ if p.Results.projection
         print_stats(PR,p.Results.neig);
         
         if p.Results.PlotCov
-            figure;
-            imagesc(PR);
-            title('Projected Covariance');
+            plot_r(R,'Projected Covariance');
         end
     end
 else
@@ -88,33 +86,50 @@ else
     print_stats(R,p.Results.neig);
     
     if p.Results.PlotCov
-        figure;
-        imagesc(PR);
-        title('Trial Covariance');
+        plot_r(R,'Trial Covariance');
     end
 end
 
 for i=1:length(p.Results.SignalComponents)
     sigcomp = p.Results.SignalComponents{i};
     if ~isequal(sigcomp,'none')
-        Rsigcomp = aet_analysis_cov(data.(sigcomp));
-        R = Rsigcomp(p.Results.samples,:,:);
-        R = mean(R,1); % [1 channels channels]
-        R = squeeze(R);
+        if isfield(data,sigcomp)
+            Rsigcomp = aet_analysis_cov(data.(sigcomp));
+            R = Rsigcomp(p.Results.samples,:,:);
+            R = mean(R,1); % [1 channels channels]
+            R = squeeze(R);
+        else
+            
+            if isfield(data,['avg_' sigcomp])
+                sigcomp = ['avg_' sigcomp];
+            else
+                fprintf('can''t find signal component: %s\n',sigcomp);
+                break
+            end
+            R = aet_analysis_cov(data.(sigcomp));
+        end
         
         fprintf('Covariance of %s\n',sigcomp);
         fprintf('---------------------\n');
-        
-        print_stats(R,p.Results.neig);
+        try
+            print_stats(R,p.Results.neig);
+        catch e
+            warning('issue with print_stats');
+        end 
         
         if p.Results.PlotCov
-            figure;
-            imagesc(R);
-            title(sprintf('%s Covariance',sigcomp));
+            plot_r(R,sprintf('%s Covariance',sigcomp));
         end
     end
 
 end
+end
+
+function plot_r(R,label)
+figure;
+imagesc(R);
+title(label);
+colorbar;
 end
 
 function print_stats(R,neig)

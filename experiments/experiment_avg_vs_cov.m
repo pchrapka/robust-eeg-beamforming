@@ -19,7 +19,7 @@ a_power = trace(a*a'/nsamples)
 a_power = mean(a_zero.^2)
 a_power = mean(a.^2)
 
-b = sqrt(length(b)/length(a))*[a zeros(1,400)];
+b = sqrt((length(a) + 400)/length(a))*[a zeros(1,400)];
 aet_analysis_power(b)
 
 nsamples = length(b);
@@ -32,6 +32,8 @@ b_power = mean(b.^2)
 %% compare covariance eigenvalues
 % data set 1: ensemble average data with SNR 10 dB
 % data set 2: single trial data with SNR 10 dB
+
+close all;
 
 cfg = [];
 cfg.sim_data = 'sim_data_bem_1_100t_5000s_keeptrials_snrpertrial';
@@ -48,7 +50,7 @@ sim_file = 'sim_data_bem_1_100t_5000s';
 source_file = 'mult_cort_src_17_lag40';
 dataset{1} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
 check_eeg_svd(dataset{1}.get_full_filename(),...
-    'neig',10,'PlotCov',true);
+    'neig',10,'SignalComponents',{'signal','interference','noise'},'PlotCov',true);
 
 fprintf('\nmult17lag40 single 5000s\n');
 sim_file = 'sim_data_bem_1_100t_5000s_keeptrials_snrpertrial';
@@ -56,18 +58,21 @@ sim_file = 'sim_data_bem_1_100t_5000s_keeptrials_snrpertrial';
 source_file = 'mult_cort_src_17_lag40_smallnoise';
 dataset{2} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
 check_eeg_svd(dataset{2}.get_full_filename(),...
-    'neig',10,'samples',1:5000,'R_type','Rtrial','PlotCov',true);
+    'neig',10,'samples',1:5000,'R_type','Rtrial','PlotCov',true,...
+    'SignalComponents',{'signal','interference','noise'});
 
 fprintf('\nmult17lag40 single 200s\n');
 sim_file = 'sim_data_bem_1_1000t_200s_keeptrials_snrpertrial';
 source_file = 'mult_cort_src_17_lag40';
 dataset{3} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
 check_eeg_svd(dataset{3}.get_full_filename(),...
-    'neig',10,'samples',1:200,'PlotCov',true);
+    'neig',10,'samples',1:200,'PlotCov',true,...
+    'SignalComponents',{'signal','interference','noise'});
 
 fprintf('\nmult18lag40 single 200s\n');
 sim_file = 'sim_data_bem_1_1000t_200s_keeptrials_snrpertrial';
 source_file = 'mult_cort_src_18_lag40';
 dataset{4} = SimDataSetEEG(sim_file,source_file,10,'iter',1);
 check_eeg_svd(dataset{4}.get_full_filename(),...
-    'neig',10,'samples',1:200,'PlotCov',true);
+    'neig',10,'samples',1:200,'PlotCov',true,...
+    'SignalComponents',{'signal','interference','noise'});
