@@ -1,9 +1,10 @@
-function plot_metric_output_vs_input_group(data_set,beamformers,locations,varargin)
+function plot_metric_output_vs_input_group(data_set,beamformers,locations,datatag,varargin)
 
 p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'location',@(x) ~isempty(x) && isvector(x) && length(x) == 1);
+addRequired(p,'datatag','',@ischar);
 addParameter(p,'matched',true,@islogical);
 addParameter(p,'snrs',-20:0:20,@isvector);
 addParameter(p,'metricx','',@(x) ~isempty(x));
@@ -12,7 +13,7 @@ addParameter(p,'onaverage',true,@islogical);
 addParameter(p,'trial_idx',0,@isvector);
 addParameter(p,'savetag','',@ischar);
 addParameter(p,'force',false,@islogical);
-parse(p,data_set,beamformers,locations,varargin{:});
+parse(p,data_set,beamformers,locations,datatag,varargin{:});
 
 cfg = [];
 cfg.force = p.Results.force;
@@ -29,6 +30,7 @@ else
     cfg.save_tag = 'mismatched';
 end
 cfg.save_tag = [cfg.save_tag p.Results.savetag];
+cfg.data_tag = p.Results.datatag;
 
 % Set up metric
 cfg.metric_x = p.Results.metricx;

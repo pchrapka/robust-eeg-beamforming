@@ -1,5 +1,6 @@
 function params = get_plot_group(name, datatag)
 
+params.name = name;
 switch name
     case 'matched-paper'
         params.beamformer_configs = {...
