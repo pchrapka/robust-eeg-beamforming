@@ -81,7 +81,7 @@ switch p.Results.perturb
     case 'none'
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
     case 'perturb0.10'
-        hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V_perturb0.10.mat');
+        hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V_perturb0.10.mat');
 end
 
 %% Set up scripts to run
