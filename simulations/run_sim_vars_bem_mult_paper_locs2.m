@@ -30,13 +30,10 @@ tag_base = 'locs2';
 switch p.Results.cov_type
     case 'time'
         % Allow parallel execution of the permutations, not scans
-        parallel = true;
         tag_params = sprintf('%s_cov%s',tag_base,p.Results.cov_type);
     case 'trial'
         tag_params = sprintf('%s_cov%s_s%d-%d',tag_base,p.Results.cov_type,...
             p.Results.cov_samples(1),p.Results.cov_samples(end));
-        % Allow parallel execution of the scans, not permutations
-        parallel = false;
 end
 
 tag_matched = tag_params;
@@ -100,7 +97,7 @@ for i=1:length(p.Results.hmconfigs)
             cfg = struct(...
                 'sim_vars',             cfg_simvars,...
                 'analysis_run_func',    @beamformer_analysis,...
-                'parallel',             parallel,...
+                'parallel',             false,... data sets can be too big
                 'debug',                false);
             scripts(k).vars = {cfg};
             k = k+1;
@@ -123,7 +120,7 @@ for i=1:length(p.Results.hmconfigs)
             cfg = struct(...
                 'sim_vars',             cfg_simvars,...
                 'analysis_run_func',    @beamformer_analysis,...
-                'parallel',             parallel,...
+                'parallel',             false,... data sets can be too big
                 'debug',                false);
             scripts(k).vars = {cfg};
             k = k+1;
