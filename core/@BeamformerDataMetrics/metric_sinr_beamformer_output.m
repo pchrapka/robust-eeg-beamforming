@@ -3,7 +3,7 @@ function [output] = metric_sinr_beamformer_output(obj,varargin)
 p = inputParser();
 addParameter(p,'location_idx',[],@(x) ~isempty(x) && length(x) == 1);
 addParameter(p,'average',true,@islogical);
-addParameter(p,'trial_idx',[],@ (x) isvector(x));
+addParameter(p,'trial_idx',[],@isvector);
 parse(p,varargin{:});
 
 if p.Results.average
@@ -17,22 +17,36 @@ else
         error('trial_idx is required');
     end
     
-    results = [];
-    results(length(p.Results.trial_idx),1).sinr = 0;
-    results(length(p.Results.trial_idx),1).sinrdb = 0;
     W = obj.get_W(p.Results.location_idx);
-    for i=1:length(p.Results.trial_idx)
-        idx = p.Results.trial_idx(i);
-        results(i) = BeamformerDataMetrics.sinr_beamformer_output(...
-            obj.eegdata.signal{idx},...
-            obj.eegdata.interference{idx},...
-            obj.eegdata.noise{idx},...
-            W);
-    end
+    signal = [obj.eegdata.signal{p.Results.trial_idx}];
+    interference = [obj.eegdata.interference{p.Results.trial_idx}];
+    noise = [obj.eegdata.noise{p.Results.trial_idx}];
     
-    output = [];
-    output.sinr = mean([results.sinr]);
-    output.sinrdb = mean([results.sinrdb]);
+    results = BeamformerDataMetrics.sinr_beamformer_output(...
+        signal,...
+        interference,...
+        noise,...
+        W);
+    
+    output =  results;
+    
+    
+%     results = [];
+%     results(length(p.Results.trial_idx),1).sinr = 0;
+%     results(length(p.Results.trial_idx),1).sinrdb = 0;
+%     W = obj.get_W(p.Results.location_idx);
+%     for i=1:length(p.Results.trial_idx)
+%         idx = p.Results.trial_idx(i);
+%         results(i) = BeamformerDataMetrics.sinr_beamformer_output(...
+%             obj.eegdata.signal{idx},...
+%             obj.eegdata.interference{idx},...
+%             obj.eegdata.noise{idx},...
+%             W);
+%     end
+%     
+%     output = [];
+%     output.sinr = mean([results.sinr]);
+%     output.sinrdb = mean([results.sinrdb]);
 end
 
 output.location_idx = p.Results.location_idx;
