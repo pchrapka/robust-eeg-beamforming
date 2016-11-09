@@ -3,14 +3,23 @@ function [output] = metric_snr_beamformer_output(obj,varargin)
 p = inputParser();
 addParameter(p,'location_idx',[],@(x) ~isempty(x) && length(x) == 1);
 addParameter(p,'average',true,@islogical);
-addParameter(p,'trial_idx',[],@ (x) isvector(x));
+addParameter(p,'trial_idx',[],@isvector);
+addParameter(p,'data_idx',[],@isvector);
 parse(p,varargin{:});
 
+if isempty(p.Results.data_idx)
+    data_idx = 1:size(obj.eegdata.avg_signal,2);
+else
+    data_idx = p.Results.data_idx;
+end
+
 if p.Results.average
+    
     output = BeamformerDataMetrics.snr_beamformer_output(...
-        obj.eegdata.avg_signal,...
-        obj.eegdata.avg_noise,...
+        obj.eegdata.avg_signal(:,data_idx),...
+        obj.eegdata.avg_noise(:,data_idx),...
         obj.get_W(p.Results.location_idx));
+    else
 else
     if isempty(p.Results.trial_idx)
         error('trial_idx is required');
@@ -23,8 +32,8 @@ else
     for i=1:length(p.Results.trial_idx)
         idx = p.Results.trial_idx(i);
         results(i) = BeamformerDataMetrics.snr_beamformer_output(...
-            obj.eegdata.signal{idx},...
-            obj.eegdata.noise{idx},...
+            obj.eegdata.signal{idx}(:,data_idx),...
+            obj.eegdata.noise{idx}(:,data_idx),...
             W);
     end
     
@@ -36,5 +45,6 @@ end
 output.location_idx = p.Results.location_idx;
 output.average = p.Results.average;
 output.trial_idx = p.Results.trial_idx;
+output.data_idx = p.Results.data_idx;
 
 end
