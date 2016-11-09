@@ -26,11 +26,9 @@ if p.Results.average
     signal = signal(:,data_idx);
     noise = noise(:,data_idx);
     
-    output = BeamformerDataMetrics.snr_input(...
+    result = BeamformerDataMetrics.snr_input(...
         signal, noise, 'ZeroMean', do_zero_mean);
     
-    output.inr = result.snr;
-    output.inrdb = result.snrdb;
 else
     if isempty(p.Results.trial_idx)
         error('trial_idx is required');
