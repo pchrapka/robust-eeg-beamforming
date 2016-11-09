@@ -187,9 +187,9 @@ classdef BeamformerDataMetrics < handle
     
     methods (Static)
         % Helper metric functions
-        [output] = snr_beamformer_output(S,N,W);
-        [output] = sinr_beamformer_output(S,I,N,W);
-        [output] = snr_input(S,N);
+        [output] = snr_beamformer_output(S,N,W,varargin);
+        [output] = sinr_beamformer_output(S,I,N,W,varargin);
+        [output] = snr_input(S,N,varargin);
         
         % Validation
         [result] = validate_signal_matrix(A)
