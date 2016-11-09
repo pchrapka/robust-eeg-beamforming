@@ -32,7 +32,6 @@ if p.Results.average
     
     output = BeamformerDataMetrics.snr_beamformer_output(...
         signal, noise, W, 'ZeroMean', do_zero_mean);
-    else
 else
     if isempty(p.Results.trial_idx)
         error('trial_idx is required');
