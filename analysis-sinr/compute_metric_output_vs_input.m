@@ -123,6 +123,10 @@ if ~exist(cfg.data_file, 'file') || cfg.force
                     output.data(i,1) = out.metrics{1}.snrdb;
                     output.label_x = 'Input SNR (dB)';
                     
+                case 'inr-input'
+                    output.data(i,1) = out.metrics{1}.inrdb;
+                    output.label_x = 'Input INR (dB)';
+                    
                 otherwise
                     error('unknown metric %s', cfg.metric_x);
             end
