@@ -6,10 +6,12 @@ addParameter(p,'trial_idx',[],@(x) isempty(x) || isvector(x));
 addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 parse(p,varargin{:});
 
+do_zero_mean = false;
 if isempty(p.Results.data_idx)
     data_idx = 1:size(obj.eegdata.avg_signal,2);
 else
     data_idx = p.Results.data_idx;
+    do_zero_mean = true;
 end
 
 if p.Results.average
