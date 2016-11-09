@@ -33,7 +33,7 @@ if p.Results.average
     interference = interference(:,data_idx);
     noise = noise(:,data_idx);
     
-    output = BeamformerDataMetrics.sinr_beamformer_output(...
+    result = BeamformerDataMetrics.sinr_beamformer_output(...
         interference,signal,noise,W,'ZeroMean',do_zero_mean);
 else
     if isempty(p.Results.trial_idx)
