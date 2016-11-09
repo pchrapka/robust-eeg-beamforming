@@ -3,8 +3,8 @@ function [output] = metric_snr_beamformer_output(obj,varargin)
 p = inputParser();
 addParameter(p,'location_idx',[],@(x) ~isempty(x) && length(x) == 1);
 addParameter(p,'average',true,@islogical);
-addParameter(p,'trial_idx',[],@isvector);
-addParameter(p,'data_idx',[],@isvector);
+addParameter(p,'trial_idx',[],@(x) isempty(x) || isvector(x));
+addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 parse(p,varargin{:});
 
 if isempty(p.Results.data_idx)

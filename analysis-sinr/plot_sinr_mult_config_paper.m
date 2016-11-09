@@ -7,7 +7,7 @@ addParameter(p,'PlotGroups',{'matched-paper','mismatched-paper'},@iscell);
 addParameter(p,'snrs',-10:5:30,@isvector);
 addParameter(p,'onaverage',true,@islogical);
 addParameter(p,'trial_idx',0,@isvector);
-addParameter(p,'data_idx',[],@isvector);
+addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 addParameter(p,'datatag','locs2_covtime',@ischar);
 parse(p,sim_file,source_name,varargin{:});
 

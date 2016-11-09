@@ -3,8 +3,8 @@ function [output] = metric_inr_input(obj,varargin)
 p = inputParser();
 addParameter(p,'average',true,@islogical);
 addParameter(p,'trial_idx',[],@ (x) isvector(x));
-addParameter(p,'trial_idx',[],@isvector);
-addParameter(p,'data_idx',[],@isvector);
+addParameter(p,'trial_idx',[],@(x) isempty(x) || isvector(x));
+addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 parse(p,varargin{:});
 
 if isempty(p.Results.data_idx)

@@ -11,7 +11,7 @@ addParameter(p,'metricx','',@(x) ~isempty(x));
 addParameter(p,'metricy','',@(x) ~isempty(x));
 addParameter(p,'onaverage',true,@islogical);
 addParameter(p,'trial_idx',0,@isvector);
-addParameter(p,'data_idx',[],@isvector);
+addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 addParameter(p,'savetag','',@ischar);
 addParameter(p,'force',false,@islogical);
 parse(p,data_set,beamformers,locations,datatag,varargin{:});
