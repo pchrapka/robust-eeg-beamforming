@@ -9,6 +9,7 @@ addParameter(p,'onaverage',true,@islogical);
 addParameter(p,'trial_idx',0,@isvector);
 addParameter(p,'data_idx',[],@(x) isempty(x) || isvector(x));
 addParameter(p,'datatag','locs2_covtime',@ischar);
+addParameter(p,'force',false,@islogical);
 parse(p,sim_file,source_name,varargin{:});
 
 %% Get param configs
@@ -58,7 +59,7 @@ for i=1:length(params)
                 p.Results.snrs(k),...
                 'iter',1);
             bdm = BeamformerDataMetrics(temp_dataset,params(i).beamformer_configs{j});
-            bdm.run_metrics(metrics);
+            bdm.run_metrics(metrics,'force',p.Results.force);
         end
     end
     
