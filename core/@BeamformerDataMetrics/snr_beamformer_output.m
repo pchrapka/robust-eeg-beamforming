@@ -1,4 +1,4 @@
-function [output] = snr_beamformer_output(S,N,W)
+function [output] = snr_beamformer_output(S,N,W,varargin)
 %BEAMFORMER_OUTPUT_SNR calculates the SNR of the beamformer output signal
 %
 %   Input
@@ -9,6 +9,11 @@ function [output] = snr_beamformer_output(S,N,W)
 %       noise matrix [channels samples]
 %   W
 %       spatial filter [channels components]
+%
+%   Parameters
+%   ----------
+%   ZeroMean (logical, default = false)
+%       flag as to whether data is zero mean
 %
 %   Output
 %   ------
@@ -21,10 +26,17 @@ p = inputParser();
 addRequired(p,'S',@BeamformerDataMetrics.validate_signal_matrix);
 addRequired(p,'N',@BeamformerDataMetrics.validate_signal_matrix);
 addRequired(p,'W',@ismatrix);
-parse(p,S,N,W);
+addParameter(p,'ZeroMean',false,@islogical);
+parse(p,S,N,W,varargin{:});
 
-Rs = cov(S');
-Rn = cov(N');
+if p.Results.ZeroMean
+    nchannels = size(S,1);
+    Rs = S*S'/nchannels;
+    Rn = N*N'/nchannels;
+else
+    Rs = cov(S');
+    Rn = cov(N');
+end
 
 num = trace(W' * Rs * W);
 den = trace(W' * Rn * W);

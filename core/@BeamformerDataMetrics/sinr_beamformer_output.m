@@ -1,4 +1,4 @@
-function [output] = sinr_beamformer_output(S,I,N,W)
+function [output] = sinr_beamformer_output(S,I,N,W,varargin)
 %SINR_BEAMFORMER_OUTPUT calculates the SINR of the beamformer output signal
 %   S
 %       signal matrix [channels samples]
@@ -8,6 +8,11 @@ function [output] = sinr_beamformer_output(S,I,N,W)
 %       noise matrix [channels samples]
 %   W
 %       spatial filter [channels components]
+%
+%   Parameters
+%   ----------
+%   ZeroMean (logical, default = false)
+%       flag as to whether data is zero mean
 %
 %   Output
 %   ------
@@ -21,11 +26,18 @@ addRequired(p,'S',@BeamformerDataMetrics.validate_signal_matrix);
 addRequired(p,'I',@BeamformerDataMetrics.validate_signal_matrix);
 addRequired(p,'N',@BeamformerDataMetrics.validate_signal_matrix);
 addRequired(p,'W',@ismatrix);
-parse(p,S,I,N,W);
+addParameter(p,'ZeroMean',false,@islogical);
+parse(p,S,I,N,W,varargin{:});
 
 % Calculate the sinr
-Rs = cov(S');
-Rin = cov(I' + N');
+if p.Results.ZeroMean
+    nchannels = size(S,1);
+    Rs = S*S'/nchannels;
+    Rin = (I+N)*(I+N)'/nchannels;
+else
+    Rs = cov(S');
+    Rin = cov(I' + N');
+end
 
 num = trace(W' * Rs * W);
 den = trace(W' * Rin * W);

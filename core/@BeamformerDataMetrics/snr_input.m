@@ -1,4 +1,4 @@
-function [output] = snr_input(S,N)
+function [output] = snr_input(S,N,varargin)
 %SNR_INPUT calculates the SNR of the signal
 %
 %   Input
@@ -7,6 +7,11 @@ function [output] = snr_input(S,N)
 %       signal matrix [channels samples]
 %   N
 %       noise matrix [channels samples]
+%
+%   Parameters
+%   ----------
+%   ZeroMean (logical, default = false)
+%       flag as to whether data is zero mean
 %
 %   Output
 %   ------
@@ -18,10 +23,17 @@ function [output] = snr_input(S,N)
 p = inputParser();
 addRequired(p,'S',@metrics.validate_signal_matrix);
 addRequired(p,'N',@metrics.validate_signal_matrix);
-parse(p,S,N);
+addParameter(p,'ZeroMean',false,@islogical);
+parse(p,S,N,varargin{:});
 
-Rs = cov(S');
-Rn = cov(N');
+if p.Results.ZeroMean
+    nchannels = size(S,1);
+    Rs = S*S'/nchannels;
+    Rn = N*N'/nchannels;
+else
+    Rs = cov(S');
+    Rn = cov(N');
+end
 
 nchannels = size(Rs,1);
 num = trace(Rs);

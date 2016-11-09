@@ -14,9 +14,19 @@ else
 end
 
 if p.Results.average
-    result = BeamformerDataMetrics.snr_input(...
-        obj.eegdata.avg_interference(:,data_idx),...
-        obj.eegdata.avg_noise(:,data_idx));
+    signal = obj.eegdata.avg_interference;
+    noise = obj.eegdata.avg_noise;
+    
+    if do_zero_mean
+        signal = BeamformerDataMetrics.zero_mean(signal);
+        noise = BeamformerDataMetrics.zero_mean(noise);
+    end
+    
+    signal = signal(:,data_idx);
+    noise = noise(:,data_idx);
+    
+    output = BeamformerDataMetrics.snr_input(...
+        signal, noise, 'ZeroMean', do_zero_mean);
     
     output.inr = result.snr;
     output.inrdb = result.snrdb;
@@ -30,9 +40,19 @@ else
     results(length(p.Results.trial_idx),1).snrdb = 0;
     for i=1:length(p.Results.trial_idx)
         idx = p.Results.trial_idx(i);
+        signal = obj.eegdata.interference{idx};
+        noise = obj.eegdata.noise{idx};
+        
+        if do_zero_mean
+            signal = BeamformerDataMetrics.zero_mean(signal);
+            noise = BeamformerDataMetrics.zero_mean(noise);
+        end
+        
+        signal = signal(:,data_idx);
+        noise = noise(:,data_idx);
+        
         results(i) = BeamformerDataMetrics.snr_input(...
-            obj.eegdata.interference{idx}(:,data_idx),...
-            obj.eegdata.noise{idx}(:,data_idx));
+            signal,noise,'ZeroMean',do_zero_mean);
     end
     
     result = [];

@@ -193,6 +193,12 @@ classdef BeamformerDataMetrics < handle
         
         % Validation
         [result] = validate_signal_matrix(A)
+        
+        function output = zero_mean(signal)
+            nsamples = size(signal,2);
+            signal_mean = mean(signal,1);
+            output = signal - repmat(signal_mean,1,nsamples);
+        end
     end
     
 end
