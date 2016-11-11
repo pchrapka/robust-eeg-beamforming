@@ -5,6 +5,8 @@ rsync -rvz --progress \
       --include='output' \
       --include='output/sim_data_bem_1_100t_1000s/' \
       --include='output/sim_data_bem_1_100t_1000s/**/' \
+      --include='output/sim_data_bem_1_100t_250s_keeptrials_snrpertrial/' \
+      --include='output/sim_data_bem_1_100t_250s_keeptrials_snrpertrial/**/' \
       --include='output/sim_data_bem_1_100t_1000s_keeptrials_snrpertrial/' \
       --include='output/sim_data_bem_1_100t_1000s_keeptrials_snrpertrial/**/' \
       --include='output/sim_data_bem_1_100t_5000s/' \
