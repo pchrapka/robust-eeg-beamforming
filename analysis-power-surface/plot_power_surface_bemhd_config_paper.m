@@ -25,6 +25,8 @@ eval(sim_file);
 samples_avg{1} = 1:sim_cfg.timepoints;
 clear sim_cfg;
 
+% TODO move samples out and as a parameter
+
 % switch p.Results.config
 %     case 'mult-paper'
         source_args = {'source_idx',5440,'int_idx',13841};
