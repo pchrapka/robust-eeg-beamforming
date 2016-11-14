@@ -74,6 +74,10 @@ switch(cfg.options.scale)
     otherwise % custom
         tess.data_limit = cfg.options.data_limit;
 end
+if tess.data_limit(1) == tess.data_limit(2)
+    tess.data_limit(2) = tess.data_limit(1) + 1;
+    warning('data limit is too small');
+end
 
 %% Plot the 3D beampattern
 % FIXME Move out of brainstorm package
