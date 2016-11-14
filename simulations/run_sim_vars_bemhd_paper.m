@@ -121,6 +121,8 @@ for i=1:length(p.Results.hmconfigs)
             cfg_simvars_setup.tag = tag_matched;
             cfg_simvars_setup.head = hm_bem;
             cfg_simvars_setup.loc = locs;
+            cfg_simvars_setup.cov_type = p.Results.cov_type;
+            cfg_simvars_setup.cov_samples = p.Results.cov_samples;
             cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
             
             cfg = struct(...
@@ -144,6 +146,8 @@ for i=1:length(p.Results.hmconfigs)
             cfg_simvars_setup.head.current = hm_3sphere;
             cfg_simvars_setup.head.actual = hm_bem;
             cfg_simvars_setup.loc = locs;
+            cfg_simvars_setup.cov_type = p.Results.cov_type;
+            cfg_simvars_setup.cov_samples = p.Results.cov_samples;
             cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
             cfg = struct(...
                 'sim_vars',             cfg_simvars,...
