@@ -33,8 +33,13 @@ parse(p,sim_file,source_file,source_name,varargin{:});
 % set the beamformer configs
 switch p.Results.config
     case 'mult-paper'
-        config_matched = 'sim_vars_mult_src_paper_matched';
-        config_mismatched = 'sim_vars_mult_src_paper_mismatched';
+        if isequal(p.Results.perturb,'none')
+            config_matched = 'sim_vars_mult_src_paper_matched';
+            config_mismatched = 'sim_vars_mult_src_paper_mismatched';
+        else
+            config_matched = 'sim_vars_mult_src_paper_matched';
+            config_mismatched = 'sim_vars_mult_src_paper_mismatched_perturbed';
+        end
     case 'single-paper'
         config_matched = 'sim_vars_single_src_paper_matched';
         config_mismatched = 'sim_vars_single_src_paper_mismatched';

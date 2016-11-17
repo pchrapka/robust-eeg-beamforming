@@ -104,6 +104,11 @@ for i=1:length(p.Results.hmconfigs)
             
         case 'mismatched'
             % ==== MISMATCHED LEADFIELD ====
+            if isequal(p.Results.perturb,'none')
+                config_mismatched = 'sim_vars_mult_src_paper_mismatched';
+            else
+                config_mismatched = 'sim_vars_mult_src_paper_mismatched_perturbed';
+            end
             
             scripts(k).func = @sim_vars.run;
             cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
