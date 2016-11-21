@@ -247,6 +247,8 @@ switch name
             {'BeamformerLCMV','eig_type','eig cov','ninterference',1},...
             {'BeamformerLCMV','eig_type','eig filter','ninterference',0},... temp
             {'BeamformerLCMV','eig_type','eig filter','ninterference',1},... temp
+            {'BeamformerLCMV','eig_type','eig cov leadfield','ninterference',0},... temp temp
+            {'BeamformerLCMV','eig_type','eig cov leadfield','ninterference',1},... temp temp
             {'BeamformerLCMV','regularization','eig'}};
         
     case 'sim_vars_mult_src_paper_mismatched'
