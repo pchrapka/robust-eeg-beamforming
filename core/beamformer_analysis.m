@@ -145,6 +145,16 @@ switch cfg.cov_type
             data.avg_trials = data.avg_trials/length(data.trials);
             save_to_file = true;
         end
+        
+        if ~isfield(data,'avg_trials_zeromean')
+            data.avg_trials_zeromean = zeros(size(data.trials{1}));
+            for i=1:length(data.trials)
+                data.avg_trials_zeromean = data.avg_trials_zeromean...
+                    + zero_mean(data.trials{i});
+            end
+            data.avg_trials_zeromean = data.avg_trials_zeromean/length(data.trials);
+            save_to_file = true;
+        end
     
         if save_to_file
             % Calculate it once and save it to the data file
@@ -201,8 +211,6 @@ end
 %% set up vars for beamforming
 
 n_components = 3;
-n_time = size(data.avg_trials,2);
-n_vertices = length(cfg.loc);
 
 n_scans = length(cfg.loc);
 
@@ -210,10 +218,19 @@ n_scans = length(cfg.loc);
 scan_locs = cfg.loc;
 
 % select sample points based on the data_samples parameter
-data_trials = data.avg_trials(:,cfg.data_samples);
+data_trials = data.avg_trials_zeromean(:,cfg.data_samples);
 
 % allocate mem
 beam_signal = zeros(n_scans, length(cfg.data_samples), n_components);
+
+% prep leadfields for parfor
+H = beamformer_prep_leadfield(hm,scan_locs);
+% prep uncertainty for parfor
+if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
+    A = beamformer_prep_uncertainty(cfg.head,beamformer,scan_locs);
+else
+    A = {};
+end
 
 % set up progress bar
 progbar = ProgressBar(n_scans);
@@ -230,20 +247,12 @@ parfor i=1:n_scans
     % set up args for inverse
     args = {};
     
-    % Check for anisotropic rmv beamformer
-    if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))    
-        % Generate the uncertainty matrix
-        A = beamformer.create_uncertainty(...
-            cfg.head.actual,...
-            cfg.head.current, idx);
-        args = {'A',A};
+    if ~isempty(A)
+        args = {'A',A{i}};
     end
     
-    % get the leafield matrix from the head model
-    H = hm.get_leadfield(idx);
-    
     % Calculate the beamformer
-    beam_out = beamformer.inverse(H, R, args{:});
+    beam_out = beamformer.inverse(H{i}, R, args{:});
     
     out_filter{i} = beam_out.W;
     out_loc(i) = idx;

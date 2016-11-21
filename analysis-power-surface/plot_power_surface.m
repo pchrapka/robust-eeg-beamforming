@@ -27,7 +27,7 @@ addParameter(p,'force',false,@islogical); % REMOVE? unused
 parse(p,data_set,beamformers,samples,varargin{:});
 
 %% Compute the beamformer output power
-outputfiles = compute_power(p.Results.data_set, p.Results.beamformers);
+outputfiles = compute_power(p.Results.data_set, p.Results.beamformers,'force',p.Results.force);
 
 %% Plot the surface
 

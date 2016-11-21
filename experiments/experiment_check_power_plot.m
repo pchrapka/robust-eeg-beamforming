@@ -7,7 +7,7 @@ source_name = 'mult_cort_src_17hd_lag40';
 snr = 20;
 samples = 110:170;
 datatag = 'locsall_covtrial_s1-250';
-config = ['lcmv_eig_cov_1_' datatag];
+config = {['lcmv_eig_filter_1_' datatag]};
 source_args = {'source_idx',5440,'int_idx',13841};
 force = true;
 
