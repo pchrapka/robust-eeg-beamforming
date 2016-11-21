@@ -196,11 +196,12 @@ classdef BeamformerLCMV < Beamformer
                 case 'none'
                     data = W'*signal;
                 otherwise
-                    if isempty(p.Results.P)
-                        error('missing the projection matrix');
-                    end
+                    %if isempty(p.Results.P)
+                    %    error('missing the projection matrix');
+                    %end
                     % project the signal data first
-                    data = W'*p.Results.P*signal;
+                    %data = W'*p.Results.P*signal;
+                    data = W'*signal;
             end
             
         end
