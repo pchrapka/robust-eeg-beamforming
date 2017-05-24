@@ -1,4 +1,4 @@
-%% run_sim_vars_bem_mult17_lag40_locs2_lcmveigvariations
+%% run_sim_vars_bem_mult17_lag40_locs2_lcmv_eigfilter_variations
 % Same run_sim_vars_mult_bem_paper except with more temporal spacing
 
 clear all;
@@ -52,7 +52,7 @@ data_files = get_sim_data_files(...
 %% ==== MATCHED LEADFIELD ====
 
 scripts(k).func = @sim_vars.run;
-cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_lcmv_eigvariations');
+cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_lcmv_eigfilter_variations');
 cfg_simvars_setup.data_file = data_files;
 cfg_simvars_setup.force = force;
 cfg_simvars_setup.head = hm_bem;
@@ -74,7 +74,7 @@ k = k+1;
 %% ==== MISMATCHED LEADFIELD ====
 
 % scripts(k).func = @sim_vars.run;
-% cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_lcmv_eigvariations');
+% cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_lcmv_eigfilter_variations');
 % cfg_simvars_setup.data_file = data_files;
 % cfg_simvars_setup.force = force;
 % cfg_simvars_setup.tag = 'locs2_covtrial_s1-250_3sphere';
@@ -106,7 +106,7 @@ plot_sinr_mult_config_paper(...
     'trial_idx',1:100,...
     'force',force,...
     'datatag','locs2_covtrial_s1-250',...
-    'PlotGroups',{'matched-eig-lcmv'}...
+    'PlotGroups',{'matched-eigfilter-lcmv'}...
     );
 
 

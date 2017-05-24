@@ -9,6 +9,7 @@ function hm = load_hm_from_beamformer_file(bf_file,varargin)
 
 p = inputParser();
 addParameter(p,'cached','',@ischar)
+addParameter(p,'type','actual',@(x) any(validatestring(x,{'actual','current'})));
 parse(p,varargin{:});
 
 hm = [];
@@ -17,8 +18,8 @@ hm = [];
 dinbf = load(bf_file);
 
 % get head model config
-if isfield(dinbf.source.head_cfg,'actual')
-    head_cfg = dinbf.source.head_cfg.actual;
+if isfield(dinbf.source.head_cfg,p.Results.type)
+    head_cfg = dinbf.source.head_cfg.(p.Results.type);
 else
     head_cfg = dinbf.source.head_cfg;
 end
