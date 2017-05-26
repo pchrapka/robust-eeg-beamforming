@@ -37,7 +37,10 @@ end
 
 nchannels = size(Rs,1);
 num = trace(Rs);
-den = trace(Rn)/nchannels;
+% den = trace(Rn)/nchannels;
+warning('not dividing Rn by number of channels');
+% NOTE may want to make this agree better with data generation
+den = trace(Rn);
 
 % Calculate the snr
 output.snr = num/den;
