@@ -10,6 +10,7 @@ force = false;
 snr_step = 5;
 snr_range = -10:snr_step:40;
 
+snr_eeg = 10;
 snr_power = 20;
 snr_beampattern = 20;
 
@@ -88,6 +89,10 @@ for i=1:length(params)
         ...'PlotGroups',{'matched-paper','mismatched-paper','matched-eig','mismatched-eig'}...
         'PlotGroups',{'matched-paper','mismatched-paper'}...
         );
+    
+    plot_eeg(...
+        params(i).sim_file, params(i).source_name,...
+        snr_eeg);
     
 %     % perturbed
 %     run_sim_vars_bem_mult_paper_locs2(...
