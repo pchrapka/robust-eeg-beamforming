@@ -70,7 +70,7 @@ for i=1:length(params)
         
     plot_eeg(...
         params(i).sim_file, params(i).source_name,...
-        snr_eeg);
+        snr_eeg,'samples',[100 180]);
     
     % single trial covariance
     
