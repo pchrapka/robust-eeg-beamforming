@@ -8,6 +8,7 @@ do_time = false;
 force = false;
 
 snr_step = 5;
+% snr_range = -10:snr_step:60;
 snr_range = -10:snr_step:40;
 
 snr_eeg = 10;
