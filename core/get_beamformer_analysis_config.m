@@ -62,6 +62,7 @@ for j=1:length(fields_cfg)
                 'cov_type',...
                 'cov_samples',...
                 'data_samples',...
+                'niterations',...
                 'force'}
             
             params(k).name = field_cfg;
@@ -78,7 +79,7 @@ for j=1:length(fields_cfg)
             end
             k = k+1;
         otherwise
-            error('unknown field for beamformer_analysis');
+            error('unknown field for beamformer_analysis: %s',field_cfg);
     end
 end
 

@@ -108,10 +108,10 @@ classdef BeamformerRMV < Beamformer
                 % check aniso_mode and aniso_var_pct
                 switch obj.aniso_mode
                     case 'random'
-                        name = [name ' random'];
                         if obj.aniso_var_pct == 0
                             error('%s: missing variance for anisotropic random', mfilename);
                         end
+                        name = sprintf('%s random varpct %0.2f',name,obj.aniso_var_pct);
                     case 'normal'
                         if abs(obj.aniso_var_pct) > 0
                             warning('%s: variance not needed for anisotropic normal', mfilename);

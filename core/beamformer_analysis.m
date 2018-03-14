@@ -231,7 +231,7 @@ beam_signal = zeros(cfg.niterations, n_scans, length(cfg.data_samples), n_compon
 H = beamformer_prep_leadfield(hm,scan_locs);
 
 for j=1:cfg.niterations
-    fprintf('beamformer iteration: %d/%d',j,cfg.niterations);
+    fprintf('beamformer iteration: %d/%d\n',j,cfg.niterations);
     % prep uncertainty for parfor
     if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
         A = beamformer_prep_uncertainty(cfg.head,beamformer,scan_locs);
