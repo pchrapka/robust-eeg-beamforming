@@ -19,7 +19,8 @@ addParameter(p,'hmconfigs',{'matched','mismatched'},...
 addParameter(p,'snrs',-10:5:30,@isvector);
 addParameter(p,'cov_type','time',@(x) any(validatestring(x,{'time','trial'})));
 addParameter(p,'cov_samples',[],@isvector);
-addParameter(p,'perturb','none',@(x) any(validatestring(x,{'none','perturb0.10'})));
+addParameter(p,'perturb','none',@(x) any(validatestring(x,{'none','perturb0.10','aniso'})));
+addParameter(p,'niterations',1,@isnumeric);
 parse(p,sim_file,source_file,source_name,varargin{:});
 
 k = 1;
@@ -39,7 +40,7 @@ end
 tag_matched = tag_params;
 
 switch p.Results.perturb
-    case 'none'
+    case {'none','aniso'}
         tag_mismatched = [tag_params '_3sphere'];
     case 'perturb0.10'
         tag_mismatched = [tag_params '_' p.Results.perturb '_3sphere'];
@@ -49,7 +50,7 @@ end
 hmfactory = HeadModel();
 hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
 switch p.Results.perturb
-    case 'none'
+    case {'none','aniso'}
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
     case 'perturb0.10'
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V_perturb0.10.mat');
@@ -104,14 +105,17 @@ for i=1:length(p.Results.hmconfigs)
             
         case 'mismatched'
             % ==== MISMATCHED LEADFIELD ====
-            if isequal(p.Results.perturb,'none')
-                config_mismatched = 'sim_vars_mult_src_paper_mismatched';
-            else
-                config_mismatched = 'sim_vars_mult_src_paper_mismatched_perturbed';
+            switch p.Results.perturb
+                case 'none'
+                    config_mismatched = 'sim_vars_mult_src_paper_mismatched';
+                case 'perturb0.10'
+                    config_mismatched = 'sim_vars_mult_src_paper_mismatched_perturbed';
+                case 'aniso'
+                    config_mismatched = 'sim_vars_mult_src_paper_mismatched_sensitivity';
             end
             
             scripts(k).func = @sim_vars.run;
-            cfg_simvars_setup = get_beamformer_config_set('sim_vars_mult_src_paper_mismatched');
+            cfg_simvars_setup = get_beamformer_config_set(config_mismatched);
             cfg_simvars_setup.data_file = data_files;
             cfg_simvars_setup.force = force;
             cfg_simvars_setup.tag = tag_mismatched;
@@ -121,6 +125,7 @@ for i=1:length(p.Results.hmconfigs)
             cfg_simvars_setup.loc = [295,400];
             cfg_simvars_setup.cov_type = p.Results.cov_type;
             cfg_simvars_setup.cov_samples = p.Results.cov_samples;
+            cfg_simvars_setup.niterations = p.Results.niterations;
             cfg_simvars = get_beamformer_analysis_config(cfg_simvars_setup);
             cfg = struct(...
                 'sim_vars',             cfg_simvars,...

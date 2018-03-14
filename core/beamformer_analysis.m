@@ -47,7 +47,10 @@ function beamformer_analysis(cfg)
 %
 %       loc
 %           (default = all vertices)
-%           indices of vertices to scan 
+%           indices of vertices to scan
+%       niterations
+%           (integer, default = 1)
+%           number of iterations for analysis
 %       force
 %           (boolean, default = false)
 %           forces beamformer analysis and overwrites any existing analysis
@@ -61,6 +64,7 @@ function beamformer_analysis(cfg)
 if ~isfield(cfg,'force'),           cfg.force = false; end
 if ~isfield(cfg,'cov_type'),        cfg.cov_type = 'time'; end
 if ~isfield(cfg,'cov_samples'),     cfg.cov_samples = []; end
+if ~isfield(cfg,'niterations'),     cfg.niterations = 1; end
 
 %% Load the beamformer
 fbeamformer = str2func(cfg.beamformer_config{1});
@@ -221,45 +225,50 @@ scan_locs = cfg.loc;
 data_trials = data.avg_trials_zeromean(:,cfg.data_samples);
 
 % allocate mem
-beam_signal = zeros(n_scans, length(cfg.data_samples), n_components);
+beam_signal = zeros(cfg.niterations, n_scans, length(cfg.data_samples), n_components);
 
 % prep leadfields for parfor
 H = beamformer_prep_leadfield(hm,scan_locs);
-% prep uncertainty for parfor
-if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
-    A = beamformer_prep_uncertainty(cfg.head,beamformer,scan_locs);
-else
-    A = {};
-end
 
-% set up progress bar
-progbar = ProgressBar(n_scans);
-
-%% Scan locations
-parfor i=1:n_scans
-% for i=1:n_scans
-
-    % update progress bar
-    progbar.progress();
-    
-    idx = scan_locs(i);
-    
-    % set up args for inverse
-    args = {};
-    
-    if ~isempty(A)
-        args = {'A',A{i}};
+for j=1:cfg.niterations
+    fprintf('beamformer iteration: %d/%d',j,cfg.niterations);
+    % prep uncertainty for parfor
+    if ~isempty(regexp(beamformer.name, 'rmv aniso', 'match'))
+        A = beamformer_prep_uncertainty(cfg.head,beamformer,scan_locs);
+    else
+        A = {};
     end
     
-    % Calculate the beamformer
-    beam_out = beamformer.inverse(H{i}, R, args{:});
+    % set up progress bar
+    progbar = ProgressBar(n_scans);
     
-    out_filter{i} = beam_out.W;
-    out_loc(i) = idx;
-    
-    beam_signal(i,:,:) = beamformer.output(...
-        beam_out.W, data_trials, 'P', beam_out.P)';
-    
+    %% Scan locations
+    parfor i=1:n_scans
+        % for i=1:n_scans
+        
+        % update progress bar
+        progbar.progress();
+        
+        idx = scan_locs(i);
+        
+        % set up args for inverse
+        args = {};
+        
+        if ~isempty(A)
+            args = {'A',A{i}};
+        end
+        
+        % Calculate the beamformer
+        beam_out = beamformer.inverse(H{i}, R, args{:});
+        
+        out_filter{j,i} = beam_out.W;
+        out_loc(i) = idx;
+        
+        beam_signal(j,i,:,:) = beamformer.output(...
+            beam_out.W, data_trials, 'P', beam_out.P)';
+        
+    end
+    fprintf('\n');
 end
 fprintf('\n');
 
@@ -288,7 +297,8 @@ else
 end
 
 % rearrange the output
-out.beamformer_output = permute(beam_signal, [3 1 2]); % [components vertices time]
+out.niterations_analysis = cfg.niterations;
+out.beamformer_output = permute(beam_signal, [4 2 3 1]); % [components vertices time iterations]
 
 out.filter = out_filter;
 out.loc = out_loc;
