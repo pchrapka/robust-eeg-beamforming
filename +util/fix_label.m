@@ -1,6 +1,8 @@
 function out = fix_label(in)
 
-pattern = ['(?<type>rmv_aniso|rmv|lcmv_inv|lcmv)_*'...
+pattern = ['(?<type>rmv|lcmv_inv|lcmv)_*'...
+    '(?<aniso>aniso|aniso_random)*_*'...
+    '(?<varpct>(?(varpct)[\d-e]+|))_*'...
     '(?<eig>eig_pre_cov|eig_post|eig_pre_leadfield|eig_cov|eig_filter|eig_leadfield|eig_cov_leadfield)*_*'...
     '(?<int>(?(eig)\d+|))_*'...
     '(?<reg>reg_eig)*_*'...
@@ -8,7 +10,7 @@ pattern = ['(?<type>rmv_aniso|rmv|lcmv_inv|lcmv)_*'...
     '(?<epsilon>(?(eps)[\d-e]+|))_*'];
 results = regexp(in,pattern,'names');
 
-fields = {'type','eig','int','reg','eps'};
+fields = {'type','aniso','varpct','eig','int','reg','eps'};
 out = [];
 for i=1:length(fields)
     field = fields{i};
@@ -20,9 +22,14 @@ for i=1:length(fields)
                 case 'lcmv_inv'
                     out = 'MVB inv';
                 case 'rmv'
-                    out = 'RMVB';
-                case 'rmv_aniso'
-                    out = 'RMVB anisotropic';
+                    switch results.aniso
+                        case 'aniso'
+                            out = 'RMVB anisotropic';
+                        case 'rmv_aniso'
+                            out = 'RMVB anisotropic';
+                        otherwise
+                            out = 'RMVB';
+                    end
                 otherwise
                     error('unknown beamformer type');
             end
@@ -39,6 +46,11 @@ for i=1:length(fields)
         case 'reg'
             if ~isempty(results.reg)
                 out = [out ' regularized'];
+            end
+        case 'varpct'
+            if ~isempty(results.varpct)
+                temp = strrep(results.varpct,'-','.');
+                out = [out ', var = ' temp];
             end
         case 'eps'
             if ~isempty(results.eps)

@@ -197,12 +197,10 @@ end
 function W = get_W(source_data, location)
 % Extract W from beamformer data
 idx_w = source_data.loc == location;
-W = source_data.filter{idx_w};
-if length(size(W)) > 2
-    if size(W,1) > 1
+W = source_data.filter(:,idx_w);
+if length(size(W{1})) > 2
+    if size(W{1},1) > 1
         error('not implemented for mutliple time points');
-    else
-        W = squeeze(W);
     end
 end
 end
