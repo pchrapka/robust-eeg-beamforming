@@ -163,12 +163,10 @@ classdef BeamformerDataMetrics < handle
             %GET_W returns spatial filter from beamformer data
             % Extract W from beamformer data
             idx_w = obj.bfdata.source.loc == location;
-            W = obj.bfdata.source.filter{idx_w};
-            if length(size(W)) > 2
-                if size(W,1) > 1
+            W = obj.bfdata.source.filter(:,idx_w);
+            if length(size(W{1})) > 2
+                if size(W{1},1) > 1
                     error('not implemented for mutliple time points');
-                else
-                    W = squeeze(W);
                 end
             end
         end
