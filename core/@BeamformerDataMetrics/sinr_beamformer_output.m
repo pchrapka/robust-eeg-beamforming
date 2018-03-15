@@ -67,8 +67,6 @@ for i=1:niterations
     output.sinrdb(i) = 10*log10(output.sinr(i));
 end
 output.niterations = niterations;
-output.sinr_avg = mean(output.sinr);
-output.sinrdb_avg = mean(output.sinrdb);
 
 
 end

@@ -65,8 +65,6 @@ for i=1:niterations
     output.snrdb(i) = 10*log10(output.snr(i));
 end
 output.niterations = niterations;
-output.snr_avg = mean(output.snr);
-output.snrdb_avg = mean(output.snrdb);
 
 
 end

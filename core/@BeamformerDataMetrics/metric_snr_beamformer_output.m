@@ -40,6 +40,7 @@ else
     results = [];
     results(length(p.Results.trial_idx),1).snr = 0;
     results(length(p.Results.trial_idx),1).snrdb = 0;
+    results(length(p.Results.trial_idx),1).niterations = [];
     
     for i=1:length(p.Results.trial_idx)
         idx = p.Results.trial_idx(i);
@@ -60,6 +61,9 @@ else
     
     output = [];
     output.snr = mean([results.snr]);
+    if ~isscalar(output.snr)
+        error('something went wrong here');
+    end
     output.snrdb = mean([results.snrdb]);
 end
 

@@ -5,7 +5,7 @@
 lumberjack.parfor_setup();
 
 do_time = false;
-do_plots = false;
+do_plots = true;
 force = false;
 
 snr_step = 5;
@@ -17,7 +17,8 @@ snr_power = 20;
 snr_beampattern = 20;
 
 flag_expA = false;
-flag_expA1 = true;
+flag_expB = false;
+flag_expB1 = true;
 
 %% Low res simulations for Output SINR vs Input SNR
 % Spatial correlation of 0.5
@@ -76,17 +77,18 @@ for i=1:length(params)
 %         end
     end
     
-        
-    if do_plots
-        plot_eeg(...
-            params(i).sim_file, params(i).source_name,...
-            snr_eeg,'samples',[100 180]);
+    if flag_expA
+        if do_plots
+            plot_eeg(...
+                params(i).sim_file, params(i).source_name,...
+                snr_eeg,'samples',[100 180]);
+        end
     end
     
     % single trial covariance
     
-    if flag_expA
-        % scenario A
+    if flag_expB
+        % scenario B
         % use all samples to compute covariance
         run_sim_vars_bem_mult_paper_locs2(...
             params(i).sim_file, params(i).source_file, params(i).source_name,...
@@ -110,12 +112,12 @@ for i=1:length(params)
         end
     end
     
-    if flag_expA1
-        % scenario A.1
+    if flag_expB1
+        % scenario B1
         % mismatched head model, aniso with random error, with only one SNR value
         run_sim_vars_bem_mult_paper_locs2(...
             params(i).sim_file, params(i).source_file, params(i).source_name,...
-            'snrs',snr_power,...
+            'snrs',snr_range,...
             'cov_type','trial',...
             'cov_samples',[1:250],...
             'hmconfigs',{'mismatched'},...
@@ -126,7 +128,7 @@ for i=1:length(params)
         if do_plots
             plot_sinr_mult_config_paper(...
                 params(i).sim_file, params(i).source_name,...
-                'snrs',snr_power,...
+                'snrs',snr_range,...
                 'onaverage',false,...
                 'trial_idx',1:100,...
                 'force',force,...

@@ -55,8 +55,9 @@ else
     
     
     results = [];
-    results(length(p.Results.trial_idx),1).sinr = 0;
-    results(length(p.Results.trial_idx),1).sinrdb = 0;
+    results(length(p.Results.trial_idx),1).sinr = [];
+    results(length(p.Results.trial_idx),1).sinrdb = [];
+    results(length(p.Results.trial_idx),1).niterations = [];
 
     for i=1:length(p.Results.trial_idx)
         idx = p.Results.trial_idx(i);
@@ -80,6 +81,9 @@ else
     
     output = [];
     output.sinr = mean([results.sinr]);
+    if ~isscalar(output.sinr)
+        error('something went wrong here');
+    end
     output.sinrdb = mean([results.sinrdb]);
 end
 
