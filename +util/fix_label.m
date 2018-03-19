@@ -23,9 +23,7 @@ for i=1:length(fields)
                     out = 'MVB inv';
                 case 'rmv'
                     switch results.aniso
-                        case 'aniso'
-                            out = 'RMVB anisotropic';
-                        case 'rmv_aniso'
+                        case {'aniso','aniso_random'}
                             out = 'RMVB anisotropic';
                         otherwise
                             out = 'RMVB';
@@ -52,7 +50,8 @@ for i=1:length(fields)
                 pattern2 = '[\d-e]+';
                 temp = regexp(results.varpct, pattern2, 'match');
                 temp = strrep(temp{1},'-','.');
-                out = [out ', var = ' temp];
+                temp_num = str2double(temp)*100;
+                out = [out sprintf(', var = %d%%', temp_num)];
             end
         case 'eps'
             if ~isempty(results.eps)

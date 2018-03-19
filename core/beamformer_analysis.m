@@ -244,7 +244,7 @@ for j=1:cfg.niterations
     
     %% Scan locations
     parfor i=1:n_scans
-        % for i=1:n_scans
+    %for i=1:n_scans
         
         % update progress bar
         progbar.progress();
