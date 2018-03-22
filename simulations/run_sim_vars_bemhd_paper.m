@@ -72,7 +72,7 @@ end
 tag_matched = tag_params;
 
 switch p.Results.perturb
-    case 'none'
+    case {'none','aniso'}
         tag_mismatched = [tag_params '_3sphere'];
     case 'perturb0.10'
         tag_mismatched = [tag_params '_' p.Results.perturb '_3sphere'];
@@ -83,7 +83,7 @@ hmfactory = HeadModel();
 hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_15028V.mat');
 hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
 switch p.Results.perturb
-    case 'none'
+    case {'none','aniso'}
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V.mat');
     case 'perturb0.10'
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_15028V_perturb0.10.mat');

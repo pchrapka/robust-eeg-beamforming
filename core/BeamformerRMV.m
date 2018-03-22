@@ -39,16 +39,22 @@ classdef BeamformerRMV < Beamformer
             %
             %   aniso_mode (string, default = 'normal')
             %       select anisotropic RMVB mode, options include: normal,
-            %       random
+            %       random, radius
             %
             %       random - generaters the uncertainty matrix with a
-            %       random perturbation
+            %       random perturbation. Requires var_percent parameter
+            %       radius - generates the uncertainty matrix from the
+            %       covariance computed from nearby points in the estimated
+            %       head model. Requires radius parameter
             %
             %   var_percent (double, default = 0)
             %       sets variance for anisotropic RMVB when aniso_mode =
             %       'random'. the variance is specified as a percent, which
             %       will correspond to the percent of the norm of the
             %       leadfield matrix.
+            %
+            %   radius (integer, default = [])
+            %       radius around point in mm
             %
             %   Eigenspace RMVB (anisotropic/isotropic)
             %   ---------------
@@ -67,7 +73,9 @@ classdef BeamformerRMV < Beamformer
             end
             addParameter(p,'epsilon',0,@isnumeric);
             addParameter(p,'aniso',false,@islogical);
-            addParameter(p,'aniso_mode','normal',@(x) any(validatestring(x,{'normal','random'})));
+            options_aniso = {'normal','random','radius'};
+            addParameter(p,'aniso_mode','normal',@(x) any(validatestring(x,options_aniso)));
+            addParameter(p,'radius',[],@(x) isnumeric(x) && isscalar(x) && (x > 0));
             addParameter(p,'var_percent',0,@(x) isnumeric(x) && (x >= 0));
             eig_options = {...
                 'eig pre cov',...
@@ -88,6 +96,7 @@ classdef BeamformerRMV < Beamformer
             obj.aniso = p.Results.aniso;
             obj.aniso_mode = p.Results.aniso_mode;
             obj.aniso_var_pct = p.Results.var_percent;
+            obj.aniso_radius = p.Results.radius;
             obj.epsilon = p.Results.epsilon;
             obj.eig_type = p.Results.eig_type;
             obj.n_interfering_sources = p.Results.ninterference;
@@ -109,14 +118,32 @@ classdef BeamformerRMV < Beamformer
                 switch obj.aniso_mode
                     case 'random'
                         if obj.aniso_var_pct == 0
-                            error('%s: missing variance for anisotropic random', mfilename);
+                            error('%s: missing variance for anisotropic %s', mfilename, obj.aniso_mode);
+                        end
+                        if ~isempty(obj.ansio_radius)
+                            warning('%s: radius not needed for anisotropic %s', mfilename, obj.aniso_mode);
+                            obj.aniso_radius = [];
                         end
                         name = sprintf('%s random varpct %0.2f',name,obj.aniso_var_pct);
+                        obj.aniso_radius = [];
                     case 'normal'
                         if abs(obj.aniso_var_pct) > 0
-                            warning('%s: variance not needed for anisotropic normal', mfilename);
+                            warning('%s: variance not needed for anisotropic %s', mfilename, obj.aniso_mode);
+                            obj.aniso_var_pct = 0;
                         end 
+                        if ~isempty(obj.ansio_radius)
+                            warning('%s: radius not needed for anisotropic %s', mfilename, obj.aniso_mode);
+                            obj.aniso_radius = [];
+                        end
+                    case 'radius'
+                        if abs(obj.aniso_var_pct) > 0
+                            warning('%s: variance not needed for anisotropic %s', mfilename, obj.aniso_mode);
+                            obj.aniso_var_pct = 0;
+                        end
+                        name = sprintf('%s radius %d',name,obj.aniso_radius);
                         obj.aniso_var_pct = 0;
+                    otherwise
+                        error('%s: unknown aniso mode %s',mfilename,obj.aniso_mode);
                 end
                 
                 % check eigenspace args
@@ -190,48 +217,24 @@ classdef BeamformerRMV < Beamformer
             %
             %   See also AET_ANALYSIS_RMV
             
-            if idx > 0
-                % Get the leadfield matrices at the current index
-                H_actual = H_actual.get_leadfield(idx);
-                
-                H_estimate = H_estimate.get_leadfield(idx);
-                % Continue with the function
-            end
+            p = inputParser();
+            addRequired(p,'H_actual',@(x) isa(x,'IHeadModel') || ismatrix(x));
+            addRequired(p,'H_estimate',@(x) isa(x,'IHeadModel') || ismatrix(x));
+            addRequired(p,'idx',@(x) isnumeric(x) && isscalar(x) && (x > 0));
+            parse(p,H_actual,H_estimate,idx);
             
-            if isobject(H_actual) && isobject(H_estimate)
-                % load data
-                H_actual.load();
-                H_estimate.load();
-                
-                % Check if the head models are the same size
-                if ~isequal(size(H_actual.data.GridLoc), size(H_estimate.data.GridLoc))
-                    error('aet:aet_analysis_rmv_uncertainty',...
-                        'head models should be the same size');
-                end
-                
-                n = size(H_actual.data.GridLoc,1);
-                % Allocate memory
-                A = cell(n,1);
-                for i=1:n
+            % Calculate A based on the difference between the leadfield matrices
+            switch obj.aniso_mode
+                case {'normal','random'}
                     % Get the leadfield matrices at the current index
-                    lf_actual = H_actual.get_leadfield(i);
-                    lf_estimate = H_estimate.get_leadfield(i);
-                    
-                    % Calculate A based on the difference between the leadfield
-                    % matrices
-                    A{i,1} = obj.calculate_A(lf_actual, lf_estimate);
-                end
-            elseif isnumeric(H_actual) && isnumeric(H_estimate)
-                
-                % The inputs are leadfield matrices, so just copy them
-                lf_actual = H_actual;
-                lf_estimate = H_estimate;
-                
-                % Calculate A based on the difference between the leadfield matrices
-                A = obj.calculate_A(lf_actual, lf_estimate);
-            else
-                error('aet:aet_analysis_rmv_uncertainty_create',...
-                    'H_actual and H_estimate are not consistent');
+                    % The inputs are leadfield matrices, so just copy them
+                    lf_actual = H_actual.get_leadfield(idx);
+                    lf_estimate = H_estimate.get_leadfield(idx);
+                    A = obj.calculate_A_simple(lf_actual, lf_estimate);
+                case 'radius'
+                    A = obj.calculat_A_radius(H_estimate,idx);
+                otherwise
+                    error('%s: unknown aniso mode :%s',mfilename, obj.aniso_mode);
             end
         end
         
@@ -372,15 +375,50 @@ classdef BeamformerRMV < Beamformer
     end
     
     methods (Access = private)
-        function A = calculate_A(obj, H_actual, H_estimate)
-            %CALCULATE_A Calculates a set of 3 A matrices describing an ellipsoidal
-            %uncertainty between the components of 2 leadfield matrices.
+        function A = calculate_A_radius(obj, HM_estimate, idx)
+            
+            Hest = HM_estimate.get_leadfield(idx);
+            
+            % Get size
+            [n, comp] = size(Hest);
+            
+            % Initialize A
+            A = cell(comp, 1);
+            for j=1:comp
+                A{j} = zeros(n,n);
+            end
+            
+            [inds, ~] = HM_estimate.get_vertices(...
+                'type','radius',...
+                'radius',obj.aniso_radius*1000,...
+                'center_idx',idx);
+            
+            for i=1:length(inds)
+                H = HM_estimate.get_leadfield(inds(i));
+                Hdiff = H - Hest;
+                for j=1:comp
+                    A{j} = A{j} + Hdiff(:,j)*(Hdiff(:,j)');
+                end
+            end
+            
+            % normalize by number of leadfields considered
+            for j=1:comp
+                A{j} = A{j}/length(inds);
+            end
+        end
+        
+        function A = calculate_A_simple(obj, H_actual, H_estimate)
+            %CALCULATE_A_SIMPLE Calculates a set of 3 A matrices describing
+            %an ellipsoidal uncertainty between the components of 2
+            %leadfield matrices.
             %
-            %This is a simple model of uncertainty so there are a few assumptions. The
-            %ellipse is pointed along the vector describing the difference between the
-            %components of the leadfield matrices and the length of that semi-axis is
-            %the magnitude of the difference. All other semi-axes are half of that
-            %length and point in orthogonal directions to the difference vector.
+            %This is a simple model of uncertainty so there are a few
+            %assumptions. The ellipse is pointed along the vector
+            %describing the difference between the components of the
+            %leadfield matrices and the length of that semi-axis is the
+            %magnitude of the difference. All other semi-axes are half of
+            %that length and point in orthogonal directions to the
+            %difference vector.
             
             if ~isequal(size(H_actual), size(H_estimate))
                 error('aet:aet_analysis_rmv_uncertainty_create',...
