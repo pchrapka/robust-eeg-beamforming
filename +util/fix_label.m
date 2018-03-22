@@ -11,7 +11,7 @@ pattern = ['(?<type>rmv|lcmv_inv|lcmv)_*'...
     '(?<epsilon>(?(eps)[\d-e]+|))_*'];
 results = regexp(in,pattern,'names');
 
-fields = {'type','aniso','varpct','eig','int','reg','eps'};
+fields = {'type','aniso','radius','varpct','eig','int','reg','eps'};
 out = [];
 for i=1:length(fields)
     field = fields{i};
@@ -48,7 +48,8 @@ for i=1:length(fields)
             end
         case 'radius'
             if ~isempty(results.radius)
-                out = sprintf('%s, radius = %smm',out,results.radius);
+                temp = strrep(results.radius,'radius_','');
+                out = sprintf('%s, radius = %smm',out,temp);
             end
         case 'varpct'
             if ~isempty(results.varpct)
