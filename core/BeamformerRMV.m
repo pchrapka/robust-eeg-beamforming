@@ -11,6 +11,7 @@ classdef BeamformerRMV < Beamformer
         aniso_mode;
         aniso;
         aniso_var_pct;
+        aniso_radius;
     end
     
     methods
@@ -120,7 +121,7 @@ classdef BeamformerRMV < Beamformer
                         if obj.aniso_var_pct == 0
                             error('%s: missing variance for anisotropic %s', mfilename, obj.aniso_mode);
                         end
-                        if ~isempty(obj.ansio_radius)
+                        if ~isempty(obj.aniso_radius)
                             warning('%s: radius not needed for anisotropic %s', mfilename, obj.aniso_mode);
                             obj.aniso_radius = [];
                         end
@@ -131,7 +132,7 @@ classdef BeamformerRMV < Beamformer
                             warning('%s: variance not needed for anisotropic %s', mfilename, obj.aniso_mode);
                             obj.aniso_var_pct = 0;
                         end 
-                        if ~isempty(obj.ansio_radius)
+                        if ~isempty(obj.aniso_radius)
                             warning('%s: radius not needed for anisotropic %s', mfilename, obj.aniso_mode);
                             obj.aniso_radius = [];
                         end
@@ -232,7 +233,7 @@ classdef BeamformerRMV < Beamformer
                     lf_estimate = H_estimate.get_leadfield(idx);
                     A = obj.calculate_A_simple(lf_actual, lf_estimate);
                 case 'radius'
-                    A = obj.calculat_A_radius(H_estimate,idx);
+                    A = obj.calculate_A_radius(H_estimate,idx);
                 otherwise
                     error('%s: unknown aniso mode :%s',mfilename, obj.aniso_mode);
             end
@@ -388,10 +389,17 @@ classdef BeamformerRMV < Beamformer
                 A{j} = zeros(n,n);
             end
             
+            % get all the indices within the radius
             [inds, ~] = HM_estimate.get_vertices(...
                 'type','radius',...
-                'radius',obj.aniso_radius*1000,...
+                'radius',obj.aniso_radius/1000,...
                 'center_idx',idx);
+            % check if the center_idx itself is included in the results
+            idx_temp = find(inds == idx, 1);
+            if ~isempty(idx_temp)
+                % remove it
+                inds(idx_temp) = [];
+            end
             
             for i=1:length(inds)
                 H = HM_estimate.get_leadfield(inds(i));
