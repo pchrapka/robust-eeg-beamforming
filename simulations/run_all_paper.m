@@ -18,8 +18,8 @@ snr_beampattern = 20;
 
 flag_expA = false;
 flag_expB = false;
-flag_expB1 = false;
-flag_expC1 = true;
+flag_expB1 = true;
+flag_expC1 = false;
 
 %% Low res simulations for Output SINR vs Input SNR
 % Spatial correlation of 0.5
