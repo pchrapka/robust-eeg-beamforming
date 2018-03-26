@@ -449,7 +449,7 @@ classdef BeamformerRMV < Beamformer
                     case 'normal'
                         h_actual = H_actual(:,i);
                     case 'random'
-                        sigma = obj.aniso_var_pct*norm(H_actual(:,i))/sqrt(n);
+                        sigma = obj.aniso_var_pct*norm(H_actual(:,i))/n;
                         h_actual = normrnd(H_actual(:,i), sigma);
                 end
                 
