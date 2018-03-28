@@ -57,7 +57,7 @@ for i=1:length(fields)
                 temp = regexp(results.varpct, pattern2, 'match');
                 temp = strrep(temp{1},'-','.');
                 temp_num = str2double(temp)*100;
-                out = [out sprintf(', var = %d%%', temp_num)];
+                out = [out sprintf(', \\gamma = %d%%', temp_num)];
             end
         case 'eps'
             if ~isempty(results.eps)
