@@ -19,7 +19,7 @@ addParameter(p,'hmconfigs',{'matched','mismatched'},...
 addParameter(p,'snrs',-10:5:30,@isvector);
 addParameter(p,'cov_type','time',@(x) any(validatestring(x,{'time','trial'})));
 addParameter(p,'cov_samples',[],@isvector);
-addParameter(p,'perturb','none',@(x) any(validatestring(x,{'none','perturb0.10','aniso'})));
+addParameter(p,'perturb','none',@(x) any(validatestring(x,{'none','perturb0.10','aniso-random','aniso-normal'})));
 addParameter(p,'niterations',1,@isnumeric);
 parse(p,sim_file,source_file,source_name,varargin{:});
 
@@ -40,7 +40,7 @@ end
 tag_matched = tag_params;
 
 switch p.Results.perturb
-    case {'none','aniso'}
+    case {'none','aniso-random','aniso-normal'}
         tag_mismatched = [tag_params '_3sphere'];
     case 'perturb0.10'
         tag_mismatched = [tag_params '_' p.Results.perturb '_3sphere'];
@@ -50,7 +50,7 @@ end
 hmfactory = HeadModel();
 hm_3sphere = hmfactory.createHeadModel('brainstorm','head_Default1_3sphere_500V.mat');
 switch p.Results.perturb
-    case {'none','aniso'}
+    case {'none','aniso-random','aniso-normal'}
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V.mat');
     case 'perturb0.10'
         hm_bem = hmfactory.createHeadModel('brainstorm','head_Default1_bem_500V_perturb0.10.mat');
@@ -110,8 +110,10 @@ for i=1:length(p.Results.hmconfigs)
                     config_mismatched = 'sim_vars_mult_src_paper_mismatched';
                 case 'perturb0.10'
                     config_mismatched = 'sim_vars_mult_src_paper_mismatched_perturbed';
-                case 'aniso'
-                    config_mismatched = 'sim_vars_mult_src_paper_mismatched_sensitivity';
+                case 'aniso-normal'
+                    config_mismatched = 'sim_vars_mult_src_paper_mismatched_sensitivity_normal';
+                case 'aniso-random'
+                    config_mismatched = 'sim_vars_mult_src_paper_mismatched_sensitivity_random';
             end
             
             scripts(k).func = @sim_vars.run;

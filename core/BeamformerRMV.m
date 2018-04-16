@@ -12,6 +12,8 @@ classdef BeamformerRMV < Beamformer
         aniso;
         aniso_var_pct;
         aniso_radius;
+        aniso_multiplier;
+        aniso_c;
     end
     
     methods
@@ -42,11 +44,20 @@ classdef BeamformerRMV < Beamformer
             %       select anisotropic RMVB mode, options include: normal,
             %       random, radius
             %
+            %       normal - uses a specific definition of the uncertainty
+            %       model. Optional parameter c.
             %       random - generaters the uncertainty matrix with a
             %       random perturbation. Requires var_percent parameter
             %       radius - generates the uncertainty matrix from the
             %       covariance computed from nearby points in the estimated
             %       head model. Requires radius parameter
+            %
+            %   multiplier (double, default = 0.1)
+            %       Multiple of principle error component used to specify
+            %       uncertainty matrix. Used when aniso_mode = 'normal'
+            %
+            %   c (double, default = 20)
+            %       upper bound on uncertainty for normal aniso
             %
             %   var_percent (double, default = 0)
             %       sets variance for anisotropic RMVB when aniso_mode =
@@ -77,6 +88,8 @@ classdef BeamformerRMV < Beamformer
             options_aniso = {'normal','random','radius'};
             addParameter(p,'aniso_mode','normal',@(x) any(validatestring(x,options_aniso)));
             addParameter(p,'radius',[],@(x) isnumeric(x) && isscalar(x) && (x > 0));
+            addParameter(p,'multiplier',0.1,@(x) isnumeric(x) && isscalar(x) && (x > 0) && (x <= 1));
+            addParameter(p,'c',20,@(x) isnumeric(x) && isscalar(x) && (x > 0));
             addParameter(p,'var_percent',0,@(x) isnumeric(x) && (x >= 0));
             eig_options = {...
                 'eig pre cov',...
@@ -98,6 +111,8 @@ classdef BeamformerRMV < Beamformer
             obj.aniso_mode = p.Results.aniso_mode;
             obj.aniso_var_pct = p.Results.var_percent;
             obj.aniso_radius = p.Results.radius;
+            obj.aniso_multiplier = p.Results.multiplier;
+            obj.aniso_c = p.Results.c;
             obj.epsilon = p.Results.epsilon;
             obj.eig_type = p.Results.eig_type;
             obj.n_interfering_sources = p.Results.ninterference;
@@ -136,6 +151,7 @@ classdef BeamformerRMV < Beamformer
                             warning('%s: radius not needed for anisotropic %s', mfilename, obj.aniso_mode);
                             obj.aniso_radius = [];
                         end
+                        name = sprintf('%s mult %0.2f c %d',name,obj.aniso_multiplier,obj.aniso_c);
                     case 'radius'
                         if abs(obj.aniso_var_pct) > 0
                             warning('%s: variance not needed for anisotropic %s', mfilename, obj.aniso_mode);
@@ -470,7 +486,8 @@ classdef BeamformerRMV < Beamformer
                 % NOTE: You can also do U*S = diag(d);
                 % The other semi axes should be smaller since we know the exact
                 % uncertainty. So we're going to make it really small
-                semi_axis_length = min([d_mag/10 20]); %min([1 d_mag/2]);
+                semi_axis_length = min([obj.aniso_multiplier*d_mag obj.aniso_c]); %min([1 d_mag/2]);
+                fprintf('%s: semi axis length %0.2f\n',mfilename,semi_axis_length);
                 S = diag([d_mag ones(1,n-1)*semi_axis_length]);
                 U = ortho_basis';
                 V = eye(n);

@@ -278,12 +278,20 @@ switch name
             {'BeamformerLCMV','eig_type','eig filter','ninterference',2},... temp
             {'BeamformerLCMV','regularization','eig'}};
         
-    case 'sim_vars_mult_src_paper_mismatched_sensitivity'
+    case 'sim_vars_mult_src_paper_mismatched_sensitivity_random'
         
         variances = [0.02, 0.05, 0.1, 0.15]; % in percents
         for j=1:length(variances)
             out.beamformer_config{j} = {'BeamformerRMV',...
                 'aniso',true,'aniso_mode','random','var_percent',variances(j)};
+        end
+        
+    case 'sim_vars_mult_src_paper_mismatched_sensitivity_normal'
+        
+        c_vals = [20 40 60];
+        for j=1:length(c_vals)
+            out.beamformer_config{j} = {'BeamformerRMV',...
+                'aniso',true,'aniso_mode','normal','c',c_vals(j)};
         end
         
     case 'sim_vars_mult_src_paper_mismatched_perturbed'
