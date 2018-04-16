@@ -2,6 +2,8 @@ function out = fix_label(in)
 
 pattern = ['(?<type>rmv|lcmv_inv|lcmv)_*'...
     '(?<aniso>aniso_random|aniso)*_*'...
+    '(?<mult>mult_[\d-e]+)*_*'...
+    '(?<c>c_[\d]+)*_*'...
     '(?<radius>radius_[\d]+)*_*'...
     '(?<varpct>varpct_[\d-e]+)*_*'...
     '(?<eig>eig_pre_cov|eig_post|eig_pre_leadfield|eig_cov|eig_filter|eig_leadfield|eig_cov_leadfield)*_*'...
@@ -11,7 +13,7 @@ pattern = ['(?<type>rmv|lcmv_inv|lcmv)_*'...
     '(?<epsilon>(?(eps)[\d-e]+|))_*'];
 results = regexp(in,pattern,'names');
 
-fields = {'type','aniso','radius','varpct','eig','int','reg','eps'};
+fields = {'type','aniso','mult','c','radius','varpct','eig','int','reg','eps'};
 out = [];
 for i=1:length(fields)
     field = fields{i};
@@ -50,6 +52,16 @@ for i=1:length(fields)
             if ~isempty(results.radius)
                 temp = strrep(results.radius,'radius_','');
                 out = sprintf('%s, radius = %smm',out,temp);
+            end
+        case 'mult'
+            if ~isempty(results.mult)
+                temp = strrep(results.mult,'mult_','');
+                out = sprintf('%s, mult = %s',out,temp);
+            end
+        case 'c'
+            if ~isempty(results.c)
+                temp = strrep(results.c,'c_','');
+                out = sprintf('%s, c = %s',out,temp);
             end
         case 'varpct'
             if ~isempty(results.varpct)
