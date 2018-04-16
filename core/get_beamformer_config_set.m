@@ -288,10 +288,13 @@ switch name
         
     case 'sim_vars_mult_src_paper_mismatched_sensitivity_normal'
         
+        mult_vals = [0.1 0.15 0.2];
         c_vals = [20 40 60];
-        for j=1:length(c_vals)
-            out.beamformer_config{j} = {'BeamformerRMV',...
-                'aniso',true,'aniso_mode','normal','c',c_vals(j)};
+        for k=1:length(mult_vals)
+            for j=1:length(c_vals)
+                out.beamformer_config{j} = {'BeamformerRMV',...
+                    'aniso',true,'aniso_mode','normal','c',c_vals(j),'multiplier',mult_vals(k)};
+            end
         end
         
     case 'sim_vars_mult_src_paper_mismatched_perturbed'
