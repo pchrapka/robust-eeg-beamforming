@@ -56,13 +56,15 @@ for i=1:length(fields)
         case 'mult'
             if ~isempty(results.mult)
                 temp = strrep(results.mult,'mult_','');
-                out = sprintf('%s, mult = %s',out,temp);
+                temp = strrep(temp,'-','.');
+                temp = str2double(temp);
+                out = sprintf('%s, \\beta = %0.2f',out,temp);
             end
         case 'c'
-            if ~isempty(results.c)
-                temp = strrep(results.c,'c_','');
-                out = sprintf('%s, c = %s',out,temp);
-            end
+            %if ~isempty(results.c)
+            %    temp = strrep(results.c,'c_','');
+            %    out = sprintf('%s, c = %s',out,temp);
+            %end
         case 'varpct'
             if ~isempty(results.varpct)
                 pattern2 = '[\d-e]+';

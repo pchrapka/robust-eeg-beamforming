@@ -45,12 +45,12 @@ for i=1:n_plots
         'linewidth',2);
     hold on;
 end
-legend(legend_str{:}, 'Location', 'Best');
 font_size = 14;
 ylabel(output.label_y,'FontSize',font_size);
 xlabel(output.label_x,'FontSize',font_size);
 xlim([min(output.data(:,1)) max(output.data(:,1))]);
 set(gca,'FontSize',font_size);
+legend(legend_str{:}, 'Location','NorthWest');
 
 % Save the figure
 if cfg.save_fig
