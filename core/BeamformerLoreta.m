@@ -107,7 +107,6 @@ classdef BeamformerLoreta < Beamformer
             parse(p,varargin{:});
             
             data = W'*signal;
-            end
             
         end
     end
