@@ -3,7 +3,9 @@ classdef BeamformerLoreta < Beamformer
     %   Detailed explanation goes here
     
     properties (SetAccess = protected)
-        lambda; %regularization parameter
+        %lambda; %regularization parameter
+        multipler; % multiplier for regularization parameter
+        regularization;
     end
     
     methods
@@ -23,18 +25,24 @@ classdef BeamformerLoreta < Beamformer
             if ~verLessThan('matlab','8.5.0')
                 p.PartialMatching = false;
             end
-            addParameter(p,'lambda',0.05,@isnumeric);
+            addParameter(p,'multiplier',0.005,@isnumeric);
+            addParameter(p,'regularization','none',...
+                @(x) any(validatestring(x,{'eig','none'})));
+            %addParameter(p,'lambda',0.05,@isnumeric);
             addParameter(p,'verbosity',0,@isnumeric);
             p.parse(varargin{:});
             
-            obj.lambda = p.Results.lambda;
+            %obj.lambda = p.Results.lambda;
+            obj.multiplier = p.Results.multiplier;
+            obj.regularization = p.Results.regularization;
             obj.verbosity = p.Results.verbosity;
             
             obj.type = 'eloreta';
-            if obj.lambda == 0
+            if isequal(obj.regularization,'none')
                 obj.name = obj.type;
             else
-                obj.name = sprintf('%s reg %0.3f',obj.type,obj.lambda);
+                obj.name = sprintf('%s reg %s', obj.regularization);
+                %obj.name = sprintf('%s reg %0.3f',obj.type,obj.lambda);
             end
         end
         
@@ -64,7 +72,13 @@ classdef BeamformerLoreta < Beamformer
                 H_temp(:,1,i) = H(:,i);
             end
             
-            W_temp = mkfilt_eloreta_v2(H_temp, obj.lambda);
+            lambda_cfg = [];
+            lambda_cfg.R = R;
+            lambda_cfg.type = obj.regularization;
+            lambda_cfg.multiplier = obj.multiplier;
+            lambda = aet_analysis_beamform_get_lambda(lambda_cfg);
+            
+            W_temp = mkfilt_eloreta_v2(H_temp, lambda);
             W = squeeze(W_temp);
             
             % Save paramters
