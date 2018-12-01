@@ -26,6 +26,9 @@ end
 % Plot the data
 % h = figure('Position',[100 100 1000 800]);
 h = figure();
+pos = get(h, 'Position');
+pos(3:4) = pos(3:4)*1.5;
+set(h,'Position', pos);
 n_plots = size(output.data,2)-1;
 colors = hsv(n_plots);
 markers = {'o', 'x', 's', 'd', '^', 'v', '+', '>', '<'};
@@ -50,7 +53,7 @@ ylabel(output.label_y,'FontSize',font_size);
 xlabel(output.label_x,'FontSize',font_size);
 xlim([min(output.data(:,1)) max(output.data(:,1))]);
 set(gca,'FontSize',font_size);
-legend(legend_str{:}, 'Location','NorthWest');
+legend(legend_str{:}, 'Location','BestOutside');
 
 % Save the figure
 if cfg.save_fig
