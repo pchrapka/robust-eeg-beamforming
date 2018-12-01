@@ -34,7 +34,6 @@ classdef BeamformerLoreta < Beamformer
             if obj.lambda == 0
                 obj.name = obj.type;
             else
-                obj.type = 'eloreta_reg';
                 obj.name = sprintf('%s reg %0.3f',obj.type,obj.lambda);
             end
         end
