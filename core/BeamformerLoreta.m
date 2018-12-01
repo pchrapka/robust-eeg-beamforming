@@ -61,7 +61,7 @@ classdef BeamformerLoreta < Beamformer
             
             dims = size(H);
             H_temp = zeros([dims(1) 1 dims(2)]);
-            for i=1:dims(1)
+            for i=1:dims(2)
                 H_temp(:,1,i) = H(:,i);
             end
             
@@ -71,7 +71,7 @@ classdef BeamformerLoreta < Beamformer
             % Save paramters
             % End timer
             data.opt_time = toc(opt_start);
-            data.opt_status = data_out.status;
+            data.opt_status = 'Success';
             %data.loc = cfg.loc; % REMOVE?
             
             % Save parameters
