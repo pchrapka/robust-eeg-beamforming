@@ -4,7 +4,7 @@ classdef BeamformerLoreta < Beamformer
     
     properties (SetAccess = protected)
         %lambda; %regularization parameter
-        multipler; % multiplier for regularization parameter
+        multiplier; % multiplier for regularization parameter
         regularization;
     end
     
@@ -41,7 +41,7 @@ classdef BeamformerLoreta < Beamformer
             if isequal(obj.regularization,'none')
                 obj.name = obj.type;
             else
-                obj.name = sprintf('%s reg %s', obj.regularization);
+                obj.name = sprintf('%s reg %s', obj.type, obj.regularization);
                 %obj.name = sprintf('%s reg %0.3f',obj.type,obj.lambda);
             end
         end
