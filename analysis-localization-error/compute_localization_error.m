@@ -1,4 +1,4 @@
-function [outputfiles] = compute_localization_error(data_set,beamformers,samples,varargin)
+function [outputfiles] = compute_localization_error(data_set,beamformers,samples,source_idx,varargin)
 %compute_localization_error computes localization error
 %   compute_localization_error %compute_localization_error 
 %
@@ -31,10 +31,10 @@ p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'samples',@(x) ~isempty(x) && length(x) >= 1);
-addParameter(p,'source_idx',[],@(x) x > 1 && length(x) == 1);
-addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
+addRequired(p,'source_idx',@(x) x > 1 && length(x) == 1);
+%addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
-parse(p,data_set,beamformers,samples,varargin{:});
+parse(p,data_set,beamformers,samples,source_idx,varargin{:});
 
 %% Options
 
@@ -71,9 +71,6 @@ for i=1:length(beamformers)
         power_data = mean(power_data,2);
     end
     
-    % Find max voxel
-    [y, idx_max] = max(power_data);
-    
     % Load head model
     dinbf = load(din.data.bf_file);
     
@@ -86,11 +83,20 @@ for i=1:length(beamformers)
     
     % load head model
     hmfactory = HeadModel();
-    obj.hm = hmfactory.createHeadModel(head_cfg.type,head_cfg.file);
-    obj.hm.load();
+    hm = hmfactory.createHeadModel(head_cfg.type,head_cfg.file);
+    hm.load();
+    
+    [idx_rad, ~] = hm.get_vertices('type', 'radius',...
+        'center_idx', source_idx, 'radius', 4/100);
+    % Find max voxel
+    [y, idx_max_temp] = max(power_data(idx_rad));
+    idx_max = idx_rad(idx_max_temp);
                 
-    % Get max voxel position
+    % Get voxel positions
+    [~,loc_max] = hm.get_vertices('type', 'index', 'idx', idx_max);
+    [~,loc_source] = hm.get_vertices('type','index', 'idx', source_idx);
     % Get distance from source voxel
+    loc_err = pdist([loc_max; loc_source], 'euclidean');
     % Save to file
     
 %     vobj = ViewSources(datafiles{i});

@@ -29,7 +29,8 @@ clear sim_cfg;
 
 % switch p.Results.config
 %     case 'mult-paper'
-        source_args = {'source_idx',5440,'int_idx',13841};
+        source_idx = 5440;
+%         source_args = {'source_idx',5440,'int_idx',13841};
         samples = [120,160];
         samples_avg{2} = 110:170;
 %     case 'single-paper'
@@ -52,11 +53,11 @@ for j=1:length(samples_avg)
         
         % Compute the beamformer output power
         compute_power(...
-            data_set, params(i).beamformer_configs,'force',p.Results.force);
+            data_set, params(i).beamformer_configs,'force', force);
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_args{:});
+            data_set, params(i).beamformer_configs, sample, source_idx);
     end
 end
 
@@ -72,11 +73,11 @@ for j=1:length(samples)
         
         % Compute the beamformer output power
         compute_power(...
-            data_set, params(i).beamformer_configs,'force',p.Results.force);
+            data_set, params(i).beamformer_configs,'force', force);
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_args{:});
+            data_set, params(i).beamformer_configs, sample, source_idx);
     end
 end
 
