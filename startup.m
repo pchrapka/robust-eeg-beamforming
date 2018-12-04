@@ -316,6 +316,7 @@ addpath(fullfile(project_dir, 'analysis-beampattern-highres'));
 addpath(fullfile(project_dir, 'analysis-constraint'));
 addpath(fullfile(project_dir, 'analysis-correlation'));
 addpath(fullfile(project_dir, 'analysis-dipole'));
+addpath(fullfile(project_dir, 'analysis-localization-error'));
 addpath(fullfile(project_dir, 'analysis-mag-dist'));
 addpath(fullfile(project_dir, 'analysis-sinr'));
 addpath(fullfile(project_dir, 'analysis-power'));
