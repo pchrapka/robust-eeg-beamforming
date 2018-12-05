@@ -47,17 +47,27 @@ cfg_save.file_type = 'metrics';
 % allocate mem
 outputfiles = cell(length(beamformers),1);
 
+if length(p.Results.samples) > 1
+    idx_start = min(p.Results.samples);
+    idx_end = max(p.Results.samples);
+    tag_sample = sprintf('%s3d_s%ds%d',...
+        name, idx_start, idx_end);
+else
+    tag_sample = sprintf('%s3d_s%d',...
+        name, p.Results.samples);
+end
+
 for i=1:length(beamformers)
     
     cfg_save.file_tag = sprintf('%s_power_instant',beamformers{i});
     inputfile = metrics.filename(cfg_save);
     
-    cfg_save.file_tag = sprintf('%s_localization_error',beamformers{i});
+    cfg_save.file_tag = sprintf('%s_localization_error_%s', beamformers{i}, tag_sample);
     outputfiles{i} = metrics.filename(cfg_save);
     
      % Skip the computation if the file exists
     if exist(outputfiles{i}, 'file') && ~p.Results.force
-        print_msg_filename(outputfile{i},'Skipping');
+        print_msg_filename(outputfiles{i},'Skipping');
         fprintf('\tAlready exists\sn');
         continue;
     else
@@ -99,29 +109,17 @@ for i=1:length(beamformers)
     loc_err = pdist([loc_max; loc_source], 'euclidean');
     % Save to file
     
-%     vobj = ViewSources(datafiles{i});
-%     
-%     % Plot the data
-%     cfgplt = [];
-%     cfgplt.options.scale = 'relative';
-%     if ~isempty(p.Results.samples)
-%         cfgplt.options.samples = p.Results.samples;
-%     end
-%     vobj.plot('power3d',cfgplt);
-%     
-%     % Plot source markers
-%     vobj.show_sources('source_idx',p.Results.source_idx,...
-%         'int_idx',p.Results.int_idx);
-%     
-%     vobj.save();
-%     
-%     % Save the plot
-%     if p.Results.save
-%         % Set up plot save options
-%         outfile{i} = vobj.save();
-%     end
-%     
-%     close;
+    data = [];
+    data.localization_error = loc_err;
+    % Copy data
+    data.name = beamformers{i};
+    data.bf_file = din.data.bf_file;
+    data.data_set = data_set;
+    
+    % Save output data
+    print_save(outputfiles{i});
+    save(outputfiles{i}, 'data');
+    save(strrep(outputfiles{i},'.mat','.txt'), 'loc_err ', '-ascii');
 end
 
 end
