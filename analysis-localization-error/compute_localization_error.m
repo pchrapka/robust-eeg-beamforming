@@ -19,6 +19,8 @@ function [outputfiles] = compute_localization_error(data_set,beamformers,samples
 %       (optional) index of interfering source
 %   save (logical, default = true)
 %       flag for saving the plot
+%   force (logical, default = false)
+%       force recomputation
 %
 %   Output
 %   ------
@@ -34,6 +36,8 @@ addRequired(p,'samples',@(x) ~isempty(x) && length(x) >= 1);
 addRequired(p,'source_idx',@(x) x > 1 && length(x) == 1);
 %addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
+addParameter(p,'force',false,@islogical);
+
 parse(p,data_set,beamformers,samples,source_idx,varargin{:});
 
 %% Options
@@ -50,11 +54,11 @@ outputfiles = cell(length(beamformers),1);
 if length(p.Results.samples) > 1
     idx_start = min(p.Results.samples);
     idx_end = max(p.Results.samples);
-    tag_sample = sprintf('%s3d_s%ds%d',...
-        name, idx_start, idx_end);
+    tag_sample = sprintf('s%ds%d',...
+        idx_start, idx_end);
 else
-    tag_sample = sprintf('%s3d_s%d',...
-        name, p.Results.samples);
+    tag_sample = sprintf('s%d',...
+        p.Results.samples);
 end
 
 for i=1:length(beamformers)
@@ -68,7 +72,7 @@ for i=1:length(beamformers)
      % Skip the computation if the file exists
     if exist(outputfiles{i}, 'file') && ~p.Results.force
         print_msg_filename(outputfiles{i},'Skipping');
-        fprintf('\tAlready exists\sn');
+        fprintf('\tAlready exists\n');
         continue;
     else
         print_msg_filename(outputfiles{i},'Working on');
@@ -119,7 +123,7 @@ for i=1:length(beamformers)
     % Save output data
     print_save(outputfiles{i});
     save(outputfiles{i}, 'data');
-    save(strrep(outputfiles{i},'.mat','.txt'), 'loc_err ', '-ascii');
+    save(strrep(outputfiles{i},'.mat','.txt'), 'loc_err', '-ascii');
 end
 
 end

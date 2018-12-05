@@ -57,7 +57,7 @@ for j=1:length(samples_avg)
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_idx);
+            data_set, params(i).beamformer_configs, sample, source_idx, 'force', force);
     end
 end
 
@@ -77,7 +77,7 @@ for j=1:length(samples)
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_idx);
+            data_set, params(i).beamformer_configs, sample, source_idx, 'force', force);
     end
 end
 
