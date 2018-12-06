@@ -148,7 +148,7 @@ for i=1:length(beamformers)
     % Save output data
     print_save(outputfiles{i});
     save(outputfiles{i}, 'data');
-    save(strrep(outputfiles{i},'.mat','.txt'), 'max_dist', '-ascii');
+%     save(strrep(outputfiles{i},'.mat','.txt'), 'max_dist', '-ascii');
 end
 
 cfg_save = [];
