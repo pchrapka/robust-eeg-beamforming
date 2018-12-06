@@ -90,7 +90,7 @@ for i=1:length(beamformers)
     
     % Load loc error
     din2 = load(files_locerr{i});
-    power_max = din2.power_max;
+    power_max = din2.data.power_max;
     threshold_fwhm = power_max/2;
     idx_bool_fwhm = power_data > threshold_fwhm;
     idx_fwhm = 1:size(power_data,1);
@@ -115,8 +115,8 @@ for i=1:length(beamformers)
     
     threshold_outlier = 4/100;
     distances = zeros(length(idx_fwhm),1);
-    for j=1:length(idx_fhwm)
-        [~,loc] = hm.get_vertices('type', 'index', 'idx', idx_fhwm(j));
+    for j=1:length(idx_fwhm)
+        [~,loc] = hm.get_vertices('type', 'index', 'idx', idx_fwhm(j));
         distances(j) = pdist([loc_max; loc], 'euclidean');
     end
     
@@ -143,7 +143,7 @@ for i=1:length(beamformers)
     % Save output data
     print_save(outputfiles{i});
     save(outputfiles{i}, 'data');
-    save(strrep(outputfiles{i},'.mat','.txt'), 'fwhm_radius', '-ascii');
+    save(strrep(outputfiles{i},'.mat','.txt'), 'max_dist', '-ascii');
 end
 
 end
