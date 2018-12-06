@@ -1,4 +1,5 @@
-function [outputfiles] = compute_localization_error(data_set,beamformers,samples,source_idx,varargin)
+function [outputfiles] = compute_localization_error(...
+    data_set,beamformers, input_files, samples,source_idx,varargin)
 %compute_localization_error computes localization error
 %   compute_localization_error %compute_localization_error 
 %
@@ -8,6 +9,8 @@ function [outputfiles] = compute_localization_error(data_set,beamformers,samples
 %       original data set 
 %   beamformers (cell array)
 %       beamformer cfg file tags to process
+%   input_files (cell array)
+%       file names of power data for each beamformer
 %   samples (array)
 %       array of samples for power calculation
 %
@@ -32,13 +35,14 @@ function [outputfiles] = compute_localization_error(data_set,beamformers,samples
 p = inputParser();
 addRequired(p,'data_set',@(x) isa(x,'SimDataSetEEG'));
 addRequired(p,'beamformers',@(x) ~isempty(x) && iscell(x));
+addRequired(p,'input_files',@(x) ~isempty(x) && iscell(x));
 addRequired(p,'samples',@(x) ~isempty(x) && length(x) >= 1);
 addRequired(p,'source_idx',@(x) x > 1 && length(x) == 1);
 %addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
 addParameter(p,'force',false,@islogical);
 
-parse(p,data_set,beamformers,samples,source_idx,varargin{:});
+parse(p,data_set,beamformers,input_files,samples,source_idx,varargin{:});
 
 %% Options
 
@@ -63,9 +67,6 @@ end
 
 for i=1:length(beamformers)
     
-    cfg_save.file_tag = sprintf('%s_power_instant',beamformers{i});
-    inputfile = metrics.filename(cfg_save);
-    
     cfg_save.file_tag = sprintf('%s_localization_error_%s', beamformers{i}, tag_sample);
     outputfiles{i} = metrics.filename(cfg_save);
     
@@ -79,7 +80,7 @@ for i=1:length(beamformers)
     end
     
     % Load data 
-    din = load(inputfile);
+    din = load(input_files{i});
     power_data = din.data.power(:,p.Results.samples);
     if size(power_data,2) > 1
         power_data = mean(power_data,2);
@@ -103,7 +104,7 @@ for i=1:length(beamformers)
     [idx_rad, ~] = hm.get_vertices('type', 'radius',...
         'center_idx', source_idx, 'radius', 4/100);
     % Find max voxel
-    [y, idx_max_temp] = max(power_data(idx_rad));
+    [power_max, idx_max_temp] = max(power_data(idx_rad));
     idx_max = idx_rad(idx_max_temp);
                 
     % Get voxel positions
@@ -114,7 +115,9 @@ for i=1:length(beamformers)
     % Save to file
     
     data = [];
+    data.power_max = power_max;
     data.localization_error = loc_err;
+    data.localization_index = idx_max;
     % Copy data
     data.name = beamformers{i};
     data.bf_file = din.data.bf_file;

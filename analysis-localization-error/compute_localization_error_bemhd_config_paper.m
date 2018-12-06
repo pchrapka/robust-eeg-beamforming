@@ -52,12 +52,13 @@ for j=1:length(samples_avg)
             'iter',1);
         
         % Compute the beamformer output power
-        compute_power(...
+        files_power = compute_power(...
             data_set, params(i).beamformer_configs,'force', force);
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_idx, 'force', force);
+            data_set, params(i).beamformer_configs, files_power,...
+            sample, source_idx, 'force', force);
     end
 end
 
@@ -72,12 +73,13 @@ for j=1:length(samples)
             'iter',1);
         
         % Compute the beamformer output power
-        compute_power(...
+        files_power = compute_power(...
             data_set, params(i).beamformer_configs,'force', force);
         
         % Compute localization error
         compute_localization_error(...
-            data_set, params(i).beamformer_configs, sample, source_idx, 'force', force);
+            data_set, params(i).beamformer_configs, files_power,...
+            sample, source_idx, 'force', force);
     end
 end
 
