@@ -100,6 +100,14 @@ for i=1:length(beamformers)
     idx_fwhm = 1:size(power_data,1);
     idx_fwhm = idx_fwhm(idx_bool_fwhm);
     
+    if flag_debug
+        power_data_sorted = sort(power_data,1,'descend');
+        figure();
+        plot(power_data_sorted,'b');
+        hold on;
+        plot(threshold_fwhm*ones(size(power_data_sorted)),'r');
+    end
+    
     % Load head model
     dinbf = load(din.data.bf_file);
     
@@ -117,7 +125,7 @@ for i=1:length(beamformers)
     
     [~,loc_max] = hm.get_vertices('type', 'index', 'idx', din2.data.localization_index);
     
-    threshold_outlier = 4/100;
+%     threshold_outlier = 4/100;
     distances = zeros(length(idx_fwhm),1);
     for j=1:length(idx_fwhm)
         [~,loc] = hm.get_vertices('type', 'index', 'idx', idx_fwhm(j));
@@ -128,10 +136,18 @@ for i=1:length(beamformers)
         h = figure();
         hist(distances);
         close(h);
+        
+        h = figure();
+        A = [distances(:) power_data(idx_fwhm)];
+        A = sortrows(A,1);
+        plot(A(:,1), A(:,2));
+        xlabel('distance');
+        ylabel('power');
+        close(h);
     end
     
-    % filter out outliers
-    distances(distances > threshold_outlier) = 0;
+%     % filter out outliers
+%     distances(distances > threshold_outlier) = 0;
     
     % get max distance from center
     [max_dist,~] = max(distances);
