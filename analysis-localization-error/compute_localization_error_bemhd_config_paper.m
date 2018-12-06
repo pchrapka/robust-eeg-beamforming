@@ -58,7 +58,7 @@ for j=1:length(samples_avg)
         % Compute localization error
         compute_localization_error(...
             data_set, params(i).beamformer_configs, files_power,...
-            sample, source_idx, 'force', force);
+            sample, source_idx, 'force', force, 'GroupName', p.Results.PlotGroups{i});
     end
 end
 
@@ -79,7 +79,7 @@ for j=1:length(samples)
         % Compute localization error
         compute_localization_error(...
             data_set, params(i).beamformer_configs, files_power,...
-            sample, source_idx, 'force', force);
+            sample, source_idx, 'force', force, 'GroupName', p.Results.PlotGroups{i});
     end
 end
 

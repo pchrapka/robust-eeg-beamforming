@@ -42,6 +42,7 @@ addRequired(p,'source_idx',@(x) x > 1 && length(x) == 1);
 %addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
 addParameter(p,'force',false,@islogical);
+addParameter(p,'GroupName','group',@ischar);
 
 parse(p,data_set,beamformers,files_power,files_locerr,samples,source_idx,varargin{:});
 
@@ -56,6 +57,7 @@ cfg_save.file_type = 'metrics';
 %% Localization error based on max power
 % allocate mem
 outputfiles = cell(length(beamformers),1);
+fwhm_radius = zeros(length(beamformers),1);
 
 if length(p.Results.samples) > 1
     idx_start = min(p.Results.samples);
@@ -76,6 +78,8 @@ for i=1:length(beamformers)
     if exist(outputfiles{i}, 'file') && ~p.Results.force
         print_msg_filename(outputfiles{i},'Skipping');
         fprintf('\tAlready exists\n');
+        din = load(outputfiles{i});
+        fwhm_radius(i) = din.data.fwhm_radius;
         continue;
     else
         print_msg_filename(outputfiles{i},'Working on');
@@ -132,6 +136,7 @@ for i=1:length(beamformers)
     % get max distance from center
     [max_dist,~] = max(distances);
     
+    fwhm_radius(i) = max_dist;
     data = [];
     data.fwhm = threshold_fwhm;
     data.fwhm_radius = max_dist;
@@ -145,5 +150,28 @@ for i=1:length(beamformers)
     save(outputfiles{i}, 'data');
     save(strrep(outputfiles{i},'.mat','.txt'), 'max_dist', '-ascii');
 end
+
+cfg_save = [];
+cfg_save.data_set = data_set;
+cfg_save.file_type = 'metrics';
+cfg_save.file_tag = sprintf('%s_fwhm_%s', p.Results.GroupName, tag_sample);
+outputfile_all = metrics.filename(cfg_save);
+outputfile_all = strrep(outputfile_all,'.mat','.csv');
+
+% Skip the computation if the file exists
+if exist(outputfile_all, 'file') && ~p.Results.force
+    print_msg_filename(outputfile_all,'Skipping');
+    fprintf('\tAlready exists\n');
+    return;
+else
+    print_msg_filename(outputfile_all,'Working on');
+end
+
+fid = fopen(outputfile_all, 'w');
+fprintf(fid, 'Beamformer,FWHM radius\n');
+for i=1:length(beamformers)
+    fprintf(fid, '%s,%0.6g\n', beamformers{i}, fwhm_radius(i));
+end
+fclose(fid);
 
 end

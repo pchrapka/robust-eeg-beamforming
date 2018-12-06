@@ -41,6 +41,7 @@ addRequired(p,'source_idx',@(x) x > 1 && length(x) == 1);
 %addParameter(p,'int_idx',[],@(x) isempty(x) || (x > 1 && length(x) == 1));
 addParameter(p,'save',true,@islogical);
 addParameter(p,'force',false,@islogical);
+addParameter(p,'GroupName','group',@ischar);
 
 parse(p,data_set,beamformers,input_files,samples,source_idx,varargin{:});
 
@@ -54,6 +55,9 @@ cfg_save.file_type = 'metrics';
 %% Localization error based on max power
 % allocate mem
 outputfiles = cell(length(beamformers),1);
+power_max = zeros(length(beamformers),1);
+loc_err = power_max;
+idx_max = power_max;
 
 if length(p.Results.samples) > 1
     idx_start = min(p.Results.samples);
@@ -74,6 +78,10 @@ for i=1:length(beamformers)
     if exist(outputfiles{i}, 'file') && ~p.Results.force
         print_msg_filename(outputfiles{i},'Skipping');
         fprintf('\tAlready exists\n');
+        din = load(outputfiles{i});
+        power_max(i) = din.data.power_max;
+        loc_err(i) = din.data.localization_error;
+        idx_max(i) = din.data.localization_index;
         continue;
     else
         print_msg_filename(outputfiles{i},'Working on');
@@ -104,20 +112,20 @@ for i=1:length(beamformers)
     [idx_rad, ~] = hm.get_vertices('type', 'radius',...
         'center_idx', source_idx, 'radius', 4/100);
     % Find max voxel
-    [power_max, idx_max_temp] = max(power_data(idx_rad));
-    idx_max = idx_rad(idx_max_temp);
+    [power_max(i), idx_max_temp] = max(power_data(idx_rad));
+    idx_max(i) = idx_rad(idx_max_temp);
                 
     % Get voxel positions
-    [~,loc_max] = hm.get_vertices('type', 'index', 'idx', idx_max);
+    [~,loc_max] = hm.get_vertices('type', 'index', 'idx', idx_max(i));
     [~,loc_source] = hm.get_vertices('type','index', 'idx', source_idx);
     % Get distance from source voxel
-    loc_err = pdist([loc_max; loc_source], 'euclidean');
+    loc_err(i) = pdist([loc_max; loc_source], 'euclidean');
     % Save to file
     
     data = [];
-    data.power_max = power_max;
-    data.localization_error = loc_err;
-    data.localization_index = idx_max;
+    data.power_max = power_max(i);
+    data.localization_error = loc_err(i);
+    data.localization_index = idx_max(i);
     % Copy data
     data.name = beamformers{i};
     data.bf_file = din.data.bf_file;
@@ -128,5 +136,28 @@ for i=1:length(beamformers)
     save(outputfiles{i}, 'data');
     save(strrep(outputfiles{i},'.mat','.txt'), 'loc_err', '-ascii');
 end
+
+cfg_save = [];
+cfg_save.data_set = data_set;
+cfg_save.file_type = 'metrics';
+cfg_save.file_tag = sprintf('%s_localization_error_%s', p.Results.GroupName, tag_sample);
+outputfile_all = metrics.filename(cfg_save);
+outputfile_all = strrep(outputfile_all,'.mat','.csv');
+
+% Skip the computation if the file exists
+if exist(outputfile_all, 'file') && ~p.Results.force
+    print_msg_filename(outputfile_all,'Skipping');
+    fprintf('\tAlready exists\n');
+    return;
+else
+    print_msg_filename(outputfile_all,'Working on');
+end
+
+fid = fopen(outputfile_all, 'w');
+fprintf(fid, 'Beamformer,Max Power,Localization Error,Localization Index\n');
+for i=1:length(beamformers)
+    fprintf(fid, '%s,%0.6g,%0.6g,%d\n', beamformers{i}, power_max(i), loc_err(i), idx_max(i));
+end
+fclose(fid);
 
 end
