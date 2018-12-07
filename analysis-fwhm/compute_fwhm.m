@@ -125,12 +125,18 @@ for i=1:length(beamformers)
     
     [~,loc_max] = hm.get_vertices('type', 'index', 'idx', din2.data.localization_index);
     
-%     threshold_outlier = 4/100;
     distances = zeros(length(idx_fwhm),1);
     for j=1:length(idx_fwhm)
         [~,loc] = hm.get_vertices('type', 'index', 'idx', idx_fwhm(j));
         distances(j) = pdist([loc_max; loc], 'euclidean');
     end
+    
+    % sort distances
+    [dist_sorted, idx_sorted] = sort(distances,1,'ascend');
+    dist_diff = diff(dist_sorted);
+    % check if there's a dstance break in powers that passed the fwhm/2
+    % threshold
+    idx_outlier = find(dist_diff > 0.01);
     
     if flag_debug
         h = figure();
@@ -141,13 +147,15 @@ for i=1:length(beamformers)
         A = [distances(:) power_data(idx_fwhm)];
         A = sortrows(A,1);
         plot(A(:,1), A(:,2));
+        hold on;
+        plot(distances(idx_sorted(idx_outlier))*ones(size(A,1),1),...
+            linspace(min(A(:,2)), max(A(:,2)), size(A,1)), 'r');
         xlabel('distance');
         ylabel('power');
         close(h);
     end
     
-%     % filter out outliers
-%     distances(distances > threshold_outlier) = 0;
+    distances = distances(idx_sorted(1:idx_outlier));
     
     % get max distance from center
     [max_dist,~] = max(distances);
