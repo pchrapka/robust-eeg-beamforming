@@ -171,7 +171,7 @@ flag_debug = false;
 if isempty(p.Results.power_min)
     fwhm_threshold = power_max/2;
 else
-    fwhm_threshold = (power_max - p.Results.power_min)/2;
+    fwhm_threshold = (power_max - p.Results.power_min)/2 + p.Results.power_min;
 end
 idx_bool_fwhm = power_data > fwhm_threshold;
 idx_fwhm = 1:size(power_data,1);
